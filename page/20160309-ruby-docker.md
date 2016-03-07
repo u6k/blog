@@ -4,7 +4,7 @@ tags: ["Docker"]
 date: 2016-03-09 07:00:00+09:00
 published: false
 parmalink: "ruby-docker"
-postID:
+postID: 7571193747641814002
 ---
 
 DockerコンテナにRubyをインストールしてみます。
@@ -61,3 +61,7 @@ $ docker build -t u6k/ruby-docker .
 ```
 $ docker run u6k/ruby-docker
 ```
+
+# GitHub
+
+[u6k/ruby-docker](https://github.com/u6k/ruby-docker)

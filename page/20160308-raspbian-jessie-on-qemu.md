@@ -4,7 +4,7 @@ tags: ["Raspberry Pi"]
 date: 2016-03-08 07:00:00+09:00
 published: false
 parmalink: "raspbian-jessie-on-qemu"
-postID:
+postID: 3107551550717348071
 ---
 
 [以前、QEMUでRaspbian Wheezyを動作させました](http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html)が、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。

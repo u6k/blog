@@ -1,10 +1,10 @@
 ---
 title: "サーバー構築で最低限考えるべき仕様"
-tags: ["Setup"]
+tags: ["仕様"]
 date: 2016-05-20 07:00:00+09:00
 published: false
 parmalink: "server-base-spec"
-postID:
+postID: 8390143388477325206
 ---
 
 Webサーバー、DBサーバー、Dockerホストなどを構築するときに、用途はともかく最低限考えるべき仕様をまとめてみました。設置場所、用途によって仕様を取捨選択することで、ある程度楽に仕様を定義できると思います。
@@ -220,3 +220,4 @@ CPU使用率を監視して、サービスが異常にCPUを占有した場合�
 
 # リンク
 * GitHub
+    * https://github.com/u6k/blog/blob/master/page/20160520-server-base-spec.md

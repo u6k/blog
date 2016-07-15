@@ -13,8 +13,20 @@ postID:
 
 # 前提
 
+Scalaとは
+簡単に環境の再現ができるDocker上に構築する
+普通はsbtを使うと思うが、最終的にはPlayFrameworkでWebアプリケーションを作成したいので、Typesafe Activatorを使用する。
+CoreOS環境で作業をしたが、Dockerが動作すればホストOSは問わないはず。
+
 # できあがる環境
+
+JavaSDK 8
+Typesafe Activator v1.3.10
+Scala 2.11.7
+vim
 
 # 環境構築手順
 
 # ScalaでHello, world!
+
+# リンク

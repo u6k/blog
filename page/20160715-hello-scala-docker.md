@@ -27,6 +27,87 @@ vim
 
 # 環境構築手順
 
-# ScalaでHello, world!
+## Dockerfileを作成
+
+https://github.com/u6k/scala-docker/blob/v1.0.0/Dockerfile
+
+```
+FROM java:8
+MAINTAINER u6k.apps@gmail.com
+
+RUN mkdir -p /usr/local/src/
+WORKDIR /usr/local/src/
+
+RUN curl -OL https://downloads.typesafe.com/typesafe-activator/1.3.10/typesafe-activator-1.3.10-minimal.zip && \
+    unzip typesafe-activator-1.3.10-minimal.zip && \
+    mkdir -p /opt/ && \
+    mv activator-1.3.10-minimal/ /opt/activator && \
+    chmod a+x /opt/activator/bin/activator && \
+    ln -s /opt/activator/bin/activator /usr/local/bin/activator
+
+WORKDIR /root/
+
+RUN activator new my-app minimal-scala && \
+    cd my-app/ && \
+    activator run && \
+    cd .. && \
+    rm -rf my-app/
+
+CMD ["/bin/bash"]
+```
+
+内容を説明します。
+
+```
+FROM java:8
+```
+
+ScalaはJavaVM環境で動作するため、ベースイメージに指定します。
+
+```
+RUN mkdir -p /usr/local/src/
+WORKDIR /usr/local/src/
+```
+
+ソフトウェアのインストールを`/usr/local/src/`で行うため、ディレクトリを作成して、作業ディレクトリを移動します。
+
+```
+RUN curl -OL https://downloads.typesafe.com/typesafe-activator/1.3.10/typesafe-activator-1.3.10-minimal.zip && \
+    unzip typesafe-activator-1.3.10-minimal.zip && \
+    mkdir -p /opt/ && \
+    mv activator-1.3.10-minimal/ /opt/activator && \
+    chmod a+x /opt/activator/bin/activator && \
+    ln -s /opt/activator/bin/activator /usr/local/bin/activator
+```
+
+Typesafe Activatorをセットアップします。Typesafe Activatorはzipで配布されているため、ダウンロード、展開、`/usr/local/bin/`にシンボリック・リンクを作成します。
+
+```
+WORKDIR /root/
+```
+
+Dockerコンテナに入った時に`/root/`を作業ディレクトリとしたいので、作業ディレクトリを指定します。
+
+```
+RUN activator new my-app minimal-scala && \
+    cd my-app/ && \
+    activator run && \
+    cd .. && \
+    rm -rf my-app/
+```
+
+`activator`コマンドは、初回起動時に必要リソースを取得するため、時間がかかります。そこで、Dockerイメージ構築時にいくつかのコマンドを実行して、リソースをキャッシュしておきます。ここでは、`minimal-scala`プロジェクトを作成して、実行しています。作成したプロジェクトは実行後は不要なので、削除します。
+
+```
+CMD ["/bin/bash"]
+```
+
+`docker run`で`bash`を実行してコンテナに入りたいので、指定します。
+
+## docker-compose.ymlを作成
+
+## Dockerイメージを構築
+
+# 使い方 - ScalaでHello, world!
 
 # リンク

@@ -149,7 +149,7 @@ activator new my-app minimal-scala
 cd my-app/src/main/scala/
 rm -r com/
 vi hello.scala
-``
+```
 
 ソースコードは`${PROJECT}/src/main/scala/`以下に書くので、移動します。サンプルコードがあるので、削除します。`hello.scala`ファイルを以下のように作成します。
 

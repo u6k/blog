@@ -106,8 +106,71 @@ CMD ["/bin/bash"]
 
 ## docker-compose.ymlを作成
 
+単純に`docker build`→`dockdr run`しても良いです。
+
+https://github.com/u6k/scala-docker/blob/v1.0.0/docker-compose.yml
+
+```
+version: '2'
+
+services:
+  scala-app:
+    build: .
+```
+
+単純にビルドするだけです。Dockerコンテナ内で作業したファイルを残したい場合は、`volumes`を指定すると良いです。
+
+```
+    volumes:
+      - .:/root/work/
+```
+
 ## Dockerイメージを構築
+
+```
+docker-compose build
+```
 
 # 使い方 - ScalaでHello, world!
 
+```
+docker-compose run scala-app
+```
+
+Dockerコンテナを起動して、コンテナ内に入ります。
+
+```
+activator new my-app minimal-scala
+```
+
+`minimal-scala`プロジェクトを作成します。
+
+```
+cd my-app/src/main/scala/
+rm -r com/
+vi hello.scala
+``
+
+ソースコードは`${PROJECT}/src/main/scala/`以下に書くので、移動します。サンプルコードがあるので、削除します。`hello.scala`ファイルを以下のように作成します。
+
+```
+object Main {
+  def main(args:Array[String]):Unit = {
+    println("hello")
+  }
+}
+```
+
+プロジェクトのルート・ディレクトリに戻って、実行します。
+
+```
+cd ../../../
+activator run
+```
+
+`hello`が表示され、正常終了するはずです。
+
 # リンク
+
+GitHub
+Redmine

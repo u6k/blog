@@ -14,22 +14,28 @@ postID:
 # 前提
 
 Scalaとは
+
 簡単に環境の再現ができるDocker上に構築する
+
 普通はsbtを使うと思うが、最終的にはPlayFrameworkでWebアプリケーションを作成したいので、Typesafe Activatorを使用する。
+
 CoreOS環境で作業をしたが、Dockerが動作すればホストOSは問わないはず。
 
 # できあがる環境
 
 JavaSDK 8
+
 Typesafe Activator v1.3.10
+
 Scala 2.11.7
+
 vim
 
 # 環境構築手順
 
 ## Dockerfileを作成
 
-https://github.com/u6k/scala-docker/blob/v1.0.0/Dockerfile
+[Dockerfile](https://github.com/u6k/scala-docker/blob/v1.0.0/Dockerfile)を作成します。
 
 ```
 FROM java:8
@@ -125,7 +131,7 @@ services:
       - .:/root/work/
 ```
 
-## Dockerイメージを構築
+## Dockerイメージ���築
 
 ```
 docker-compose build
@@ -173,4 +179,5 @@ activator run
 # リンク
 
 GitHub
+
 Redmine

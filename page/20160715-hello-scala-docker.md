@@ -13,25 +13,20 @@ postID:
 
 # 前提
 
-Scalaとは
+Scalaについては、以下のページを参照してください。
 
-簡単に環境の再現ができるDocker上に構築する
+* [Scala - Wikipedia](https://ja.wikipedia.org/wiki/Scala)
+* [スケーラブルで関数型でオブジェクト指向なScala入門](http://www.atmarkit.co.jp/fjava/index/index_scala.html)
 
-普通はsbtを使うと思うが、最終的にはPlayFrameworkでWebアプリケーションを作成したいので、Typesafe Activatorを使用する。
+Scala環境の構築や破棄が簡単にできるように、Docker上に構築します。あわせてDocker Composeも使用します。このため、Linuxの基本的な操作方法を理解している必要があります。
 
-CoreOS環境で作業をしたが、Dockerが動作すればホストOSは問わないはず。
+Scalaアプリケーションの実行には、通常はsbtを使うと思いますが、最終的にPlayFrameworkでWebアプリケーションを作成したいので、Typesafe Activatorを使用します。
 
-# できあがる環境
+作業はCoreOS環境で行いましたが、Dockerが動作すればホストOSは問わないはずです。
 
-JavaSDK 8
+# Scala環境構築手順
 
-Typesafe Activator v1.3.10
-
-Scala 2.11.7
-
-vim
-
-# 環境構築手順
+Scala環境を構築する手順を説明します。
 
 ## Dockerfileを作成
 
@@ -64,18 +59,20 @@ CMD ["/bin/bash"]
 
 内容を説明します。
 
+ScalaはJavaVM環境で動作するため、ベースイメージに`java`を指定します。
+
 ```
 FROM java:8
 ```
 
-ScalaはJavaVM環境で動作するため、ベースイメージに指定します。
+ソフトウェアのインストールを`/usr/local/src/`で行うため、ディレクトリを作成して、作業ディレクトリを移動します。
 
 ```
 RUN mkdir -p /usr/local/src/
 WORKDIR /usr/local/src/
 ```
 
-ソフトウェアのインストールを`/usr/local/src/`で行うため、ディレクトリを作成して、作業ディレクトリを移動します。
+Typesafe Activatorをセットアップします。
 
 ```
 RUN curl -OL https://downloads.typesafe.com/typesafe-activator/1.3.10/typesafe-activator-1.3.10-minimal.zip && \
@@ -86,13 +83,15 @@ RUN curl -OL https://downloads.typesafe.com/typesafe-activator/1.3.10/typesafe-a
     ln -s /opt/activator/bin/activator /usr/local/bin/activator
 ```
 
-Typesafe Activatorをセットアップします。Typesafe Activatorはzipで配布されているため、ダウンロード、展開、`/usr/local/bin/`にシンボリック・リンクを作成します。
+Typesafe Activatorはzipで配布されているため、ダウンロードして展開することでセットアップを行います。それだけだとパスが通らないので、`/usr/local/bin/`にシンボリック・リンクを作成します。
+
+Dockerコンテナに入った時に`/root/`を作業ディレクトリとしたいので、作業ディレクトリを指定します。
 
 ```
 WORKDIR /root/
 ```
 
-Dockerコンテナに入った時に`/root/`を作業ディレクトリとしたいので、作業ディレクトリを指定します。
+`activator`コマンドを実行して、依存ライブラリをキャッシュします。
 
 ```
 RUN activator new my-app minimal-scala && \
@@ -104,17 +103,15 @@ RUN activator new my-app minimal-scala && \
 
 `activator`コマンドは、初回起動時に必要リソースを取得するため、時間がかかります。そこで、Dockerイメージ構築時にいくつかのコマンドを実行して、リソースをキャッシュしておきます。ここでは、`minimal-scala`プロジェクトを作成して、実行しています。作成したプロジェクトは実行後は不要なので、削除します。
 
+`docker run`で`bash`を実行してコンテナに入れるようにします。
+
 ```
 CMD ["/bin/bash"]
 ```
 
-`docker run`で`bash`を実行してコンテナに入りたいので、指定します。
-
 ## docker-compose.ymlを作成
 
-単純に`docker build`→`dockdr run`しても良いです。
-
-https://github.com/u6k/scala-docker/blob/v1.0.0/docker-compose.yml
+単純に`docker build`->`dockdr run`しても良いのですが、後を考えて[docker-compose.yml](https://github.com/u6k/scala-docker/blob/v1.0.0/docker-compose.yml)を作成します。
 
 ```
 version: '2'
@@ -131,7 +128,9 @@ services:
       - .:/root/work/
 ```
 
-## Dockerイメージ���築
+## Dockerイメージ構築
+
+ビルドします。
 
 ```
 docker-compose build
@@ -139,17 +138,19 @@ docker-compose build
 
 # 使い方 - ScalaでHello, world!
 
+Dockerコンテナを起動して、コンテナ内に入ります。
+
 ```
 docker-compose run scala-app
 ```
 
-Dockerコンテナを起動して、コンテナ内に入ります。
+`minimal-scala`プロジェクトを作成します。
 
 ```
 activator new my-app minimal-scala
 ```
 
-`minimal-scala`プロジェクトを作成します。
+ソースコードを作成します。
 
 ```
 cd my-app/src/main/scala/
@@ -176,8 +177,14 @@ activator run
 
 `hello`が表示され、正常終了するはずです。
 
+# おわりに
+
+まずは単純に"Hello, world!"したかっただけなので、簡素な環境を構築しました。開発ツールが不足しているので充実させつつ、RDBと連携できるように育てます。
+
 # リンク
 
-GitHub
-
-Redmine
+* GitHub
+    * [記事データ](https://github.com/u6k/blog/blob/master/page/20160715-hello-scala-docker.md)
+    * [scala-docker](https://github.com/u6k/scala-docker)
+* Redmine
+    * [#727: Scalaを調査する。 - learn-scala - u6k.Redmine()](https://redmine.u6k.me/issues/727)

@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "自宅サーバーに独自ドメインを設定"
-tags: ["DNS"]
+tags:
+  - "DNS"
 date: 2015-05-18 20:00:00+09:00
-published: false
-parmalink: "blog-post_18"
-postID: 1200080956361151602
 ---
 
 独自ドメインを取得し、Bloggerへの設定は完了しました。次は、自宅サーバーに独自ドメインを設定します。

@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順"
-tags: ["Linux", "Raspberry Pi"]
+tags:
+  - "Linux"
+  - "Raspberry Pi"
 date: 2015-01-09 18:00:00+09:00
-published: false
-parmalink: "raspberry-pi-emulator-for"
-postID: 5021250685440783453
 ---
 
 自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。

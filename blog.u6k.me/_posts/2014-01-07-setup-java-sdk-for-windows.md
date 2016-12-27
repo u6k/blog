@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "WindowsにJava SDKをセットアップする"
-tags: ["Java", "Setup"]
+tags:
+  - "Java"
+  - "Setup"
 date: 2014-01-07 19:00:00+09:00
-published: false
-parmalink: "windowsjava-sdk"
-postID: 4456435123139294056
 ---
 
 たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、

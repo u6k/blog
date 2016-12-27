@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "vimメモ"
-tags: ["vim"]
+tags:
+  - "vim"
 date: 2015-01-27 00:22:00+09:00
-published: false
-parmalink: "vim"
-postID: 3891526165270914087
 ---
 
 長らくWindowsでサクラエディタを使っていましたが、Linuxではvi、MacではCotEditorを申し訳程度に使っているだけでした。で、いい加減各プラットフォームでちゃんと使えるテキストエディタが欲しくなり、vimを使うことになりました。

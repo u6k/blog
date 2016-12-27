@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Chef書きかけメモ"
-tags: ["Chef"]
+tags:
+  - "Chef"
 date: 2015-05-28 20:00:00+09:00
-published: false
-parmalink: "chef_28"
-postID: 803289034782597529
 ---
 
 今はAnsibleを主に使っているので、Chefの追っかけは中断しようと考えています。なので、書きかけメモとして残しておきます。

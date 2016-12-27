@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Android TTSでonUtteranceCompleted()が呼び出されるための実装方法"
-tags: ["Android", "TextToSpeech"]
+tags:
+  - "Android"
+  - "TextToSpeech"
 date: 2012-09-02 00:00:00+09:00
-published: false
-parmalink: "android-ttsonutterancecompleted"
-postID: 4810595112632954586
 ---
 
 `onUtteranceCompleted()`内でToast表示しようとしたけれど、発声が終わってもToastが表示されないので調べたら、以下が原因でした。

@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "git自分用メモ"
-tags: "git"
+tags:
+  - "git"
 date: 2012-09-17 00:00:00+09:00
-published: false
-parmalink: "git"
-postID: 2521976755357935516
 ---
 
 ダウンロード～インストール～参考リンクなど、自分用メモ。

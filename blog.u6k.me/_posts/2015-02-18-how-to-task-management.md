@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "自分用のタスク管理手順メモ"
-tags: "タスク管理"
+tags:
+  - "タスク管理"
 date: 2015-02-18 20:00:00+09:00
-published: false
-parmalink: "blog-post_18"
-postID: 744440810627948092
 ---
 
 # 目的

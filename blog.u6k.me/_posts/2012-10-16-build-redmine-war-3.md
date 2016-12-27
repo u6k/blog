@@ -1,10 +1,12 @@
 ---
+layout: post
 title: "Redmineをwar化 (3) Tomcat上で動作させる"
-tags: ["Apache Tomcat", "Redmine", "redmine-war", "Setup"]
+tags:
+  - "Apache Tomcat"
+  - "Redmine"
+  - "redmine-war"
+  - "Setup"
 date: 2012-10-16 18:06:00+09:00
-published: false
-parmalink: "redminewar-3-tomcat"
-postID: 5301007463710020026
 ---
 
 [前回](http://u6k-apps.blogspot.jp/2012/10/redminewar-2-warblerwar.html)、Redmine+JRubyをwar化しました。その過程でTomcat上で動作確認を行いましたが、その手順を詳細に説明します。

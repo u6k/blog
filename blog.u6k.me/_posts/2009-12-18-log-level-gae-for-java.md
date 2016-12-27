@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "GAE/jのログレベル"
-tags: ["Google App Engine", "ログ"]
+tags:
+  - "Google App Engine"
+  - "ログ"
 date: 2009-12-18 00:00:00+09:00
-published: false
-parmalink: "gaej"
-postID: 7310584366937244111
 ---
 
 `java.util.logging`のログレベルと、GAE/jのログレベルの対応が分からなかったので、調べました。

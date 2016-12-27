@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "独自ドメインを取得したので、Bloggerに設定するまでのメモ"
-tags: ["DNS"]
+tags:
+  - "DNS"
 date: 2015/05/14 07:00:00+09:00
-published: false
-parmalink: "dns-setting"
-postID: 2086160603014077346
 ---
 
 OpenShift、自宅サーバー、ブログ、色々なサービスを使っていますが、URLはサービスが提供するURLか無償利用可能なDDNSを使っていました。しかし、主にサブドメインが使えないことに不便を感じており、以前から考えていた独自ドメインを取得(購入)しました。

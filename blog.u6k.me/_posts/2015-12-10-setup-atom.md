@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Atomセットアップ手順"
-tags: ["Atom", "Setup"]
+tags:
+  - "Atom"
+  - "Setup"
 date: 2015-12-10 22:00:00+09:00
-published: false
-parmalink: "atom-setup"
-postID: 7345803438393725652
 ---
 
 Atomの自分向けセットアップ手順メモです。

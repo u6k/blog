@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Raspberry Pi(Raspbian wheezy)をOS XのQEMUで動作させる手順"
-tags: ["Raspberry Pi", "Setup"]
+tags:
+  - "Raspberry Pi"
+  - "Setup"
 date: 2015-11-30 23:00:00+09:00
-published: false
-parmalink: "raspbian-qemu-osx"
-postID: 8869948407560965359
 ---
 
 [Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順](http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html)ではWindows上のQEMUでRaspbianを動作させましたが、現在使用しているのはMacBookなので、OS X上のQEMUでRaspbianを動作させる手順をまとめます。内容はほぼ同じです。

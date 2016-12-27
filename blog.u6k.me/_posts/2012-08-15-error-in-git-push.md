@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "git pushで「error: RPC failed; result=55, HTTP code = 0」"
-tags: "git"
+tags:
+  - "git"
 date: 2012-08-15 00:00:00+09:00
-published: false
-parmalink: "git-pusherror-rpc-failed-result55-http"
-postID: 521356891833526103
 ---
 
 `git push`したら、件名のエラーが発生してpushできませんでした。ググったところ、以下のページに記載されている対応で治りました。

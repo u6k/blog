@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "新しい言語を学ぶ時のチェックリスト"
-tags: ["チェックリスト"]
+tags:
+  - "チェックリスト"
 date: 2008-04-23 00:00:00+09:00
-published: false
-parmalink: "blog-post"
-postID: 2603741775308281599
 ---
 
 - 開発環境、コンパイル方法、動作方法

@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Windows再セットアップメモ (2015/4/22版)"
-tags: ["Chocolatey"]
+tags:
+  - "Chocolatey"
 date: 2015-04-22 22:00:00+09:00
-published: false
-parmalink: "windows-2015422"
-postID: 2725431533237070754
 ---
 
 [前回のセットアップ](http://u6k-apps.blogspot.jp/2015/02/windows.html)から変わった手順があるため、再投稿します。

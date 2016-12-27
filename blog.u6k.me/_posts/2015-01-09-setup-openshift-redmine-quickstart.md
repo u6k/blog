@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Redmine@OpenShiftインストール手順(openshift-redmine-quickstart)"
-tags: ["Redmine"]
+tags:
+  - "Redmine"
 date: 2015-01-09 21:46:00+09:00
-published: false
-parmalink: "redmineopenshiftopenshift-redmine"
-postID: 6178733403827200094
 ---
 
 個人的なタスク管理ツールについて、Google Tasks、Wunderlist、Toodledo、Remember the milk、付箋紙などなどいろいろ乗り換えてきましたが、ここ2年ほどはRedmineで運用しています(Redmineがタスク管理ツールかどうかは置いておいて)。当初はさくらVPS、次に(短期間だけど)Digital Oceanで稼働させていましたが、今はOpenShiftで稼働させています。

@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "CentOSのローカルyumリポジトリの作り方"
-tags: ["Linux", "手順"]
+tags:
+  - "Linux"
+  - "手順"
 date: 2013-06-20 19:34:00+09:00
-published: false
-parmalink: "centosyum"
-postID: 6495835011432789431
 ---
 
 セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。

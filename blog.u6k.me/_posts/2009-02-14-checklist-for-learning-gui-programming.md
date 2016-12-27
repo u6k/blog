@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "GUIプログラミングを学習する時のチェックリスト"
-tags: ["チェックリスト", "GUI"]
+tags:
+  - "チェックリスト"
+  - "GUI"
 date: 2009-02-14 00:00:00+09:00
-published: false
-parmalink: "gui"
-postID: 2342262567351214517
 ---
 
 - コンポーネントの種類

@@ -1,10 +1,13 @@
 ---
+layout: post
 title: "個人的に気になっているJavaフルスタック(と言われている)フレームワーク"
-tags: ["Grails", "Java", "JavaEE", "Play Framework", "Spring Framework"]
+tags:
+  - "Grails"
+  - "Java"
+  - "JavaEE"
+  - "Play Framework"
+  - "Spring Framework"
 date: 2014-01-05 18:35:00+09:00
-published: false
-parmalink: "java"
-postID: 8853736840357060543
 ---
 
 個人的に軽く何か作りたいなぁ、今はどんなフレームワークがあるのかな？と思って調べてみました。調べただけでまだ使ってはいません。

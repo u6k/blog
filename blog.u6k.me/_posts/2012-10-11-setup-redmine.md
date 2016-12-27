@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Redmineセットアップ"
-tags: ["Redmine", "Setup"]
+tags:
+  - "Redmine"
+  - "Setup"
 date: 2012-10-11 23:37:00+09:00
-published: false
-parmalink: "redmine"
-postID: 4595076647998608033
 ---
 
 何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…

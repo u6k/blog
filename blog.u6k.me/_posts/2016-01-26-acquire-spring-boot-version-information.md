@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Spring Bootアプリケーションのバージョン情報を外部から確認したい"
-tags: ["Spring Boot", "Java"]
+tags:
+  - "Spring Boot"
+  - "Java"
 date: 2016-01-26 07:00:00+09:00
-published: false
-parmalink: "spring-boot-display-version"
-postID: 8494111819039863654
 ---
 
 動作しているSpring Bootアプリのバージョンが何かを外部から確認したい場合がありますが、infoエンドポイントで簡単にバージョン情報などを返すことができます。

@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Windows再セットアップメモ"
-tags: ["Chocolatey"]
+tags:
+  - "Chocolatey"
 date: 2015-02-03 23:05:00+09:00
-published: false
-parmalink: "windows"
-postID: 3383879005186089676
 ---
 
 なんだかんだと環境が汚れて、Windowsを再セットアップすることがあります(仮想環境を使えとは思いますが)。ここでは、再セットアップの手順を説明します。

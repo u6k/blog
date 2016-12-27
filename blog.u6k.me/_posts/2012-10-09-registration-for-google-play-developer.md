@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Google Play開発者登録の手順"
-tags: ["Android", "Setup"]
+tags:
+  - "Android"
+  - "Setup"
 date: 2012-10-09 18:00:00+09:00
-published: false
-parmalink: "google-play"
-postID: 1095332948272287748
 ---
 
 Google Play開発者登録を行ったので、手順をメモとして作成します。

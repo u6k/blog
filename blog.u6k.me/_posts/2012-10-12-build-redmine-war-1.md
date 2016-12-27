@@ -1,10 +1,12 @@
 ---
+layout: post
 title: "Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす"
-tags: ["Redmine", "Setup", "JRuby", "redmine-war"]
+tags:
+  - "Redmine"
+  - "Setup"
+  - "JRuby"
+  - "redmine-war"
 date: 2012-10-12 21:34:00+09:00
-published: false
-parmalink: "redminewar-1-redminejruby"
-postID: 2419468321490200772
 ---
 
 Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。

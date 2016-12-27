@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "CentOS 6.3セットアップのメモ"
-tags: ["CentOS", "Setup"]
+tags:
+  - "CentOS"
+  - "Setup"
 date: 2012-10-15 21:13:00+09:00
-published: false
-parmalink: "centos-63"
-postID: 451655383179582908
 ---
 
 テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。

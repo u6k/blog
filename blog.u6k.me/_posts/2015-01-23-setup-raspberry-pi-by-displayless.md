@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Raspberry Piセットアップメモ(ディスプレイレス)"
-tags: ["Raspberry Pi"]
+tags:
+  - "Raspberry Pi"
 date: 2015-01-23 13:59:00+09:00
-published: false
-parmalink: "programming-step"
-postID: 6740127415532614284
 ---
 
 安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。

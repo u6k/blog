@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "DockerでRubyを使用する"
-tags: ["Docker"]
+tags:
+  - "Docker"
 date: 2016-03-09 07:00:00+09:00
-published: false
-parmalink: "ruby-docker"
-postID: 7571193747641814002
 ---
 
 DockerコンテナにRubyをインストールしてみます。

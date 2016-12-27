@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Open JTalkで音声合成してみた"
-tags: ["Open JTalk", "音声合成"]
+tags:
+  - "Open JTalk"
+  - "音声合成"
 date: 2016-04-01 07:00:00+09:00
-published: false
-parmalink: "open-jtalk-docker-0.6.1"
-postID: 8782434029996016090
 ---
 
 Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。

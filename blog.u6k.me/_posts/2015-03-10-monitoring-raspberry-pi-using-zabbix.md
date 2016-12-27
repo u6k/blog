@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "自宅Raspberry PiをZabbix Server on DigitalOceanで監視"
-tags: ["Zabbix", "Raspberry Pi"]
+tags:
+  - "Zabbix"
+  - "Raspberry Pi"
 date: 2015-03-10 19:00:00+09:00
-published: false
-parmalink: "raspberry-pizabbix-server-on"
-postID: 443340250417684532
 ---
 
 自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。

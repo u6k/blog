@@ -1,10 +1,11 @@
 ---
+layout: post
 title: "Log4j2でsyslogに出力"
-tags: ["Java", "Log4j", "Logging"]
+tags:
+  - "Java"
+  - "Log4j"
+  - "Logging"
 date: 2015-02-05 14:46:00+09:00
-published: false
-parmalink: "log4j2syslog"
-postID: 5577153367843015619
 ---
 
 [Apache Log4j 2](http://logging.apache.org/log4j/2.x/)を使ってsyslogにログを出力する設定手順をメモします。

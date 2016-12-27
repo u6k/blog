@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "rbenvを使用したRuby環境構築 (Raspbian)"
-tags: ["Raspberry Pi", "Ruby"]
+tags:
+  - "Raspberry Pi"
+  - "Ruby"
 date: 2015-01-23 20:00:00+09:00
-published: false
-parmalink: "rbenvruby-raspbian"
-postID: 6564935189142793127
 ---
 
 Raspberry Pi(Raspbian)にrbenvを使用してRuby環境を構築したので、手順メモを残します。と言っても、[Ruby - rbenv のインストール (Linux Mint) - Qiita](http://qiita.com/tsubu-mustard/items/3f818bf9831a4a934c5a)に従っただけですが。

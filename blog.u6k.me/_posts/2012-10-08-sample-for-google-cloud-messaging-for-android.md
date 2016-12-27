@@ -1,10 +1,11 @@
 ---
+layout: post
 title: "Google Cloud Messaging for Android(GCM)のサンプル"
-tags: ["Android", "GCM", "Push Notification"]
+tags:
+  - "Android"
+  - "GCM"
+  - "Push Notification"
 date: 2012-10-08 22:48:00+09:00
-published: false
-parmalink: "sample-android-gcm"
-postID: 7025094625326549004
 ---
 
 既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。

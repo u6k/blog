@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Redmine 3.0.0をJRubyで動かす→ダメだった…"
-tags: ["Redmine"]
+tags:
+  - "Redmine"
 date: 2015-03-11 22:00:00 +09:00
-published: false
-parmalink: "redmine-300jruby"
-postID: 3889852976562578021
 ---
 
 昔に[Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす](http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html)なんてことをやりましたが、[Redmine 3.0.0がリリースされた](http://redmine.jp/redmine_today/2015/02/redmine-3_0_0-released/)ということで、この最新バージョンでRedmine on JRubyを試してみました。

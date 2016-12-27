@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "ペネトレーションテストについてまとめ"
-tags: ["テスト"]
+tags:
+  - "テスト"
 date: 2014-02-20 21:55:00+09:00
-published: false
-parmalink: "penetration-test"
-postID: 8267847775629611906
 ---
 
 # ペネトレーションテストとは

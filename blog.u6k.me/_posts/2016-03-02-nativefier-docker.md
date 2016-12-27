@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "nativefierをDockerコンテナー化する"
-tags: ["Docker"]
+tags:
+  - "Docker"
 date: 2016-03-02 07:00:00+09:00
-published: false
-parmalink: "nativefier-docker"
-postID: 126005482499848280
 ---
 
 nativefierを使いやすくするため、Dockerコンテナー化します。

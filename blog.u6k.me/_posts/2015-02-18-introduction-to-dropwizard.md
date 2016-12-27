@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Dropwizard入門"
-tags: ["Dropwizard"]
+tags:
+  - "Dropwizard"
 date: 2015-02-19 20:00:00+09:00
-published: false
-parmalink: "dropwizard"
-postID: 2385969074858203274
 ---
 
 Dropwizardの練習として、"Hello, {name}!"を出力するだけのDropwizardアプリを作成します。

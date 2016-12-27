@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Redmineバージョンアップの作業メモ"
-tags: ["Redmine"]
+tags:
+  - "Redmine"
 date: 2015-05-15 23:00:00+09:00
-published: false
-parmalink: "redmine"
-postID: 5908382976011672236
 ---
 
 OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。

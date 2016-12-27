@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Androidエミュレータ設定"
-tags: "Android"
+tags:
+  - "Android"
 date: 2012-09-11 00:00:00+09:00
-published: false
-parmalink: "android"
-postID: 3352902172696149875
 ---
 
 # 解像度ごとの設定

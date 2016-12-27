@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "ブログ執筆環境"
-tags: ["Markdown"]
+tags:
+  - "Markdown"
 date: 2015-02-05 23:57:00+09:00
-published: false
-parmalink: "blog-post"
-postID: 8789460702842761509
 ---
 
 BloggerやQiitaに記事を投稿する方法についていくらか試したので、整理します。

@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Zabbixをインストールして簡単に動作確認を行う"
-tags: ["Zabbix", "Vagrant"]
+tags:
+  - "Zabbix"
+  - "Vagrant"
 date: 2015-02-22 05:34:00+09:00
-published: false
-parmalink: "zabbix"
-postID: 1154764858535992478
 ---
 
 # ちょっと長めの前置き

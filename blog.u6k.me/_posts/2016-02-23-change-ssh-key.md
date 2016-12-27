@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "SSH鍵の変更作業メモ"
-tags: ["ssh"]
+tags:
+  - "ssh"
 date: 2016-02-23 07:00:00+09:00
-published: false
-parmalink: "change-ssh-key"
-postID: 2273507065869158216
 ---
 
 自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。

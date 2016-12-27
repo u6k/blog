@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Redmineをwar化 - 目指せ、ALMinium!"
-tags: ["Redmine", "redmine-war"]
+tags:
+  - "Redmine"
+  - "redmine-war"
 date: 2012-10-22 23:00:00+09:00
-published: false
-parmalink: "redminewar-alminium"
-postID: 7848301766360459354
 ---
 
 「Redmineをwar化」ですが、実はかなり前から挑戦しようとしてはいたのですが、[(1) とりあえずRedmine+JRubyで動かす](http://u6k-apps.blogspot.com/2012/10/redminewar-1-redminejruby.html)で述べた通り「セットアップが面倒！」となってしまい進んでいませんでした。

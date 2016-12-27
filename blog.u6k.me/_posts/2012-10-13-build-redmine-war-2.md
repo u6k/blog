@@ -1,10 +1,12 @@
 ---
+layout: post
 title: "Redmineをwar化 (2) warblerでwar化する"
-tags: ["Redmine", "Setup", "JRuby", "redmine-war"]
+tags:
+  - "Redmine"
+  - "Setup"
+  - "JRuby"
+  - "redmine-war"
 date: 2012-10-13 00:33:00+09:00
-published: false
-parmalink: "redminewar-2-warblerwar"
-postID: 420266165021930009
 ---
 
 [前回](http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html)、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。

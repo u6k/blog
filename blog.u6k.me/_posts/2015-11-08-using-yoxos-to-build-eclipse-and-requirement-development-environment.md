@@ -1,10 +1,11 @@
 ---
+layout: post
 title: "Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？"
-tags: ["yoxos", "Eclipse", "setup"]
+tags:
+  - "yoxos"
+  - "Eclipse"
+  - "Setup"
 date: 2015-11-08 00:00:00+09:00
-published: false
-parmalink: "provisioning-eclipse"
-postID: 407754961344237155
 ---
 
 仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。

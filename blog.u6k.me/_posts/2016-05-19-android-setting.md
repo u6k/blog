@@ -1,10 +1,9 @@
 ---
+layout: post
 title: "Xperia Z5設定メモ"
-tags: ["Setup"]
+tags:
+  - "Setup"
 date: 2016-05-19 07:00:00+09:00
-published: false
-parmalink: "android-setting"
-postID: 2547852682344749996
 ---
 
 先日、iPhone 5sからXperia Z5に機種変更をしたので、Xperia Z5に行った設定をメモします。

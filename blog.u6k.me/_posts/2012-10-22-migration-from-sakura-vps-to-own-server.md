@@ -1,10 +1,11 @@
 ---
+layout: post
 title: "Redmineを自宅PCからさくらVPSに移行しました"
-tags: ["Redmine", "migration", "さくらVPS"]
+tags:
+  - "Redmine"
+  - "migration"
+  - "さくらVPS"
 date: 2012-10-22 18:00:00+09:00
-published: false
-parmalink: "redminepcvps"
-postID: 2955766311749485188
 ---
 
 今まで、Redmine-warなどのチケットを管理していたRedmineは、実は自宅PCで動作していました。しかしこのPC、数年前のPCで、メモリが389MBしか積んでいないという超低スペックマシン。すっごく遅かったのでイラッとしながら使っていたわけです。

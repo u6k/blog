@@ -1,10 +1,10 @@
 ---
+layout: post
 title: "Java開発環境構築手順"
-tags: ["Eclipse", "Setup"]
+tags:
+  - "Eclipse"
+  - "Setup"
 date: 2012-10-18 04:32:00+09:00
-published: false
-parmalink: "java"
-postID: 1081896637325823384
 ---
 
 個人的なJava開発環境の構築手順をメモします。普段は、構築後のフォルダをzipアーカイブして持ち歩き、Java開発環境を構築するときはアーカイブを展開するだけで簡単に構築できるようにしています(一部、インストールが必要ですが)。

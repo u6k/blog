@@ -6,6 +6,8 @@ tags:
   - "migration"
   - "さくらVPS"
 date: 2012-10-22 18:00:00+09:00
+redirect_from:
+  - /2012/10/redminepcvps.html
 ---
 
 今まで、Redmine-warなどのチケットを管理していたRedmineは、実は自宅PCで動作していました。しかしこのPC、数年前のPCで、メモリが389MBしか積んでいないという超低スペックマシン。すっごく遅かったのでイラッとしながら使っていたわけです。

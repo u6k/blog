@@ -5,6 +5,8 @@ tags:
   - "Voicecaster"
   - "企画"
 date: 2012-10-23 23:00:00+09:00
+redirect_from:
+  - /2012/10/webvoicecaster.html
 ---
 
 私は、TwitterやRSSを主な情報源としていまして、とりあえずパラパラっとタイトルを流し読んで「これはじっくり読みたい」と思った記事を[Pocket (Formerly Read It Later)](http://getpocket.com/)に流し込んでいます。それで、電車に乗っているときや歩いているときにPocketの記事を読んでいます。

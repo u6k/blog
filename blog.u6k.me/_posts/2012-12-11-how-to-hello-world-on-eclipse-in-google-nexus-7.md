@@ -5,6 +5,8 @@ tags:
   - "Android"
   - "Setup"
 date: 2012-12-11 18:00:00+09:00
+redirect_from:
+  - /2012/12/google-nexus-7-42eclipsehello-world.html
 ---
 
 Google Nexus 7 (4.2)を触る機会があったので、せっかくなのでHello, world!してみようとしたところ少し手間取ったので、ここにその手順を残します。

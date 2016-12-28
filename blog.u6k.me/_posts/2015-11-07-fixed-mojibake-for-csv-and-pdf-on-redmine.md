@@ -4,6 +4,8 @@ title: "RedmineのCSVおよびPDFの文字化けを解消"
 tags:
   - "Redmine"
 date: 2015-11-07 00:00:00+09:00
+redirect_from:
+  - /2015/11/eliminate-redmine-csv-pdf-mojibake.html
 ---
 
 自分のタスク管理用に稼働させているRedmineでCSVやPDFを出力すると文字化けが発生します。これを解消したので、手順を説明します。

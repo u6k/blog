@@ -4,6 +4,8 @@ title: "Dropwizard入門"
 tags:
   - "Dropwizard"
 date: 2015-02-19 20:00:00+09:00
+redirect_from:
+  - /2015/02/dropwizard.html
 ---
 
 Dropwizardの練習として、"Hello, {name}!"を出力するだけのDropwizardアプリを作成します。

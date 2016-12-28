@@ -6,6 +6,8 @@ tags:
   - "Log4j"
   - "Logging"
 date: 2015-02-05 14:46:00+09:00
+redirect_from:
+  - /2015/02/log4j2syslog.html
 ---
 
 [Apache Log4j 2](http://logging.apache.org/log4j/2.x/)を使ってsyslogにログを出力する設定手順をメモします。

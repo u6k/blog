@@ -5,6 +5,8 @@ tags:
   - "Zabbix"
   - "Raspberry Pi"
 date: 2015-03-10 19:00:00+09:00
+redirect_from:
+  - /2015/03/raspberry-pizabbix-server-on.html
 ---
 
 自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。

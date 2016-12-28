@@ -6,6 +6,8 @@ tags:
   - "TortoiseGit"
   - "手順"
 date: 2013-03-13 22:27:00+09:00
+redirect_from:
+  - /2013/03/gittortoisegit.html
 ---
 
 Gitは非常に有名で優れた分散型バージョン管理システムです。以前はSubversionが大きなシェアを持っていましたが、現在はGitが大きなシェアを持っています。Gitはコマンドラインツールなので基本的にはコマンドを入力・実行する形で使用しますが、WindowsでGitを使う場合、Gitコマンドをそのまま使うよりもTortoiseGitを使う方が便利です。以下に、GitとTortoiseGitのセットアップ手順を説明します。

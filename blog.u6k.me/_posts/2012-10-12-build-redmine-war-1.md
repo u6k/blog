@@ -7,6 +7,8 @@ tags:
   - "JRuby"
   - "redmine-war"
 date: 2012-10-12 21:34:00+09:00
+redirect_from:
+  - /2012/10/redminewar-1-redminejruby.html
 ---
 
 Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。

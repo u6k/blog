@@ -4,6 +4,8 @@ title: "Androidエミュレータ設定"
 tags:
   - "Android"
 date: 2012-09-11 00:00:00+09:00
+redirect_from:
+  - /2012/09/android.html
 ---
 
 # 解像度ごとの設定

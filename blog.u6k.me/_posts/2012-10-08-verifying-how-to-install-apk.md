@@ -4,6 +4,8 @@ title: apkインストール方法の実験 - "adb install -r"
 tags:
   - "Android"
 date: 2012-10-08 21:12:00+09:00
+redirect_from:
+  - /2012/10/android-adb-install.html
 ---
 
 Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。

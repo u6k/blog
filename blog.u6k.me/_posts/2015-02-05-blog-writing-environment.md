@@ -3,7 +3,10 @@ layout: post
 title: "ブログ執筆環境"
 tags:
   - "Markdown"
+  - "Blog"
 date: 2015-02-05 23:57:00+09:00
+redirect_from:
+  - /2015/02/blog-post.html
 ---
 
 BloggerやQiitaに記事を投稿する方法についていくらか試したので、整理します。

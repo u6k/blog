@@ -6,6 +6,8 @@ tags:
   - "GCM"
   - "Push Notification"
 date: 2012-10-08 22:48:00+09:00
+redirect_from:
+  - /2012/10/sample-android-gcm.html
 ---
 
 既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。

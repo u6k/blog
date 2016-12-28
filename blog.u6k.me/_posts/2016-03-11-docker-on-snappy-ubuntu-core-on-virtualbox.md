@@ -4,6 +4,8 @@ title: "Snappy Ubuntu Core on VirtualBoxでDockerを動かしてみる"
 tags:
   - "Docker"
 date: 2016-03-11 07:00:00+09:00
+redirect_from:
+  - /2016/03/docker-on-snappy-ubuntu-core-on-virtualbox.html
 ---
 
 Raspberry PiでDockerを動かしたい、となるとOSはSnappy Ubuntu Coreになります([Docker Pirates ARMed with explosive stuff](http://blog.hypriot.com/)というのもありますが)。Snappy Ubuntu Coreは触ったことがないので、お試しとしてVirtualBox(Vagrant)上のSnappy Ubuntu CoreでDockerを動かしてみます。

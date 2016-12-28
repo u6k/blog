@@ -4,6 +4,8 @@ title: "Redmineバージョンアップの作業メモ"
 tags:
   - "Redmine"
 date: 2015-05-15 23:00:00+09:00
+redirect_from:
+  - /2015/05/redmine.html
 ---
 
 OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。

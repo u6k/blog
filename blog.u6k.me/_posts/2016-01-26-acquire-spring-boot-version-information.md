@@ -5,6 +5,8 @@ tags:
   - "Spring Boot"
   - "Java"
 date: 2016-01-26 07:00:00+09:00
+redirect_from:
+  - /2016/01/spring-boot-display-version.html
 ---
 
 動作しているSpring Bootアプリのバージョンが何かを外部から確認したい場合がありますが、infoエンドポイントで簡単にバージョン情報などを返すことができます。

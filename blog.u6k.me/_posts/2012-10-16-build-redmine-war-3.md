@@ -7,6 +7,8 @@ tags:
   - "redmine-war"
   - "Setup"
 date: 2012-10-16 18:06:00+09:00
+redirect_from:
+  - /2012/10/redminewar-3-tomcat.html
 ---
 
 [前回](http://u6k-apps.blogspot.jp/2012/10/redminewar-2-warblerwar.html)、Redmine+JRubyをwar化しました。その過程でTomcat上で動作確認を行いましたが、その手順を詳細に説明します。

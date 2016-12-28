@@ -5,6 +5,8 @@ tags:
   - "Docker"
   - "Java"
 date: 2016-01-29 07:00:00+09:00
+redirect_from:
+  - /2016/01/ubuntu-oracle-java8.html
 ---
 
 2016/1/29現在では、Ubuntuにapt-getでoracle-java8を単純にインストールすることができないようです。この記事では、Dockerコンテナ(ubuntu:latest)にoracle-java8をインストールして、最低限の動作確認としてバージョン情報を表示してみます。Dockerはあまり関係なく、本質はUbuntuにoracle-java8をインストールすることですけど。

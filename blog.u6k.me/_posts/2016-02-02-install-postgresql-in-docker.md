@@ -4,6 +4,8 @@ title: "Dockerコンテナ(ubuntu)にPostgreSQLをインストールする"
 tags:
   - "Docker"
 date: 2016-02-02 07:00:00+09:00
+redirect_from:
+  - /2016/02/ubuntu-postgresql.html
 ---
 
 PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。

@@ -5,6 +5,8 @@ tags:
   - "Zabbix"
   - "Vagrant"
 date: 2015-02-22 05:34:00+09:00
+redirect_from:
+  - /2015/02/zabbix.html
 ---
 
 # ちょっと長めの前置き

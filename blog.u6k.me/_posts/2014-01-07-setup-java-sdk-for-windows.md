@@ -5,6 +5,8 @@ tags:
   - "Java"
   - "Setup"
 date: 2014-01-07 19:00:00+09:00
+redirect_from:
+  - /2014/01/windowsjava-sdk.html
 ---
 
 たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、

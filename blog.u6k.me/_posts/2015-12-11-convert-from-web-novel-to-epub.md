@@ -6,6 +6,8 @@ tags:
   - "Novel"
   - "青空文庫テキスト形式"
 date: 2015-12-11 22:00:00+09:00
+redirect_from:
+  - /2015/12/web-novel-to-epub.html
 ---
 
 テキストメインのWeb小説を電子書籍(epub)として読むための、自分向けの手順です。

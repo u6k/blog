@@ -5,6 +5,8 @@ tags:
   - "Raspberry Pi"
   - "Java"
 date: 2016-01-09 07:00:00+09:00
+redirect_from:
+  - /2016/01/raspberry-pi-change-java-vm.html
 ---
 
 Raspberry Piに複数のJavaをインストールした場合に、JavaVMを切り替える手順を説明します。簡単に言うと、`update-alternatives`コマンドで切り替えることが出来ます。

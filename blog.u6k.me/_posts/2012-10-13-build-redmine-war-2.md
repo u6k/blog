@@ -7,6 +7,8 @@ tags:
   - "JRuby"
   - "redmine-war"
 date: 2012-10-13 00:33:00+09:00
+redirect_from:
+  - /2012/10/redminewar-2-warblerwar.html
 ---
 
 [前回](http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html)、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。

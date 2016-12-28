@@ -4,6 +4,8 @@ title: "Androidライフサイクルのメモ"
 tags:
   - "Android"
 date: 2012-09-25 18:00:00+09:00
+redirect_from:
+  - /2012/09/android-lifecycle.html
 ---
 
 Androidにおけるライフサイクルをよく検索しているため、ここにメモを作成します。

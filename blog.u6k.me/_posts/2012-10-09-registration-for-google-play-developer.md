@@ -5,6 +5,8 @@ tags:
   - "Android"
   - "Setup"
 date: 2012-10-09 18:00:00+09:00
+redirect_from:
+  - /2012/10/google-play.html
 ---
 
 Google Play開発者登録を行ったので、手順をメモとして作成します。

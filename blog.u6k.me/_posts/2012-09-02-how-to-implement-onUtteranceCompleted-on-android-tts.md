@@ -5,6 +5,8 @@ tags:
   - "Android"
   - "TextToSpeech"
 date: 2012-09-02 00:00:00+09:00
+redirect_from:
+  - /2012/09/android-ttsonutterancecompleted.html
 ---
 
 `onUtteranceCompleted()`内でToast表示しようとしたけれど、発声が終わってもToastが表示されないので調べたら、以下が原因でした。

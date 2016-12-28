@@ -4,6 +4,8 @@ title: "ブログ引っ越し検討の再考"
 tags:
   - "Blog"
 date: 2016-01-10 07:00:00+09:00
+redirect_from:
+  - /2016/01/blogger-to-github-pages.html
 ---
 
 ブログ記事はDropboxで管理していますが、どうせならGitHubで管理することでcommitを稼ぎたいなぁ、とふと思い、ブログ引っ越しを再考したくなりました。以前にブログ引っ越しした時のメモは[ブログ引っ越し検討、およびブログサービスに求める要件 | u6k.log()](http://blog.u6k.me/2015/05/blog-post.html)です。

@@ -4,6 +4,8 @@ title: Spring Boot入門
 tags:
   - "Spring Boot"
 date: 2015-03-06 20:00:00+09:00
+redirect_from:
+  - /2015/03/spring-boot.html
 ---
 
 [以前](http://u6k-apps.blogspot.jp/2015/02/dropwizard.html)、Dropwizard入門を書きましたが、Dropwizardの関連情報がちょっと少なすぎて、Spring Bootの方が良いんじゃないかなと思い始めました。

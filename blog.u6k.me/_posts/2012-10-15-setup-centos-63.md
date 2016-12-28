@@ -5,6 +5,8 @@ tags:
   - "CentOS"
   - "Setup"
 date: 2012-10-15 21:13:00+09:00
+redirect_from:
+  - /2012/10/centos-63.html
 ---
 
 テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。

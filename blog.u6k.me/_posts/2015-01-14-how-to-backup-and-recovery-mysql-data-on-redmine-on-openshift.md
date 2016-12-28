@@ -4,6 +4,8 @@ title: "Redmine@OpenShiftのMySQLデータをバックアップ&リカバリー"
 tags:
   - "Redmine"
 date: 2015-01-14 20:00:00+09:00
+redirect_from:
+  - /2015/01/redmineopenshiftmysql.html
 ---
 
 自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。

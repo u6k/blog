@@ -5,6 +5,8 @@ tags:
   - "Open JTalk"
   - "音声合成"
 date: 2016-03-29 07:00:00+09:00
+redirect_from:
+  - /2016/03/open-jtalk-docker.html
 ---
 
 はるか昔、Webページを音声で読み上げたいと考え、[Androidアプリの作成を試みました](http://blog.u6k.me/2012/10/webvoicecaster.html)。この後、すぐに類似アプリを見つけてしまい、それがビミョーに使いづらかったため計画が停止してしまっていましたが、なんとなく再開しました。

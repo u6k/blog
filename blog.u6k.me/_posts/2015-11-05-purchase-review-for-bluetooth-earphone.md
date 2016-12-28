@@ -2,6 +2,8 @@
 layout: post
 title: "片耳Bluetoothイヤホンの購入検討メモ"
 date: 2015-11-05 00:00:00+09:00
+redirect_from:
+  - /2015/11/buy-bluetooth-earphone.html
 ---
 
 以前使っていたJabraの片耳Bluetoothイヤホンをシャツの胸ポケットに入れたまま洗濯してしまい、哀れ故障してしまいました。というわけで、次の片耳Bluetoothイヤホンを購入したいと思います。

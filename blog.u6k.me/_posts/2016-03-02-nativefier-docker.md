@@ -4,6 +4,8 @@ title: "nativefierをDockerコンテナー化する"
 tags:
   - "Docker"
 date: 2016-03-02 07:00:00+09:00
+redirect_from:
+  - /2016/03/nativefier-docker.html
 ---
 
 nativefierを使いやすくするため、Dockerコンテナー化します。

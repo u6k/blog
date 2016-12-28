@@ -8,6 +8,8 @@ tags:
   - "Play Framework"
   - "Spring Framework"
 date: 2014-01-05 18:35:00+09:00
+redirect_from:
+  - /2014/01/java.html
 ---
 
 個人的に軽く何か作りたいなぁ、今はどんなフレームワークがあるのかな？と思って調べてみました。調べただけでまだ使ってはいません。

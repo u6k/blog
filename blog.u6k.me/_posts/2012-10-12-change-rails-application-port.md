@@ -5,6 +5,8 @@ tags:
   - "Ruby"
   - "Ruby on Rails"
 date: 2012-10-12 22:03:00+09:00
+redirect_from:
+  - /2012/10/change-rails-port.html
 ---
 
 Ruby on Railsアプリは、デフォルトでは3000番ポートを使用します。既に3000番ポートを使用している場合などは起動に失敗しますが、使用ポートを変更する場合、`config/root.rb`に以下を追記します(4000番ポートに変更する場合)。

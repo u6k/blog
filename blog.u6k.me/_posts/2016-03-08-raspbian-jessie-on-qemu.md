@@ -4,6 +4,8 @@ title: "QEMU for windowsでRaspbian Jessieを動作させる"
 tags:
   - "Raspberry Pi"
 date: 2016-03-08 07:00:00+09:00
+redirect_from:
+  - /2016/03/raspbian-jessie-on-qemu.html
 ---
 
 [以前、QEMUでRaspbian Wheezyを動作させました](http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html)が、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。

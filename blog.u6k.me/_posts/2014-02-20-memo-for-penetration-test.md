@@ -4,6 +4,8 @@ title: "ペネトレーションテストについてまとめ"
 tags:
   - "テスト"
 date: 2014-02-20 21:55:00+09:00
+redirect_from:
+  - /2014/02/penetration-test.html
 ---
 
 # ペネトレーションテストとは

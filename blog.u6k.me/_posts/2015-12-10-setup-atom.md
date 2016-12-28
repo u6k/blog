@@ -5,6 +5,8 @@ tags:
   - "Atom"
   - "Setup"
 date: 2015-12-10 22:00:00+09:00
+redirect_from:
+  - /2015/12/atom-setup.html
 ---
 
 Atomの自分向けセットアップ手順メモです。

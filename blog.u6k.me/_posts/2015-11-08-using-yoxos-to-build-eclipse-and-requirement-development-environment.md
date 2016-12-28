@@ -6,6 +6,8 @@ tags:
   - "Eclipse"
   - "Setup"
 date: 2015-11-08 00:00:00+09:00
+redirect_from:
+  - /2015/11/provisioning-eclipse.html
 ---
 
 仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。

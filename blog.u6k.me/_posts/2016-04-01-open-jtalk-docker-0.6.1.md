@@ -5,6 +5,8 @@ tags:
   - "Open JTalk"
   - "音声合成"
 date: 2016-04-01 07:00:00+09:00
+redirect_from:
+  - /2016/04/open-jtalk-docker-0.6.1.html
 ---
 
 Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。

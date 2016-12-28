@@ -4,6 +4,8 @@ title: "Windows再セットアップメモ (2015/4/22版)"
 tags:
   - "Chocolatey"
 date: 2015-04-22 22:00:00+09:00
+redirect_from:
+  - /2015/04/windows-2015422.html
 ---
 
 [前回のセットアップ](http://u6k-apps.blogspot.jp/2015/02/windows.html)から変わった手順があるため、再投稿します。

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "自宅サーバーに独自ドメインを設定"
 tags:
   - "DNS"

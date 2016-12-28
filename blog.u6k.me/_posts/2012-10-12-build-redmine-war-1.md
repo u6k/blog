@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす"
 tags:
   - "Redmine"

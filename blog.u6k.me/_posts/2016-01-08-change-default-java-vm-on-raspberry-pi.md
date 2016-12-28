@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Raspberry PiでJavaVMを切り替える手順"
 tags:
   - "Raspberry Pi"

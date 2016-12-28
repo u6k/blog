@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "自分用のタスク管理手順メモ"
 tags:
   - "タスク管理"

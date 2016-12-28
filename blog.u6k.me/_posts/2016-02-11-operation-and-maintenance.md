@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "「運用」と「保守」の違い"
 tags:
   - "設計"

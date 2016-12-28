@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Android TTSでonUtteranceCompleted()が呼び出されるための実装方法"
 tags:
   - "Android"

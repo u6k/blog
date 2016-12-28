@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Raspberry Pi(Raspbian wheezy)をOS XのQEMUで動作させる手順"
 tags:
   - "Raspberry Pi"

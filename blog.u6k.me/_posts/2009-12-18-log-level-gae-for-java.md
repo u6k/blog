@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "GAE/jのログレベル"
 tags:
   - "Google App Engine"

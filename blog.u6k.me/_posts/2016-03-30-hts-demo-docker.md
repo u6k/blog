@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Open JTalkで使用する音響モデルを簡単に自作できるようになりたい"
 tags:
   - "Open JTalk"

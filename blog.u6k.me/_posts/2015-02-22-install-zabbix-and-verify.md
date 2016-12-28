@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Zabbixをインストールして簡単に動作確認を行う"
 tags:
   - "Zabbix"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Railsアプリのポート番号を変更"
 tags:
   - "Ruby"

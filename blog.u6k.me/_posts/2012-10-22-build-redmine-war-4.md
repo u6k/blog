@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmineをwar化 - 目指せ、ALMinium!"
 tags:
   - "Redmine"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Google Play開発者登録の手順"
 tags:
   - "Android"

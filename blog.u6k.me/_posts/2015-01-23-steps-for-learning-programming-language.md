@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "プログラミング言語の学習ステップ"
 tags:
   - "Programming"

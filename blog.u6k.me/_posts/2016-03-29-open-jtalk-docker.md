@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Open JTalkで音声合成したい"
 tags:
   - "Open JTalk"

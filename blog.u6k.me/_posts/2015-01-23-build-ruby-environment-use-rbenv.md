@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "rbenvを使用したRuby環境構築 (Raspbian)"
 tags:
   - "Raspberry Pi"

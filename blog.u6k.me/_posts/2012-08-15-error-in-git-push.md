@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "git pushで「error: RPC failed; result=55, HTTP code = 0」"
 tags:
   - "git"

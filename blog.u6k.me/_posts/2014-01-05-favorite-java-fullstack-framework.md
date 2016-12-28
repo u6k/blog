@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "個人的に気になっているJavaフルスタック(と言われている)フレームワーク"
 tags:
   - "Grails"

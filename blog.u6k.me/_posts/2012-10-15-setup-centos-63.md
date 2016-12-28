@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "CentOS 6.3セットアップのメモ"
 tags:
   - "CentOS"

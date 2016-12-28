@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: apkインストール方法の実験 - "adb install -r"
 tags:
   - "Android"

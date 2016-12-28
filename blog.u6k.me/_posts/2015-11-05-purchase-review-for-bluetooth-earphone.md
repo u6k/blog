@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "片耳Bluetoothイヤホンの購入検討メモ"
 date: 2015-11-05 00:00:00+09:00
 redirect_from:

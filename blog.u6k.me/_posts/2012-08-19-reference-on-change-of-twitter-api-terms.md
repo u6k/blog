@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Twitter API規約変更について参考リンク"
 tags:
   - "Twitter"

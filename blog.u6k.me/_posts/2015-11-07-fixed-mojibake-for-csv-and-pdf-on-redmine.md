@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "RedmineのCSVおよびPDFの文字化けを解消"
 tags:
   - "Redmine"

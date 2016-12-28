@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: Spring Boot入門
 tags:
   - "Spring Boot"

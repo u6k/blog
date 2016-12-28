@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "ブログ引っ越し検討、およびブログサービスに求める要件"
 tags:
   - "Blog"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "SSH鍵の変更作業メモ"
 tags:
   - "ssh"

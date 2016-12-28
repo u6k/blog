@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Dockerコンテナ(ubuntu)にPostgreSQLをインストールする"
 tags:
   - "Docker"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "サーバー構築で最低限考えるべき仕様"
 tags:
   - "仕様"

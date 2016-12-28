@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "新しい言語を学ぶ時のチェックリスト"
 tags:
   - "チェックリスト"

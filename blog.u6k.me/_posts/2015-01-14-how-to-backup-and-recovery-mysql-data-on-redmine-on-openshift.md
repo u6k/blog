@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmine@OpenShiftのMySQLデータをバックアップ&リカバリー"
 tags:
   - "Redmine"

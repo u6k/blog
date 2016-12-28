@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "QEMU for windowsでRaspbian Jessieを動作させる"
 tags:
   - "Raspberry Pi"

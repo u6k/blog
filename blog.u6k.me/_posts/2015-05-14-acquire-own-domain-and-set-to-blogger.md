@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "独自ドメインを取得したので、Bloggerに設定するまでのメモ"
 tags:
   - "DNS"

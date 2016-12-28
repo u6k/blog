@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "自宅Raspberry PiをZabbix Server on DigitalOceanで監視"
 tags:
   - "Zabbix"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Dropwizard入門"
 tags:
   - "Dropwizard"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Xperia Z5設定メモ"
 tags:
   - "Setup"

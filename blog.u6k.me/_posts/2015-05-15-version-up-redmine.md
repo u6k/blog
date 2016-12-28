@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmineバージョンアップの作業メモ"
 tags:
   - "Redmine"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Webを聴こう!　Voicecasterについて"
 tags:
   - "Voicecaster"

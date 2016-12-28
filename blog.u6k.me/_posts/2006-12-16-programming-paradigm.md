@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "プログラミング パラダイム"
 date: 2006-12-16 00:00:00+09:00
 redirect_from:

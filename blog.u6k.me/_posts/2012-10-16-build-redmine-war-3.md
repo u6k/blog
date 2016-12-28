@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmineをwar化 (3) Tomcat上で動作させる"
 tags:
   - "Apache Tomcat"

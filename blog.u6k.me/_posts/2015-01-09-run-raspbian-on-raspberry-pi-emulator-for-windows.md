@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順"
 tags:
   - "Linux"

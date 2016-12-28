@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Java開発環境構築手順"
 tags:
   - "Eclipse"

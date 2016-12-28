@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Web小説→epub変換手順"
 tags:
   - "epub"

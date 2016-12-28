@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Windows再セットアップメモ (2015/4/22版)"
 tags:
   - "Chocolatey"

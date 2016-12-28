@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Snappy Ubuntu Core on VirtualBoxでDockerを動かしてみる"
 tags:
   - "Docker"

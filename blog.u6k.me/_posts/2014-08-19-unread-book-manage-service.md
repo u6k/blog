@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "積ん読、積みゲーなどの管理サービス・アプリ"
 tags:
   - "企画"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmine@OpenShiftインストール手順(openshift-redmine-quickstart)"
 tags:
   - "Redmine"

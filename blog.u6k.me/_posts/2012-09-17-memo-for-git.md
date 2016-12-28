@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "git自分用メモ"
 tags:
   - "git"

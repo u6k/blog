@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？"
 tags:
   - "yoxos"

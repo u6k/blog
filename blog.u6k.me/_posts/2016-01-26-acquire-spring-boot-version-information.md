@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Spring Bootアプリケーションのバージョン情報を外部から確認したい"
 tags:
   - "Spring Boot"

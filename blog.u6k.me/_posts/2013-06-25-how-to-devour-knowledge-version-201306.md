@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "情報インプット・アウトプット経路 (2013/6版)"
 tags:
   - "情報整理"

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "GUIプログラミングを学習する時のチェックリスト"
 tags:
   - "チェックリスト"

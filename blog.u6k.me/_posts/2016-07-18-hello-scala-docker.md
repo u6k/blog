@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Scala学習のため、DockerでScala動作確認環境を構築しました"
 tags:
   - "Scala"

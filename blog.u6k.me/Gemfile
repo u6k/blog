@@ -24,3 +24,4 @@ group :jekyll_plugins do
 end
 
 gem "jekyll-redirect-from"
+gem "minimal-mistakes-jekyll"

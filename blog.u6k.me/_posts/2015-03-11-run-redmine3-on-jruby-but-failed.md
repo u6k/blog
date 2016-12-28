@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Redmine 3.0.0をJRubyで動かす→ダメだった…"
 tags:
   - "Redmine"

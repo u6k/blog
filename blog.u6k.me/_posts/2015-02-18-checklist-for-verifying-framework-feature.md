@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "フレームワーク機能調査一覧"
 tags:
   - "チェックリスト"

@@ -1,8 +1,8 @@
-box: ruby
+box: wercker/ruby
 
 build:
     steps:
         - bundle-install
         - script:
             name: site generate
-            code: jekyll build
+            code: bundle exec jekyll build

@@ -32,6 +32,7 @@ gems:
   - jekyll-sitemap
   - jekyll-gist
   - jemoji
+  - s3_website
 include:
   - _pages
 exclude:

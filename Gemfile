@@ -25,3 +25,4 @@ end
 
 gem "jekyll-redirect-from"
 gem "minimal-mistakes-jekyll"
+gem "s3_website"

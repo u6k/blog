@@ -9,6 +9,11 @@ build:
 
 deploy:
     steps:
+        - bundle-install
         - script:
             name: site upload
             code: s3_website push
+    after-steps:
+        - wantedly/pretty-slack-notify:
+            webhook_url: $SLACK_WEBHOOK_URL
+            channel: build

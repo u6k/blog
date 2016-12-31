@@ -6,3 +6,9 @@ build:
         - script:
             name: site generate
             code: bundle exec jekyll build
+
+deploy:
+    steps:
+        - script:
+            name: site upload
+            code: s3_website push

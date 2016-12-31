@@ -1,4 +1,4 @@
-box: wercker/ruby
+box: u6kapps/jekyll-docker
 
 build:
     steps:

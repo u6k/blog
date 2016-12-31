@@ -1,0 +1,8 @@
+box: ruby
+
+build:
+    steps:
+        - bundle-install
+        - script:
+            name: site generate
+            code: jekyll build

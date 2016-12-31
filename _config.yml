@@ -1,0 +1,61 @@
+locale: "ja_JP"
+title: "u6k.Blog()"
+title_separator: "-"
+name: "u6k"
+email: "u6k.apps@gmail.com"
+description: "プログラミングやWebサービスと戯れたログを残しています。"
+
+# Social Sharing
+twitter:
+  username: "u6k_yu1"
+facebook:
+  username: "yuuichi.naono"
+
+# Site Author
+author:
+  name: "u6k"
+  bio: "プログラミングやWebサービスと戯れたログを残しています。"
+  avatar: "http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638"
+  location: "Japan"
+  email: "u6k.apps@gmail.com"
+  facebook: "yuuichi.naono"
+  twitter: "u6k_yu1"
+  github: "u6k"
+
+# Build settings
+markdown: kramdown
+theme: minimal-mistakes-jekyll
+gems:
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jemoji
+  - s3_website
+include:
+  - _pages
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+highlighter: rouge
+
+paginate: 10
+paginate_path: /page:num/
+timezone: Asia/Tokyo
+
+tag_archive:
+  type: liquid
+  path: /tags/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: false
+      share: true
+      related: true

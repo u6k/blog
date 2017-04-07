@@ -11,7 +11,7 @@ compile:
 
 test:
     override:
-        - echo test
+        - /bin/true
 
 deployment:
     release:

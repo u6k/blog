@@ -5,7 +5,7 @@ machine:
 
 compile:
     override:
-        - docker build -t u6kapps/blog-dev -f Dockerfile-env .
+        - docker build -t u6kapps/blog-dev -f Dockerfile-dev .
         - docker run --rm -v $(pwd):/var/my-blog blog-dev
         - docker build -t u6kapps/blog .
 

@@ -1,0 +1,22 @@
+FROM ruby
+MAINTAINER u6k.apps@gmail.com
+
+RUN apt-get update && \
+    apt-get install -y locales && \
+    apt-get clean && \
+    echo "en_US UTF-8" > /etc/locale.gen && \
+    locale-gen en_US.UTF-8
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+RUN gem install jekyll bundler
+
+COPY entrypoint.sh /opt/
+RUN chmod +x /opt/entrypoint.sh
+
+VOLUME /var/my-blog
+WORKDIR /var/my-blog
+
+CMD ["/opt/entrypoint.sh"]

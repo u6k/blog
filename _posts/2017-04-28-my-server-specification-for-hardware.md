@@ -20,34 +20,8 @@ date: 2017-04-28
 
 紆余曲折あり、現在は以下のような構成になっています。
 
-{{plantuml(svg)
-interface "VNC"
-interface "SSH"
-interface "HTTP(S)"
-
-node "MacBookPro" {
-    [macOS]
-    component "VirtualBox" {
-        [CoreOS]
-    }
-}
-
-node "HDD1,2,3" {
-    [LVM ext4 (6TB)]
-}
-
-[ムームードメイン] <<外部サービス>>
-[MyDNS] <<外部サービス>>
-[AmazonCloudDrive] <<外部サービス>>
-
-[macOS] -up- [VNC]
-[CoreOS] --> [LVM ext4 (6TB)]
-[CoreOS] -up- [SSH]
-[CoreOS] -up- [HTTP(S)]
-[ムームードメイン] -- [MyDNS]
-[MyDNS] -- [macOS]
-[LVM ext4 (6TB)] -- [AmazonCloudDrive] : バックアップ
-}}
+![component](http://www.plantuml.com/plantuml/png/oymhIIrAIqnELL0AytDMuif4y8E3FL3u7Y4X0Hh1cafSN7dvAK2-RsAoKtv-Ta1Hlf92DPS244Jd9YRx1yU2sSdvkGNvUQbv9K23CujAIXDpdF8hO0h1YftpYr9XgckvQc76UhYu6EeOwHZ33VK9yrL8hIWnKT0m2t7IZ0MfZ7xSlE1nynuOsVcuUU7ZfYMFcpV7AjZOF5qoxMNpYiTDMy5oanytxRIpuuhshNJn2yOjxPYRM9MVvvoJNvhYKfHPbefJ9HVKamgwfGMw2j70G8lbWdb5GLVN3jEz25cm3c2mOeX1WpOMdyTqWUeWde1x1YG43N9qMy5oc9woKdZSFE5nS_FZflMFcnQ16CtJ0G00)
+<!-- http://www.plantuml.com/plantuml/uml/oymhIIrAIqnELL0AytDMuif4y8E3FL3u7Y4X0Hh1cafSN7dvAK2-RsAoKtv-Ta1Hlf92DPS244Jd9YRx1yU2sSdvkGNvUQbv9K23CujAIXDpdF8hO0h1YftpYr9XgckvQc76UhYu6EeOwHZ33VK9yrL8hIWnKT0m2t7IZ0MfZ7xSlE1nynuOsVcuUU7ZfYMFcpV7AjZOF5qoxMNpYiTDMy5oanytxRIpuuhshNJn2yOjxPYRM9MVvvoJNvhYKfHPbefJ9HVKamgwfGMw2j70G8lbWdb5GLVN3jEz25cm3c2mOeX1WpOMdyTqWUeWde1x1YG43N9qMy5oc9woKdZSFE5nS_FZflMFcnQ16CtJ0G00 -->
 
 # 構成の説明
 

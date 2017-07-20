@@ -18,5 +18,5 @@ deployment:
         branch: master
         commands:
             - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-            - docker tag u6kapps/blog u6kapps/blog:latest
+#- docker tag u6kapps/blog u6kapps/blog:latest
             - docker push u6kapps/blog

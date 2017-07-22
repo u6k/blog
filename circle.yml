@@ -21,4 +21,4 @@ deployment:
 # - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 #- docker tag u6kapps/blog u6kapps/blog:latest
 # - docker push u6kapps/blog
-            - curl -X POST http://jenkins.u6k.me/job/restart-blog/build
+            - curl -X POST https://jenkins.u6k.me/job/restart-blog/build

@@ -16,7 +16,7 @@ date: 2017-08-01
 - [Rubber duck debugging - Wikipedia](https://en.wikipedia.org/wiki/Rubber_duck_debugging)
 - [Teddy Bear Pair Programming by Adrian Bolboaca](http://blog.adrianbolboaca.ro/2012/12/teddy-bear-pair-programming/)
 - [ポーギーに話す](http://www.aoky.net/articles/john_graham_cumming/talking_to_porgy.htm)
-- [「ラバーダッキング」と人に教えることの意義 | ベイジの日報](https://baigie.me/nippo/2017/04/25/rubberducking/)
+- [「ラバーダッキング」と人に教えることの意義 - ベイジの日報](https://baigie.me/nippo/2017/04/25/rubberducking/)
 - [ベアプログラミング（テディベア効果） - 発声練習](http://next49.hatenadiary.jp/entry/20111025/p2)
 - [ベアプログラミングが無理ならサイレントベアプログラミングを検討しよう - Qiita](http://qiita.com/sta/items/6661cfcb57cfefa9a36a)
 

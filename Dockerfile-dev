@@ -1,6 +1,7 @@
 FROM ruby
 MAINTAINER u6k.apps@gmail.com
 
+# Setup locale
 RUN apt-get update && \
     apt-get install -y locales && \
     apt-get clean && \
@@ -11,8 +12,19 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
+# Setup PlantUML
+RUN apt-get install -y openjdk-7-jre graphviz && \
+    apt-get clean
+
+RUN wget -O /usr/lib/plantuml.jar http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+
+COPY plantuml /usr/bin/plantuml
+RUN chmod +x /usr/bin/plantuml
+
+# Setup jekyll
 RUN gem install jekyll bundler
 
+# Setup run
 COPY entrypoint.sh /opt/
 RUN chmod +x /opt/entrypoint.sh
 

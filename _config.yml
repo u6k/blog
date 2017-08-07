@@ -25,7 +25,7 @@ author:
 # Build settings
 markdown: kramdown
 theme: minimal-mistakes-jekyll
-gems:
+plugins:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-paginate
@@ -33,12 +33,14 @@ gems:
   - jekyll-gist
   - jemoji
   - s3_website
+  - jekyll-plantuml
 include:
   - _pages
 exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - uml
 
 highlighter: rouge
 

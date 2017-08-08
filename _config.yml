@@ -40,7 +40,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
-  - uml
 
 highlighter: rouge
 

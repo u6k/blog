@@ -43,23 +43,23 @@ redirect_from:
 
 [www.centos.org](https://www.centos.org/)からCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。
 
-![](http://2.bp.blogspot.com/-5SfTRtiTZTo/UHvj1uS-jBI/AAAAAAAAAJA/atvEG5rU05s/s1600/001_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/001.png)
 
 ページ上部メニュの`Downloads`をクリックします。
 
-![](http://4.bp.blogspot.com/-tghdiBAHIi4/UHvj1nDbPWI/AAAAAAAAAJI/UZmkLKuFLI4/s1600/002_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/002.png)
 
 ミラーサイトを選択するため、`Mirror List`をクリックします。
 
-![](http://4.bp.blogspot.com/-0Crol0fRM9c/UHvj1i1YfBI/AAAAAAAAAJE/EEY7hvqppLc/s1600/003_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/003.png)
 
 ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、`South American, Asian, Oceania, Middle Eastern, African and Other Regional`をクリックします。
 
-![](http://4.bp.blogspot.com/-TNd0peOoFR0/UHvj2U9lVlI/AAAAAAAAAJM/1iyL-UCmxgU/s1600/004_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/004.png)
 
 一覧にJapanのサイトが表示されるので、いずれかのサイトの`HTTP`または`FTP`をクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。
 
-![](http://3.bp.blogspot.com/-kAd-Ho4B0os/UHvj27YDsuI/AAAAAAAAAJY/e0DUSd_b_gU/s1600/006_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/005.png)
 
 CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する`6.3`をクリックします。
 
@@ -70,7 +70,7 @@ CentOSのバージョンごとのフォルダが一覧表示されるので、�
 
 `i386`または`x86_64`は、インストール先の環境に合わせて選択します。
 
-![](http://4.bp.blogspot.com/-LIu6Gb75vo8/UHvnEDw8M_I/AAAAAAAAAKw/ZX3jjXkFERE/s1600/007_1.png)
+![](/assets/img/2012-10-15-setup-centos-63/006.png)
 
 CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、`CentOS-6.3-i386-minimal.iso`をダウンロードします。
 
@@ -80,11 +80,11 @@ CentOSのインストール・メディアの一覧が表示されます。こ�
 
 CentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。
 
-![](http://2.bp.blogspot.com/-x5clG6Abyi4/UHvWBe9ErnI/AAAAAAAAADU/mepFX3-joFU/s1600/001.png)
+![](/assets/img/2012-10-15-setup-centos-63/007.png)
 
 VirtualBoxを開くと、このような画面が表示されます。ツールバーの`新規`をクリックします。
 
-![](http://3.bp.blogspot.com/-lnTfxh2boho/UHvWBYA7vmI/AAAAAAAAADQ/KrKgc_jiluc/s1600/002.png)
+![](/assets/img/2012-10-15-setup-centos-63/008.png)
 
 以下のように入力して、`次へ`をクリックします。
 
@@ -92,37 +92,37 @@ VirtualBoxを開くと、このような画面が表示されます。ツール�
 * タイプ: Linux
 * バージョン: Red Hat
 
-![](http://1.bp.blogspot.com/-8BFnbhwpozI/UHvWBmj7WYI/AAAAAAAAADg/LNERDe49y2A/s1600/003.png)
+![](/assets/img/2012-10-15-setup-centos-63/009.png)
 
 お使いの環境に合わせて変更します。
 
-![](http://2.bp.blogspot.com/-mCdmxXSV3ME/UHvWB3anVyI/AAAAAAAAADc/aVD4KG57qdI/s1600/004.png)
+![](/assets/img/2012-10-15-setup-centos-63/010.png)
 
 新規に作成するので、`仮想ハードドライブを作成する`を選択します。
 
-![](http://2.bp.blogspot.com/-x3MnFcTdjdI/UHvWC2bCs2I/AAAAAAAAADs/UjXd1xM3ipY/s1600/007.png)
+![](/assets/img/2012-10-15-setup-centos-63/011.png)
 
 不足したら新規にHDDを追加することにして、初期値の`8GB`のままにします。
 
-![](http://2.bp.blogspot.com/-ZlukFC0CQLQ/UHvWC6uJJfI/AAAAAAAAAD0/MpLmaAZJehg/s1600/006.png)
+![](/assets/img/2012-10-15-setup-centos-63/012.png)
 
 初期値の`可変サイズ`のままにします。
 
-![](http://4.bp.blogspot.com/-JLbF63aW8ZI/UHvWCZIkj8I/AAAAAAAAADk/fILCV0dCkaE/s1600/005.png)
+![](/assets/img/2012-10-15-setup-centos-63/013.png)
 
 初期値の`VDI (VirtualBox Disk Image)`のままにします。
 
-![](http://4.bp.blogspot.com/-lQFLf05rCE8/UHvWDCUFsWI/AAAAAAAAADw/7YyxaZWeN7U/s1600/008.png)
+![](/assets/img/2012-10-15-setup-centos-63/014.png)
 
 以上で仮想マシンが作成されました。
 
 次に、ツールバーの`設定`をクリックして設定画面を開きます。
 
-![](http://2.bp.blogspot.com/--KJeGlbKfzs/UHvWDzw__II/AAAAAAAAAD8/FS8-K0yt7yE/s1600/009.png)
+![](/assets/img/2012-10-15-setup-centos-63/015.png)
 
 左ペインから`ストレージ`を選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。
 
-![](http://1.bp.blogspot.com/-FNGbgHedP48/UHvWEYUKZxI/AAAAAAAAAEI/fNo1cxIK9CY/s1600/010.png)
+![](/assets/img/2012-10-15-setup-centos-63/016.png)
 
 左ペインから`ネットワーク`を選択して、割り当てを`ブリッジアダプタ―`に変更します。
 
@@ -140,51 +140,51 @@ VirtualBoxを開くと、このような画面が表示されます。ツール�
 > * 矢印キー: 項目を選択。
 > * Enterキー: 決定。
 
-![](http://3.bp.blogspot.com/-UNRsZ6iTjIU/UHvWEQZVpdI/AAAAAAAAAEM/dgSsJlmNfKA/s1600/011.png)
+![](/assets/img/2012-10-15-setup-centos-63/017.png)
 
 放っておけば約1分後にインストールが開始されますが、`Install or upgrade an existing system`を選択してEnterを押します。
 
-![](http://1.bp.blogspot.com/-BFXfE7g-joc/UHvWFZ9srPI/AAAAAAAAAEU/3-mkcZlpPkU/s1600/012.png)
+![](/assets/img/2012-10-15-setup-centos-63/018.png)
 
 インストール・メディアの検証を行うか聞かれますが、心配でなければ`Skip`を選択してEnterを押します。
 
-![](http://3.bp.blogspot.com/-LSqkp88uRIk/UHvWFejPVsI/AAAAAAAAAEc/xhso0gMtTFY/s1600/013.png)
+![](/assets/img/2012-10-15-setup-centos-63/019.png)
 
 Enterを押します。
 
-![](http://1.bp.blogspot.com/-ms1-Mq4bkSI/UHvWFvM0BKI/AAAAAAAAAEY/b6UYcXcdBRg/s1600/014.png)
+![](/assets/img/2012-10-15-setup-centos-63/020.png)
 
 インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、`English`を選択して、`OK`でEnterを押します。
 
-![](http://3.bp.blogspot.com/-JppQKxPBEZo/UHvWGVRgxCI/AAAAAAAAAEg/Tx2o4AOg3Ik/s1600/015.png)
+![](/assets/img/2012-10-15-setup-centos-63/021.png)
 
 キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通は`jp106`を選択して、`OK`でEnterを押します。
 
-![](http://1.bp.blogspot.com/-V2LACH1xrKo/UHvWGoBZQ9I/AAAAAAAAAEk/cqOb_GAh4CA/s1600/016.png)
+![](/assets/img/2012-10-15-setup-centos-63/022.png)
 
 Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。`Re-initialize all`を選択してEnterを押します。
 
-![](http://4.bp.blogspot.com/-igs2dsWFDws/UHvWHQz-qAI/AAAAAAAAAEw/8gSQZJuM3sY/s1600/017.png)
+![](/assets/img/2012-10-15-setup-centos-63/023.png)
 
 タイムゾーンを選択します。日本であれば`Asia/Tokyo`を選択して、`OK`でEnterを押します。
 
-![](http://1.bp.blogspot.com/--BMEJxdydlU/UHvWHcw-1fI/AAAAAAAAAEs/HyU9KRE8G9s/s1600/018.png)
+![](/assets/img/2012-10-15-setup-centos-63/024.png)
 
 rootのパスワードを設定します。パスワードを入力して、"OK"でEnterを押します。
 
-![](http://1.bp.blogspot.com/-s1OqGBUYtYU/UHvWHjuz_tI/AAAAAAAAAE0/moFW8MIwKLs/s1600/019.png)
+![](/assets/img/2012-10-15-setup-centos-63/025.png)
 
 仮想HDDのパーティションの種類を選択します。このまま`OK`でEnterを押します。
 
-![](http://1.bp.blogspot.com/-4Ffdvko6O78/UHvWIIyVhbI/AAAAAAAAAE4/CyZr7wuHH6A/s1600/020.png)
+![](/assets/img/2012-10-15-setup-centos-63/026.png)
 
 仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、`Write changes to disk`を選択してEnterを押します。
 
-![](http://2.bp.blogspot.com/-PzI3BYStPro/UHvWIdsEXyI/AAAAAAAAAE8/QXT18BBIxpQ/s1600/021.png)
+![](/assets/img/2012-10-15-setup-centos-63/027.png)
 
 パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。
 
-![](http://2.bp.blogspot.com/-YCP4HJaFqyE/UHvWI9qUTQI/AAAAAAAAAFY/6kWNbYXLnCE/s1600/022.png)
+![](/assets/img/2012-10-15-setup-centos-63/028.png)
 
 しばらくすると、インストールが完了します。`Reboot`でEnterを押すと、仮想マシンの再起動が開始されます。
 
@@ -192,25 +192,25 @@ rootのパスワードを設定します。パスワードを入力して、"OK"
 
 > **note** パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。
 
-![](http://3.bp.blogspot.com/-nwb02T8eqrc/UHvWJbf7tRI/AAAAAAAAAFM/qD8VR4IY5Ik/s1600/023.png)
+![](/assets/img/2012-10-15-setup-centos-63/029.png)
 
 ## ネットワーク設定
 
 ネットワーク設定を確認します。ifconfigを実行してみます。
 
-![](http://1.bp.blogspot.com/-thFqgL2KJmA/UHvWL7A8WmI/AAAAAAAAAG0/_IcHL4tV7s8/s1600/100.png)
+![](/assets/img/2012-10-15-setup-centos-63/030.png)
 
 `eth`が表示されず`lo`しか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。
 
 今度は`-a`付きでifconfigを実行してみます。
 
-![](http://1.bp.blogspot.com/-6gE9flIX5Kg/UHvWM7J1YHI/AAAAAAAAAG4/7XWAPFuWZKU/s1600/101.png)
+![](/assets/img/2012-10-15-setup-centos-63/031.png)
 
 `eth0`が存在することが分かります。念のため、`HWaddr`を控えておきます。
 
 ネットワーク設定ファイルは、`/etc/sysconfig/network-scripts/`にありますので、移動します。
 
-![](http://2.bp.blogspot.com/-qossLTX1V6Q/UHvWOlnUTzI/AAAAAAAAAG8/PLPreTJv6K4/s1600/102.png)
+![](/assets/img/2012-10-15-setup-centos-63/032.png)
 
 `eth0`の設定は`ifcfg-eth0`に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。
 
@@ -223,11 +223,11 @@ rootのパスワードを設定します。パスワードを入力して、"OK"
 
 設定したら、`service network restart`でネットワークを再起動します。
 
-![](http://1.bp.blogspot.com/-PcdZGk5aouU/UHvWPtyNu5I/AAAAAAAAAHA/g-fufp3qHLU/s1600/103.png)
+![](/assets/img/2012-10-15-setup-centos-63/033.png)
 
 正常に再起動できたら、ifconfigでネットワークを確認します。
 
-![](http://1.bp.blogspot.com/-PbmlKOtuGIc/UHvWQz-ktAI/AAAAAAAAAHE/3p2IAGsuQOo/s1600/104.png)
+![](/assets/img/2012-10-15-setup-centos-63/034.png)
 
 `eth0`が表示され、`inet addr`が割り当てられていることが分かります。
 

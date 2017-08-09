@@ -110,7 +110,7 @@ D:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV
 
 Webブラウザで[](http://localhost:3000/)にアクセスします。
 
-![](http://4.bp.blogspot.com/-yGfZdHVBwck/UHaPq6BRn8I/AAAAAAAAADI/vfrYd3w1Mak/s1600/001.png)
+![](/assets/img/2012-10-12-build-redmine-war-1/001.png)
 
 ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!
 

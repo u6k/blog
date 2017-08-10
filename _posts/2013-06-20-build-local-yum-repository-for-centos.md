@@ -19,15 +19,15 @@ redirect_from:
 
 例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。
 
-![](https://docs.google.com/drawings/d/163mcOYnZcn_K9IyfQl6YMFa9tziMdCOK5FBIBUv2Ouo/pub?w=870&h=396)
+![](/assets/img/2013-06-20-build-local-yum-repository-for-centos/001.png)
 
 これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。
 
-![](https://docs.google.com/drawings/d/1NAHlbfF217Mjjm9eH6Rws8cfv1WH914PtEhm9a7bFwU/pub?w=876&h=398)
+![](/assets/img/2013-06-20-build-local-yum-repository-for-centos/002.png)
 
 また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。
 
-![](https://docs.google.com/drawings/d/13cQUInC7796Un5gWJSqSTnCVRaBORQP2ryyV1mW8LZ0/pub?w=757&h=393)
+![](/assets/img/2013-06-20-build-local-yum-repository-for-centos/003.png)
 
 この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。
 

@@ -33,11 +33,11 @@ redirect_from:
 
 Tomcatをダウンロードするため、[Apache Tomcat](http://tomcat.apache.org/)にアクセスします。
 
-![](http://1.bp.blogspot.com/-dCL5slpfL0A/UH0O3Nszl7I/AAAAAAAAALQ/-H2I0EQ7r1g/s1600/001.png)
+![](/assets/img/2012-10-16-build-redmine-war-3/001.png)
 
 左メニューにTomcatのバージョンがいくつか並んでいますが、現時点の最新を使用するため、Downloadの`Tomcat 7.0`をクリックします。
 
-![](http://4.bp.blogspot.com/-IJoePrNSlvk/UH0O3HwvfGI/AAAAAAAAALU/kmNyzd2kybU/s1600/002.png)
+![](/assets/img/2012-10-16-build-redmine-war-3/002.png)
 
 いくつかリンクがありますが、[Binary Distributions]→[Core]→[zip]をクリックして、Tomcatのzipファイルをダウンロードします。このzipファイルを適当な場所で展開すれば、Tomcatのセットアップは終わりです。以降、展開先を`%CATALINA_HOME%`と表記します。
 
@@ -58,7 +58,7 @@ Tomcatをダウンロードするため、[Apache Tomcat](http://tomcat.apache.o
 
 Webブラウザで[](http://localhost:8080/redmine/)にアクセスします。
 
-![](http://1.bp.blogspot.com/-DMlkgktvSRM/UHghmyqiS1I/AAAAAAAAABk/vFkJRqYqqrc/s1600/002.PNG)
+![](/assets/img/2012-10-16-build-redmine-war-3/003.png)
 
 Redmineのトップページが表示されたら成功です! Yeah!
 

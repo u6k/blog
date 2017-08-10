@@ -12,7 +12,7 @@ redirect_from:
 
 # 経路図
 
-![](https://docs.google.com/drawings/d/1cFH8gk8Lj_u4oKZ1Pfd1AflV0x6Urryd2ha7x9fXg3w/pub?w=987&amp;h=1003)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/001.png)
 
 <!-- more -->
 
@@ -35,7 +35,7 @@ redirect_from:
 
 # RSS→Pocket
 
-![](https://docs.google.com/drawings/d/1QU6CG5y5CYm1-dIBEy8WnB2UH9CytO0h7mIVxqz3B2Q/pub?w=201&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/002.png)
 
 以前はGoogle Readerを使っていましたが、ご存知の通り2013/7/1に廃止されてしまいます。その後、いくつかのサービスを試して、最終的にlivedoor Readerに落ち着きました。なお、基本的にiPhoneのLaddrを使ってチェックしています。LaddrのUIはかなり気に入っています。
 
@@ -57,13 +57,13 @@ livedoor Readerに落ち着く前に試したサービスは、主に以下の2�
 
 # Twitter→Pocket
 
-![](https://docs.google.com/drawings/d/1K_T1aftz5J7XNFXlWi2UU-QUJxtHHICnpTY1wrD8bLQ/pub?w=201&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/003.png)
 
 やり方は変わってなく、iPhone版Echofonでチェックしています。1日に約200ツイートほど目を通し、興味センサーに引っかかったURLをPocketに流し込みます。RSSと同じく、Twitterもたまにフォローを整理します。
 
 # Gmail→Pocket
 
-![](https://docs.google.com/drawings/d/1AMWd81t3bBpJKxsEvzUbkwoqKGKOavfEIYOQz34RSak/pub?w=201&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/004.png)
 
 やり方は変わってなく、いくつかのメーリングリストを購読しているので、その中の興味センサーに引っかかったURLをPocketに流し込みます。メーリングリストで興味深い議論がある場合は、スターを付けて議論が終わるまで待って、それからEvernoteに保存します。
 
@@ -71,25 +71,25 @@ livedoor Readerに落ち着く前に試したサービスは、主に以下の2�
 
 # Gunosy→Pocket
 
-![](https://docs.google.com/drawings/d/1cCJ3580_UbaHDlKeriRwb0kbBMaPSrL22RG8a_YRMLg/pub?w=204&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/005.png)
 
 数日前からアプリを使っています。今のところ、順調です。流れてくる情報の精度にもそれほど不満はありません。Gunosyは、朝だけチェックしています。
 
 # オトラテ→Pocket
 
-![](https://docs.google.com/drawings/d/1BTTXxjL5YPNeYnkOTSu0rzotePd0z0UkLzeaEyalbSw/pub?w=204&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/007.png)
 
 こういうアプリを待っていた！　ていうか自分でも細々と作っていたら出てきたのでビックリ。はじめは合成音声に違和感がありましたが、数日で慣れました。通勤の歩行中などに聞いています。こちらは、気になった記事があったら、一度道の端に立ち止り、それからPocketに流し込んでいます。正直、この手順はもう少し何とかしたいです。
 
 # SmartNews→Pocket
 
-![](https://docs.google.com/drawings/d/16b5Jb-4Ce7dEOfTa7OupqN5mojHhFePtKHw7Sv7r-W8/pub?w=200&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/008.png)
 
 Gunosyと同じキュレーションサービスであるSmartNewsを使っています。流れてくる内容は他サービスと重複する部分が多いですが、UIが気に入っています。
 
 # Webページなど→Pocket
 
-![](https://docs.google.com/drawings/d/1gtxAkcwcx1ilO5jGMoDKVT-dZ0dbVs-6zy3s5zRgElU/pub?w=199&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/009.png)
 
 検索して大量に見つかったページ、読むのに時間がかかりそうなスライド、資料PDFなど、一瞬でも「今読み切れない」と思ったページは、とりあえずPocketに突っ込んでしまいます。
 
@@ -97,13 +97,13 @@ Gunosyと同じキュレーションサービスであるSmartNewsを使って�
 
 # Pocket→Evernote
 
-![](https://docs.google.com/drawings/d/1SWMExdEdoLMJU-cU34uHM1X6N_PsBKaZKuwzORg6piU/pub?w=199&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/010.png)
 
 とは言っても、読んだ後も「集約する」ことを念頭に置いているため、ほとんどの情報はEvernoteに保存します。Evernoteでは厳しい、Excelチェックリスト、スライド資料、簡単なスクリプト、などは、DropboxやGoogle Driveに保存します。
 
 # Pocket→Twitter
 
-![](https://docs.google.com/drawings/d/1uQP6gFj9PMK-iw1sYVvkkWEUTwt3sNYKAxz0WoVLlYE/pub?w=208&amp;h=100)
+![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/011.png)
 
 他に、読んだページをシェアするために、Evernoteに保存すると同時にTwitterにもツイートします。積極的に繋がりたいわけではないので、仲間内に共有するためです。
 

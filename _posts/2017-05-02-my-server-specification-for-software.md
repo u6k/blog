@@ -19,8 +19,38 @@ date: 2017-05-02
 
 # 構成図
 
-![component](http://www.plantuml.com/plantuml/png/ZPBD3e8m3CVlFiLUeBkOUF3WYn0FOonaCbeo88XFRn5O1WxZgN_Q7_rSXgN59pIUdkFzb3dJjGQr7viEeWXegXk5bf0PRuhQec6LEohPq83QKL-mV1YiBBPJZAYgbQzOelBKW_PgSCRllw78sSK9BR7LnXE2GkN65rTWDcfF08Y_Ejpy9AK8BOkhMAJiBvMiJOBz3CNWP8-fC3EJgpwcrxKmlCXZTbu5a-tvHvFhTgT65nteK2qUVUUEphFn9suJuW0tyNNCRNIzuzQxk-ekHoBlN3Y5fHzA77i3)
-<!-- http://www.plantuml.com/plantuml/uml/ZPBD3e8m3CVlFiLUeBkOUF3WYn0FOonaCbeo88XFRn5O1WxZgN_Q7_rSXgN59pIUdkFzb3dJjGQr7viEeWXegXk5bf0PRuhQec6LEohPq83QKL-mV1YiBBPJZAYgbQzOelBKW_PgSCRllw78sSK9BR7LnXE2GkN65rTWDcfF08Y_Ejpy9AK8BOkhMAJiBvMiJOBz3CNWP8-fC3EJgpwcrxKmlCXZTbu5a-tvHvFhTgT65nteK2qUVUUEphFn9suJuW0tyNNCRNIzuzQxk-ekHoBlN3Y5fHzA77i3 -->
+{% plantuml %}
+
+[nginx-proxy]
+[letsencrypt-nginx-proxy-companion]
+[redmine]
+[blog]
+[owncloud]
+[jenkins]
+[bookmark]
+[narou-crawler]
+[narou-crawler-db]
+[minio]
+[ceron-analyze]
+
+[nginx-proxy] -- [letsencrypt-nginx-proxy-companion]
+[nginx-proxy] .. [redmine] : redmine.u6k.me
+[nginx-proxy] .. [blog] : blog.u6k.me
+[nginx-proxy] .. [owncloud] : owncloud.u6k.me
+[nginx-proxy] .. [jenkins] : jenkins.u6k.me
+[nginx-proxy] .. [minio] : s3.u6k.me
+[nginx-proxy] .. [bookmark] : bookmark.u6k.me
+[jenkins] .. [redmine]
+[jenkins] .. [bookmark]
+[jenkins] .. [narou-crawler-db]
+[jenkins] --> [narou-crawler]
+[jenkins] --> [minio]
+[jenkins] --> [ceron-analyze]
+[narou-crawler] --> [narou-crawler-db]
+[narou-crawler] --> [minio]
+[ceron-analyze] --> [minio]
+
+{% endplantuml %}
 
 # 構成の説明
 

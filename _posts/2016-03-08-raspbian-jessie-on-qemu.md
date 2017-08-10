@@ -144,7 +144,7 @@ qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176
 
 作成した`run.bat`を実行します。問題が無ければ、以下のようにRaspbianが起動します。
 
-![raspbian-startup](https://github.com/u6k/raspbian-on-qemu/raw/master/doc/img/raspbian-startup.png)
+![raspbian-startup](/assets/img/2016-03-08-raspbian-jessie-on-qemu/001.png)
 
 初期ユーザーは`pi`、パスワードは`raspberry`です。
 
@@ -154,7 +154,7 @@ qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176
 
 以上の作業をRaspbian Liteで行うと、以下のように起動します。
 
-![raspbian-lite-startup](https://github.com/u6k/raspbian-on-qemu/raw/master/doc/img/raspbian-lite-startup.png)
+![raspbian-lite-startup](/assets/img/2016-03-08-raspbian-jessie-on-qemu/002.png)
 
 # おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ
 

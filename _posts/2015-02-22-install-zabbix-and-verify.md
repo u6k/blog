@@ -261,15 +261,15 @@ $ sudo chown -R apache:apache /var/www/html/zabbix/
 
 Webブラウザから[http://localhost:10080/zabbix/](http://localhost:18080/zabbix/)にアクセスします。
 
-![Zabbix Web Interface Installation 1](https://lh3.googleusercontent.com/FUG8EYqhvJdMQXlYJ7m9Vr7zULErktJXWOAxo5uLKpI=s0 "Installation.png")
+![Zabbix Web Interface Installation 1](/assets/img/2015-02-22-install-zabbix-and-verify/001.png)
 
 「Next」をクリックします。
 
-![Zabbix Web Interface Installation 2](https://lh3.googleusercontent.com/uk69JD6kb9Iw1N4gyZNtL2CnQC_j28rCDq8vchZwLeU=s0 "Installation 2.png")
+![Zabbix Web Interface Installation 2](/assets/img/2015-02-22-install-zabbix-and-verify/002.png)
 
 必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。
 
-![Zabbix Web Interface Installation 3](https://lh3.googleusercontent.com/i--5Pk31z_KZJH1MXtBdtKlBo0g9zV_OVMOzyaj4Ym0=s0 "Installation 3.png")
+![Zabbix Web Interface Installation 3](/assets/img/2015-02-22-install-zabbix-and-verify/003.png)
 
 ここでは、以下の項目が「Fail」になりました。
 
@@ -318,57 +318,57 @@ $ sudo service httpd graceful
 
 Webブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。
 
-![Zabbix Web Interface Installation 4](https://lh3.googleusercontent.com/oa5rGRBfHGEwDBdY0jPqCeBEbrQZhWxKxTL43pvxwDU=s0 "Installation 4.png")
+![Zabbix Web Interface Installation 4](/assets/img/2015-02-22-install-zabbix-and-verify/004.png)
 
 「Next」をクリックします。
 
-![Zabbix Web Interface Installation 5](https://lh3.googleusercontent.com/SjfxdLj5ymNtWTrM9Fm9PJXNg2PaXDsshC0RyGsk_ko=s0 "Installation 5.png")
+![Zabbix Web Interface Installation 5](/assets/img/2015-02-22-install-zabbix-and-verify/005.png)
 
 DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。
 
-![Zabbix Web Interface Installation 6](https://lh3.googleusercontent.com/wPmE4rtkAnBN0kM4m6Asv52v8hTN0sz9iJJHyqltBcs=s0 "Installation 6.png")
+![Zabbix Web Interface Installation 6](/assets/img/2015-02-22-install-zabbix-and-verify/006.png)
 
 「Next」をクリックします。
 
-![Zabbix Web Interface Installation 7](https://lh3.googleusercontent.com/YLCN3ERum1ZW-vjyOgBjk9BvsHD4Z7dss4H6uIXMNlk=s0 "Installation 7.png")
+![Zabbix Web Interface Installation 7](/assets/img/2015-02-22-install-zabbix-and-verify/007.png)
 
 Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。
 
-![Zabbix Web Interface Installation 8](https://lh3.googleusercontent.com/UnkXEyLAZ7SDAEHDl_c78JZe0a68LPPe4_d5y4CyEC4=s0 "Installation 8.png")
+![Zabbix Web Interface Installation 8](/assets/img/2015-02-22-install-zabbix-and-verify/008.png)
 
 「Next」をクリックします。
 
-![Zabbix Web Interface Installation 9](https://lh3.googleusercontent.com/QU1ZCOrJDyHolfSH-EP92HellIxXGon3tV2fEsSf75U=s0 "Installation 9.png")
+![Zabbix Web Interface Installation 9](/assets/img/2015-02-22-install-zabbix-and-verify/009.png)
 
 設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。
 
 # Zabbixにログインし、Zabbix Server自体の監視を開始
 
-![Login](https://lh3.googleusercontent.com/QotQsKt2IocZaF41NDO83ANUo7RMDD81DOMuzZoLwDQ=s0 "Zabbix.png")
+![Login](/assets/img/2015-02-22-install-zabbix-and-verify/010.png)
 
 インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。
 
-![Dashboard](https://lh3.googleusercontent.com/nVMk9fbQrQTS8w5X-mNHgHiA5zUBHg_Z4HCdmtgUWHQ=s0 "Dashboard.png")
+![Dashboard](/assets/img/2015-02-22-install-zabbix-and-verify/011.png)
 
 ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。
 
 Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。
 
-![Hosts](https://lh3.googleusercontent.com/9aDlRIT_0Isbf3SVJvPMSJBW-DwM9HdU41zpQVNI5r4=s0 "Configuration_of_hosts.png")
+![Hosts](/assets/img/2015-02-22-install-zabbix-and-verify/012.png)
 
 リストに「Zabbix server」が表示されますので、クリックします。
 
-![Hosts](https://lh3.googleusercontent.com/OblId2ojU61NaRfWh9CfrKUH52pvTCGYMGg15eV0IKY=s0 "Configuration_of_hosts 2.png")
+![Hosts](/assets/img/2015-02-22-install-zabbix-and-verify/013.png)
 
 「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。
 
-![Hosts](https://lh3.googleusercontent.com/mBr0_KAexPrcIVPF3Uqe-dTsF6NuN4c7_9nupAqMkEo=s0 "Configuration_of_hosts 3.png")
+![Hosts](/assets/img/2015-02-22-install-zabbix-and-verify/014.png)
 
 リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。
 
 メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。
 
-![Graph](https://lh3.googleusercontent.com/oCPI4YGjpOS4zsiqEJPte_xCPXyP8hG6mUNIkNR49Qw=s0 "Custom_graphs__refreshed_every_30_sec__.png")
+![Graph](/assets/img/2015-02-22-install-zabbix-and-verify/015.png)
 
 # おわりに
 

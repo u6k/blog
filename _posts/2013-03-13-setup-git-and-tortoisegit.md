@@ -29,39 +29,39 @@ WindowsにGitをインストールする方法は、Cygwin版GitとmsysGitの2�
 
 まず、Gitをインストールします。ダウンロードした`Git-xxx.exe`を実行します。
 
-![](http://3.bp.blogspot.com/-b7_HZcca5RM/UUB2PJ_Az2I/AAAAAAAAAPc/cnOh-pKsZ8c/s1600/WS000000.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/001.jpg)
 
 [Next]をクリックします。
 
-![](http://3.bp.blogspot.com/-pY_b8p18nJU/UUB2PMT2IYI/AAAAAAAAAPo/Q2rhS8j8WT8/s1600/WS000001.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/002.jpg)
 
 ライセンスをよく読み、問題が無ければ[Next]をクリックします。
 
-![](http://3.bp.blogspot.com/-C4C5BAQN8wc/UUB2PGF1giI/AAAAAAAAAPg/Ixggt3tZwQI/s1600/WS000002.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/003.jpg)
 
 インストール先を指定して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](http://1.bp.blogspot.com/-XUAgIGJYQlM/UUB2PonLrAI/AAAAAAAAAR8/aEvXnQqGnjE/s1600/WS000003.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/004.jpg)
 
 インストール設定を行い、[Next]をクリックします。余計なオプションは要らないため、**全てのチェックを外します**。
 
-![](http://3.bp.blogspot.com/-LRYQY_72prQ/UUB2PiP57qI/AAAAAAAAASA/fFGMlq8coG0/s1600/WS000005.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/005.jpg)
 
 スタートメニューの名前を入力して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](http://1.bp.blogspot.com/-OgM-ys3ZKOc/UUB2QPp3QLI/AAAAAAAAAQY/TR3ueP4BMcE/s1600/WS000006.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/006.jpg)
 
 `PATH`環境変数の設定を選択して、[Next]をクリックします。コマンドプロンプトから使用したいため、**"Run Git from the Windows Command Prompt"を選択します**。
 
-![](http://2.bp.blogspot.com/-erJ9cp1iMuA/UUB2QNz4xII/AAAAAAAAAQA/sVJomMfEaCA/s1600/WS000007.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/007.jpg)
 
 エンコーディング変換を選択して、[Next]をクリックします。勝手に変更されたくはないので、**"Checkout as-is, commit as-is"を選択します**。
 
-![](http://3.bp.blogspot.com/-H2Ugc-34Xt4/UUB2QpB9fHI/AAAAAAAAAQU/1jMj8R26qLY/s1600/WS000008.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/008.jpg)
 
 インストール中です。
 
-![](http://2.bp.blogspot.com/-t2F9OCnY8FU/UUB2QkkPooI/AAAAAAAAAQM/CqnJpNlKTCA/s1600/WS000009.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/009.jpg)
 
 インストールが完了しました。[Finish]をクリックして終了します。
 
@@ -89,37 +89,37 @@ C:\git config --global user.email "(メールアドレス)"
 
 Gitのセットアップが終わったら、次はTortoiseGitをインストールします。ダウンロードした`TortoiseGit-xxx.msi`を実行します。
 
-![](http://1.bp.blogspot.com/-A9Qo9xHTUzY/UUB2Qt3VYTI/AAAAAAAAAQc/Do8E6diNK3k/s1600/WS000010.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/010.jpg)
 
 [Next]をクリックします。
 
-![](http://3.bp.blogspot.com/-7Xf03Ra2W3c/UUB2RGngCMI/AAAAAAAAARs/vUPt_vCY6Rw/s1600/WS000011.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/011.jpg)
 
 使用許諾をよく読み、問題が無ければ[Next]をクリックします。
 
-![](http://4.bp.blogspot.com/-EjeSLUg1sMo/UUB2RFyqhYI/AAAAAAAAASE/x5PZigWMDro/s1600/WS000012.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/012.jpg)
 
 インストール先とコンポーネントを選択して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](http://4.bp.blogspot.com/-9hXgv_jLTak/UUB2RB0U64I/AAAAAAAAAQw/7KPmDsVp0RU/s1600/WS000013.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/013.jpg)
 
 [Install]をクリックして、インストールを開始します。
 
-![](http://2.bp.blogspot.com/-GRXT0E9jGV8/UUB2Rj1pDoI/AAAAAAAAARo/YfcoNbJhtPg/s1600/WS000014.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/014.jpg)
 
 インストール中に、起動しているアプリを終了するように要求されることがあります。表示されたアプリを終了してから続行するか、アプリを終了せずに"Do not close applications. A reboot will be required."を選択して[OK]をクリックして続行します。
 
-![](http://1.bp.blogspot.com/-sdaDi4h_29g/UUB2R57_GJI/AAAAAAAAARg/4j6DypRnbTU/s1600/WS000016.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/015.jpg)
 
 インストールが完了しました。[Finish]をクリックして、終了します。
 
 インストールが正常終了したか確認するため、エクスプローラーを起動して、適当なフォルダを右クリックします。正常終了していれば、右クリックメニューに"TortoiseGit"が表示されます。
 
-![](http://4.bp.blogspot.com/-Jb3oZMG-zLU/UUB2Sk6h_GI/AAAAAAAAASM/tjB_URTb3NQ/s1600/WS000019.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/016.jpg)
 
 "About"をクリックすると、バージョン情報が表示されます。
 
-![](http://1.bp.blogspot.com/-BaFhjENl6io/UUB2SgPXucI/AAAAAAAAARY/G1VTuLzgTwE/s1600/WS000020.JPG)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/017.jpg)
 
 Gitとの連携がうまくいっていれば、"Version Infomation"にGitのバージョンも表示されます。
 

@@ -13,7 +13,7 @@ redirect_from:
 
 # 経路図
 
-![](https://docs.google.com/drawings/d/1UtT8fklzBr2vvlF8NNXrsNt3WxXvbGq769zqjIx-g1Q/pub?w=1301&amp;h=623)
+![](/assets/img/2013-03-12-how-to-devour-knowledge/001.png)
 
 <!-- more -->
 

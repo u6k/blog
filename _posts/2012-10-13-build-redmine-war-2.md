@@ -70,7 +70,7 @@ warファイルを作成したので、これをTomcatに配置します。な�
 
 起動したら、[](http://localhost:8080/redmine/)にアクセスします。問題なければ、Redmineのトップページが表示されるはずです。
 
-![](http://1.bp.blogspot.com/-iCBPPkQQbZE/UHgdxCQuH2I/AAAAAAAAABM/ir5qvK_sEoE/s1600/001.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/001.png)
 
 Oh...エラーになってしまいました。Tomcatのコンソールを確認すると、以下のように表示されていました。
 
@@ -101,7 +101,7 @@ mysql(とついでにpostgresql)のgemを含めるため、以下のコマンド
 
 生成した`redmine.war`をTomcatに配置して、再度、[](http://localhost:8080/redmine/)にアクセスします。
 
-![](http://1.bp.blogspot.com/-DMlkgktvSRM/UHghmyqiS1I/AAAAAAAAABk/vFkJRqYqqrc/s1600/002.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/002.png)
 
 Redmineのトップページが表示されました！　この後、以下の作業を行いましたが、問題なく動作しました。
 
@@ -111,7 +111,7 @@ Redmineのトップページが表示されました！　この後、以下の�
 * プロジェクトを作成
 * チケットを作成、添付ファイルつき
 
-![](http://3.bp.blogspot.com/-ub_peMoNTME/UHgjpEFoQyI/AAAAAAAAAB4/y4trSfATa-E/s1600/003.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/003.png)
 
 # CentOSにファイルを移動、Tomcatで動作
 
@@ -127,29 +127,29 @@ Redmineのトップページが表示されました！　この後、以下の�
 
 Tomcatにwarファイルを配置します。
 
-![](http://1.bp.blogspot.com/-uHxHtmK5vKU/UHgxrvV-7pI/AAAAAAAAACY/fpaUaWFFkCs/s1600/991.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/004.png)
 
 `/redmine`が初期状態のRedmine、`/redmine_test`が動作確認したRedmineです。
 
 まず、/redmineにアクセスしてみます。
 
-![](http://1.bp.blogspot.com/-DMlkgktvSRM/UHghmyqiS1I/AAAAAAAAABk/vFkJRqYqqrc/s1600/002.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/005.png)
 
 Redmineのトップページが表示されました。
 
 次に、`/redmine_test`にアクセスしてみます。
 
-![](http://3.bp.blogspot.com/-KGgtD1fWrZQ/UHgxroU2hcI/AAAAAAAAACU/Bd6Fy5fXdo0/s1600/002.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/006.png)
 
 Redmineのトップページが表示され、登録したプロジェクトが表示されています。
 
-![](http://3.bp.blogspot.com/-ub_peMoNTME/UHgjpEFoQyI/AAAAAAAAAB4/y4trSfATa-E/s1600/003.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/007.png)
 
 登録したチケットも表示できました。
 
 チケットの登録ができることも確認します。
 
-![](http://4.bp.blogspot.com/-bsXX1sbviW0/UHgywWyVaNI/AAAAAAAAACw/nhVMQd4AAeg/s1600/003.PNG)
+![](/assets/img/2012-10-13-build-redmine-war-2/008.png)
 
 チケットが登録できました。
 

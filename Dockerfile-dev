@@ -24,11 +24,12 @@ RUN chmod +x /usr/bin/plantuml
 # Setup jekyll
 RUN gem install jekyll bundler
 
-# Setup run
-COPY entrypoint.sh /opt/
-RUN chmod +x /opt/entrypoint.sh
+COPY Gemfile /tmp/Gemfile
+WORKDIR /tmp
+RUN bundle update
 
+# Setup run
 VOLUME /var/my-blog
 WORKDIR /var/my-blog
 
-CMD ["/opt/entrypoint.sh"]
+CMD ["jekyll", "build"]

@@ -16,11 +16,11 @@ Androidアプリは、SharedPreferenceという領域に設定情報などを保
 
 入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。
 
-![](http://2.bp.blogspot.com/-MmojYhweY8I/UHLAZ4xmx_I/AAAAAAAAACI/gwTyIdzSIRw/s1600/device-2012-10-08-205606.png)
+![](/assets/img/2012-10-08-verifying-how-to-install-apk/001.png)
 
 まず、文字列を入力して保存。次にそれを読み込んでみます。当然、保存した文字列が読み込まれて表示されます。
 
-![](http://1.bp.blogspot.com/-DzHBs65J_4A/UHLAZ-E6vzI/AAAAAAAAACQ/bP9TfCRPQEI/s1600/device-2012-10-08-205634.png)
+![](/assets/img/2012-10-08-verifying-how-to-install-apk/002.png)
 
 次に、adbコマンドでv1.1のapkをインストールしました。
 
@@ -33,8 +33,7 @@ Success
 
 v1.1を起動して、保存した文字列を表示してみました。v1.0で保存した「テスト」という文字列が表示されました。
 
-![](http://3.bp.blogspot.com/-OEdDv4Cvi2A/UHLAZwlNZYI/AAAAAAAAACM/xz5hTDISxgs/s1600/device-2012-10-08-205746.png)
-
+![](/assets/img/2012-10-08-verifying-how-to-install-apk/003.png)
 
 # 結論
 

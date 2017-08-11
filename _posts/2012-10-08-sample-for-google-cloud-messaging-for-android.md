@@ -51,7 +51,7 @@ URLの「#project:xxx」のxxx部分がプロジェクトIDになります。こ
 
 API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。
 
-![](http://4.bp.blogspot.com/-wGOK1jrBxwI/UHLQgfQ96rI/AAAAAAAAACw/1UdfK_gq4r8/s1600/gcm-20121008-2208.png)
+![](/assets/img/2012-10-08-sample-for-google-cloud-messaging-for-android/001.png)
 
 ## API Keyを作成
 

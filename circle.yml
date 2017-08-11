@@ -6,7 +6,7 @@ machine:
 compile:
     override:
         - docker build -t u6kapps/blog-dev -f Dockerfile-dev .
-        - docker run --rm -v $(pwd):/var/my-blog u6kapps/blog-dev
+        - docker run --rm -v "${PWD}:/var/my-blog" u6kapps/blog-dev
         - docker build -t u6kapps/blog .
 
 test:

@@ -29,39 +29,39 @@ WindowsにGitをインストールする方法は、Cygwin版GitとmsysGitの2�
 
 まず、Gitをインストールします。ダウンロードした`Git-xxx.exe`を実行します。
 
-![](001.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/001.jpg)
 
 [Next]をクリックします。
 
-![](002.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/002.jpg)
 
 ライセンスをよく読み、問題が無ければ[Next]をクリックします。
 
-![](003.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/003.jpg)
 
 インストール先を指定して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](004.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/004.jpg)
 
 インストール設定を行い、[Next]をクリックします。余計なオプションは要らないため、**全てのチェックを外します**。
 
-![](005.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/005.jpg)
 
 スタートメニューの名前を入力して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](006.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/006.jpg)
 
 `PATH`環境変数の設定を選択して、[Next]をクリックします。コマンドプロンプトから使用したいため、**"Run Git from the Windows Command Prompt"を選択します**。
 
-![](007.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/007.jpg)
 
 エンコーディング変換を選択して、[Next]をクリックします。勝手に変更されたくはないので、**"Checkout as-is, commit as-is"を選択します**。
 
-![](008.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/008.jpg)
 
 インストール中です。
 
-![](009.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/009.jpg)
 
 インストールが完了しました。[Finish]をクリックして終了します。
 
@@ -89,37 +89,37 @@ C:\git config --global user.email "(メールアドレス)"
 
 Gitのセットアップが終わったら、次はTortoiseGitをインストールします。ダウンロードした`TortoiseGit-xxx.msi`を実行します。
 
-![](010.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/010.jpg)
 
 [Next]をクリックします。
 
-![](011.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/011.jpg)
 
 使用許諾をよく読み、問題が無ければ[Next]をクリックします。
 
-![](012.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/012.jpg)
 
 インストール先とコンポーネントを選択して、[Next]をクリックします。通常、変更する必要はありません。
 
-![](013.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/013.jpg)
 
 [Install]をクリックして、インストールを開始します。
 
-![](014.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/014.jpg)
 
 インストール中に、起動しているアプリを終了するように要求されることがあります。表示されたアプリを終了してから続行するか、アプリを終了せずに"Do not close applications. A reboot will be required."を選択して[OK]をクリックして続行します。
 
-![](015.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/015.jpg)
 
 インストールが完了しました。[Finish]をクリックして、終了します。
 
 インストールが正常終了したか確認するため、エクスプローラーを起動して、適当なフォルダを右クリックします。正常終了していれば、右クリックメニューに"TortoiseGit"が表示されます。
 
-![](016.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/016.jpg)
 
 "About"をクリックすると、バージョン情報が表示されます。
 
-![](017.jpg)
+![](/assets/img/2013-03-13-setup-git-and-tortoisegit/017.jpg)
 
 Gitとの連携がうまくいっていれば、"Version Infomation"にGitのバージョンも表示されます。
 

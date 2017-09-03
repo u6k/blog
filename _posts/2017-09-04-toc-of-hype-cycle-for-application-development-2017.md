@@ -24,7 +24,7 @@ date: 2017-09-04 07:00:00+09:00
 - Conversational User Interfaces
 - Product-Centric Delivery Model
 
-## At the Peak
+## At the Peak(流行期)
 
 - Enterprise Agile Frameworks
 - Integrated IT Portfolio Analysis
@@ -38,7 +38,7 @@ date: 2017-09-04 07:00:00+09:00
 - Enterprise-Class Agile Development
 - Reactive Programming
 
-## Sliding Into the Trough
+## Sliding Into the Trough(幻滅期)
 
 - Application Portfolio Management
 - Behavior-Driven Development
@@ -51,7 +51,7 @@ date: 2017-09-04 07:00:00+09:00
 - adPaaS
 - PaaS Frameworks
 
-## Climbing the Slope
+## Climbing the Slope(回復期)
 
 - Apps
 - SOA Testing

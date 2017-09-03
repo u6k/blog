@@ -6,20 +6,20 @@ tags:
 date: 2017-09-04 07:00:00+09:00
 ---
 
-ガートナー社が[Hype Cycle for Application Development, 2017 - Deacon Wan](http://blogs.gartner.com/deacon-wan/2017/09/01/hype-cycle-for-application-development-2017/)を公開し、資料本体は有料ですが目次は公開されているので、個人的に翻訳してみました。あくまで自分のための翻訳であり、正確性は保証しませんので、ご注意ください。
+ガートナー社が[Hype Cycle for Application Development, 2017 - Deacon Wan](http://blogs.gartner.com/deacon-wan/2017/09/01/hype-cycle-for-application-development-2017/)を公開し、資料本体は有料ですが目次は公開されているので、個人的に翻訳してみました。あくまで自分のための翻訳であり、正確性は保証しませんので、ご注意ください。また、よく分からない項目は末尾に？がついています。
 
 <!-- more -->
 
 # Hype Cycle for Application Development, 2017
 
-## On the Rise
+## On the Rise(黎明期)
 
-- Project Management Bots
-- Quality Engineering
-- Continuous Experience
-- DevOps Application Testing
-- Event-Driven Programming Models
-- Hypothesis-Driven Development
+- Project Management Bots(プロジェクト管理Bot)
+- Quality Engineering(品質技術)
+- Continuous Experience(連続した体験？)
+- DevOps Application Testing(DevOpsによるテスト)
+- Event-Driven Programming Models(イベント駆動アプリケーション・モデル)
+- Hypothesis-Driven Development(仮説駆動開発)
 - Bots
 - Conversational User Interfaces
 - Product-Centric Delivery Model

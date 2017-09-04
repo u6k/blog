@@ -21,35 +21,35 @@ date: 2017-09-04 07:00:00+09:00
 - Event-Driven Programming Models(イベント駆動アプリケーション・モデル)
 - Hypothesis-Driven Development(仮説駆動開発)
 - Bots
-- Conversational User Interfaces
-- Product-Centric Delivery Model
+- Conversational User Interfaces(会話型ユーザー・インターフェイス)
+- Product-Centric Delivery Model(製品中心デリバリー・モデル？)
 
 ## At the Peak(流行期)
 
-- Enterprise Agile Frameworks
-- Integrated IT Portfolio Analysis
-- Product Roadmapping Tools
-- API Economy
-- Mediated APIs
-- Managed Application Services Communities
-- Crowdtesting
-- Microservices
-- Post-Scrum Methodologies
-- Enterprise-Class Agile Development
-- Reactive Programming
+- Enterprise Agile Frameworks(企業向けアジャイル・フレームワーク)
+- Integrated IT Portfolio Analysis(統合ITポートフォリオ分析？)
+- Product Roadmapping Tools(製品ロードマッピング・ツール？)
+- API Economy(APIエコノミー)
+- Mediated APIs(仲介API？)
+- Managed Application Services Communities(マネージド・アプリケーション・サービス・コミュニティ？)
+- Crowdtesting(クラウド・テスト)
+- Microservices(マイクロサービス)
+- Post-Scrum Methodologies(スクラム以降の手法)
+- Enterprise-Class Agile Development(企業向けアジャイル開発)
+- Reactive Programming(リアクティブ・プログラミング)
 
 ## Sliding Into the Trough(幻滅期)
 
-- Application Portfolio Management
-- Behavior-Driven Development
-- Cloud-Based IT PPM Services
-- Event-Driven Web
-- Full Life Cycle API Management
-- UX Tools
-- Citizen Developers
-- Public Web APIs
-- adPaaS
-- PaaS Frameworks
+- Application Portfolio Management(アプリケーション・ポートフォリオ管理)
+- Behavior-Driven Development(振舞駆動開発)
+- Cloud-Based IT PPM Services(クラウド基盤のITプロジェクトとポートフォリオ管理サービス)
+- Event-Driven Web(イベント駆動Web)
+- Full Life Cycle API Management(フル・ライフサイクルAPI管理)
+- UX Tools(UXツール)
+- Citizen Developers(シチズン・ディベロッパー)
+- Public Web APIs(公開Web API)
+- adPaaS(AD PaaS？)
+- PaaS Frameworks(PaaSフレームワーク)
 
 ## Climbing the Slope(回復期)
 

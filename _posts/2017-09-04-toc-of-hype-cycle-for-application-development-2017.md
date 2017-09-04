@@ -53,10 +53,10 @@ date: 2017-09-04 07:00:00+09:00
 
 ## Climbing the Slope(回復期)
 
-- Apps
-- SOA Testing
-- Responsive Design
-- Cloud-Testing Tools and Services
-- Test Data Management
-- Functional Programming Languages
-- IT Project and Portfolio Management Applications
+- Apps(Apps？)
+- SOA Testing(SOAテスト)
+- Responsive Design(レスポンシブ・デザイン)
+- Cloud-Testing Tools and Services(クラウド・テスト・サービス)
+- Test Data Management(テストデータ管理)
+- Functional Programming Languages(関数型プログラミング言語)
+- IT Project and Portfolio Management Applications(ITプロジェクトとポートフォリオ管理アプリケーション)

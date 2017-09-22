@@ -1,8 +1,7 @@
 ---
 layout: single
-title: "[TIL]どのようにS3オブジェクトを検索するか？"
+title: "どのようにS3オブジェクトを検索するか？"
 tags:
-  - "TIL"
   - "AWS"
   - "S3"
   - "Minio"

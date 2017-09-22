@@ -8,23 +8,68 @@ tags:
 date: 2017-09-23 07:00:00+09:00
 ---
 
-TODO: 整理する。
+単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。
 
-Using the CircleCI Command Line Interface (CLI) - CircleCI https://circleci.com/docs/2.0/local-jobs/#circleci-command-line-interface-cli-overview
+# 前提
 
-```
-curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && chmod +x /usr/local/bin/circleci
-```
-
-`/usr/local/bin/` に出力する説明だけど、Docker for Windowsではこのフォルダは存在しない。 `$PATH` を見ると `$HOME/bin` が通っていることが分かる。
+- Docker
+    - Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。
 
 ```
-$ mkdir $HOME/bin
+$ docker version
+ Version:      17.03.1-ce
+ API version:  1.27
+ Go version:   go1.7.5
+ Git commit:   c6d412e
+ Built:        Tue Mar 28 00:40:02 2017
+ OS/Arch:      windows/amd64
+
+Server:
+ Version:      17.06.2-ce
+ API version:  1.30 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   cec0b72
+ Built:        Tue Sep  5 19:59:19 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
 ```
 
+- Gradle
+    - 未インストールでも、Gradleイメージを使用するので問題ありません。
+
 ```
-curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && chmod +x $HOME/bin/circleci
+$ gradle --version
+
+------------------------------------------------------------
+Gradle 4.1
+------------------------------------------------------------
+
+Build time:   2017-08-07 14:38:48 UTC
+Revision:     941559e020f6c357ebb08d5c67acdb858a3defc2
+
+Groovy:       2.4.11
+Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015
+JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)
+OS:           Linux 4.4.86-boot2docker amd64
 ```
+
+# 手順
+
+## CircleCI CLIをインストール
+
+[Using the CircleCI Command Line Interface (CLI) - CircleCI](https://circleci.com/docs/2.0/local-jobs/#circleci-command-line-interface-cli-overview)に、インストール手順が書いてあります。
+
+```
+$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && chmod +x /usr/local/bin/circleci
+```
+
+`/usr/local/bin/`に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。`$PATH`を見ると`$HOME/bin`が通っていることが分かりますので、`$HOME/bin`を作成した上で、以下のように実行します。
+
+```
+$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && chmod +x $HOME/bin/circleci
+```
+
+動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。
 
 ```
 $ circleci help
@@ -61,28 +106,30 @@ Flags:
 Use "circleci [command] --help" for more information about a command.
 ```
 
-ビルドを試すため、Gradleプロジェクトを作成する。
+## Javaアプリケーションを作成
 
-まず、Gradleラッパーを作成する。
+ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。
+
+まず、Gradleラッパーを作成します。
 
 ```
 $ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapper
 ```
 
-Gradleプロジェクトを作成する。
+Gradleプロジェクトを作成します。
 
 ```
 $ ./gradlew init
 ```
 
-`settings.gradle`を変更する。
+`settings.gradle`を変更します。
 
 ```
 $ cat settings.gradle
 rootProject.name = 'hello'
 ```
 
-`build.gradle`を変更する。
+`build.gradle`を変更します。
 
 ```
 $ cat build.gradle
@@ -101,7 +148,7 @@ dependencies {
 }
 ```
 
-`Hello.java`を作成する。
+`Hello.java`を作成します。
 
 ```
 $ cat src/main/java/Hello.java
@@ -112,7 +159,7 @@ public class Hello {
 }
 ```
 
-動作確認をします。
+動作確認をします。`hello`という文字列が表示されます。
 
 ```
 $ ./gradlew run
@@ -125,7 +172,9 @@ BUILD SUCCESSFUL in 1s
 2 actionable tasks: 2 executed
 ```
 
-CircleCI 2.0の設定ファイルを作成します。
+## CircleCI設定ファイルを作成
+
+CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。
 
 ```
 $ cat .circleci/config.yml
@@ -140,7 +189,9 @@ jobs:
             - run: ./gradlew run
 ```
 
-ローカルPCでビルドを実行します。
+## ローカルPCでビルド
+
+ローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。
 
 ```
 $ circleci build
@@ -188,3 +239,9 @@ BUILD SUCCESSFUL in 46s
 2 actionable tasks: 2 executed
 Success!
 ```
+
+無事、ビルドが成功しました。
+
+# おわりに
+
+ローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。

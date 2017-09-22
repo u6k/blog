@@ -45,6 +45,7 @@ highlighter: rouge
 
 paginate: 10
 paginate_path: /page:num/
+future: true
 timezone: Asia/Tokyo
 
 tag_archive:

@@ -34,3 +34,4 @@ date: 2017-09-24 07:00:00+09:00
 - 特に、TutorialやGetting Startedは読んで、素振りする
 - Stack OverflowやQiitaで実例やtipsを片っ端から読んで、素振りする
 - APIリファレンスなど深いドキュメントを読み、素振りする
+- 自分なりに整理して、自分用のメモやWikiにまとめる

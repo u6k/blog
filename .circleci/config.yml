@@ -16,10 +16,8 @@ jobs:
             - run:
                 name: Build docker image
                 command: docker build -t u6kapps/blog .
-
             - run:
                 name: Push docker image
-
                 command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
                         docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}

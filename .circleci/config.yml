@@ -5,8 +5,8 @@ jobs:
         docker:
             - image: docker:17.07.0-ce-git
         steps:
-            - checkout
-            - setup_remote_docker
+            - checkout:
+            - setup_remote_docker:
             - run:
                 name: Build docker dev image
                 command: docker build -t blog-dev -f Dockerfile-dev .

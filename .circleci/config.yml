@@ -8,14 +8,9 @@ jobs:
             - checkout
             - setup_remote_docker
             - run:
-                name: Build docker dev image
-                command: docker build -t blog-dev -f Dockerfile-dev .
-            - run:
-                name: Generate html files
-                command: docker run --rm -v "${PWD}:/var/my-blog" blog-dev
-            - run:
                 name: Build docker image
-                command: docker build -t u6kapps/blog .
+                command: |
+                    docker build -t u6kapps/blog .
             - run:
                 name: Push docker image
                 command: |

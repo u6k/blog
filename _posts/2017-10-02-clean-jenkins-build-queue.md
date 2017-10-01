@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Jenkinsビルド・キューに溜まったジョブを強制終了する"
-ta
+tags:
   - "Jenkins"
 date: 2017-10-02 07:00:00+09:00
 ---

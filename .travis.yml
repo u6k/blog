@@ -1,0 +1,21 @@
+sudo: required
+language: ruby
+
+services:
+    - docker
+
+script:
+    - docker build -t u6kapps/blog .
+
+after_success:
+    - if [ -n "$TRAVIS_TAG" ]; then
+          docker login -u "$DOCKER_USER" -p "$DOCKER_PASS";
+          docker tag u6kapps/blog u6kapps/blog:$TRAVIS_TAG;
+          docker push u6kapps/blog;
+      else
+          echo skip docker push;
+      fi
+
+notifications:
+    slack:
+        secure: d6fX0phLsfgXPoTn9Ow+4QxVwF2tZQGnW22GrrYtQQsjVsk/+Bvv/d3h4AkqtKx7L6HMD533dBOpJwo+dMsqnTvnMvzNd3BDhjOmsZhhZqIgcoxaHaPHZqufqZ8ZjQFN8Mn+TlKE4m1VkWIHy0tY6bq4G1NfCv7iM0nPUoLGI8jaVdMibnskXOlvVFcWmQNCxmmsNKCLzSRGQm796OVT4XPwZqkdQTj5VyyxznC0IrNvihfKsQAX55q+d+1QBD891cDlVf5FriTeqfCrUWVkhi0n/Q/038yrX2uDwVX9bf+0m4uWbu2Kp0QFfnhBnlcSdHRr1d6gvKDBgQbdJQqSfw8RRf1A1ScjDfwRV/JuvE4s4+Kx3vgazu1yVFHCxDvb0ttuPUC9p5eV6N/tHaeCmRXv5ygNXsyQJD7abhLZjupQvHFw+W2Z87C6YCt6osEnSwE9RAIVNwe6yYovkFzQg6AMEx2O/yiNuk1VCn3APINbW4xXvTzPknch9bdyG45L8VPugxsI/c9QRLLv7clxRvMxqUPvDESMvaqT+YtpyG9b5HL05SwW8XhbAfU9ZUakxHsfNvx3tURfrsmiXD3NQIudAtBs0r4XcsNZFXt78WDWLx7YQ+3eHFfMlc8BaLoMXKzXHLLYKikSdIDv2AESqhl1wQq1Vay6LTwjWY0NQ/w=

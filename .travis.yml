@@ -18,7 +18,7 @@ after_success:
           docker login -u "$DOCKER_USER" -p "$DOCKER_PASS";
           docker tag u6kapps/blog u6kapps/blog:$TRAVIS_TAG;
           docker push u6kapps/blog;
-          curl -v -X POST -u '${JENKINS_USER}:${JENKINS_PASS}' https://jenkins.u6k.me/job/update-blog/build;
+          curl -v -X POST -u "${JENKINS_USER}:${JENKINS_PASS}" https://jenkins.u6k.me/job/update-blog/build;
       else
           echo skip docker push;
       fi

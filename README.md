@@ -1,7 +1,6 @@
 # u6k.Blog()
 
-[![u6k.blog()](https://img.shields.io/badge/u6k-.blog-orange.svg)](https://blog.u6k.me/)
-[![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![u6k.blog()](https://img.shields.io/badge/u6k-blog-orange.svg)](https://blog.u6k.me/) [![GitHub tag](https://img.shields.io/github/tag/u6k/blog.svg)](https://github.com/u6k/blog) [![Docker Pulls](https://img.shields.io/docker/pulls/u6kapps/blog.svg)](https://hub.docker.com/r/u6kapps/blog/) [![Travis](https://img.shields.io/travis/u6k/blog.svg)](https://travis-ci.org/u6k/blog) [![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
 [u6k.Blog()](https://blog.u6k.me/) のソースコードを管理します。
 

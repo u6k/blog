@@ -8,6 +8,16 @@ date: 2017-10-29 23:00:00+09:00
 
 今週、気になったニュースや自ソフトウェアのリリース情報を整理します。
 
+__Table of Contents:__
+
+<!-- TOC -->
+
+- [ニュース](#ニュース)
+- [リリース情報](#リリース情報)
+- [Link](#link)
+
+<!-- /TOC -->
+
 # ニュース
 
 - [Your Idea Will Never Be Ready](https://lifehacker.com/your-idea-will-never-be-ready-1819659484)

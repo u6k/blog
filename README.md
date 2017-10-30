@@ -32,35 +32,25 @@ u6k.Blog()は、Jekyllをブログ・システムとして使用しており、M
 
 好みのMarkdownエディタで記事を執筆すれば良いです。基本的には、Markdownエディタでプレビューした通りの見た目の記事になるでしょう。
 
-### Webサイトをプレビュー
+### Webサイトを動作確認
 
 JekyllでビルドしたWebサイトをプレビューする場合、以下の手順を実行します。
 
-ビルド用Dockerイメージを構築します。
+実行用Dockerイメージをビルドします。
 
 ```
-$ docker build -t blog-dev -f Dockerfile-dev .
+$ docker build -t blog .
 ```
 
-ビルドして、静的ファイルを生成します。
+blogコンテナを起動します。
 
 ```
-$ docker run --rm -v $(pwd):/var/my-blog blog-dev
+$ docker run \
+    -p 80:80 \
+    blog
 ```
 
-nginxコンテナを起動して、Webサーバー経由で表示できるようにします。
-
-```
-$ docker run -d -p 80:80 -v $(pwd)/_site:/usr/share/nginx/html nginx
-```
-
-Webブラウザで[http://localhost](http://localhost)を開くと、静的サイトが表示されます。
-
-記事を修正して静的ファイルを再生成する場合、`_site`フォルダの中身を削除してから再生成したほうが良いです。
-
-### Webサイトを公開
-
-Webサイトを公開する場合は、masterブランチにpushすると、Werckerがビルドして、Amazon S3にデプロイされます。詳細は、`wercker.yml`を参照してください。
+Webブラウザで[http://localhost](http://localhost)を開くと、静的サイトが表示されます。記事を修正した場合、実行用Dockerイメージを再ビルドする必要があります。
 
 ## Author
 

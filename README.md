@@ -1,40 +1,100 @@
-# u6k.Blog()
+# u6k.Blog() _(blog)_
 
-[![u6k.blog()](https://img.shields.io/badge/u6k-blog-orange.svg)](https://blog.u6k.me/) [![GitHub tag](https://img.shields.io/github/tag/u6k/blog.svg)](https://github.com/u6k/blog) [![Docker Pulls](https://img.shields.io/docker/pulls/u6kapps/blog.svg)](https://hub.docker.com/r/u6kapps/blog/) [![Travis](https://img.shields.io/travis/u6k/blog.svg)](https://travis-ci.org/u6k/blog) [![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![Travis](https://img.shields.io/travis/u6k/blog.svg)](https://travis-ci.org/u6k/blog)
+[![GitHub tag](https://img.shields.io/github/tag/u6k/blog.svg)](https://github.com/u6k/blog)
+[![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![Docker Pulls](https://img.shields.io/docker/stars/u6kapps/blog.svg)](https://hub.docker.com/r/u6kapps/blog/)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![u6k.blog()](https://img.shields.io/badge/u6k-blog-orange.svg)](https://blog.u6k.me/)
 
-[u6k.Blog()](https://blog.u6k.me/) のソースコードを管理します。
+> [u6k.Blog()](https://blog.u6k.me/) のソースコードを管理します。
 
-## Description
+__Table of Contents:__
+
+<!-- TOC depthFrom:2 -->
+
+- [Background](#background)
+- [Install](#install)
+    - [Dependencies](#dependencies)
+- [Usage](#usage)
+- [Development](#development)
+    - [記事を執筆](#記事を執筆)
+    - [Webサイトを表示確認](#webサイトを表示確認)
+- [Maintainer](#maintainer)
+- [Contribute](#contribute)
+- [License](#license)
+
+<!-- /TOC -->
+
+## Background
 
 u6k.Blog()は、以下のサービスが連携して配信されています。
 
-* GitHub
-    * ソースコードを管理します。
-* CircleCI
-    * GitHubにpushすると起動され、GitHubからソースコードを取得して、静的Webサイトを含むDockerイメージをビルドして、DockerHubにpushします。
-* DockerHub
-    * 静的Webサイトを含むDockerイメージを管理します。
-* Slack
-    * Werckerのビルド結果を通知します。
+- GitHub
+    - ソースコードを管理します。
+- Travis CI
+    - GitHubにpushすると起動され、GitHubからソースコードを取得して実行用Dockerイメージをビルドして、DockerHubにpushします。
+- DockerHub
+    - 実行用Dockerイメージを管理します。
+- Slack
+    - Travis CIのビルド結果を通知します。
 
 u6k.Blog()は、Jekyllをブログ・システムとして使用しており、Markdown形式で記事を執筆します。
 
-## Requirement
+## Install
 
-* Atom
-    * 記事をMarkdown形式で執筆するため、Markdownエディタであれば何でも良いです。
-* Docker
-    * ローカルPCでプレビューするために使用します。Ruby動作環境があるのであれば、Dockerは必要ありません。
+`u6kapps/blog`イメージをDockerHubで配布しているため、これを起動します。
+
+```
+$ docker run \
+    -p 80:80 \
+    u6kapps/blog
+```
+
+### Dependencies
+
+- Docker
+    - multi stage buildが実行できるバージョンが必要です。
+
+```
+$ docker version
+Client:
+ Version:      17.07.0-ce
+ API version:  1.31
+ Go version:   go1.8.3
+ Git commit:   8784753
+ Built:        Tue Aug 29 17:41:05 2017
+ OS/Arch:      windows/amd64
+
+Server:
+ Version:      17.09.0-ce
+ API version:  1.32 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:45:38 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+```
+
+- Markdownエディタ
+    - 記事をMarkdown形式で執筆するため、Markdownエディタであれば何でも良いです。
+    - 筆者は、AtomやVisualStudioCodeを使用しています。
 
 ## Usage
+
+`u6kapps/blog`コンテナが起動後、Webブラウザで[http://localhost](http://localhost)を開くとブログが表示されます。
+
+## Development
+
+u6k.Blog()の開発について説明します。
 
 ### 記事を執筆
 
 好みのMarkdownエディタで記事を執筆すれば良いです。基本的には、Markdownエディタでプレビューした通りの見た目の記事になるでしょう。
 
-### Webサイトを動作確認
+### Webサイトを表示確認
 
-JekyllでビルドしたWebサイトをプレビューする場合、以下の手順を実行します。
+記事を執筆後、ローカルDocker環境で表示確認を行います。
 
 実行用Dockerイメージをビルドします。
 
@@ -50,16 +110,19 @@ $ docker run \
     blog
 ```
 
-Webブラウザで[http://localhost](http://localhost)を開くと、静的サイトが表示されます。記事を修正した場合、実行用Dockerイメージを再ビルドする必要があります。
+Webブラウザで[http://localhost](http://localhost)を開くとブログが表示されます。
 
-## Author
+記事を修正した場合、実行用Dockerイメージを再ビルドする必要があります。
 
-* GitHub
-    * [u6k/blog](https://github.com/u6k/blog)
-* Wercker
-    * [u6k/blog](https://app.wercker.com/u6k/blog/runs)
-* Redmine
-    * [blog - u6k.Redmine()](https://redmine.u6k.me/projects/blog)
+## Maintainer
+
+- [u6k - GitHub](https://github.com/u6k/)
+- [u6k.Blog()](https://blog.u6k.me/)
+- [u6k_yu1 | Twitter](https://twitter.com/u6k_yu1)
+
+## Contribute
+
+貴重なアイデアをご提案やバグ報告などを頂ける場合は、Issueを書いていただけると幸いです。
 
 ## License
 

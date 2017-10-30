@@ -8,11 +8,21 @@ date: 2017-10-29 23:00:00+09:00
 
 今週、気になったニュースや自ソフトウェアのリリース情報を整理します。
 
+__Table of Contents:__
+
+<!-- TOC -->
+
+- [ニュース](#ニュース)
+- [リリース情報](#リリース情報)
+- [Link](#link)
+
+<!-- /TOC -->
+
 # ニュース
 
 - [Your Idea Will Never Be Ready](https://lifehacker.com/your-idea-will-never-be-ready-1819659484)
-- [Trying out MySQL in Docker Swarm Mode | MySQL Release Engineering](https://mysqlrelease.com/2016/08/trying-out-mysql-in-docker-swarm-mode/)
-- [Docker Compose を使った オープンソース PaaS: Paus のご紹介 | Wantedly Engineer Blog](https://www.wantedly.com/companies/wantedly/post_articles/30569)
+- [Trying out MySQL in Docker Swarm Mode \| MySQL Release Engineering](https://mysqlrelease.com/2016/08/trying-out-mysql-in-docker-swarm-mode/)
+- [Docker Compose を使った オープンソース PaaS: Paus のご紹介 \| Wantedly Engineer Blog](https://www.wantedly.com/companies/wantedly/post_articles/30569)
 - [何故私は Heroku から離れたか、および新しい AWS セットアップのメモ](https://gist.github.com/Gab-km/5660808)
 - [TDDはOCD(強迫性障害)の一種か？](https://www.infoq.com/jp/articles/tdd-ocd)
 - [フロントエンドチェックリスト（日本語訳） - Qiita](https://qiita.com/miya0001/items/8fff46c201bf9eaeba4a)
@@ -29,6 +39,6 @@ date: 2017-10-29 23:00:00+09:00
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)
     - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 | Twitter](https://twitter.com/u6k_yu1)
+    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
 - Source
     - [2017-10-29-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-10-29-this-week-i-learned.md)

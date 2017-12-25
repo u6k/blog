@@ -20,7 +20,7 @@ redirect_from:
 
 ## 参考サイト
 
-* [ペネトレーションテストとは | 日立ソリューションズの情報セキュリティブログ](http://securityblog.jp/words/4661.html)
+* [ペネトレーションテストとは \| 日立ソリューションズの情報セキュリティブログ](http://securityblog.jp/words/4661.html)
 * [ペネトレーションテスト : IT用語辞典 e-Words](http://sp.e-words.jp/w/E3839AE3838DE38388E383ACE383BCE382B7E383A7E383B3E38386E382B9E38388.html)
 * [ペネトレーションテスト - Wikipedia](http://ja.wikipedia.org/wiki/%E3%83%9A%E3%83%8D%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%86%E3%82%B9%E3%83%88)
 * [「ペネトレーション・テスト」とは：ITpro](http://itpro.nikkeibp.co.jp/word/page/10006229/)
@@ -60,14 +60,14 @@ redirect_from:
 Google先生に聞いたところ、以下のサービスが見つかった。
 
 * [セキュリティ診断サービス【セコム】](http://www.secomtrust.net/service/consulting/shindan.html)
-* [Webセキュリティ診断 | オフィスまるごとサポート | 法人のお客さま | NTT東日本](http://www.ntt-east.co.jp/business/solution/marugoto/webshindan/)
+* [Webセキュリティ診断 \| オフィスまるごとサポート \| 法人のお客さま \| NTT東日本](http://www.ntt-east.co.jp/business/solution/marugoto/webshindan/)
 * [セキュリティ診断サービス｜日立ソリューションズ](http://www.hitachi-solutions.co.jp/security_assessment/)
 * [ウェブサイトセキュリティ診断：ウェブアプリケーション脆弱性診断｜シマンテック](http://www.symantec.com/ja/jp/page.jsp?id=sds-webdiag)
-* [セキュリティ診断(脆弱性診断)/設計開発支援 | サービス案内 | 情報セキュリティのNRIセキュア](http://www.nri-secure.co.jp/service/assessment/index.html?xadid=ads00054)
-* [【PCI DSSペネトレーションテスト支援】グローバルセキュリティエキスパート株式会社 | GSX](http://www.gsx.co.jp/service/J3_11.html)
-* [サーバ診断エクスプレス | セキュリティ診断コンシェルジュ](http://va.rs.jmc.ne.jp/server/server-express?gclid=CL2j-_bX2rwCFUYAvAodJmcAgw)
-* [脆弱性診断サービス | Webセキュリティサービス　Proactive Defense](http://www.proactivedefense.jp/services/diagnosis/)
-* [セキュリティ診断 | サービス | 株式会社ラック](http://www.lac.co.jp/service/evaluation/)
+* [セキュリティ診断(脆弱性診断)/設計開発支援 \| サービス案内 \| 情報セキュリティのNRIセキュア](http://www.nri-secure.co.jp/service/assessment/index.html?xadid=ads00054)
+* [【PCI DSSペネトレーションテスト支援】グローバルセキュリティエキスパート株式会社 \| GSX](http://www.gsx.co.jp/service/J3_11.html)
+* [サーバ診断エクスプレス \| セキュリティ診断コンシェルジュ](http://va.rs.jmc.ne.jp/server/server-express?gclid=CL2j-_bX2rwCFUYAvAodJmcAgw)
+* [脆弱性診断サービス \| Webセキュリティサービス　Proactive Defense](http://www.proactivedefense.jp/services/diagnosis/)
+* [セキュリティ診断 \| サービス \| 株式会社ラック](http://www.lac.co.jp/service/evaluation/)
 
 # ツール
 
@@ -75,9 +75,9 @@ Google先生に聞いたところ、以下のサービスが見つかった。
 
 * Kali Linux
     * ペネトレーションテストを目的としたLinuxディストリビューション。Liveディスクや、セットアップ済み仮想マシンなどが提供されている。BackTrackの後継ツール。
-    * [Kali Linux | Rebirth of BackTrack, the Penetration Testing Distribution.](http://www.kali.org/)
+    * [Kali Linux \| Rebirth of BackTrack, the Penetration Testing Distribution.](http://www.kali.org/)
     * [Kali Linux を使ってみる : まだプログラマーですが何か？](http://dotnsf.blog.jp/archives/378189.html)
-    * [Kali Linux を VirtualBox にインストールする | Webセキュリティの小部屋](http://www.websec-room.com/2014/01/07/1485)
+    * [Kali Linux を VirtualBox にインストールする \| Webセキュリティの小部屋](http://www.websec-room.com/2014/01/07/1485)
     * [【Linux】　”Kali linux”　BackTrackの後継と言われている - NAVER まとめ](http://matome.naver.jp/odai/2137346166791157401)
 * BackTrack
     * ペネトレーションテストを目的とした、1DVDタイプのLinuxディストリビューション。後継ツールとしてKali Linuxがある。
@@ -89,7 +89,7 @@ Google先生に聞いたところ、以下のサービスが見つかった。
     * 指定したサーバーに対して、ポートスキャンや擬似アクセスなどを行うことで脆弱性を調査する、脆弱性スキャナー。Windowsでも動作する。
     * [Nessus Vulnerability Scanner](http://www.tenable.com/products/nessus)
     * [Windowsでも使える脆弱性スキャナ「Nessus」を使う - さくらのナレッジ](http://knowledge.sakura.ad.jp/tech/356/)
-    * [WindowsやLinuxで実行できる脆弱性スキャナ「Nessus」を試す | SourceForge.JP Magazine](http://sourceforge.jp/magazine/13/06/04/090000)
+    * [WindowsやLinuxで実行できる脆弱性スキャナ「Nessus」を試す \| SourceForge.JP Magazine](http://sourceforge.jp/magazine/13/06/04/090000)
     * [Nessus - Wikipedia](http://ja.wikipedia.org/wiki/Nessus)
     * [Nessusを利用した総合セキュリティチェック](http://www.bflets.dyndns.org/Security/Nessus.html)
 

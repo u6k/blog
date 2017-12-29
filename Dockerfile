@@ -10,7 +10,7 @@ RUN apt-get update && \
     # Install locales, OpenJDK, Graphviz
     apt-get install -y \
         locales \
-        openjdk-7-jre \
+        openjdk-8-jre \
         graphviz && \
     apt-get clean && \
     # Setup locale

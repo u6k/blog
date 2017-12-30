@@ -1,0 +1,207 @@
+---
+layout: single
+title: "仕事に役立つ、素晴らしい書籍たち"
+tags:
+  - "書籍"
+date: 2017-12-27 00:00:00+09:00
+---
+
+これまで、技術書や雑誌や自己啓発書や小説や漫画など読んできましたが、その中でも仕事で役立ちそうな書籍をピックアップしてみました。誰かに「どんな本を読めばいいかな？」と聞かれたとき用の記事です。
+
+# タスク管理
+
+自分の作業を管理するとき、ToDoリストや付箋を使うなど自分なりのやり方で管理していると思います。しかし、作業や課題がある分量を超えると、単純なリストでは管理しきれなくなります。そういう時に、これらの書籍が役に立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51umAMmeSlL._SL160_.jpg" alt="はじめてのGTD ストレスフリーの整理術" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank">はじめてのGTD ストレスフリーの整理術</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">デビッド・アレン <br />二見書房 <br />売り上げランキング: 15,723<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+GTD(Getting Things Done = 仕事をやり遂げる)は、あなたのタスクやプロジェクトを整理して管理する仕組みです。現代では、仕事や私生活で多くのタスクが発生して、常に頭をパンクさせようとします。GTDは、あなたの頭に詰め込まれているタスク、課題、心配事を全て吐き出し、機械的なフローで整理する仕組みを提供します。具体的に、GTDは以下の手順でタスクを整理します。
+
+1. 収集…頭の中にあるタスク、課題、気になることを全て書き出す。
+1. 処理…書き出した内容を、手順に沿って分類、リスト化する。
+1. 整理…リストを、自分が使っているスケジューラーやToDoリストなどに入力する。
+1. 見直し…定期的にタスク状況をレビューする。
+1. 実行…現在の状況、場所、体力に応じて、できることを実行する。
+
+特に __収集__ が非常に強力で、これを実行するだけでも効果があります。
+
+GTDはツールを選びません。手帳でも実践できますし、[todoist](https://todoist.com)などのアプリケーションを使っても良いです。まずは手軽に始め、次第にツールにこだわると良いと思います。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41T1aM-FF2L._SL160_.jpg" alt="なぜ、仕事が予定どおりに終わらないのか? ~「時間ない病」の特効薬!タスクシュート時間術" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank">なぜ、仕事が予定どおりに終わらないのか? ~「時間ない病」の特効薬!タスクシュート時間術</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">佐々木 正悟 <br />技術評論社 <br />売り上げランキング: 184,551<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+タスクシュートは、見積もり時間を入れたタスクを直列に並べ、順番にこなしていくタスク管理手法です。見積もり時間を入れるので、その日の仕事が何時に終わる予定か分かるところが面白いです。しかし、タスクシュートの真価は、 __過去のタスク記録を基にした習慣化__ にあります。
+
+タスクシュートでは、ほとんどの仕事が「ルーチンワーク」であると考えます。ルーチンワークであるので、タスク実績を細かくつけていればデータが蓄積され、次のタスクの見積もりに活かせます。1週間前にやったタスクは、きっと今日もやるのです。そして、きっと同じだけ時間がかかるでしょう。そういった現実を踏まえて、どのようにタスクをこなしていくかをこの書籍から学ぶと、効果的な時間の使い方ができるかもしれません。
+
+なお、タスクシュートは、[TaskChute](https://cyblog.biz/pro/taskchute2/)というExcelベースのアプリケーション、[たすくま](https://itunes.apple.com/jp/app/taskuma-taskchute-for-iphone/id896335635?mt=8)というiOSアプリケーション、[TaskChute Cloud](https://taskchute.cloud/)というWebサービスを使うと便利です。
+
+# 思考手法
+
+何か物事を考えるとき、「うーん」とうなっていても無駄に時間が過ぎるだけで良い考えは浮かびません。考える方法には、思考フレームワークと呼ばれるある種の型があります。どのような場合にどのような思考を行うと良いのかを知りたいとき、これらの書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41CAQ7C8QPL._SL160_.jpg" alt="ザ・ゴール 2 ― 思考プロセス" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank">ザ・ゴール 2 ― 思考プロセス</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">エリヤフ・ゴールドラット <br />ダイヤモンド社 <br />売り上げランキング: 4,218<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+「ザ・ゴール」シリーズの2冊目です。「ザ・ゴール」シリーズはビジネス小説の形態で、ビジネス上の危機に陥った主人公が __制約条件の理論__ (制約理論、またはTOC(theory of constraintsとも))と呼ばれるサプライチェーン・マネージメント手法を用いて危機から脱出する物語です。
+
+TOCは様々な業態に適用することが可能ですが、ここではTOCの __思考プロセス__ に注目したいです。組織やプロジェクトは様々な問題やステークホルダーの対立が発生します。思考プロセスは、様々な問題や対立から本質的な問題を発見し、それを解決したあるべき姿を描き、実現するための計画を策定する問題解決手法です。具体的には、以下の手法を用います。
+
+- 何を変えるか
+    - 現状問題構造ツリー
+- 何に変えるか
+    - 対立解消図
+    - 未来構造ツリー
+- どのように変えるか
+    - 前提条件ツリー
+    - 移行ツリー
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51kqLnpx5tL._SL160_.jpg" alt="新版 ザ・マインドマップ(R)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank">新版 ザ・マインドマップ(R)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">トニー・ブザン バリー・ブザン <br />ダイヤモンド社 <br />売り上げランキング: 12,838<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+マインドマップは、ある一つのテーマを中心に連想したことを枝を生やすように広げていく、発想法の一つです。人間の頭脳は、一つの物事から記憶が次々と連想されるようにできています。マインドマップはその働きを活かす手法を提唱しています。
+
+マインドマップで検索するとカラフルな図が見つかりますし、この書籍でも色や絵で表現することを推奨していますが、単純に枝を広げていくだけでも有用な手法です。また、きれいな図ばかりが目につきますが、まずはガシガシ枝を広げて、書き直しながら枝を整理するという手法も有効です。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822249123/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41H%2BHqfuHyL._SL160_.jpg" alt="しつもん仕事術" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822249123/yf073-22/ref=nosim/" name="amazletlink" target="_blank">しつもん仕事術</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">松田充弘 <br />日経BP社 <br />売り上げランキング: 40,590<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822249123/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+良い答えは良い質問から得られます。特に上流工程に近づくにつれて、本人すらも分かっていないようなことを導かなければならない場面が出てきます。この書籍では、さまざまな場合においてどのような質問をするべきか、質問をするときのコツなどを解説しています。
+
+# プログラミング
+
+良いコードは品質に大きく影響し、良いアーキテクチャは工数や、何なら組織構造にも影響を及ぼします。コンウェイの法則によれば「__組織はアーキテクチャに従う__」ので、アーキテクチャやコードはよくあるべきです。より良いコード、より良いアーキテクチャを考えるとき、これらの書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774189200/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/61iX9PgNq7L._SL160_.jpg" alt="WEB+DB PRESS Vol.98" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774189200/yf073-22/ref=nosim/" name="amazletlink" target="_blank">WEB+DB PRESS Vol.98</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">丸山 晋平 前佛 雅人 横田 真俊 小原 薫 小笠原 空宙 高橋 征義 牧 大輔 大沢 和宏(Yappo) 久田 真寛 のざき ひろふみ うらがみ 池田 拓司 ひげぽん 遠藤 雅伸 海野 弘成 はまちや2 竹原 日高 正博 <br />技術評論社 <br />売り上げランキング: 26,129<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774189200/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+WEB+DB PRESSシリーズは、技術系雑誌です。その時々に応じた様々な技術を実例付きで紹介しています。特に4月あたりに発刊されるWEB+DB PRESSシリーズには新卒向けの記事が掲載されることが多いので、目を通し手を動かすと良いでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427405019X/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51RWpUlhNxL._SL160_.jpg" alt="新装版 リファクタリング―既存のコードを安全に改善する― (OBJECT TECHNOLOGY SERIES)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427405019X/yf073-22/ref=nosim/" name="amazletlink" target="_blank">新装版 リファクタリング―既存のコードを安全に改善する― (OBJECT TECHNOLOGY SERIES)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Martin Fowler <br />オーム社 <br />売り上げランキング: 14,762<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427405019X/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+単にコードをきれいにすることをリファクタリングと言ってしまうことがあるようですが、リファクタリングはインターフェイス仕様を変更せずにコードを改善するための体系的な手法です。書籍では、コードの良くない兆候とそれに対する対応方法が説明されています。また、リファクタリングを行うための前提となるプロジェクトの状態や、リファクタリングの進め方も重要となります。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873115655/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51MgH8Jmr3L._SL160_.jpg" alt="リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873115655/yf073-22/ref=nosim/" name="amazletlink" target="_blank">リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Dustin Boswell Trevor Foucher <br />オライリージャパン <br />売り上げランキング: 318<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4873115655/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+より良いコードを書くための手法を説明しています。理解しやすいコードとは何か？分かりやすい変数名とは？ロジックとはどう構成されるべきか？規模が大きいコードを書くための心得を知ることができます。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797327030/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51QsmvkObML._SL160_.jpg" alt="増補改訂版Java言語で学ぶデザインパターン入門" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797327030/yf073-22/ref=nosim/" name="amazletlink" target="_blank">増補改訂版Java言語で学ぶデザインパターン入門</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">結城 浩 <br />ソフトバンククリエイティブ <br />売り上げランキング: 5,223<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797327030/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+デザインパターンとは、ここではプログラム設計のパターンのことを言います。可変長リストを繰り返し処理するパターン、ツリー構造を一つずつたどって処理するパターン、複雑な初期化処理が必要なオブジェクトを構築するパターン、などのさまざまなパターンが紹介されています。
+
+なお、この書籍で説明されているデザインパターンはごく初期のパターンですが、現在では様々なパターンが考案されているため、それらも併せて調べると良いでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797331623/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41R9eyP8jNL._SL160_.jpg" alt="増補改訂版 Java言語で学ぶデザインパターン入門 マルチスレッド編" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797331623/yf073-22/ref=nosim/" name="amazletlink" target="_blank">増補改訂版 Java言語で学ぶデザインパターン入門 マルチスレッド編</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">結城 浩 <br />ソフトバンククリエイティブ <br />売り上げランキング: 39,847<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797331623/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+よほど小さいプログラムでもない限り、意識的/無意識的にマルチスレッドで動作します。特にWebアプリケーションは、ほとんどフレームワークが頑張ってくれますが根底ではマルチスレッドで動作しています。この書籍では、マルチスレッドにおけるデザインパターンを解説しています。ただ、個人的にはデザインパターンよりもそこで解説している用語や考え方が非常に参考になりました。
+
+# データベース
+
+現代ではリレーショナル・データベース(RDB)だけでなくNoSQLデータベースも活用されますが、やはり業務システムではRDBがまだまだ主役です。なんとなく使っているRDBをより効率的に使おうとしたときに、この書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774173010/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51pl3HrLCjL._SL160_.jpg" alt="SQL実践入門──高速でわかりやすいクエリの書き方 (WEB+DB PRESS plus)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774173010/yf073-22/ref=nosim/" name="amazletlink" target="_blank">SQL実践入門──高速でわかりやすいクエリの書き方 (WEB+DB PRESS plus)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">ミック <br />技術評論社 <br />売り上げランキング: 16,449<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774173010/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+SQLは非常に優れた問い合わせ言語で、正直、プアな書き方でも欲しいデータを得ることができなくもないです。しかし、良いコードを書くと良い効果があるように、良いSQLは良い効果があります。どのようなSQLを書くべきか、この書籍で学ぶことができるでしょう。
+
+# 設計手法
+
+SIerの現場では、ベンダー標準開発手法に基づいた設計書をただ量産することが多いかもしれませんが、ただ漫然と作業しているだけでは良い設計は生まれませんし、システムを理解することもできません。顧客が抱えている問題の本質は何かをとらえ、解決手段をシステムとして実現するときに、これらの書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798039446/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51WCZViWGKL._SL160_.jpg" alt="モデルベース要件定義テクニック" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798039446/yf073-22/ref=nosim/" name="amazletlink" target="_blank">モデルベース要件定義テクニック</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">神崎 善司 <br />秀和システム <br />売り上げランキング: 194,309<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798039446/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+要求開発・要件定義のようないわゆる上流工程は、顧客が抱えている問題やステークホルダーの対立から、中核的な問題を発見したり、その解決手段を論理的に表現する必要があります。この書籍では、リレーションシップ駆動要件分析という非常に優れた手法で、問題を発見し要件として整理する方法を説明しています。リレーションシップ駆動要件分析とは、UMLが持つ豊富な図を駆使して、顧客の問題や現状の関連を表現し、業務フローやシステム構造など多角的に分析します。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798114456/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51NnCHJwCFL._SL160_.jpg" alt="ユースケース駆動開発実践ガイド (OOP Foundations)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798114456/yf073-22/ref=nosim/" name="amazletlink" target="_blank">ユースケース駆動開発実践ガイド (OOP Foundations)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">ダグ・ローゼンバーグ Doug Rosenberg 三河 淳一 船木 健児 <br />翔泳社 <br />売り上げランキング: 162,107<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798114456/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+プロジェクトの成果物は、要件・設計・コードの全てがトレーサビリティを保つべきです。どの要件がどのように設計されどのコードで実現されているのかが分からないと、本当に要件が実現されたのかが分からなくなってしまいます。しかし、現実的にはそれぞれの工程で情報が断絶してしまい、トレーサビリティが失われてしまうことが少なくありません。
+
+この書籍で紹介されているICONIXは、UMLを用いて要件定義と設計のギャップを埋める、軽量な方法論です。主にロバストネス分析を用いてユースケースから設計を導出しますが、やりようによってはコードにマッピングすることも可能です。
+
+なお、筆者は、ステークホルダーの問題発見と解決手段特定に __思考プロセス__ 、要求の表現と要件の整理に __リレーションシップ駆動要件分析__ 、要件から設計の導出に __ICONIX__ を使用します(使用しようとしています)。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4894716828/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41NTMDy-NPL._SL160_.jpg" alt="実践UML 第3版 オブジェクト指向分析設計と反復型開発入門" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4894716828/yf073-22/ref=nosim/" name="amazletlink" target="_blank">実践UML 第3版 オブジェクト指向分析設計と反復型開発入門</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">クレーグ・ラーマン <br />ピアソンエデュケーション <br />売り上げランキング: 666,243<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4894716828/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+UMLは非常に強力な分析ツールですが、仕様が大きいため把握が困難です。この書籍は、UMLの仕様や実例が掲載されています。
+
+- [非機能要求の見える化と確認の手段を実現する「非機能要求グレード」の公開：IPA 独立行政法人 情報処理推進機構](https://www.ipa.go.jp/sec/softwareengineering/reports/20100416.html)
+
+書籍ではありませんが、非常に有用な資料であるため紹介します。機能要件は顧客がやりたいことの表現であるため分かりやすい一面がありますが、非機能要件をどのように定義したらよいのかわからないというプロジェクトは少なくないと思います。非機能要求グレードは、非機能要件として定義すべき項目と、システムの重要度に応じた目安が掲載されています。
+
+そのシステムがどこまで担保するべきか、それを担保するためにどうすべきか、この資料を基に議論すると建設的な議論になると思います。
+
+- [安全なウェブサイトの作り方：IPA 独立行政法人 情報処理推進機構](https://www.ipa.go.jp/security/vuln/websecurity.html)
+
+どのシステムもセキュリティを考えなければなりませんが、Webサービスに対する代表的な脆弱性と対処法が説明されています。Webサービスを構築するのであれば、必須の資料といえます。
+
+# プロジェクト管理
+
+大なり小なりプロジェクトは、様々なタスクや成果物で構成され、複雑で、リスクがあります。 __プロジェクトは複雑性に支配される__ とも言えます。多くのプロジェクトが職人芸的なプロジェクト管理によりなんとかやっていますが、体系的なプロジェクト管理を学ぶことで安定度が増すかもしれません。その時、これらの書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797367709/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51CHHSsHaRL._SL160_.jpg" alt="演習と実例で学ぶ プロジェクトマネジメント入門 第2版" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797367709/yf073-22/ref=nosim/" name="amazletlink" target="_blank">演習と実例で学ぶ プロジェクトマネジメント入門 第2版</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">飯尾 淳 <br />SBクリエイティブ <br />売り上げランキング: 447,687<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4797367709/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+プロジェクト管理の体系的な知識はPMBOKとして整理されていますが、この書籍はPMBOKの基本的な説明と実例を解説します。PMBOKを体系的に把握したいときに役立ちます。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420408/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51J3bScPmdL._SL160_.jpg" alt="ザ・ゴール ― 企業の究極の目的とは何か" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420408/yf073-22/ref=nosim/" name="amazletlink" target="_blank">ザ・ゴール ― 企業の究極の目的とは何か</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">エリヤフ・ゴールドラット <br />ダイヤモンド社 <br />売り上げランキング: 1,137<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420408/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+前述した「ザ・ゴール」シリーズの1冊目です。TOCは思考プロセスのほかに「組織のパフォーマンスを最大化する」手法も提供します。この書籍では、例によってビジネス上の危機に陥った主人公が、生産ラインのボトルネックを発見して __ボトルネックを活用する__ 過程を小説として説明しています。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420459/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41FCPB7A3WL._SL160_.jpg" alt="クリティカルチェーン―なぜ、プロジェクトは予定どおりに進まないのか?" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420459/yf073-22/ref=nosim/" name="amazletlink" target="_blank">クリティカルチェーン―なぜ、プロジェクトは予定どおりに進まないのか?</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">エリヤフ ゴールドラット 三本木 亮 <br />ダイヤモンド社 <br />売り上げランキング: 19,222<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420459/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+この書籍も「ザ・ゴール」シリーズの1冊です。プロジェクトの最長作業パスを「クリティカル・パス」と呼びますが、複数プロジェクトを掛け持ちする場合をこの書籍では「クリティカル・チェーン」と呼び、対応過程を小説として説明しています。
+
+「複数プロジェクトを掛け持ち」というとそのような機会はあまりないように聞こえますが、 __プロジェクトの定義__ によりますが実はこの状況は頻繁に発生します。いつの間にか切羽詰まった状況になる前に、この書籍を読むと良いかもしれません。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822281868/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51704T9SZKL._SL160_.jpg" alt="熊とワルツを - リスクを愉しむプロジェクト管理" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822281868/yf073-22/ref=nosim/" name="amazletlink" target="_blank">熊とワルツを - リスクを愉しむプロジェクト管理</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">トム・デマルコ ティモシー・リスター <br />日経BP社 <br />売り上げランキング: 78,460<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4822281868/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+人は簡単に「リスク」という言葉を言ってしまいますが、リスクとは何で、どのように管理すべきで、どのように対応すべきかを体系的に理解し実践している現場はあまりないように思います。この書籍では、それらを説明しています。
+
+よくありがちな(あってはいけませんが)「リスク分として工数の20%をバッファとして考えている」のような考え方では、そもそも何がリスクなのか分かりませんし、20%をどのように使うつもりかもわかりません。リスクをちゃんと説明するためにも、チームやプロジェクトを管理する立場になる前に読むべき本といえます。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4621066080/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/513Y-C2739L._SL160_.jpg" alt="人月の神話【新装版】" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4621066080/yf073-22/ref=nosim/" name="amazletlink" target="_blank">人月の神話【新装版】</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Jr FrederickP.Brooks <br />丸善出版 <br />売り上げランキング: 13,830<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4621066080/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+非常に有名な本なので紹介するまでもないかもしれませんが、必読本です。この書籍はさまざまな教訓が説明されていますが、筆者は特に「人月の神話」「外科手術チーム」が印象に残っています。特に、意味も考えずに「人月」という単位を使ってしまっている場合、この書籍を読みましょう。100人月の作業に100人アサインしたら1か月で完了するわけではありません。
+
+# ワークスタイル
+
+この業界で生きていくために、先達が様々な文章を残してくれています。人が経験したことをそのまま鵜呑みにはできませんが、ある時、ふと思い出すものです。そういった先達の経験を知りたいとき、これらの書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274066304/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51YQa%2BrTYPL._SL160_.jpg" alt="Joel on Software" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274066304/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Joel on Software</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Joel Spolsky <br />オーム社 <br />売り上げランキング: 126,375<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274066304/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798118923/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51GCYBQ9S8L._SL160_.jpg" alt="More Joel on Software" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798118923/yf073-22/ref=nosim/" name="amazletlink" target="_blank">More Joel on Software</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Joel Spolsky <br />翔泳社 <br />売り上げランキング: 211,933<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4798118923/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+元マイクロソフト社員で、Stack Overflowの生みの親でもあるジョエル・スポルスキ氏のエッセイ集です。エンジニアの面接、なかなか集中できない、過剰な抽象化、など優秀なソフトウェア・エンジニアであるジョエル氏のエッセイが収録されています。筆者は特に、[射撃しつつ前進](http://japanese.joelonsoftware.com/Articles/FireAndMotion.html)と[躍進を続けるアーキテクチャ宇宙飛行士たち](http://local.joelonsoftware.com/wiki/躍進を続けるアーキテクチャ宇宙飛行士たち)が好みです。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274065979/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/511SV9NXW2L._SL160_.jpg" alt="ハッカーと画家 コンピュータ時代の創造者たち" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274065979/yf073-22/ref=nosim/" name="amazletlink" target="_blank">ハッカーと画家 コンピュータ時代の創造者たち</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">ポール グレアム <br />オーム社 <br />売り上げランキング: 3,049<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4274065979/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+ハッカーとは優秀なエンジニアのことを言いますが、ハッカーとはどのようなものか、ハッカーの文化、IT業界やコミュニティがどのようなものかを語っています。プログラミング、というかITシステムというものに興味があるのであれば、非常に面白い文章でしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427421933X/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51aDNpMj8hL._SL160_.jpg" alt="新装版 達人プログラマー 職人から名匠への道" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427421933X/yf073-22/ref=nosim/" name="amazletlink" target="_blank">新装版 達人プログラマー 職人から名匠への道</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Andrew Hunt David Thomas <br />オーム社 <br />売り上げランキング: 13,389<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/427421933X/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4048860690/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51dv8ZDoLBL._SL160_.jpg" alt="Clean Coder プロフェッショナルプログラマへの道" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4048860690/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Clean Coder プロフェッショナルプログラマへの道</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">Robert C. Martin <br />アスキー・メディアワークス <br />売り上げランキング: 211,784<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4048860690/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+達人プログラマー、Clean Coderはともに、エンジニアとして生きるための心得のようなものを語っています。達人プログラマーは中堅以上のプログラマーとしての心得、Clean Coderはエンジニア全般としての心得を語っています。セットで読むと良いでしょう。
+
+# Webサービス
+
+技術的なことはいろいろな本が出ていますが、例えば自分でWebサービスを作りたいとなった場合、技術以外でもいろいろと考えなければならないことが出てきます。そういったことを知りたいとき、この書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774155942/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51Qwu56djfL._SL160_.jpg" alt="良いウェブサービスを支える「利用規約」の作り方" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774155942/yf073-22/ref=nosim/" name="amazletlink" target="_blank">良いウェブサービスを支える「利用規約」の作り方</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">雨宮 美季 片岡 玄一 橋詰 卓司 <br />技術評論社 <br />売り上げランキング: 49,634<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774155942/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+みんなが読み飛ばしがちな利用規約やプライバシーポリシーですが、作る側としては非常に気を使う必要があります。なにせ、ビジネスモデルに直結するので。この書籍では、規約の作り方やその意味を説明します。
+
+# AI技術
+
+勢いのあるAI技術ですが、それがいったい何のかを簡単に説明する本は意外と少ないです。エンジニアならば機械学習系SaaSでも触ってみれば良いかもしれませんが、入門的に知りたい場合に、この書籍が役立つでしょう。
+
+<div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4883170802/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41GXRGCSF4L._SL160_.jpg" alt="マッチ箱の脳(AI)―使える人工知能のお話" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4883170802/yf073-22/ref=nosim/" name="amazletlink" target="_blank">マッチ箱の脳(AI)―使える人工知能のお話</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">森川 幸人 <br />新紀元社 <br />売り上げランキング: 248,177<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4883170802/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+現在のAI技術流行の前に出版された書籍ですが、非常に分かりやすくAI技術について説明しています。
+
+# おわりに
+
+インターネットに情報があふれる現代では書籍を読むことが少なくなったかもしれません。しかし、コミュニケーションが媒体により効果が異なるように、情報源も媒体により効果が異なります。具体的には、インターネットでは最新情報が得られますが編纂されていない限定的な情報になり、書籍ではよく整理された情報が得られますが最新ではありません。どのような情報が欲しいかによってどの媒体を利用するかをよく考え、効果的に情報を入手しましょう。
+
+ちなみに、なんとなくわかると思いますが、紹介文が長い書籍ほど個人的におすすめの書籍です。
+
+# Link
+
+- Author
+    - [u6k.Blog()](https://blog.u6k.me/)
+    - [u6k - GitHub](https://github.com/u6k)
+    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
+- Source
+    - [2017-12-27-great-books-useful-for-work.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-27-great-books-useful-for-work.md)

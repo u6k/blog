@@ -10,13 +10,48 @@ date: 2017-12-27 00:00:00+09:00
 
 # タスク管理
 
+自分の作業を管理するとき、ToDoリストや付箋を使うなど自分なりのやり方で管理していると思います。しかし、作業や課題がある分量を超えると、単純なリストでは管理しきれなくなります。そういう時に、これらの書籍が役に立つでしょう。
+
 <div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51umAMmeSlL._SL160_.jpg" alt="はじめてのGTD ストレスフリーの整理術" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank">はじめてのGTD ストレスフリーの整理術</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">デビッド・アレン <br />二見書房 <br />売り上げランキング: 15,723<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4576082116/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+GTD(Getting Things Done = 仕事をやり遂げる)は、あなたのタスクやプロジェクトを整理して管理する仕組みです。現代では、仕事や私生活で多くのタスクが発生して、常に頭をパンクさせようとします。GTDは、あなたの頭に詰め込まれているタスク、課題、心配事を全て吐き出し、機械的なフローで整理する仕組みを提供します。具体的に、GTDは以下の手順でタスクを整理します。
+
+1. 収集…頭の中にあるタスク、課題、気になることを全て書き出す。
+1. 処理…書き出した内容を、手順に沿って分類、リスト化する。
+1. 整理…リストを、自分が使っているスケジューラーやToDoリストなどに入力する。
+1. 見直し…定期的にタスク状況をレビューする。
+1. 実行…現在の状況、場所、体力に応じて、できることを実行する。
+
+特に __収集__ が非常に強力で、これを実行するだけでも効果があります。
+
+GTDはツールを選びません。手帳でも実践できますし、[todoist](https://todoist.com)などのアプリケーションを使っても良いです。まずは手軽に始め、次第にツールにこだわると良いと思います。
 
 <div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41T1aM-FF2L._SL160_.jpg" alt="なぜ、仕事が予定どおりに終わらないのか? ~「時間ない病」の特効薬!タスクシュート時間術" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank">なぜ、仕事が予定どおりに終わらないのか? ~「時間ない病」の特効薬!タスクシュート時間術</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">佐々木 正悟 <br />技術評論社 <br />売り上げランキング: 184,551<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4774163562/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
 
+タスクシュートは、見積もり時間を入れたタスクを直列に並べ、順番にこなしていくタスク管理手法です。見積もり時間を入れるので、その日の仕事が何時に終わる予定か分かるところが面白いです。しかし、タスクシュートの真価は、 __過去のタスク記録を基にした習慣化__ にあります。
+
+タスクシュートでは、ほとんどの仕事が「ルーチンワーク」であると考えます。ルーチンワークであるので、タスク実績を細かくつけていればデータが蓄積され、次のタスクの見積もりに活かせます。1週間前にやったタスクは、きっと今日もやるのです。そして、きっと同じだけ時間がかかるでしょう。そういった現実を踏まえて、どのようにタスクをこなしていくかをこの書籍から学ぶと、効果的な時間の使い方ができるかもしれません。
+
+なお、タスクシュートは、[TaskChute](https://cyblog.biz/pro/taskchute2/)というExcelベースのアプリケーション、[たすくま](https://itunes.apple.com/jp/app/taskuma-taskchute-for-iphone/id896335635?mt=8)というiOSアプリケーション、[TaskChute Cloud](https://taskchute.cloud/)というWebサービスを使うと便利です。
+
 # 思考手法
 
+何か物事を考えるとき、「うーん」とうなっていても無駄に時間が過ぎるだけで良い考えは浮かびません。考える方法には、思考フレームワークと呼ばれるある種の型があります。どのような場合にどのような思考を行うと良いのかを知りたいとき、これらの書籍が役立つでしょう。
+
 <div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/41CAQ7C8QPL._SL160_.jpg" alt="ザ・ゴール 2 ― 思考プロセス" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank">ザ・ゴール 2 ― 思考プロセス</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">エリヤフ・ゴールドラット <br />ダイヤモンド社 <br />売り上げランキング: 4,218<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478420416/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
+
+「ザ・ゴール」シリーズの2冊目です。「ザ・ゴール」シリーズはビジネス小説の形態で、ビジネス上の危機に陥った主人公が __制約条件の理論__ (制約理論、またはTOC(theory of constraintsとも))と呼ばれるサプライチェーン・マネージメント手法を用いて危機から脱出する物語です。
+
+TOCは様々な業態に適用することが可能ですが、ここではTOCの __思考プロセス__ に注目したいです。組織やプロジェクトは様々な問題やステークホルダーの対立が発生します。思考プロセスは、様々な問題や対立から本質的な問題を発見し、それを解決したあるべき姿を描き、実現するための計画を策定する問題解決手法です。具体的には、以下の手法を用います。
+
+- 何を変えるか
+    - 現状問題構造ツリー
+- 何に変えるか
+    - 対立解消図
+    - 未来構造ツリー
+- どのように変えるか
+    - 前提条件ツリー
+    - 移行ツリー
 
 <div class="amazlet-box" style="margin-bottom:0px;"><div class="amazlet-image" style="float:left;margin:0px 12px 1px 0px;"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank"><img src="https://images-fe.ssl-images-amazon.com/images/I/51kqLnpx5tL._SL160_.jpg" alt="新版 ザ・マインドマップ(R)" style="border: none;" /></a></div><div class="amazlet-info" style="line-height:120%; margin-bottom: 10px"><div class="amazlet-name" style="margin-bottom:10px;line-height:120%"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank">新版 ザ・マインドマップ(R)</a><div class="amazlet-powered-date" style="font-size:80%;margin-top:5px;line-height:120%">posted with <a href="http://www.amazlet.com/" title="amazlet" target="_blank">amazlet</a> at 17.12.29</div></div><div class="amazlet-detail">トニー・ブザン バリー・ブザン <br />ダイヤモンド社 <br />売り上げランキング: 12,838<br /></div><div class="amazlet-sub-info" style="float: left;"><div class="amazlet-link" style="margin-top: 5px"><a href="http://www.amazon.co.jp/exec/obidos/ASIN/4478017166/yf073-22/ref=nosim/" name="amazletlink" target="_blank">Amazon.co.jpで詳細を見る</a></div></div></div><div class="amazlet-footer" style="clear: left"></div></div>
 

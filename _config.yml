@@ -131,3 +131,9 @@ defaults:
       read_time: false
       share: true
       related: false
+
+# Analytics
+analytics:
+  provider: google
+  google:
+    tracking_id: UA-112068302-1

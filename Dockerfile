@@ -36,7 +36,7 @@ COPY . /var/my-blog
 WORKDIR /var/my-blog
 RUN jekyll build
 
-FROM nginx:alpine
+FROM nginx
 LABEL maintainer="u6k.apps@gmail.com"
 
 COPY --from=blog-dev /var/my-blog/_site/ /usr/share/nginx/html/

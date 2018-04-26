@@ -1,16 +1,16 @@
-version: '2'
+version: '3'
 
 services:
-    blog:
-        image: u6kapps/blog
-        environment:
-            - "VIRTUAL_HOST=blog.u6k.me"
-            - "VIRTUAL_PORT=80"
-            - "LETSENCRYPT_HOST=blog.u6k.me"
-            - "LETSENCRYPT_EMAIL=u6k.apps@gmail.com"
-        restart: always
+  blog:
+    build: .
+    environment:
+      - "VIRTUAL_HOST=test-blog.u6k.me"
+      - "VIRTUAL_PORT=80"
+      - "LETSENCRYPT_HOST=test-blog.u6k.me"
+      - "LETSENCRYPT_EMAIL=u6k.apps@gmail.com"
+    restart: always
 
 networks:
-    default:
-        external:
-            name: nginxproxy_default
+  default:
+    external:
+      name: docker_default

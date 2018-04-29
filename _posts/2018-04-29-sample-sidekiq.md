@@ -144,7 +144,17 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 簡単にSidekiqを使用したコンテナ構造を説明すると、次のように構成します。ちなみに、今回はRailsアプリケーションが使用するDBとしてSQLiteを指定しているため、DBコンテナは構成しません。
 
-![コンテナ構造](http://www.plantuml.com/plantuml/png/NO_12SCm34Nlca8BP84IJ5PHxNy8RMHNbcZ7Rqm3RNCmVFnu3xHq5_FOxYJPgt5q6EMwjQfGPscDvpbNTLaLbX8LSRbA1nlAsa_mApwhtM0dJAFEqvH6b_OtzX6wCFGH2D2XJj5-OC4_tD5d3l6578xZWnPesGzw0m00)
+{% plantuml %}
+actor user
+component app <<container>>
+database redis <<container>>
+component worker <<container>>
+
+user --> app
+app --> redis : enqueue
+worker -up-> redis : dequeue
+worker --> worker : execute worker
+{% endplantuml %}
 
 まず、アプリケーション用コンテナの `Dockerfile` ファイルを作成します。
 

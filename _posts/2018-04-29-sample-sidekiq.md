@@ -6,7 +6,7 @@ tags:
   - "Ruby on Rails"
   - "Sidekiq"
   - "Cron"
-  - "ジョブ"
+  - "ジョブ"
 date: 2018-04-29 00:00:00+09:00
 ---
 

@@ -22,7 +22,7 @@ TODO 文書全体を確認
 ## TL;DR
 
 - 情報を収集し、整理し、蓄積する
-- __蓄積することが大事!__
+- __蓄積することが大事？__
 - 自分が使いやすいように/検索しやすいように蓄積する
 
 ## 「アンテナを張る」とは？
@@ -57,7 +57,25 @@ TODO 文書全体を確認
 
 では、アンテナを張るには具体的にどうすればよいでしょうか。まず、「特定の話題」「注意深く」「情報収集」の構造を示します。
 
-TODO: 特定の話題(厳選した情報源から入手) -> 注意深く(一度ストックする) -> 情報収集(ナレッジとして整理する)
+
+{% plantuml %}
+left to right direction
+
+database "情報源(SNS)" as input1
+database "情報源(RSS)" as input2
+database "情報源(その他)" as input3
+database "ブックマーク\nあとで読む\nメモ" as ril
+database "ナレッジベース" as kb
+() "集約して一時保存" as input
+() "整理" as stock
+
+input1 --> input
+input2 --> input
+input3 --> input
+ril -l- input
+ril --> stock
+kb -l- stock
+{% endplantuml %}
 
 それぞれの構造を説明します。
 

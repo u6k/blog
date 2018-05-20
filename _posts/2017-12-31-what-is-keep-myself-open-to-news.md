@@ -35,18 +35,25 @@ date: 2017-12-31 00:00:00+09:00
 アンテナを張るには具体的にどうすればよいでしょうか。まず、「特定の話題」「注意深く」「情報収集」の構造を示します。
 
 {% plantuml %}
-database "情報源(SNS)" as input1
-database "情報源(RSS)" as input2
-database "情報源(書籍)" as input3
-database "情報源(その他)" as input4
+database "RSS\n書籍\nSNS\nニュースサービス\n…など" as input
 component "ブックマーク\nあとで読む\nメモ" as ril
 database "ナレッジベース" as kb
 
-input1 --> ril
-input2 --> ril
-input3 --> ril
-input4 --> ril
-ril --> kb
+input -d-> ril
+ril -d-> kb
+
+note right of input
+厳選した情報源
+end note
+
+note right of ril
+いったん全てに目を通し、
+あとで熟読
+end note
+
+note right of kb
+自分用のWikipediaを構築
+end note
 {% endplantuml %}
 
 それぞれの構造を説明します。

@@ -3,7 +3,7 @@ layout: single
 title: "「アンテナを張る」とは？"
 tags:
   - "情報収集"
-date: 2017-12-31 00:00:00+09:00
+date: 2018-05-19 00:00:00+09:00
 ---
 
 世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。
@@ -99,4 +99,4 @@ Google News、スマートニュース、グノシー、Ceronなどニュース�
     - [u6k - GitHub](https://github.com/u6k)
     - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
 - Source
-    - [2017-12-31-what-is-keep-myself-open-to-news.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-31-what-is-keep-myself-open-to-news.md)
+    - [2018-05-19-what-is-keep-myself-open-to-news.md](https://github.com/u6k/blog/blob/master/_posts/2018-05-19-what-is-keep-myself-open-to-news.md)

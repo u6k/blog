@@ -65,7 +65,7 @@ node "HDD1,2,3,4" {
 
 前回はCoreOS on VirtualHost on MacBookで、一時的にDebian on DeigitalOceanに移行して、やっぱりDebian on MacBookに戻りました。サーバー上でいろいろ作業したい場合、CoreOSはやはり不便ですね。そういうOSなのでしかたありませんが。
 
-> _TODO:_ 実は、この記事を執筆している現時点ではまだDebian on VirtualBox on MacBookで、LVM RAID logical volumeの実験が完了したら、上記のように移行する予定です。
+> __TODO:__ 実は、この記事を執筆している現時点ではまだDebian on VirtualBox on MacBookで、LVM RAID logical volumeの実験が完了したら、上記のように移行する予定です。
 
 運用しているDockerサービス群は、別記事で説明します。
 
@@ -81,13 +81,19 @@ node "HDD1,2,3,4" {
 
 前回までは、ジョブをJenkinsで実行していましたが(いわゆる闇のJenkinsおじさん)、現在はRundeckでジョブを実行しています。ただ、Rundeckへの移行は、正直、あまり意味がなかったかなと思っています。
 
+## ブログはGitHub Pagesで独自ドメイン + HTTPS
+
+ブログはダウンタイムをゼロにしたく、DockerではなくGitHub Pagesに移行しました。これにより、Dockerホストが不安定になったときやmacOSをアップデートしたいときに、ブログも巻き込まれてダウンしていましたが、現在ではそれはなくなりました。
+
+> __TODO:__ ブログのGitHub Pagesへの移行は、この記事執筆時点では検証中です。
+
 ## HDDはLVMで統合
 
 HDDは、LVM RAID logical volumeで統合しています。この構成の場合、LVMの機能でミラーリングするので、HDDが1個故障する程度なら復旧が可能のはずです。
 
 前回はLVMで統合していただけであり、対障害性の観点からは脆弱でした。そうは言ってもDigitalOcean Spacesにバックアップしているので、絶対に失いたくないデータについてはあまり問題はありませんが。
 
-> _TODO:_ この記事を執筆している現在は、まだLVM on macOSからデータを移行している途中です。ある程度の検証ができたら、別記事でセットアップ、復旧手順などを整理したいと思います。
+> __TODO:__ この記事を執筆している現在は、まだLVM on macOSからデータを移行している途中です。ある程度の検証ができたら、別記事でセットアップ、復旧手順などを整理したいと思います。
 
 ## バックアップはDigitalOcean Spacesとクラウドストレージ
 

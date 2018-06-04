@@ -1,127 +1,97 @@
 ---
 layout: single
-title: "自宅サーバー設計(ソフトウェア編)"
+title: "自宅サーバー設計(ハードウェア編)"
 tags:
   - "サーバー"
   - "設計"
-date: 2017-05-02
+date: 2018-06-04
 ---
 
-ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。
+自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。
 
 # 前提
 
-- サービスを楽に構築するため、Dockerコンテナで(ほぼ)全てを構成したい。
-- ユーザー数が少ない(自分しか使わない)ので、DBMSはSQLiteでとりあえずいいや。
-- 定期ジョブは、Jenkinsおじさんにやってもらう。
-- ファイル管理は、(可能な限り)minioコンテナに集約したい。最悪、minioコンテナのファイルから環境を復元したい。
-    - ジョブのログ、再発行可能な証明書など消えても良いファイルは、各コンテナのボリュームで扱う。
+- 昔使っていたMacBookがあるので、これをDockerホストにしたい。
+- HDDが数台あるけど、1個のボリュームにして扱いやすくしたい。
+- ドメイン名でアクセスできるようにしたい。
+- バックアップは、自宅とは別サイトにしたい。
 
 # 構成図
 
+紆余曲折あり、現在は以下のような構成になっています。
+
 {% plantuml %}
 
-[nginx-proxy]
-[letsencrypt-nginx-proxy-companion]
-[redmine]
-[blog]
-[owncloud]
-[jenkins]
-[bookmark]
-[narou-crawler]
-[narou-crawler-db]
-[minio]
-[ceron-analyze]
+interface "VNC"
+interface "SSH"
+interface "HTTP(S)"
 
-[nginx-proxy] -- [letsencrypt-nginx-proxy-companion]
-[nginx-proxy] .. [redmine] : redmine.u6k.me
-[nginx-proxy] .. [blog] : blog.u6k.me
-[nginx-proxy] .. [owncloud] : owncloud.u6k.me
-[nginx-proxy] .. [jenkins] : jenkins.u6k.me
-[nginx-proxy] .. [minio] : s3.u6k.me
-[nginx-proxy] .. [bookmark] : bookmark.u6k.me
-[jenkins] .. [redmine]
-[jenkins] .. [bookmark]
-[jenkins] .. [narou-crawler-db]
-[jenkins] --> [narou-crawler]
-[jenkins] --> [minio]
-[jenkins] --> [ceron-analyze]
-[narou-crawler] --> [narou-crawler-db]
-[narou-crawler] --> [minio]
-[ceron-analyze] --> [minio]
+node "MacBookPro" {
+    [macOS]
+    component "VirtualBox" {
+        [CoreOS]
+    }
+}
+
+node "HDD1,2,3" {
+    [LVM ext4 (6TB)]
+}
+
+[ムームードメイン] <<外部サービス>>
+[MyDNS] <<外部サービス>>
+[AmazonCloudDrive] <<外部サービス>>
+
+[macOS] -up- [VNC]
+[CoreOS] --> [LVM ext4 (6TB)]
+[CoreOS] -up- [SSH]
+[CoreOS] -up- [HTTP(S)]
+[ムームードメイン] -- [MyDNS]
+[MyDNS] -- [macOS]
+[LVM ext4 (6TB)] -- [AmazonCloudDrive] : バックアップ
 
 {% endplantuml %}
 
 # 構成の説明
 
-## nginx-proxyとletsencrypt-nginx-proxy-companion
+## CoreOS on VirtualBox on macOS
 
-nginx-proxyコンテナが外部からのHTTP(S)接続を受け入れ、ホスト名に応じて各コンテナに振り分けます。しばしば`jwilder/nginx-proxy`が使用されますが、1コンテナに複数のドメイン名をマッピングしたかったので、`dbendelman/nginx-proxy`を使用しています。
+Docker for macも使っていましたが、以下のような不安定さがあり、結局、CoreOSに戻しました。
 
-letsencrypt-nginx-proxy-companionコンテナは、Let's Encryptを使用してドメイン名に対して自動的にサーバー証明書を発行してくれます。
+- `qcow2`ファイルが肥大化して、ストレージを圧迫してしまう。
+- ネットワーク通信が頻発すると、接続確立できなくなる？
 
-nginx-proxyコンテナとletsencrypt-nginx-proxy-companionコンテナの組み合わせは、Dockerコンテナにおける複数サービス提供の鉄板構成だと思っていて、サービスが増減しても動的に管理してくれるので、すごく便利です。
+## 外部からアクセスする場合は、sshまたはVNC
 
-## redmine
+普段はCoreOSで作業を行うため、sshで接続します。CoreOSの調子がおかしい、macOSをアップデートする、などの場合はVNCでアクセスします。
 
-redmineコンテナで、自分用のRedmineを運用しています。プラグイン、テーマなどをビルド時に追加しています。
+## "u6k.me"でアクセスできるように、ムームードメインで契約
 
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`redmine.u6k.me`でアクセスできるようにしています。
+ムームードメインで年間契約して、MyDNSでドメイン名とIPアドレスを管理しています。IPアドレスが変わっても良いように、Jenkinsコンテナで定期的にIPアドレスを通知しています。
 
-Redmineは趣味開発や仕事だけではなく私生活のタスクも管理しているため、頻繁にバックアップを取り、長期旅行では一時的にDigitalOceanで運用するなどしています。
+## HDDはLVMでボリュームを統合
 
-## owncloud
+ボリュームを1個に統合して、ext4ストレージとして使っています。これは今でもちょっと迷っていて、個別ボリュームで扱った方が良いかな？故障したときどこまで被害が広がるかな？と悩んでいます。
 
-owncloudコンテナで、自分用のownCloudを運用しています。スマホの写真や動画、PC内ファイルの管理などで使っています。
+## バックアップはAmazonCloudDrive
 
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`owncloud.u6k.me`でアクセスできるようにしています。
+まだ全部をバックアップはできていなくて、少しずつ進めています。
 
-ownCloudにはS3と連携するプラグインがあるため、minioコンテナにファイル管理を集約できるはずですが、エラーになってしまい、今のところ実現できていません。
+## MacBookPro
 
-## blog
-
-blogコンテナで、blogを公開しています。以前はBloggerを使っていましたが、Markdownの扱いが不便だったため、jekyllに乗り換えました。なので、記事を書いたらCircleCIでDockerイメージをビルドして、blogコンテナを再起動することで記事を更新しています。
-
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`blog.u6k.me`でアクセスできるようにしています。
-
-## bookmark
-
-自作のブックマーク管理サービスを運用しています。一般的なブックマーク管理サービスのようにタグ管理や検索ができる他、REST APIでアクセスでき、ブックマークすることでWebページをキャッシュすることができます。
-
-とはいえまだ開発中で、ドッグフーディングしているところです。
-
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`bookmark.u6k.me`でアクセスできるようにしています。
-
-## jenkins
-
-jenkinsコンテナで自分用のJenkinsを運用しています。ただ、ビルドのためではなく、なんちゃってジョブ管理システムとして使っています。具体的には、以下のようなことをしています。
-
-- コンテナのバックアップ
-    - redmineのSQLite
-    - bookmarkのhsqldb
-    - narou-crawler-dbのダンプ
-    - 上記を取得して、minioコンテナにアップロード。
-- MyDNSにIPアドレスを通知。
-- ceron-analyzeのAPIを定期呼び出し。
-- narou-crawlerのAPIの定期呼び出し。
-- minio、owncloudが管理するファイルをAmazonCloudDriveへバックアップ。
-
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`jenkins.u6k.me`でアクセスできるようにしています。
-
-## minio
-
-コンテナのファイル管理を一手に引き受ける、S3互換ストレージであるMinioを運用しています。全てのファイルはここに集約されるため、minioコンテナが管理するファイルをバックアップすれば、万が一システムが壊れてもリストアできる…はず。
-
-コンテナ実行時に`VIRTUAL_HOST`環境変数を設定することで、`s3.u6k.me`でアクセスできるようにしています。
-
-# コンテナの起動、再起動、更新
-
-swarmやshipyardなどで管理するべきかなとは思いますが、サービスごとにシェルで管理しています。このシェルは、コンテナ停止→イメージ更新→コンテナ起動、を行います。
-
-どこかの記事で「サーバー管理は、sshして作業しなければならない時点で負け」とあって、できればそこを目指したいですが、目標ということで。
-
-CIビルド後のコンテナ自動再起動を仕込もうと考えたことはありますが、ビルドと再起動が必ずしも同時ではないと考えて、仕込んでいません。実際、仕組みを大きく変えるためにコンテナ再起動前後で手作業が発生することがあります。
+排熱の観点から、風通しの良い場所において、まな板立てに立て掛けています。温度を監視していますが、変な高温になることは今のところありません。
 
 # おわりに
 
-若干煩雑ではありますが、今のところこのように運用しています。リソースに余裕があれば、CoreOS起動→全コンテナが最新化されて起動、とかやってみたいです。
+ストレージさえ解決すれば、全てAWSかDigitalOceanに持っていきたいのですけど、今のところ自宅で運用しています。また、旅行などで長期間自宅を離れる場合は、Redmineなど必須サービスのみをDigitalOceanで一時的運用するようにしています。
+
+CoreOSの中でどのようなDockerコンテナが動作しているかは、ソフトウェア編で説明します。
+
+
+# Link
+
+- Author
+    - [u6k.Blog()](https://blog.u6k.me/)
+    - [u6k - GitHub](https://github.com/u6k)
+    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
+- Source
+    - [2018-06-04-my-service-specification-hardware-part.md](https://github.com/u6k/blog/blob/master/_posts/2018-06-04-my-service-specification-hardware-part.md)

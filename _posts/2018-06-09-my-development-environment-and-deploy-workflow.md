@@ -58,23 +58,17 @@ rundeck --> slack : ジョブ結果通知
 user -u-> docker_pro : サービス利用
 {% endplantuml %}
 
-
-
-
-
-
-
 # サービスの役割
 
-サービスごとの役割を説明する。
+サービスごとの役割を説明します。
 
 ## 開発PC
 
-ホストOSには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っている。処理系が混在するのでホストOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいため。
+開発PCには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っています。開発するアプリケーションによって言語処理系が混在するのでOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいためです。
 
-開発PCが手元にない場合、本番サーバーでvimとgitで開発を行うことがある。というか、最近は仕事の都合でノートPCを持ち歩けないため、スマホから本番サーバーにsshして作業することが多い。
+開発PCが手元にない場合、本番サーバーでvimとgitで開発を行うことがあります。というか、最近は仕事の都合でノートPCを持ち歩けないため、スマホから本番サーバーにsshして作業することが多いです。
 
-開発PCの場合、VisualStudioCode + SourceTreeを使うことが多い。本番サーバーの場合、vim + git-flow + tig + tmuxで作業を行う。
+開発PCの場合、VisualStudioCode + SourceTreeを使うことが多いです。本番サーバーの場合、vim + git-flow + tig + tmuxで作業を行っています。
 
 - [Docker Documentation | Docker Documentation](https://docs.docker.com/)
 - [Visual Studio Code - Visual Studio](https://www.microsoft.com/ja-jp/dev/products/code-vs.aspx)
@@ -87,61 +81,67 @@ user -u-> docker_pro : サービス利用
 
 ## GitHub
 
-言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービス。主にソースコードの管理をしている。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していない。
+言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービスです。主にソースコードの管理をしています。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していません。
 
-GitHubにプッシュすると、Travis CIに通知され、ビルドが開始される。
+GitHubにプッシュすると、Travis CIに通知され、ビルドが開始されます。
 
 - [The world’s leading software development platform · GitHub](https://github.com/)
 
 ## Travis CI
 
-CIサービス。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行う。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行う(サービスによる)。
+CIサービスです。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行います。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行います(一部のサービスのみ)。
 
-ビルド生成物は、Docker Hubの他に、GitHub Pages、u6k.Minioなどにもアップロードする。
+ビルド生成物は、Docker Hubの他に、GitHub Pages、u6k.Minioなどにもアップロードします。
 
-ビルド作業の結果は、Slackで通知される。
+ビルド作業の結果は、Slackで通知します。
 
-GitHubのプルリクエストは、原則としてTravis CIのビルドがパスしないとマージできないように設定している。
+GitHubのプルリクエストは、原則としてTravis CIのビルドがパスしないとマージできないように設定しています。これにより、焦っていてうっかりビルドを壊してしまうコミットが混入することを防いでいます。
 
 - [Travis CI - Test and Deploy Your Code with Confidence](https://travis-ci.org/)
 
 ## Slack
 
-チャット・サービス。個人開発では、自分だけのSlackワークスペースに`#build`チャンネルを作成して、Travis CIのビルド結果が通知されるようにしている。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い。
+開発者向けのチャット・サービスです。個人開発では、自分だけのSlackワークスペースに`#build`チャンネルを作成して、Travis CIのビルド結果が通知されるようにしています。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い状況にしています。
 
-Slackには他にも、サービス監視によるアラート、バッチ処理失敗などが通知されるようになっている。
+Slackには他にも、サービス監視によるアラート、バッチ処理失敗などが通知されるようになっています。将来的には、チャット・ボットを飼って、全てチャットから指示できるようにしたいと思っていますが、まだそこまではしていません。
 
 - [よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ | Slack](https://slack.com/)
 
 ## Docker Hub
 
-Dockerイメージのホスティング・サービス。gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュする。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ない。
+Dockerイメージのホスティング・サービスです。Gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュします。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ないと考えています。
 
-以前は、Docker HubによるAutomated Buildを利用していたが、どうも思ったタイミングでビルドしてくれないので、Travis CIでビルドしている。
+以前は、Docker HubによるAutomated Buildを利用していましたが、どうも思ったタイミングでビルドしてくれないので、Travis CIでビルドしています。
 
-仕事やプライベートにしたい個人開発の場合は、GitLabのDockerリポジトリを利用する。
+仕事やプライベートな個人開発の場合は、GitLabのDockerリポジトリを利用しています。
 
 - [Docker Hub](https://hub.docker.com/)
 - [GitLab Container Registry | GitLab](https://docs.gitlab.com/ce/user/project/container_registry.html)
 
 ## Rundeck
 
-ジョブ・スケジューラー。バッチ処理を管理、実行しているが、一部のDockerコンテナの制御もジョブとして実行できるようにしている。
+ジョブ・スケジューラーです。バッチ処理を管理、実行していますが、一部のDockerコンテナの制御もジョブとして実行できるようにしています。
 
-Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出してジョブを起動する。ジョブは`docker-compose pull`、`down`、`up -d`を行う。これにより、Gitタグをプッシュすると、最終的に最新バージョンのサービスが起動する。同時に、RundeckがSlackにジョブ実行結果を通知する。
+Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出してジョブを起動します。ジョブは`docker-compose pull`、`down`、`up -d`を行います。これにより、Gitタグをプッシュすると、最終的に最新バージョンのサービスが起動します。同時に、RundeckがSlackにジョブ実行結果を通知します。
 
 - [Rundeck Pro | Modern IT Operations Management Platform](https://www.rundeck.com/)
 
 ## 本番サーバー
 
-[ほとんどのサービスはDockerコンテナで動作](https://redmine.u6k.me/projects/os-setup/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E8%A8%AD%E8%A8%88)している。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされている。このため、以前はCoreOSで運用していた時期もあった。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用している。
+ほとんどのサービスはDockerコンテナで動作(TODO: ソフトウェア設計にリンクを張る)しています。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされています。このため、以前は[CoreOSで運用していた時期](/2017/04/28/my-server-specification-for-hardware.html)もありました。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用しています。
 
-ストレージ・サイズの関係で、基本的には自宅マシンをサーバーとして運用しているが、出張や旅行などで長期間自宅を離れる場合は、DigitalOceanなどのIaaSに一時的に移行して、帰宅後に切り戻す。この場合でも、DNS設定の変更とデータの移行が少々面倒なだけで、OSとDockerコンテナのセットアップはAnsibleで簡単に実行できるようにしている。
+ストレージ・サイズの関係で、基本的には自宅マシンをサーバーとして運用していますが、出張や旅行などで長期間自宅を離れる場合は、DigitalOceanなどのIaaSに一時的に移行して、帰宅後に切り戻します。この場合でも、DNS設定の変更とデータの移行が少々面倒なだけで、OSとDockerコンテナのセットアップはAnsibleで簡単に実行できるようにしています。
 
 - [自宅サーバーやVPSに使える無料のダイナミックDNS (Dynamic DNS) | MyDNS.JP](https://www.mydns.jp/)
 - [DigitalOcean: Cloud Computing, Simplicity at Scale](https://www.digitalocean.com/)
 - [Open source, containers, and Kubernetes | CoreOS](https://coreos.com/)
 - [Debian -- ユニバーサルオペレーティングシステム](https://www.debian.org/)
+
+# おわりに
+
+いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。
+
+この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。
 
 # Link
 

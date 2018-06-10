@@ -24,15 +24,11 @@ date: 2018-06-09 00:00:00+09:00
 
 この記事では、開発基盤を「開発してからリリースするまでの作業を効率化するために利用しているサービス群」のことを言います。
 
-
-
-
-
 # 開発基盤の構造
 
-次のサービス群と流れで、開発からリリースまでの作業を行っている。
+次のサービス群と流れで、開発からリリースまでの作業を行っています。
 
-{{plantuml(svg)
+{% plantuml %}
 actor "開発者" as developer
 actor "利用者" as user
 node "開発PC" {
@@ -60,7 +56,13 @@ rundeck -- docker_hub : docker-compose\npull
 rundeck --> docker_pro : docker-compose\nup
 rundeck --> slack : ジョブ結果通知
 user -u-> docker_pro : サービス利用
-}}
+{% endplantuml %}
+
+
+
+
+
+
 
 # サービスの役割
 

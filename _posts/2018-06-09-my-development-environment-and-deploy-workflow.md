@@ -70,11 +70,11 @@ user -u-> docker_pro : サービス利用
 
 開発PCの場合、VisualStudioCode + SourceTreeを使うことが多いです。本番サーバーの場合、vim + git-flow + tig + tmuxで作業を行っています。
 
-- [Docker Documentation | Docker Documentation](https://docs.docker.com/)
+- [Docker Documentation \| Docker Documentation](https://docs.docker.com/)
 - [Visual Studio Code - Visual Studio](https://www.microsoft.com/ja-jp/dev/products/code-vs.aspx)
 - [Git](https://git-scm.com/)
 - [welcome home : vim online](https://www.vim.org/)
-- [Sourcetree | Free Git GUI for Mac and Windows](https://www.sourcetreeapp.com/)
+- [Sourcetree \| Free Git GUI for Mac and Windows](https://www.sourcetreeapp.com/)
 - [nvie/gitflow: Git extensions to provide high-level repository operations for Vincent Driessen's branching model.](https://github.com/nvie/gitflow)
 - [jonas/tig: Text-mode interface for git](https://github.com/jonas/tig)
 - [tmux/tmux: tmux source code](https://github.com/tmux/tmux)
@@ -105,7 +105,7 @@ GitHubのプルリクエストは、原則としてTravis CIのビルドがパ�
 
 Slackには他にも、サービス監視によるアラート、バッチ処理失敗などが通知されるようになっています。将来的には、チャット・ボットを飼って、全てチャットから指示できるようにしたいと思っていますが、まだそこまではしていません。
 
-- [よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ | Slack](https://slack.com/)
+- [よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ \| Slack](https://slack.com/)
 
 ## Docker Hub
 
@@ -116,7 +116,7 @@ Dockerイメージのホスティング・サービスです。Gitタグがプ�
 仕事やプライベートな個人開発の場合は、GitLabのDockerリポジトリを利用しています。
 
 - [Docker Hub](https://hub.docker.com/)
-- [GitLab Container Registry | GitLab](https://docs.gitlab.com/ce/user/project/container_registry.html)
+- [GitLab Container Registry \| GitLab](https://docs.gitlab.com/ce/user/project/container_registry.html)
 
 ## Rundeck
 
@@ -124,7 +124,7 @@ Dockerイメージのホスティング・サービスです。Gitタグがプ�
 
 Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出してジョブを起動します。ジョブは`docker-compose pull`、`down`、`up -d`を行います。これにより、Gitタグをプッシュすると、最終的に最新バージョンのサービスが起動します。同時に、RundeckがSlackにジョブ実行結果を通知します。
 
-- [Rundeck Pro | Modern IT Operations Management Platform](https://www.rundeck.com/)
+- [Rundeck Pro \| Modern IT Operations Management Platform](https://www.rundeck.com/)
 
 ## 本番サーバー
 
@@ -132,9 +132,9 @@ Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出し
 
 ストレージ・サイズの関係で、基本的には自宅マシンをサーバーとして運用していますが、出張や旅行などで長期間自宅を離れる場合は、DigitalOceanなどのIaaSに一時的に移行して、帰宅後に切り戻します。この場合でも、DNS設定の変更とデータの移行が少々面倒なだけで、OSとDockerコンテナのセットアップはAnsibleで簡単に実行できるようにしています。
 
-- [自宅サーバーやVPSに使える無料のダイナミックDNS (Dynamic DNS) | MyDNS.JP](https://www.mydns.jp/)
+- [自宅サーバーやVPSに使える無料のダイナミックDNS (Dynamic DNS) \| MyDNS.JP](https://www.mydns.jp/)
 - [DigitalOcean: Cloud Computing, Simplicity at Scale](https://www.digitalocean.com/)
-- [Open source, containers, and Kubernetes | CoreOS](https://coreos.com/)
+- [Open source, containers, and Kubernetes \| CoreOS](https://coreos.com/)
 - [Debian -- ユニバーサルオペレーティングシステム](https://www.debian.org/)
 
 # おわりに

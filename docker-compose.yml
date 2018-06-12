@@ -4,15 +4,4 @@ services:
   blog:
     build: .
     ports:
-      - "80:80"
-    #environment:
-    #  - "VIRTUAL_HOST=test-blog.u6k.me"
-    #  - "VIRTUAL_PORT=80"
-    #  - "LETSENCRYPT_HOST=test-blog.u6k.me"
-    #  - "LETSENCRYPT_EMAIL=u6k.apps@gmail.com"
-    #restart: always
-
-#networks:
-#  default:
-#    external:
-#      name: docker_default
+      - "10080:80"

@@ -1,0 +1,922 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>CentOS 6.3セットアップのメモ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。前提  CentOS 6.3  Oracle VirtualBox v4.1.8          VirtualBoxじゃなくてVMwareなど他の仮想化ツールや物理PCでも、同じような手順になるはずです。物理PCの場合はスナップショットが作成できませんが。      作業手順作業は、大きく以下のようになります。  VirtualBoxをインストール  CentOSをダウンロード  CentOSをインストール  ネットワーク設定  ユーザー作成  rootによるsshログイン禁止  IPv6無効化  SELinux無効化  インストール済みパッケージのアップデート  開発系パッケージのインストール  Java SDKをインストールVirtualBoxをインストールOracle VM VirtualBoxからインストール・パッケージをダウンロードして、インストールします。インストールは特に難しいことはなくスムーズに終わるはずです。CentOSをダウンロードwww.centos.orgからCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。ページ上部メニュのDownloadsをクリックします。ミラーサイトを選択するため、Mirror Listをクリックします。ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、South American, Asian, Oceania, Middle Eastern, African and Other Regionalをクリックします。一覧にJapanのサイトが表示されるので、いずれかのサイトのHTTPまたはFTPをクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する6.3をクリックします。この後はフォルダを下がって行って、以下のいずれかのフォルダまで移動します。  /pub/Linux/CentOS/6.3/isos/i386  /pub/Linux/CentOS/6.3/isos/x86_64i386またはx86_64は、インストール先の環境に合わせて選択します。CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、CentOS-6.3-i386-minimal.isoをダウンロードします。  note ダウンロードしたファイルのハッシュ値を確認したほうが良いです。CentOSをインストールCentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。VirtualBoxを開くと、このような画面が表示されます。ツールバーの新規をクリックします。以下のように入力して、次へをクリックします。  名前: 適当(ここではcentos-6.3)  タイプ: Linux  バージョン: Red Hatお使いの環境に合わせて変更します。新規に作成するので、仮想ハードドライブを作成するを選択します。不足したら新規にHDDを追加することにして、初期値の8GBのままにします。初期値の可変サイズのままにします。初期値のVDI (VirtualBox Disk Image)のままにします。以上で仮想マシンが作成されました。次に、ツールバーの設定をクリックして設定画面を開きます。左ペインからストレージを選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。左ペインからネットワークを選択して、割り当てをブリッジアダプタ―に変更します。また、高度をクリックして表示を広げ、MACアドレスの値を控えておきます。これは後で、ネットワーク設定を行う時に必要になります。以上で、仮想マシンの設定を終わります。いよいよCentOSをインストールします。ツールバーの起動をクリックします。  tips VirtualBoxに限らず仮想マシンツールはキーボードやマウスの制御を仮想マシンに移譲します。仮想マシンから抜け出したいときは、VirtualBoxの場合、右Ctrlを押します。  tips CentOSインストール画面は、マウスは使用できずキーボードで操作することになります。主な操作方法は以下の通りです。      Tab / Alt+Tab: 項目を移動。    Space: チェックボックスなどで項目を選択。    矢印キー: 項目を選択。    Enterキー: 決定。  放っておけば約1分後にインストールが開始されますが、Install or upgrade an existing systemを選択してEnterを押します。インストール・メディアの検証を行うか聞かれますが、心配でなければSkipを選択してEnterを押します。Enterを押します。インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、Englishを選択して、OKでEnterを押します。キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通はjp106を選択して、OKでEnterを押します。Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。Re-initialize allを選択してEnterを押します。タイムゾーンを選択します。日本であればAsia/Tokyoを選択して、OKでEnterを押します。rootのパスワードを設定します。パスワードを入力して、”OK”でEnterを押します。仮想HDDのパーティションの種類を選択します。このままOKでEnterを押します。仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、Write changes to diskを選択してEnterを押します。パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。しばらくすると、インストールが完了します。RebootでEnterを押すと、仮想マシンの再起動が開始されます。以上で、CentOSのインストールは完了です。  note パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。ネットワーク設定ネットワーク設定を確認します。ifconfigを実行してみます。ethが表示されずloしか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。今度は-a付きでifconfigを実行してみます。eth0が存在することが分かります。念のため、HWaddrを控えておきます。ネットワーク設定ファイルは、/etc/sysconfig/network-scripts/にありますので、移動します。eth0の設定はifcfg-eth0に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。  HWADDR: MACアドレスを設定します。ifconfig -aで確認した値を記述します。  ONBOOT: yesに設定します。ネットワーク起動時に接続します。  note ネットワーク設定の詳細は、お使いのネットワーク環境に合わせて変更してください。  note eth0ではなくeth1の場合、ifcfg-eth0をmvでifcfg-eth1にリネームします。また、DEVICEの値をeth1に設定します。設定したら、service network restartでネットワークを再起動します。正常に再起動できたら、ifconfigでネットワークを確認します。eth0が表示され、inet addrが割り当てられていることが分かります。これで、ネットワークに接続し、外部からssh接続できるようになりましたので、exitしてTeraTermなどのツールで接続します。この時点ではroot接続を禁止していないため、rootでsshログインできます。ユーザー作成作業用ユーザーを作成します。# useradd test# passwd testrootによるsshログイン禁止rootで外部からsshログインできる状態は危険なので、rootによるsshログインを禁止します。viで/etc/ssh/sshd_configを開きます。# vi /etc/ssh/sshd_config以下の箇所を変更します。#PermitRootLogin yes↓PermitRootLogin no#PermitEmptyPasswords no↓PermitEmptyPasswords nosshdを再起動します。# service sshd restart一度ログアウトしてからrootでログインしてみます。ログインできなければ設定成功です。先ほど作成した作業用ユーザーでログインします。  note 以降、プロンプトの文字で、rootによる作業か、作業用ユーザーによる作業かを区別します。      #…rootによる作業    $…作業用ユーザーによる作業  IPv6無効化IPv6は使用しないので、無効化します(IPv6環境の方は次に進んでください)。ifconfigを実行すると、inet addrの他にinet6 addrが表示されます。これはIPv6が有効のためです。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          inet6 addr: fe80::a00:27ff:fe26:9f7c/64 Scope:Link          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:311 errors:0 dropped:0 overruns:0 frame:0          TX packets:220 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:40068 (39.1 KiB)  TX bytes:27623 (26.9 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          inet6 addr: ::1/128 Scope:Host          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)IPv6を無効化するには、/etc/sysctl.confを開きます。# vi /etc/sysctl.confsysctl.confの最後に以下を追記します。net.ipv6.conf.all.disable_ipv6 = 1net.ipv6.conf.default.disable_ipv6 = 1ネットワークを再起動します。# service network restartifconfigを実行して、再度、ネットワーク設定を確認します。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:412 errors:0 dropped:0 overruns:0 frame:0          TX packets:331 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:42154 (41.1 KiB)  TX bytes:45551 (44.4 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)表示からinet6 addrが消えていたら、設定成功です。  note 参考ページ: CentOS 6でIPv6を無効化する方法IPv6を無効化したことでip6tablesも不必要となったので、停止します。# service ip6tables stop# chkconfig ip6tables offip6tablesが停止設定になったことを確認します。# chkconfig --list | grep ip6tablesip6tables       0:off   1:off   2:off   3:off   4:off   5:off   6:off全てoffになっているため、ip6tablesが停止設定になっていることが分かります。SELinux無効化セキュリティのために非常に重要なSELinuxですが、同時に煩わしくもあります。所詮はテスト環境と割り切って、SELinuxを無効化します。SELinuxを無効化するには、/etc/sysconfig/selinuxを開きます。# vi /etc/sysconfig/selinux以下のように変更します。SELINUX=enforcing↓SELINUX=disabled変更したら、OSを再起動します。# reboot再起動したら、getenforceを実行します。$ getenforceDisabledDisabledと表示されているため、SELinuxが無効化されたことが分かります。インストール済みパッケージのアップデートインストール済みパッケージを最新化します。以下のコマンドを実行し、しばらく待ちます。# yum update -y開発系パッケージのインストール開発系パッケージをインストールします。これをインストールしないと、使えるコマンドがかなり少ないです。# yum groupinstall -y &quot;Development Tools&quot;wgetをインストールwgetはよく使用するので、これをインストールします。# yum install -y wgetJava SDKをインストールJavaアプリを動作させたいため、Java SDKをインストールします。他言語処理系を使用する場合は、それぞれのインストール方法でインストールしてください。まず、インストール可能なJava SDKを確認します。# yum search jdkLoaded plugins: fastestmirror, prestoLoading mirror speeds from cached hostfile * base: mirrors.sin3.sg.voxel.net * extras: mirrors.sin3.sg.voxel.net * updates: mirrors.sin3.sg.voxel.net==================================== N/S Matched: jdk ====================================java-1.6.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.6.0-openjdk-demo.i686 : OpenJDK Demosjava-1.6.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.6.0-openjdk-javadoc.i686 : OpenJDK API Documentationjava-1.6.0-openjdk-src.i686 : OpenJDK Source Bundlejava-1.7.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.7.0-openjdk-demo.i686 : OpenJDK Demosjava-1.7.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentationjava-1.7.0-openjdk-src.i686 : OpenJDK Source Bundleldapjdk-javadoc.i686 : Javadoc for ldapjdkicedtea-web.i686 : Additional Java components for OpenJDKldapjdk.i686 : The Mozilla LDAP Java SDK  Name and summary matches only, use &quot;search all&quot; for everything.1.6.0と1.7.0がインストール可能であることが分かります。ここでは1.7.0をインストールすることにします。1.7.0にもいくつかありますが、-develとついているパッケージをインストールします。# yum install -y java-1.7.0-openjdk-develインストールが完了したら、バージョン情報を表示して、正しくインストールされたことを確認します。$ java -versionjava version &quot;1.7.0_05-icedtea&quot;OpenJDK Runtime Environment (rhel-2.2.1.el6_3.3-i386)OpenJDK Client VM (build 23.0-b21, mixed mode)$ javac -versionjavac 1.7.0_05以上で、セットアップは完了です。ここまでセットアップしたものをベースとして、テスト環境をいくつか作成する場合はクローンして使用します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="CentOS 6.3セットアップのメモ">
+
+
+
+
+  <meta property="og:description" content="テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。前提  CentOS 6.3  Oracle VirtualBox v4.1.8          VirtualBoxじゃなくてVMwareなど他の仮想化ツールや物理PCでも、同じような手順になるはずです。物理PCの場合はスナップショットが作成できませんが。      作業手順作業は、大きく以下のようになります。  VirtualBoxをインストール  CentOSをダウンロード  CentOSをインストール  ネットワーク設定  ユーザー作成  rootによるsshログイン禁止  IPv6無効化  SELinux無効化  インストール済みパッケージのアップデート  開発系パッケージのインストール  Java SDKをインストールVirtualBoxをインストールOracle VM VirtualBoxからインストール・パッケージをダウンロードして、インストールします。インストールは特に難しいことはなくスムーズに終わるはずです。CentOSをダウンロードwww.centos.orgからCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。ページ上部メニュのDownloadsをクリックします。ミラーサイトを選択するため、Mirror Listをクリックします。ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、South American, Asian, Oceania, Middle Eastern, African and Other Regionalをクリックします。一覧にJapanのサイトが表示されるので、いずれかのサイトのHTTPまたはFTPをクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する6.3をクリックします。この後はフォルダを下がって行って、以下のいずれかのフォルダまで移動します。  /pub/Linux/CentOS/6.3/isos/i386  /pub/Linux/CentOS/6.3/isos/x86_64i386またはx86_64は、インストール先の環境に合わせて選択します。CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、CentOS-6.3-i386-minimal.isoをダウンロードします。  note ダウンロードしたファイルのハッシュ値を確認したほうが良いです。CentOSをインストールCentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。VirtualBoxを開くと、このような画面が表示されます。ツールバーの新規をクリックします。以下のように入力して、次へをクリックします。  名前: 適当(ここではcentos-6.3)  タイプ: Linux  バージョン: Red Hatお使いの環境に合わせて変更します。新規に作成するので、仮想ハードドライブを作成するを選択します。不足したら新規にHDDを追加することにして、初期値の8GBのままにします。初期値の可変サイズのままにします。初期値のVDI (VirtualBox Disk Image)のままにします。以上で仮想マシンが作成されました。次に、ツールバーの設定をクリックして設定画面を開きます。左ペインからストレージを選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。左ペインからネットワークを選択して、割り当てをブリッジアダプタ―に変更します。また、高度をクリックして表示を広げ、MACアドレスの値を控えておきます。これは後で、ネットワーク設定を行う時に必要になります。以上で、仮想マシンの設定を終わります。いよいよCentOSをインストールします。ツールバーの起動をクリックします。  tips VirtualBoxに限らず仮想マシンツールはキーボードやマウスの制御を仮想マシンに移譲します。仮想マシンから抜け出したいときは、VirtualBoxの場合、右Ctrlを押します。  tips CentOSインストール画面は、マウスは使用できずキーボードで操作することになります。主な操作方法は以下の通りです。      Tab / Alt+Tab: 項目を移動。    Space: チェックボックスなどで項目を選択。    矢印キー: 項目を選択。    Enterキー: 決定。  放っておけば約1分後にインストールが開始されますが、Install or upgrade an existing systemを選択してEnterを押します。インストール・メディアの検証を行うか聞かれますが、心配でなければSkipを選択してEnterを押します。Enterを押します。インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、Englishを選択して、OKでEnterを押します。キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通はjp106を選択して、OKでEnterを押します。Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。Re-initialize allを選択してEnterを押します。タイムゾーンを選択します。日本であればAsia/Tokyoを選択して、OKでEnterを押します。rootのパスワードを設定します。パスワードを入力して、”OK”でEnterを押します。仮想HDDのパーティションの種類を選択します。このままOKでEnterを押します。仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、Write changes to diskを選択してEnterを押します。パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。しばらくすると、インストールが完了します。RebootでEnterを押すと、仮想マシンの再起動が開始されます。以上で、CentOSのインストールは完了です。  note パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。ネットワーク設定ネットワーク設定を確認します。ifconfigを実行してみます。ethが表示されずloしか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。今度は-a付きでifconfigを実行してみます。eth0が存在することが分かります。念のため、HWaddrを控えておきます。ネットワーク設定ファイルは、/etc/sysconfig/network-scripts/にありますので、移動します。eth0の設定はifcfg-eth0に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。  HWADDR: MACアドレスを設定します。ifconfig -aで確認した値を記述します。  ONBOOT: yesに設定します。ネットワーク起動時に接続します。  note ネットワーク設定の詳細は、お使いのネットワーク環境に合わせて変更してください。  note eth0ではなくeth1の場合、ifcfg-eth0をmvでifcfg-eth1にリネームします。また、DEVICEの値をeth1に設定します。設定したら、service network restartでネットワークを再起動します。正常に再起動できたら、ifconfigでネットワークを確認します。eth0が表示され、inet addrが割り当てられていることが分かります。これで、ネットワークに接続し、外部からssh接続できるようになりましたので、exitしてTeraTermなどのツールで接続します。この時点ではroot接続を禁止していないため、rootでsshログインできます。ユーザー作成作業用ユーザーを作成します。# useradd test# passwd testrootによるsshログイン禁止rootで外部からsshログインできる状態は危険なので、rootによるsshログインを禁止します。viで/etc/ssh/sshd_configを開きます。# vi /etc/ssh/sshd_config以下の箇所を変更します。#PermitRootLogin yes↓PermitRootLogin no#PermitEmptyPasswords no↓PermitEmptyPasswords nosshdを再起動します。# service sshd restart一度ログアウトしてからrootでログインしてみます。ログインできなければ設定成功です。先ほど作成した作業用ユーザーでログインします。  note 以降、プロンプトの文字で、rootによる作業か、作業用ユーザーによる作業かを区別します。      #…rootによる作業    $…作業用ユーザーによる作業  IPv6無効化IPv6は使用しないので、無効化します(IPv6環境の方は次に進んでください)。ifconfigを実行すると、inet addrの他にinet6 addrが表示されます。これはIPv6が有効のためです。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          inet6 addr: fe80::a00:27ff:fe26:9f7c/64 Scope:Link          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:311 errors:0 dropped:0 overruns:0 frame:0          TX packets:220 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:40068 (39.1 KiB)  TX bytes:27623 (26.9 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          inet6 addr: ::1/128 Scope:Host          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)IPv6を無効化するには、/etc/sysctl.confを開きます。# vi /etc/sysctl.confsysctl.confの最後に以下を追記します。net.ipv6.conf.all.disable_ipv6 = 1net.ipv6.conf.default.disable_ipv6 = 1ネットワークを再起動します。# service network restartifconfigを実行して、再度、ネットワーク設定を確認します。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:412 errors:0 dropped:0 overruns:0 frame:0          TX packets:331 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:42154 (41.1 KiB)  TX bytes:45551 (44.4 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)表示からinet6 addrが消えていたら、設定成功です。  note 参考ページ: CentOS 6でIPv6を無効化する方法IPv6を無効化したことでip6tablesも不必要となったので、停止します。# service ip6tables stop# chkconfig ip6tables offip6tablesが停止設定になったことを確認します。# chkconfig --list | grep ip6tablesip6tables       0:off   1:off   2:off   3:off   4:off   5:off   6:off全てoffになっているため、ip6tablesが停止設定になっていることが分かります。SELinux無効化セキュリティのために非常に重要なSELinuxですが、同時に煩わしくもあります。所詮はテスト環境と割り切って、SELinuxを無効化します。SELinuxを無効化するには、/etc/sysconfig/selinuxを開きます。# vi /etc/sysconfig/selinux以下のように変更します。SELINUX=enforcing↓SELINUX=disabled変更したら、OSを再起動します。# reboot再起動したら、getenforceを実行します。$ getenforceDisabledDisabledと表示されているため、SELinuxが無効化されたことが分かります。インストール済みパッケージのアップデートインストール済みパッケージを最新化します。以下のコマンドを実行し、しばらく待ちます。# yum update -y開発系パッケージのインストール開発系パッケージをインストールします。これをインストールしないと、使えるコマンドがかなり少ないです。# yum groupinstall -y &quot;Development Tools&quot;wgetをインストールwgetはよく使用するので、これをインストールします。# yum install -y wgetJava SDKをインストールJavaアプリを動作させたいため、Java SDKをインストールします。他言語処理系を使用する場合は、それぞれのインストール方法でインストールしてください。まず、インストール可能なJava SDKを確認します。# yum search jdkLoaded plugins: fastestmirror, prestoLoading mirror speeds from cached hostfile * base: mirrors.sin3.sg.voxel.net * extras: mirrors.sin3.sg.voxel.net * updates: mirrors.sin3.sg.voxel.net==================================== N/S Matched: jdk ====================================java-1.6.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.6.0-openjdk-demo.i686 : OpenJDK Demosjava-1.6.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.6.0-openjdk-javadoc.i686 : OpenJDK API Documentationjava-1.6.0-openjdk-src.i686 : OpenJDK Source Bundlejava-1.7.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.7.0-openjdk-demo.i686 : OpenJDK Demosjava-1.7.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentationjava-1.7.0-openjdk-src.i686 : OpenJDK Source Bundleldapjdk-javadoc.i686 : Javadoc for ldapjdkicedtea-web.i686 : Additional Java components for OpenJDKldapjdk.i686 : The Mozilla LDAP Java SDK  Name and summary matches only, use &quot;search all&quot; for everything.1.6.0と1.7.0がインストール可能であることが分かります。ここでは1.7.0をインストールすることにします。1.7.0にもいくつかありますが、-develとついているパッケージをインストールします。# yum install -y java-1.7.0-openjdk-develインストールが完了したら、バージョン情報を表示して、正しくインストールされたことを確認します。$ java -versionjava version &quot;1.7.0_05-icedtea&quot;OpenJDK Runtime Environment (rhel-2.2.1.el6_3.3-i386)OpenJDK Client VM (build 23.0-b21, mixed mode)$ javac -versionjavac 1.7.0_05以上で、セットアップは完了です。ここまでセットアップしたものをベースとして、テスト環境をいくつか作成する場合はクローンして使用します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="CentOS 6.3セットアップのメモ">
+  <meta name="twitter:description" content="テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。前提  CentOS 6.3  Oracle VirtualBox v4.1.8          VirtualBoxじゃなくてVMwareなど他の仮想化ツールや物理PCでも、同じような手順になるはずです。物理PCの場合はスナップショットが作成できませんが。      作業手順作業は、大きく以下のようになります。  VirtualBoxをインストール  CentOSをダウンロード  CentOSをインストール  ネットワーク設定  ユーザー作成  rootによるsshログイン禁止  IPv6無効化  SELinux無効化  インストール済みパッケージのアップデート  開発系パッケージのインストール  Java SDKをインストールVirtualBoxをインストールOracle VM VirtualBoxからインストール・パッケージをダウンロードして、インストールします。インストールは特に難しいことはなくスムーズに終わるはずです。CentOSをダウンロードwww.centos.orgからCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。ページ上部メニュのDownloadsをクリックします。ミラーサイトを選択するため、Mirror Listをクリックします。ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、South American, Asian, Oceania, Middle Eastern, African and Other Regionalをクリックします。一覧にJapanのサイトが表示されるので、いずれかのサイトのHTTPまたはFTPをクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する6.3をクリックします。この後はフォルダを下がって行って、以下のいずれかのフォルダまで移動します。  /pub/Linux/CentOS/6.3/isos/i386  /pub/Linux/CentOS/6.3/isos/x86_64i386またはx86_64は、インストール先の環境に合わせて選択します。CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、CentOS-6.3-i386-minimal.isoをダウンロードします。  note ダウンロードしたファイルのハッシュ値を確認したほうが良いです。CentOSをインストールCentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。VirtualBoxを開くと、このような画面が表示されます。ツールバーの新規をクリックします。以下のように入力して、次へをクリックします。  名前: 適当(ここではcentos-6.3)  タイプ: Linux  バージョン: Red Hatお使いの環境に合わせて変更します。新規に作成するので、仮想ハードドライブを作成するを選択します。不足したら新規にHDDを追加することにして、初期値の8GBのままにします。初期値の可変サイズのままにします。初期値のVDI (VirtualBox Disk Image)のままにします。以上で仮想マシンが作成されました。次に、ツールバーの設定をクリックして設定画面を開きます。左ペインからストレージを選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。左ペインからネットワークを選択して、割り当てをブリッジアダプタ―に変更します。また、高度をクリックして表示を広げ、MACアドレスの値を控えておきます。これは後で、ネットワーク設定を行う時に必要になります。以上で、仮想マシンの設定を終わります。いよいよCentOSをインストールします。ツールバーの起動をクリックします。  tips VirtualBoxに限らず仮想マシンツールはキーボードやマウスの制御を仮想マシンに移譲します。仮想マシンから抜け出したいときは、VirtualBoxの場合、右Ctrlを押します。  tips CentOSインストール画面は、マウスは使用できずキーボードで操作することになります。主な操作方法は以下の通りです。      Tab / Alt+Tab: 項目を移動。    Space: チェックボックスなどで項目を選択。    矢印キー: 項目を選択。    Enterキー: 決定。  放っておけば約1分後にインストールが開始されますが、Install or upgrade an existing systemを選択してEnterを押します。インストール・メディアの検証を行うか聞かれますが、心配でなければSkipを選択してEnterを押します。Enterを押します。インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、Englishを選択して、OKでEnterを押します。キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通はjp106を選択して、OKでEnterを押します。Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。Re-initialize allを選択してEnterを押します。タイムゾーンを選択します。日本であればAsia/Tokyoを選択して、OKでEnterを押します。rootのパスワードを設定します。パスワードを入力して、”OK”でEnterを押します。仮想HDDのパーティションの種類を選択します。このままOKでEnterを押します。仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、Write changes to diskを選択してEnterを押します。パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。しばらくすると、インストールが完了します。RebootでEnterを押すと、仮想マシンの再起動が開始されます。以上で、CentOSのインストールは完了です。  note パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。ネットワーク設定ネットワーク設定を確認します。ifconfigを実行してみます。ethが表示されずloしか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。今度は-a付きでifconfigを実行してみます。eth0が存在することが分かります。念のため、HWaddrを控えておきます。ネットワーク設定ファイルは、/etc/sysconfig/network-scripts/にありますので、移動します。eth0の設定はifcfg-eth0に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。  HWADDR: MACアドレスを設定します。ifconfig -aで確認した値を記述します。  ONBOOT: yesに設定します。ネットワーク起動時に接続します。  note ネットワーク設定の詳細は、お使いのネットワーク環境に合わせて変更してください。  note eth0ではなくeth1の場合、ifcfg-eth0をmvでifcfg-eth1にリネームします。また、DEVICEの値をeth1に設定します。設定したら、service network restartでネットワークを再起動します。正常に再起動できたら、ifconfigでネットワークを確認します。eth0が表示され、inet addrが割り当てられていることが分かります。これで、ネットワークに接続し、外部からssh接続できるようになりましたので、exitしてTeraTermなどのツールで接続します。この時点ではroot接続を禁止していないため、rootでsshログインできます。ユーザー作成作業用ユーザーを作成します。# useradd test# passwd testrootによるsshログイン禁止rootで外部からsshログインできる状態は危険なので、rootによるsshログインを禁止します。viで/etc/ssh/sshd_configを開きます。# vi /etc/ssh/sshd_config以下の箇所を変更します。#PermitRootLogin yes↓PermitRootLogin no#PermitEmptyPasswords no↓PermitEmptyPasswords nosshdを再起動します。# service sshd restart一度ログアウトしてからrootでログインしてみます。ログインできなければ設定成功です。先ほど作成した作業用ユーザーでログインします。  note 以降、プロンプトの文字で、rootによる作業か、作業用ユーザーによる作業かを区別します。      #…rootによる作業    $…作業用ユーザーによる作業  IPv6無効化IPv6は使用しないので、無効化します(IPv6環境の方は次に進んでください)。ifconfigを実行すると、inet addrの他にinet6 addrが表示されます。これはIPv6が有効のためです。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          inet6 addr: fe80::a00:27ff:fe26:9f7c/64 Scope:Link          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:311 errors:0 dropped:0 overruns:0 frame:0          TX packets:220 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:40068 (39.1 KiB)  TX bytes:27623 (26.9 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          inet6 addr: ::1/128 Scope:Host          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)IPv6を無効化するには、/etc/sysctl.confを開きます。# vi /etc/sysctl.confsysctl.confの最後に以下を追記します。net.ipv6.conf.all.disable_ipv6 = 1net.ipv6.conf.default.disable_ipv6 = 1ネットワークを再起動します。# service network restartifconfigを実行して、再度、ネットワーク設定を確認します。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:412 errors:0 dropped:0 overruns:0 frame:0          TX packets:331 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:42154 (41.1 KiB)  TX bytes:45551 (44.4 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)表示からinet6 addrが消えていたら、設定成功です。  note 参考ページ: CentOS 6でIPv6を無効化する方法IPv6を無効化したことでip6tablesも不必要となったので、停止します。# service ip6tables stop# chkconfig ip6tables offip6tablesが停止設定になったことを確認します。# chkconfig --list | grep ip6tablesip6tables       0:off   1:off   2:off   3:off   4:off   5:off   6:off全てoffになっているため、ip6tablesが停止設定になっていることが分かります。SELinux無効化セキュリティのために非常に重要なSELinuxですが、同時に煩わしくもあります。所詮はテスト環境と割り切って、SELinuxを無効化します。SELinuxを無効化するには、/etc/sysconfig/selinuxを開きます。# vi /etc/sysconfig/selinux以下のように変更します。SELINUX=enforcing↓SELINUX=disabled変更したら、OSを再起動します。# reboot再起動したら、getenforceを実行します。$ getenforceDisabledDisabledと表示されているため、SELinuxが無効化されたことが分かります。インストール済みパッケージのアップデートインストール済みパッケージを最新化します。以下のコマンドを実行し、しばらく待ちます。# yum update -y開発系パッケージのインストール開発系パッケージをインストールします。これをインストールしないと、使えるコマンドがかなり少ないです。# yum groupinstall -y &quot;Development Tools&quot;wgetをインストールwgetはよく使用するので、これをインストールします。# yum install -y wgetJava SDKをインストールJavaアプリを動作させたいため、Java SDKをインストールします。他言語処理系を使用する場合は、それぞれのインストール方法でインストールしてください。まず、インストール可能なJava SDKを確認します。# yum search jdkLoaded plugins: fastestmirror, prestoLoading mirror speeds from cached hostfile * base: mirrors.sin3.sg.voxel.net * extras: mirrors.sin3.sg.voxel.net * updates: mirrors.sin3.sg.voxel.net==================================== N/S Matched: jdk ====================================java-1.6.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.6.0-openjdk-demo.i686 : OpenJDK Demosjava-1.6.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.6.0-openjdk-javadoc.i686 : OpenJDK API Documentationjava-1.6.0-openjdk-src.i686 : OpenJDK Source Bundlejava-1.7.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.7.0-openjdk-demo.i686 : OpenJDK Demosjava-1.7.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentationjava-1.7.0-openjdk-src.i686 : OpenJDK Source Bundleldapjdk-javadoc.i686 : Javadoc for ldapjdkicedtea-web.i686 : Additional Java components for OpenJDKldapjdk.i686 : The Mozilla LDAP Java SDK  Name and summary matches only, use &quot;search all&quot; for everything.1.6.0と1.7.0がインストール可能であることが分かります。ここでは1.7.0をインストールすることにします。1.7.0にもいくつかありますが、-develとついているパッケージをインストールします。# yum install -y java-1.7.0-openjdk-develインストールが完了したら、バージョン情報を表示して、正しくインストールされたことを確認します。$ java -versionjava version &quot;1.7.0_05-icedtea&quot;OpenJDK Runtime Environment (rhel-2.2.1.el6_3.3-i386)OpenJDK Client VM (build 23.0-b21, mixed mode)$ javac -versionjavac 1.7.0_05以上で、セットアップは完了です。ここまでセットアップしたものをベースとして、テスト環境をいくつか作成する場合はクローンして使用します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2012-10-15T21:13:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CentOS 6.3セットアップのメモ">
+    <meta itemprop="description" content="テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。前提  CentOS 6.3  Oracle VirtualBox v4.1.8          VirtualBoxじゃなくてVMwareなど他の仮想化ツールや物理PCでも、同じような手順になるはずです。物理PCの場合はスナップショットが作成できませんが。      作業手順作業は、大きく以下のようになります。  VirtualBoxをインストール  CentOSをダウンロード  CentOSをインストール  ネットワーク設定  ユーザー作成  rootによるsshログイン禁止  IPv6無効化  SELinux無効化  インストール済みパッケージのアップデート  開発系パッケージのインストール  Java SDKをインストールVirtualBoxをインストールOracle VM VirtualBoxからインストール・パッケージをダウンロードして、インストールします。インストールは特に難しいことはなくスムーズに終わるはずです。CentOSをダウンロードwww.centos.orgからCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。ページ上部メニュのDownloadsをクリックします。ミラーサイトを選択するため、Mirror Listをクリックします。ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、South American, Asian, Oceania, Middle Eastern, African and Other Regionalをクリックします。一覧にJapanのサイトが表示されるので、いずれかのサイトのHTTPまたはFTPをクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する6.3をクリックします。この後はフォルダを下がって行って、以下のいずれかのフォルダまで移動します。  /pub/Linux/CentOS/6.3/isos/i386  /pub/Linux/CentOS/6.3/isos/x86_64i386またはx86_64は、インストール先の環境に合わせて選択します。CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、CentOS-6.3-i386-minimal.isoをダウンロードします。  note ダウンロードしたファイルのハッシュ値を確認したほうが良いです。CentOSをインストールCentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。VirtualBoxを開くと、このような画面が表示されます。ツールバーの新規をクリックします。以下のように入力して、次へをクリックします。  名前: 適当(ここではcentos-6.3)  タイプ: Linux  バージョン: Red Hatお使いの環境に合わせて変更します。新規に作成するので、仮想ハードドライブを作成するを選択します。不足したら新規にHDDを追加することにして、初期値の8GBのままにします。初期値の可変サイズのままにします。初期値のVDI (VirtualBox Disk Image)のままにします。以上で仮想マシンが作成されました。次に、ツールバーの設定をクリックして設定画面を開きます。左ペインからストレージを選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。左ペインからネットワークを選択して、割り当てをブリッジアダプタ―に変更します。また、高度をクリックして表示を広げ、MACアドレスの値を控えておきます。これは後で、ネットワーク設定を行う時に必要になります。以上で、仮想マシンの設定を終わります。いよいよCentOSをインストールします。ツールバーの起動をクリックします。  tips VirtualBoxに限らず仮想マシンツールはキーボードやマウスの制御を仮想マシンに移譲します。仮想マシンから抜け出したいときは、VirtualBoxの場合、右Ctrlを押します。  tips CentOSインストール画面は、マウスは使用できずキーボードで操作することになります。主な操作方法は以下の通りです。      Tab / Alt+Tab: 項目を移動。    Space: チェックボックスなどで項目を選択。    矢印キー: 項目を選択。    Enterキー: 決定。  放っておけば約1分後にインストールが開始されますが、Install or upgrade an existing systemを選択してEnterを押します。インストール・メディアの検証を行うか聞かれますが、心配でなければSkipを選択してEnterを押します。Enterを押します。インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、Englishを選択して、OKでEnterを押します。キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通はjp106を選択して、OKでEnterを押します。Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。Re-initialize allを選択してEnterを押します。タイムゾーンを選択します。日本であればAsia/Tokyoを選択して、OKでEnterを押します。rootのパスワードを設定します。パスワードを入力して、”OK”でEnterを押します。仮想HDDのパーティションの種類を選択します。このままOKでEnterを押します。仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、Write changes to diskを選択してEnterを押します。パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。しばらくすると、インストールが完了します。RebootでEnterを押すと、仮想マシンの再起動が開始されます。以上で、CentOSのインストールは完了です。  note パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。ネットワーク設定ネットワーク設定を確認します。ifconfigを実行してみます。ethが表示されずloしか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。今度は-a付きでifconfigを実行してみます。eth0が存在することが分かります。念のため、HWaddrを控えておきます。ネットワーク設定ファイルは、/etc/sysconfig/network-scripts/にありますので、移動します。eth0の設定はifcfg-eth0に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。  HWADDR: MACアドレスを設定します。ifconfig -aで確認した値を記述します。  ONBOOT: yesに設定します。ネットワーク起動時に接続します。  note ネットワーク設定の詳細は、お使いのネットワーク環境に合わせて変更してください。  note eth0ではなくeth1の場合、ifcfg-eth0をmvでifcfg-eth1にリネームします。また、DEVICEの値をeth1に設定します。設定したら、service network restartでネットワークを再起動します。正常に再起動できたら、ifconfigでネットワークを確認します。eth0が表示され、inet addrが割り当てられていることが分かります。これで、ネットワークに接続し、外部からssh接続できるようになりましたので、exitしてTeraTermなどのツールで接続します。この時点ではroot接続を禁止していないため、rootでsshログインできます。ユーザー作成作業用ユーザーを作成します。# useradd test# passwd testrootによるsshログイン禁止rootで外部からsshログインできる状態は危険なので、rootによるsshログインを禁止します。viで/etc/ssh/sshd_configを開きます。# vi /etc/ssh/sshd_config以下の箇所を変更します。#PermitRootLogin yes↓PermitRootLogin no#PermitEmptyPasswords no↓PermitEmptyPasswords nosshdを再起動します。# service sshd restart一度ログアウトしてからrootでログインしてみます。ログインできなければ設定成功です。先ほど作成した作業用ユーザーでログインします。  note 以降、プロンプトの文字で、rootによる作業か、作業用ユーザーによる作業かを区別します。      #…rootによる作業    $…作業用ユーザーによる作業  IPv6無効化IPv6は使用しないので、無効化します(IPv6環境の方は次に進んでください)。ifconfigを実行すると、inet addrの他にinet6 addrが表示されます。これはIPv6が有効のためです。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          inet6 addr: fe80::a00:27ff:fe26:9f7c/64 Scope:Link          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:311 errors:0 dropped:0 overruns:0 frame:0          TX packets:220 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:40068 (39.1 KiB)  TX bytes:27623 (26.9 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          inet6 addr: ::1/128 Scope:Host          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)IPv6を無効化するには、/etc/sysctl.confを開きます。# vi /etc/sysctl.confsysctl.confの最後に以下を追記します。net.ipv6.conf.all.disable_ipv6 = 1net.ipv6.conf.default.disable_ipv6 = 1ネットワークを再起動します。# service network restartifconfigを実行して、再度、ネットワーク設定を確認します。# ifconfigeth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1          RX packets:412 errors:0 dropped:0 overruns:0 frame:0          TX packets:331 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:1000          RX bytes:42154 (41.1 KiB)  TX bytes:45551 (44.4 KiB)lo        Link encap:Local Loopback          inet addr:127.0.0.1  Mask:255.0.0.0          UP LOOPBACK RUNNING  MTU:16436  Metric:1          RX packets:0 errors:0 dropped:0 overruns:0 frame:0          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0          collisions:0 txqueuelen:0          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)表示からinet6 addrが消えていたら、設定成功です。  note 参考ページ: CentOS 6でIPv6を無効化する方法IPv6を無効化したことでip6tablesも不必要となったので、停止します。# service ip6tables stop# chkconfig ip6tables offip6tablesが停止設定になったことを確認します。# chkconfig --list | grep ip6tablesip6tables       0:off   1:off   2:off   3:off   4:off   5:off   6:off全てoffになっているため、ip6tablesが停止設定になっていることが分かります。SELinux無効化セキュリティのために非常に重要なSELinuxですが、同時に煩わしくもあります。所詮はテスト環境と割り切って、SELinuxを無効化します。SELinuxを無効化するには、/etc/sysconfig/selinuxを開きます。# vi /etc/sysconfig/selinux以下のように変更します。SELINUX=enforcing↓SELINUX=disabled変更したら、OSを再起動します。# reboot再起動したら、getenforceを実行します。$ getenforceDisabledDisabledと表示されているため、SELinuxが無効化されたことが分かります。インストール済みパッケージのアップデートインストール済みパッケージを最新化します。以下のコマンドを実行し、しばらく待ちます。# yum update -y開発系パッケージのインストール開発系パッケージをインストールします。これをインストールしないと、使えるコマンドがかなり少ないです。# yum groupinstall -y &quot;Development Tools&quot;wgetをインストールwgetはよく使用するので、これをインストールします。# yum install -y wgetJava SDKをインストールJavaアプリを動作させたいため、Java SDKをインストールします。他言語処理系を使用する場合は、それぞれのインストール方法でインストールしてください。まず、インストール可能なJava SDKを確認します。# yum search jdkLoaded plugins: fastestmirror, prestoLoading mirror speeds from cached hostfile * base: mirrors.sin3.sg.voxel.net * extras: mirrors.sin3.sg.voxel.net * updates: mirrors.sin3.sg.voxel.net==================================== N/S Matched: jdk ====================================java-1.6.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.6.0-openjdk-demo.i686 : OpenJDK Demosjava-1.6.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.6.0-openjdk-javadoc.i686 : OpenJDK API Documentationjava-1.6.0-openjdk-src.i686 : OpenJDK Source Bundlejava-1.7.0-openjdk.i686 : OpenJDK Runtime Environmentjava-1.7.0-openjdk-demo.i686 : OpenJDK Demosjava-1.7.0-openjdk-devel.i686 : OpenJDK Development Environmentjava-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentationjava-1.7.0-openjdk-src.i686 : OpenJDK Source Bundleldapjdk-javadoc.i686 : Javadoc for ldapjdkicedtea-web.i686 : Additional Java components for OpenJDKldapjdk.i686 : The Mozilla LDAP Java SDK  Name and summary matches only, use &quot;search all&quot; for everything.1.6.0と1.7.0がインストール可能であることが分かります。ここでは1.7.0をインストールすることにします。1.7.0にもいくつかありますが、-develとついているパッケージをインストールします。# yum install -y java-1.7.0-openjdk-develインストールが完了したら、バージョン情報を表示して、正しくインストールされたことを確認します。$ java -versionjava version &quot;1.7.0_05-icedtea&quot;OpenJDK Runtime Environment (rhel-2.2.1.el6_3.3-i386)OpenJDK Client VM (build 23.0-b21, mixed mode)$ javac -versionjavac 1.7.0_05以上で、セットアップは完了です。ここまでセットアップしたものをベースとして、テスト環境をいくつか作成する場合はクローンして使用します。">
+    <meta itemprop="datePublished" content="2012-10-15">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">CentOS 6.3セットアップのメモ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-15T21:13:00+09:00">2012-10-15</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>テスト環境の作成で、よくOracle VirtualBox上にCentOSをセットアップする機会があります。ここでは、その手順を説明します。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>CentOS 6.3</li>
+  <li>Oracle VirtualBox v4.1.8
+    <ul>
+      <li>VirtualBoxじゃなくてVMwareなど他の仮想化ツールや物理PCでも、同じような手順になるはずです。物理PCの場合はスナップショットが作成できませんが。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="作業手順">作業手順</h1>
+
+<p>作業は、大きく以下のようになります。</p>
+
+<ul>
+  <li>VirtualBoxをインストール</li>
+  <li>CentOSをダウンロード</li>
+  <li>CentOSをインストール</li>
+  <li>ネットワーク設定</li>
+  <li>ユーザー作成</li>
+  <li>rootによるsshログイン禁止</li>
+  <li>IPv6無効化</li>
+  <li>SELinux無効化</li>
+  <li>インストール済みパッケージのアップデート</li>
+  <li>開発系パッケージのインストール</li>
+  <li>Java SDKをインストール</li>
+</ul>
+
+<h2 id="virtualboxをインストール">VirtualBoxをインストール</h2>
+
+<p><a href="https://www.virtualbox.org/">Oracle VM VirtualBox</a>からインストール・パッケージをダウンロードして、インストールします。インストールは特に難しいことはなくスムーズに終わるはずです。</p>
+
+<h2 id="centosをダウンロード">CentOSをダウンロード</h2>
+
+<p><a href="https://www.centos.org/">www.centos.org</a>からCentOSのインストール・メディアをダウンロードします。少し分かりづらいので画像で説明します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/001.png" alt="" /></p>
+
+<p>ページ上部メニュの<code class="highlighter-rouge">Downloads</code>をクリックします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/002.png" alt="" /></p>
+
+<p>ミラーサイトを選択するため、<code class="highlighter-rouge">Mirror List</code>をクリックします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/003.png" alt="" /></p>
+
+<p>ミラーサイトの一覧が表示されますが、これはNorth Americanのサイトであり、ダウンロードに時間がかかります。日本国内のサーバーからダウンロードしたいので、<code class="highlighter-rouge">South American, Asian, Oceania, Middle Eastern, African and Other Regional</code>をクリックします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/004.png" alt="" /></p>
+
+<p>一覧にJapanのサイトが表示されるので、いずれかのサイトの<code class="highlighter-rouge">HTTP</code>または<code class="highlighter-rouge">FTP</code>をクリックします(どのサイトも、ほぼ同じフォルダ構成になっています)。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/005.png" alt="" /></p>
+
+<p>CentOSのバージョンごとのフォルダが一覧表示されるので、今回使用する<code class="highlighter-rouge">6.3</code>をクリックします。</p>
+
+<p>この後はフォルダを下がって行って、以下のいずれかのフォルダまで移動します。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">/pub/Linux/CentOS/6.3/isos/i386</code></li>
+  <li><code class="highlighter-rouge">/pub/Linux/CentOS/6.3/isos/x86_64</code></li>
+</ul>
+
+<p><code class="highlighter-rouge">i386</code>または<code class="highlighter-rouge">x86_64</code>は、インストール先の環境に合わせて選択します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/006.png" alt="" /></p>
+
+<p>CentOSのインストール・メディアの一覧が表示されます。ここではminimalによるインストールを説明しますので、<code class="highlighter-rouge">CentOS-6.3-i386-minimal.iso</code>をダウンロードします。</p>
+
+<blockquote>
+  <p><strong>note</strong> ダウンロードしたファイルのハッシュ値を確認したほうが良いです。</p>
+</blockquote>
+
+<h2 id="centosをインストール">CentOSをインストール</h2>
+
+<p>CentOSのインストール・メディアをダウンロードしたので、VirtualBox上に仮想マシンを作成し、CentOSをインストールします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/007.png" alt="" /></p>
+
+<p>VirtualBoxを開くと、このような画面が表示されます。ツールバーの<code class="highlighter-rouge">新規</code>をクリックします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/008.png" alt="" /></p>
+
+<p>以下のように入力して、<code class="highlighter-rouge">次へ</code>をクリックします。</p>
+
+<ul>
+  <li>名前: 適当(ここでは<code class="highlighter-rouge">centos-6.3</code>)</li>
+  <li>タイプ: Linux</li>
+  <li>バージョン: Red Hat</li>
+</ul>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/009.png" alt="" /></p>
+
+<p>お使いの環境に合わせて変更します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/010.png" alt="" /></p>
+
+<p>新規に作成するので、<code class="highlighter-rouge">仮想ハードドライブを作成する</code>を選択します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/011.png" alt="" /></p>
+
+<p>不足したら新規にHDDを追加することにして、初期値の<code class="highlighter-rouge">8GB</code>のままにします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/012.png" alt="" /></p>
+
+<p>初期値の<code class="highlighter-rouge">可変サイズ</code>のままにします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/013.png" alt="" /></p>
+
+<p>初期値の<code class="highlighter-rouge">VDI (VirtualBox Disk Image)</code>のままにします。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/014.png" alt="" /></p>
+
+<p>以上で仮想マシンが作成されました。</p>
+
+<p>次に、ツールバーの<code class="highlighter-rouge">設定</code>をクリックして設定画面を開きます。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/015.png" alt="" /></p>
+
+<p>左ペインから<code class="highlighter-rouge">ストレージ</code>を選択して、CD/DVDドライブに先ほどダウンロードしたCentOSのインストール・メディアを指定します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/016.png" alt="" /></p>
+
+<p>左ペインから<code class="highlighter-rouge">ネットワーク</code>を選択して、割り当てを<code class="highlighter-rouge">ブリッジアダプタ―</code>に変更します。</p>
+
+<p>また、<code class="highlighter-rouge">高度</code>をクリックして表示を広げ、<code class="highlighter-rouge">MACアドレス</code>の値を控えておきます。これは後で、ネットワーク設定を行う時に必要になります。</p>
+
+<p>以上で、仮想マシンの設定を終わります。</p>
+
+<p>いよいよCentOSをインストールします。ツールバーの<code class="highlighter-rouge">起動</code>をクリックします。</p>
+
+<blockquote>
+  <p><strong>tips</strong> VirtualBoxに限らず仮想マシンツールはキーボードやマウスの制御を仮想マシンに移譲します。仮想マシンから抜け出したいときは、VirtualBoxの場合、右Ctrlを押します。</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>tips</strong> CentOSインストール画面は、マウスは使用できずキーボードで操作することになります。主な操作方法は以下の通りです。</p>
+  <ul>
+    <li>Tab / Alt+Tab: 項目を移動。</li>
+    <li>Space: チェックボックスなどで項目を選択。</li>
+    <li>矢印キー: 項目を選択。</li>
+    <li>Enterキー: 決定。</li>
+  </ul>
+</blockquote>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/017.png" alt="" /></p>
+
+<p>放っておけば約1分後にインストールが開始されますが、<code class="highlighter-rouge">Install or upgrade an existing system</code>を選択してEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/018.png" alt="" /></p>
+
+<p>インストール・メディアの検証を行うか聞かれますが、心配でなければ<code class="highlighter-rouge">Skip</code>を選択してEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/019.png" alt="" /></p>
+
+<p>Enterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/020.png" alt="" /></p>
+
+<p>インストール作業で表示する言語を選択します。日本語も選択できますがVirtualBoxでは表示できないようなので、<code class="highlighter-rouge">English</code>を選択して、<code class="highlighter-rouge">OK</code>でEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/021.png" alt="" /></p>
+
+<p>キーボードの種類を選択します。お使いのキーボードの種類を選択しますが、普通は<code class="highlighter-rouge">jp106</code>を選択して、<code class="highlighter-rouge">OK</code>でEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/022.png" alt="" /></p>
+
+<p>Warningが表示されますが、これは仮想HDDが未初期化であることを表す警告です。<code class="highlighter-rouge">Re-initialize all</code>を選択してEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/023.png" alt="" /></p>
+
+<p>タイムゾーンを選択します。日本であれば<code class="highlighter-rouge">Asia/Tokyo</code>を選択して、<code class="highlighter-rouge">OK</code>でEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/024.png" alt="" /></p>
+
+<p>rootのパスワードを設定します。パスワードを入力して、”OK”でEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/025.png" alt="" /></p>
+
+<p>仮想HDDのパーティションの種類を選択します。このまま<code class="highlighter-rouge">OK</code>でEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/026.png" alt="" /></p>
+
+<p>仮想HDDにパーティションを書き込んでもよいか聞かれます。勿論良いので、<code class="highlighter-rouge">Write changes to disk</code>を選択してEnterを押します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/027.png" alt="" /></p>
+
+<p>パーティションを書き込むと、パッケージのインストールが始まります。時間がかかりますので、緑茶でも飲みながら待ちます。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/028.png" alt="" /></p>
+
+<p>しばらくすると、インストールが完了します。<code class="highlighter-rouge">Reboot</code>でEnterを押すと、仮想マシンの再起動が開始されます。</p>
+
+<p>以上で、CentOSのインストールは完了です。</p>
+
+<blockquote>
+  <p><strong>note</strong> パッケージのインストールや作業などで汚れてきたときにいつでもインストール直後の状態に戻すために、OSインストール直後にスナップショットを作成すると便利です。</p>
+</blockquote>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/029.png" alt="" /></p>
+
+<h2 id="ネットワーク設定">ネットワーク設定</h2>
+
+<p>ネットワーク設定を確認します。ifconfigを実行してみます。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/030.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">eth</code>が表示されず<code class="highlighter-rouge">lo</code>しか表示されていない場合、ネットワークに接続できていません。この場合、ネットワーク設定を変更する必要があります。</p>
+
+<p>今度は<code class="highlighter-rouge">-a</code>付きでifconfigを実行してみます。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/031.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">eth0</code>が存在することが分かります。念のため、<code class="highlighter-rouge">HWaddr</code>を控えておきます。</p>
+
+<p>ネットワーク設定ファイルは、<code class="highlighter-rouge">/etc/sysconfig/network-scripts/</code>にありますので、移動します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/032.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">eth0</code>の設定は<code class="highlighter-rouge">ifcfg-eth0</code>に書かれていますので、これをviで開きます。ファイル中の以下の値を確認します。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">HWADDR</code>: MACアドレスを設定します。<code class="highlighter-rouge">ifconfig -a</code>で確認した値を記述します。</li>
+  <li><code class="highlighter-rouge">ONBOOT</code>: <code class="highlighter-rouge">yes</code>に設定します。ネットワーク起動時に接続します。</li>
+</ul>
+
+<blockquote>
+  <p><strong>note</strong> ネットワーク設定の詳細は、お使いのネットワーク環境に合わせて変更してください。</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>note</strong> <code class="highlighter-rouge">eth0</code>ではなく<code class="highlighter-rouge">eth1</code>の場合、<code class="highlighter-rouge">ifcfg-eth0</code>を<code class="highlighter-rouge">mv</code>で<code class="highlighter-rouge">ifcfg-eth1</code>にリネームします。また、DEVICEの値を<code class="highlighter-rouge">eth1</code>に設定します。</p>
+</blockquote>
+
+<p>設定したら、<code class="highlighter-rouge">service network restart</code>でネットワークを再起動します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/033.png" alt="" /></p>
+
+<p>正常に再起動できたら、ifconfigでネットワークを確認します。</p>
+
+<p><img src="/assets/img/2012-10-15-setup-centos-63/034.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">eth0</code>が表示され、<code class="highlighter-rouge">inet addr</code>が割り当てられていることが分かります。</p>
+
+<p>これで、ネットワークに接続し、外部からssh接続できるようになりましたので、<code class="highlighter-rouge">exit</code>してTeraTermなどのツールで接続します。この時点ではroot接続を禁止していないため、rootでsshログインできます。</p>
+
+<h2 id="ユーザー作成">ユーザー作成</h2>
+
+<p>作業用ユーザーを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># useradd test
+# passwd test
+</code></pre></div></div>
+
+<h2 id="rootによるsshログイン禁止">rootによるsshログイン禁止</h2>
+
+<p>rootで外部からsshログインできる状態は危険なので、rootによるsshログインを禁止します。viで<code class="highlighter-rouge">/etc/ssh/sshd_config</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># vi /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<p>以下の箇所を変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#PermitRootLogin yes
+↓
+PermitRootLogin no
+
+#PermitEmptyPasswords no
+↓
+PermitEmptyPasswords no
+</code></pre></div></div>
+
+<p>sshdを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service sshd restart
+</code></pre></div></div>
+
+<p>一度ログアウトしてからrootでログインしてみます。ログインできなければ設定成功です。先ほど作成した作業用ユーザーでログインします。</p>
+
+<blockquote>
+  <p><strong>note</strong> 以降、プロンプトの文字で、rootによる作業か、作業用ユーザーによる作業かを区別します。</p>
+  <ul>
+    <li>#…rootによる作業</li>
+    <li>$…作業用ユーザーによる作業</li>
+  </ul>
+</blockquote>
+
+<h2 id="ipv6無効化">IPv6無効化</h2>
+
+<p>IPv6は使用しないので、無効化します(IPv6環境の方は次に進んでください)。</p>
+
+<p>ifconfigを実行すると、<code class="highlighter-rouge">inet addr</code>の他に<code class="highlighter-rouge">inet6 addr</code>が表示されます。これはIPv6が有効のためです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ifconfig
+eth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C
+          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe26:9f7c/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:311 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:220 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:40068 (39.1 KiB)  TX bytes:27623 (26.9 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+</code></pre></div></div>
+
+<p>IPv6を無効化するには、<code class="highlighter-rouge">/etc/sysctl.conf</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># vi /etc/sysctl.conf
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">sysctl.conf</code>の最後に以下を追記します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+</code></pre></div></div>
+
+<p>ネットワークを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service network restart
+</code></pre></div></div>
+
+<p>ifconfigを実行して、再度、ネットワーク設定を確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ifconfig
+eth0      Link encap:Ethernet  HWaddr 08:00:27:26:9F:7C
+          inet addr:192.168.0.2  Bcast:192.168.0.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:412 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:331 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:42154 (41.1 KiB)  TX bytes:45551 (44.4 KiB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+</code></pre></div></div>
+
+<p>表示から<code class="highlighter-rouge">inet6 addr</code>が消えていたら、設定成功です。</p>
+
+<blockquote>
+  <p><strong>note</strong> 参考ページ: <a href="http://gmt-24.net/archives/1015">CentOS 6でIPv6を無効化する方法</a></p>
+</blockquote>
+
+<p>IPv6を無効化したことでip6tablesも不必要となったので、停止します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service ip6tables stop
+# chkconfig ip6tables off
+</code></pre></div></div>
+
+<p>ip6tablesが停止設定になったことを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># chkconfig --list | grep ip6tables
+ip6tables       0:off   1:off   2:off   3:off   4:off   5:off   6:off
+</code></pre></div></div>
+
+<p>全てoffになっているため、ip6tablesが停止設定になっていることが分かります。</p>
+
+<h2 id="selinux無効化">SELinux無効化</h2>
+
+<p>セキュリティのために非常に重要なSELinuxですが、同時に煩わしくもあります。所詮はテスト環境と割り切って、SELinuxを無効化します。</p>
+
+<p>SELinuxを無効化するには、<code class="highlighter-rouge">/etc/sysconfig/selinux</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># vi /etc/sysconfig/selinux
+</code></pre></div></div>
+
+<p>以下のように変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELINUX=enforcing
+↓
+SELINUX=disabled
+</code></pre></div></div>
+
+<p>変更したら、OSを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># reboot
+</code></pre></div></div>
+
+<p>再起動したら、<code class="highlighter-rouge">getenforce</code>を実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ getenforce
+Disabled
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Disabled</code>と表示されているため、SELinuxが無効化されたことが分かります。</p>
+
+<h3 id="インストール済みパッケージのアップデート">インストール済みパッケージのアップデート</h3>
+
+<p>インストール済みパッケージを最新化します。</p>
+
+<p>以下のコマンドを実行し、しばらく待ちます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum update -y
+</code></pre></div></div>
+
+<h2 id="開発系パッケージのインストール">開発系パッケージのインストール</h2>
+
+<p>開発系パッケージをインストールします。これをインストールしないと、使えるコマンドがかなり少ないです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum groupinstall -y "Development Tools"
+</code></pre></div></div>
+
+<h2 id="wgetをインストール">wgetをインストール</h2>
+
+<p>wgetはよく使用するので、これをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum install -y wget
+</code></pre></div></div>
+
+<h2 id="java-sdkをインストール">Java SDKをインストール</h2>
+
+<p>Javaアプリを動作させたいため、Java SDKをインストールします。他言語処理系を使用する場合は、それぞれのインストール方法でインストールしてください。</p>
+
+<p>まず、インストール可能なJava SDKを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum search jdk
+Loaded plugins: fastestmirror, presto
+Loading mirror speeds from cached hostfile
+ * base: mirrors.sin3.sg.voxel.net
+ * extras: mirrors.sin3.sg.voxel.net
+ * updates: mirrors.sin3.sg.voxel.net
+==================================== N/S Matched: jdk ====================================
+java-1.6.0-openjdk.i686 : OpenJDK Runtime Environment
+java-1.6.0-openjdk-demo.i686 : OpenJDK Demos
+java-1.6.0-openjdk-devel.i686 : OpenJDK Development Environment
+java-1.6.0-openjdk-javadoc.i686 : OpenJDK API Documentation
+java-1.6.0-openjdk-src.i686 : OpenJDK Source Bundle
+java-1.7.0-openjdk.i686 : OpenJDK Runtime Environment
+java-1.7.0-openjdk-demo.i686 : OpenJDK Demos
+java-1.7.0-openjdk-devel.i686 : OpenJDK Development Environment
+java-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentation
+java-1.7.0-openjdk-src.i686 : OpenJDK Source Bundle
+ldapjdk-javadoc.i686 : Javadoc for ldapjdk
+icedtea-web.i686 : Additional Java components for OpenJDK
+ldapjdk.i686 : The Mozilla LDAP Java SDK
+
+  Name and summary matches only, use "search all" for everything.
+</code></pre></div></div>
+
+<p>1.6.0と1.7.0がインストール可能であることが分かります。ここでは1.7.0をインストールすることにします。1.7.0にもいくつかありますが、<code class="highlighter-rouge">-devel</code>とついているパッケージをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum install -y java-1.7.0-openjdk-devel
+</code></pre></div></div>
+
+<p>インストールが完了したら、バージョン情報を表示して、正しくインストールされたことを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java -version
+java version "1.7.0_05-icedtea"
+OpenJDK Runtime Environment (rhel-2.2.1.el6_3.3-i386)
+OpenJDK Client VM (build 23.0-b21, mixed mode)
+
+$ javac -version
+javac 1.7.0_05
+</code></pre></div></div>
+
+<p>以上で、セットアップは完了です。</p>
+
+<p>ここまでセットアップしたものをベースとして、テスト環境をいくつか作成する場合はクローンして使用します。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#centos" class="page__taxonomy-item" rel="tag">CentOS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#setup" class="page__taxonomy-item" rel="tag">Setup</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-15T21:13:00+09:00">2012-10-15</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=CentOS+6.3%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E3%83%A1%E3%83%A2%20%2F2012%2F10%2F15%2Fsetup-centos-63.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2012%2F10%2F15%2Fsetup-centos-63.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2012%2F10%2F15%2Fsetup-centos-63.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2012%2F10%2F15%2Fsetup-centos-63.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2012/10/13/build-redmine-war-2.html" class="pagination--pager" title="Redmineをwar化 (2) warblerでwar化する
+">Previous</a>
+    
+    
+      <a href="/2012/10/16/build-redmine-war-3.html" class="pagination--pager" title="Redmineをwar化 (3) Tomcat上で動作させる
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

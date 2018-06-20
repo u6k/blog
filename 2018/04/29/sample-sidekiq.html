@@ -1,0 +1,858 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Sidekiq on Dockerサンプル - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Sidekiq on Dockerサンプル">
+
+
+
+
+  <meta property="og:description" content="この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Sidekiq on Dockerサンプル">
+  <meta name="twitter:description" content="この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-04-29T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Sidekiq on Dockerサンプル">
+    <meta itemprop="description" content="この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。">
+    <meta itemprop="datePublished" content="2018-04-29">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Sidekiq on Dockerサンプル
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-04-29T00:00:00+09:00">2018-04-29</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</p>
+
+<h1 id="はじめに">はじめに</h1>
+
+<p>Rubyでジョブ管理を行おうと考えたとき、<a href="https://github.com/resque/resque">Resque</a>、<a href="https://github.com/collectiveidea/delayed_job">Delayed::Job</a>、<a href="https://github.com/mperham/sidekiq">Sidekiq</a>などの仕組みがあります。さらに定期的にジョブを実行したいと思い方法を探していると、<a href="https://github.com/ondrejbartas/sidekiq-cron">Sidekiq-Cron</a>や<a href="https://github.com/moove-it/sidekiq-scheduler">sidekiq-scheduler</a>の解説が多く見られました。このため、Sidekiqを使うことにしました。</p>
+
+<p>なお、Rails 5ではジョブ実装の共通的な仕組みとして<a href="https://railsguides.jp/active_job_basics.html">Active Job</a>が使えますが、Active Jobがsidekiq-schedulerなどで使えるか分からなかったので、今回はSidekiqをそのまま使うことにしました。</p>
+
+<p>今回の手順で作成したプロジェクトは、 <a href="https://github.com/u6k/sample-sidekiq/">u6k/sample-sidekiq</a> にあります。</p>
+
+<h1 id="前提">前提</h1>
+
+<p>筆者はRails開発をvim + Dockerで行っており、ホストPCにRubyをインストールしてはいません。Dockerおよびdocker-composeを使用しますので、あらかじめインストールしておいてください。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker version
+Client:
+ Version:       18.03.0-ce
+ API version:   1.37
+ Go version:    go1.9.4
+ Git commit:    0520e24
+ Built: Wed Mar 21 23:10:06 2018
+ OS/Arch:       linux/amd64
+ Experimental:  false
+ Orchestrator:  swarm
+
+Server:
+ Engine:
+  Version:      18.03.0-ce
+  API version:  1.37 (minimum version 1.12)
+  Go version:   go1.9.4
+  Git commit:   0520e24
+  Built:        Wed Mar 21 23:08:35 2018
+  OS/Arch:      linux/amd64
+  Experimental: false
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose --version
+docker-compose version 1.21.0, build 5920eb0
+</code></pre></div></div>
+
+<p>上記は筆者の環境ですが、Docker環境であればOSは問わないはずです。</p>
+
+<p>エディターは、お好みのものを使いましょう。vimでもさくらエディタでもAtomでもVisual Studio Codeでも問題ありません。</p>
+
+<p>手順の説明は、なるべくDockerなどの知識がなくてもコピペすれば動作するように書いてあります。ただ、最低限のシェルの知識は必要になります。環境によっては権限設定により一般ユーザーでは動作しないかもしれません。rootになるなり <code class="highlighter-rouge">sudo</code> するなりしましょう。</p>
+
+<p>RubyやRailsなど他のソフトウェアは、全てDockerコンテナ内でインストールするので、ホストPCにインストールする必要はありません。</p>
+
+<h1 id="セットアップ実行手順">セットアップ、実行手順</h1>
+
+<p>次に、Railsプロジェクトを作成してからジョブを実行するまでの手順を説明します。</p>
+
+<h2 id="railsプロジェクトを作成">Railsプロジェクトを作成</h2>
+
+<p>Railsプロジェクトを作成します。ホストPCにRubyがセットアップ済みであれば <code class="highlighter-rouge">rails new .</code> を実行すれば良いですが、ここではrubyコンテナの中でRailsプロジェクトを作成します。</p>
+
+<p>まず、rubyコンテナを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -it -v $(pwd):/var/myapp -w /var/myapp ruby bash
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">-v</code> オプションで、カレント・フォルダをコンテナ内の <code class="highlighter-rouge">/var/myapp</code> フォルダに割り当てます。そして <code class="highlighter-rouge">-w</code> オプションで、コンテナ起動直後の作業フォルダを <code class="highlighter-rouge">/var/myapp</code> フォルダに設定しています。</p>
+
+<p>Ruby on Railsをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># gem install rails
+</code></pre></div></div>
+
+<p>カレント・フォルダにRailsプロジェクトを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># rails new .
+</code></pre></div></div>
+
+<p>作成したら、 <code class="highlighter-rouge">ls</code> でファイルを確認してみます。Railsプロジェクトのファイルが作成されていることを確認したら、 <code class="highlighter-rouge">Ctrl-d</code> でコンテナからログアウトします。</p>
+
+<h2 id="gemfileに-sidekiq-を追加">Gemfileに <code class="highlighter-rouge">sidekiq</code> を追加</h2>
+
+<p>Sidekiqはgemで提供されているので、 <code class="highlighter-rouge">Gemfile</code> ファイルに追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem 'sidekiq'
+</code></pre></div></div>
+
+<p>また、 <code class="highlighter-rouge">Gemfile</code> ファイルの余計なコメント行を削除します。結果、次のように修正します(バージョンは時期により異なります)。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat Gemfile
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '2.5.1'
+
+gem 'rails', '~&gt; 5.2.0'
+gem 'sqlite3'
+gem 'puma', '~&gt; 3.11'
+gem 'sass-rails', '~&gt; 5.0'
+gem 'uglifier', '&gt;= 1.3.0'
+gem 'coffee-rails', '~&gt; 4.2'
+gem 'turbolinks', '~&gt; 5'
+gem 'jbuilder', '~&gt; 2.5'
+gem 'bootsnap', '&gt;= 1.1.0', require: false
+gem 'sidekiq'
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
+
+group :development do
+  gem 'web-console', '&gt;= 3.3.0'
+  gem 'listen', '&gt;= 3.0.5', '&lt; 3.2'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~&gt; 2.0.0'
+end
+
+group :test do
+  gem 'capybara', '&gt;= 2.15', '&lt; 4.0'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+</code></pre></div></div>
+
+<h2 id="dockerコンテナ化">Dockerコンテナ化</h2>
+
+<p><code class="highlighter-rouge">rails</code> コマンドを使用したり動作確認するため、早々にDockerコンテナ化します。</p>
+
+<p>簡単にSidekiqを使用したコンテナ構造を説明すると、次のように構成します。ちなみに、今回はRailsアプリケーションが使用するDBとしてSQLiteを指定しているため、DBコンテナは構成しません。</p>
+
+<p><img src="/uml/c1ae5e8de4a4b098433fd8103fc1ae17.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<p>まず、アプリケーション用コンテナの <code class="highlighter-rouge">Dockerfile</code> ファイルを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat Dockerfile
+FROM ruby:2.5
+
+RUN apt-get update &amp;&amp; \
+    apt-get install -y \
+        nodejs &amp;&amp; \
+    apt-get clean
+
+VOLUME /var/myapp
+WORKDIR /var/myapp
+
+COPY Gemfile .
+COPY Gemfile.lock .
+
+RUN bundle install
+
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
+</code></pre></div></div>
+
+<p>次に、上図で説明したコンテナ構造を構成するため、 <code class="highlighter-rouge">docker-compose.yml</code> ファイルを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat docker-compose.yml
+version: '3'
+
+services:
+  app:
+    build: .
+    environment:
+      - "RAILS_ENV=development"
+      - "REDIS_URL=redis://redis:6379"
+    volumes:
+      - ".:/var/myapp"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "redis"
+  worker:
+    build: .
+    environment:
+      - "RAILS_ENV=development"
+      - "REDIS_URL=redis://redis:6379"
+    volumes:
+      - ".:/var/myapp"
+    depends_on:
+      - "redis"
+    command: sidekiq
+  redis:
+    image: redis:4.0
+    volumes:
+      - "redis:/data"
+    command: redis-server --appendonly yes
+
+volumes:
+  redis:
+    driver: local
+</code></pre></div></div>
+
+<p>手順が間違えていなければ、イメージをビルドして、Railsアプリケーションを起動することができます。試しに、動作確認してみます。</p>
+
+<p>イメージをビルドします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose build
+</code></pre></div></div>
+
+<p>コンテナを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up -d
+</code></pre></div></div>
+
+<p>Webブラウザで http://localhost:3000 を開くか <code class="highlighter-rouge">curl</code> コマンドでGETリクエストすると、Welcomeページが表示されます。</p>
+
+<p><img src="/assets/img/2018-04-29-sample-sidekiq/rails-welcome-page.jpeg" alt="rails welcome page" /></p>
+
+<h2 id="ダッシュボードへのルートを設定">ダッシュボードへのルートを設定</h2>
+
+<p>Sidekiqはジョブがどのような状態かを確認するためのダッシュボードを提供しています。ダッシュボードにアクセスするには、 <code class="highlighter-rouge">config/routes.rb</code> ファイルにルートを設定します。</p>
+
+<p><code class="highlighter-rouge">sidekiq/web</code> をrequireします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require 'sidekiq/web'
+</code></pre></div></div>
+
+<p>ダッシュボードへのルートを設定します。次のように設定すると、 http://localhost:3000/sidekiq でダッシュボードにアクセスできます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mount Sidekiq::Web, at: '/sidekiq'
+</code></pre></div></div>
+
+<p>結果、 <code class="highlighter-rouge">config/routes.rb</code> ファイルは次のようになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat config/routes.rb
+require 'sidekiq/web'
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
+end
+</code></pre></div></div>
+
+<h2 id="ワーカーを作成">ワーカーを作成</h2>
+
+<p>Sidekiqで実行するワーカーを作成します。</p>
+
+<p><code class="highlighter-rouge">rails g</code> コマンドで、Helloワーカーを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose exec app rails g sidekiq:worker Hello
+</code></pre></div></div>
+
+<p>これにより、ワーカーとそのテスト・コードが作成されます。今回はワーカーのみ実装します。 <code class="highlighter-rouge">app/worker/hello_worker.rb</code> ファイルに <code class="highlighter-rouge">puts "hello"</code> コードを追加します。結果、次のように修正します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat app/workers/hello_worker.rb
+class HelloWorker
+  include Sidekiq::Worker
+
+  def perform(*args)
+    puts "hello"
+  end
+end
+</code></pre></div></div>
+
+<h2 id="ワーカーを実行">ワーカーを実行</h2>
+
+<p>いよいよ、作成したワーカーをSidekiqで実行してみます。</p>
+
+<p>Sidekiqは変更したソースコードを自動では読み込んでくれないので、いったんコンテナを終了します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose down -v
+</code></pre></div></div>
+
+<p>コンテナを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up -d
+</code></pre></div></div>
+
+<p>appコンテナのRailsコンソールを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose exec app rails c
+</code></pre></div></div>
+
+<p>ワーカー・クラスの <code class="highlighter-rouge">perform_async</code> メソッドを呼び出すことで、ワーカーをキューに登録します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; HelloWorker.perform_async
+</code></pre></div></div>
+
+<p>正常に登録された場合、IDのような文字列が表示されます。エラーとなってしまいスタックトレースが表示された場合、これまでに作成したファイルや手順のどこかが間違えています。</p>
+
+<p>今、キューに登録したワーカーはすぐに実行されます。workerコンテナのログを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose logs worker
+Attaching to sample-sidekiq_worker_1
+worker_1  | 2018-04-25T10:30:08.008Z 1 TID-gses4fdh1 INFO: Booting Sidekiq 5.1.3 with redis options {:url=&gt;"redis://redis:6379", :id=&gt;"Sidekiq-server-PID-1"}
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Running in ruby 2.5.1p57 (2018-03-29 revision 63029)[x86_64-linux]
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: See LICENSE and the LGPL-3.0 for licensing details.
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+worker_1  | 2018-04-25T10:30:08.114Z 1 TID-gses4fdh1 INFO: Starting processing, hit Ctrl-C to stop
+worker_1  | 2018-04-25T10:30:25.434Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: start
+worker_1  | hello
+worker_1  | 2018-04-25T10:30:25.441Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: done: 0.005sec
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">hello</code> が出力されており、ワーカーが実行されたことが分かります。</p>
+
+<p>また、 http://localhost:3000/sidekiq にアクセスすると、次のようにダッシュボードが表示されます。</p>
+
+<p><img src="/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard.jpeg" alt="sidekiq dashboard" /></p>
+
+<h2 id="sidekiqをcron化">SidekiqをCron化</h2>
+
+<p>ここまでの作業で、Sidekiqを使ったジョブの実行ができるようになりました。単純にジョブを実行するだけであれば、ここまでで終わりです。</p>
+
+<p>ここからは、sidekiq-cronを使ってジョブを定期的に実行してみます。</p>
+
+<h2 id="gemfile-と-routesrb-を修正"><code class="highlighter-rouge">Gemfile</code> と <code class="highlighter-rouge">routes.rb</code> を修正</h2>
+
+<p>sidekiq-cronの設定は簡単で、2ファイルを修正するだけです。</p>
+
+<p><code class="highlighter-rouge">Gemfile</code> ファイルを修正します。 <code class="highlighter-rouge">sidekiq</code> の後に <code class="highlighter-rouge">sidekiq-cron</code> を追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat Gemfile
+
+...(略)...
+gem 'sidekiq'
+gem 'sidekiq-cron'
+...(略)...
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/routes.rb</code> ファイルを修正します。 <code class="highlighter-rouge">require 'sidekiq/web'</code> の後に <code class="highlighter-rouge">require 'sidekiq/cron/web'</code> を追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat config/routes.rb
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+...(略)...
+</code></pre></div></div>
+
+<p>これで、ジョブを定期実行する準備は完了です。ワーカーを変更する必要はありません。</p>
+
+<h2 id="ジョブを定期実行">ジョブを定期実行</h2>
+
+<p>Dockerコンテナを停止して、起動して、Railsコンソールを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose down -v
+$ docker-compose up -d
+$ docker-compose exec app rails c
+</code></pre></div></div>
+
+<p>ジョブを定期実行する場合は、 <code class="highlighter-rouge">Sidekiq::Cron::Job.create</code> を呼び出します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; Sidekiq::Cron::Job.create name: "Hello Job", cron: "* * * * *", class: "HelloWorker"
+2018-04-27T04:26:05.562Z 50 TID-govsxyfv2 INFO: Cron Jobs - add job with name: Hello Job
+=&gt; true
+</code></pre></div></div>
+
+<p>これでジョブの定期実行が開始されます。しばらくしてから、workerコンテナのログを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo docker-compose logs worker
+worker_1  | 2018-04-27T04:27:25.246Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:27:25.267Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: done: 0.02 sec
+worker_1  | 2018-04-27T04:28:05.080Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:28:05.081Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: done: 0.001 sec
+worker_1  | 2018-04-27T04:29:15.094Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: done: 0.002 sec
+</code></pre></div></div>
+
+<p>約1分ごとにジョブが実行されています。</p>
+
+<p>どのようなジョブが定期実行されているかは、Sidekiqダッシュボードで確認できます。Sidekiqダッシュボードのメニューに”Cron”が追加されています。</p>
+
+<p><img src="/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-2.jpeg" alt="sidekiq dashboard 2" /></p>
+
+<p>Cronページを見ると、登録したジョブが表示されます。</p>
+
+<p><img src="/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-cron.jpeg" alt="sidekiq dashboard cron" /></p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>このように、Railsアプリケーションに簡単に定期実行ジョブを追加することができました。アプリケーション固有の、クリーンアップ処理や単純な集計バッチ処理などであれば、これで十分だと思います。</p>
+
+<p>一方、「ジョブ管理システム」として考えると、いろいろと機能が不足しています。ジョブネット、ジョブごとのワークスペース、ジョブ実行履歴、など。そういった機能が必要な場合は、やはりジョブ管理専用のサービスを使うことになると思います。</p>
+
+<h1 id="参考リンク">参考リンク</h1>
+
+<ul>
+  <li><a href="https://github.com/mperham/sidekiq">mperham/sidekiq: Simple, efficient background processing for Ruby</a></li>
+  <li><a href="https://qiita.com/nysalor/items/94ecd53c2141d1c27d1f">sidekiqの使い方 - Qiita</a></li>
+  <li><a href="http://shiro-16.hatenablog.com/entry/2015/10/12/192412">Sidekiq について基本と1年半運用してのあれこれ - まっしろけっけ</a></li>
+  <li><a href="http://tech.smarthr.jp/entry/2017/04/20/165555">Sidekiq アンチパターン: 序 - SmartHR Tech Blog</a></li>
+  <li><a href="https://github.com/ondrejbartas/sidekiq-cron">ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs</a></li>
+</ul>
+
+<h1 id="link">Link</h1>
+
+<ul>
+  <li>Author
+    <ul>
+      <li><a href="https://blog.u6k.me/">u6k.Blog()</a></li>
+      <li><a href="https://github.com/u6k">u6k - GitHub</a></li>
+      <li><a href="https://twitter.com/u6k_yu1">u6k_yu1 | Twitter</a></li>
+    </ul>
+  </li>
+  <li>Source
+    <ul>
+      <li><a href="https://github.com/u6k/blog/blob/master/_posts/2018-04-29-sample-sidekiq.md">2018-04-29-sample-sidekiq.md</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cron" class="page__taxonomy-item" rel="tag">Cron</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ruby-on-rails" class="page__taxonomy-item" rel="tag">Ruby on Rails</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sidekiq" class="page__taxonomy-item" rel="tag">Sidekiq</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E3%82%B8%E3%83%A7%E3%83%96" class="page__taxonomy-item" rel="tag">ジョブ</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-04-29T00:00:00+09:00">2018-04-29</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Sidekiq+on+Docker%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%20%2F2018%2F04%2F29%2Fsample-sidekiq.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F04%2F29%2Fsample-sidekiq.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2018%2F04%2F29%2Fsample-sidekiq.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2018%2F04%2F29%2Fsample-sidekiq.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2018/02/18/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2018-02-12 to 2018-02-18)
+">Previous</a>
+    
+    
+      <a href="/2018/05/19/what-is-keep-myself-open-to-news.html" class="pagination--pager" title="「アンテナを張る」とは？
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

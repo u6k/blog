@@ -1,0 +1,647 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？">
+
+
+
+
+  <meta property="og:description" content="仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？">
+  <meta name="twitter:description" content="仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-11-08T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？">
+    <meta itemprop="description" content="仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。">
+    <meta itemprop="datePublished" content="2015-11-08">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Eclipse環境構築にyoxosを使っている話、および自分は開発環境に何を求めているのか？
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-08T00:00:00+09:00">2015-11-08</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。</p>
+
+<p><a href="http://blog.u6k.me/2012/10/java.html">手作業ですが構築手順は書いてある</a>のでその通りに実施すれば良いのですが、かなり面倒臭いし時間がかかります。できれば、コマンド1発で構築したいです。そこで、yoxosを利用しています。</p>
+
+<p>この記事では、yoxosとは何かを簡単に説明し、もう少し踏み込んで開発環境に何を求めているかを整理してみます。</p>
+
+<!-- more -->
+
+<h1 id="yoxosとは">yoxosとは</h1>
+
+<p><a href="https://yoxos.eclipsesource.com/">yoxos</a>は、プロファイルにプラグインセットを事前設定することで、Windows・Macなどどの環境でもEclipse環境(プラグインインストール済み)を1発で構築することができるサービスです。</p>
+
+<h2 id="yoxos利用手順">yoxos利用手順</h2>
+
+<ul>
+  <li>yoxosでアカウントを作成する。</li>
+  <li>yoxosサイト上で、プロファイルにプラグインを追加する。</li>
+  <li>Yoxos Launcherをダウンロード、インストールする。
+    <ul>
+      <li>Yoxos Launcher上でプロファイルにプラグインを追加することもできる。というかこちらの方がやりやすい。</li>
+    </ul>
+  </li>
+  <li>Yoxos LauncherからEclipseを起動する。この時、Eclipse環境が一気に構築される。</li>
+</ul>
+
+<p>別の環境でEclipse環境を構築する場合は、Yoxos Launcherをインストールしてプロファイルにログインすることで、Eclipse環境を一気に構築することができます。</p>
+
+<h1 id="yoxosの利点">yoxosの利点</h1>
+
+<ul>
+  <li>プロファイルから同じ環境を手軽にいくつも作れる。OS、CPUが異なっていても、yoxosがよろしく調整してくれる。</li>
+  <li>面倒なプラグインのインストール作業を1ステップで実行することができる。</li>
+  <li>環境構築後の各種設定を行った後にプリファレンスをエクスポートしておけば、yoxosで構築+プリファレンスインポートで、設定まで復元できる。</li>
+  <li>プラグインにバージョンアップがあった場合、yoxosがチェック、インストールしてくれる。</li>
+</ul>
+
+<h1 id="yoxosの欠点">yoxosの欠点</h1>
+
+<ul>
+  <li>yoxosの無償利用ができなくなるかも？</li>
+  <li><strong>yoxosが提供するプラグインからしか選べない！</strong> これがかなり厳しい。
+    <ul>
+      <li>バージョンが微妙に古かったりする。</li>
+      <li>そもそもサポートされていない場合がある。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="そもそも開発環境に求める要件を考えてみる">そもそも、開発環境に求める要件を考えてみる</h1>
+
+<p>開発環境については、いろいろなツールやプラグインを使ってきて、なんだか頭がごちゃごちゃになってしまっているので、ここらで一度、自分は開発環境に何を求めているのか？ という観点を整理してみます。</p>
+
+<h2 id="テキストエディター機能要件">テキストエディター機能要件</h2>
+
+<ul>
+  <li>ソースコードをシンタックスハイライトできる。</li>
+  <li>行数を表示できる。</li>
+  <li>文字エンコーディングを設定できる。</li>
+  <li>改行コードを設定できる。</li>
+  <li>タブ表示を設定できる。</li>
+  <li>自動インデントができる。
+    <ul>
+      <li>ファイル種類(プログラミング言語)ごとに設定できる。</li>
+    </ul>
+  </li>
+  <li>自動でフォーマッティングする。</li>
+  <li>入力補完ができる。
+    <ul>
+      <li>言語キーワード。</li>
+      <li>クラス名、メソッド名、関数名。</li>
+      <li>変数。</li>
+    </ul>
+  </li>
+  <li>表示折り返し位置を設定できる
+    <ul>
+      <li>折り返し無し。</li>
+      <li>桁指定して折り返し。</li>
+      <li>画面右端で折り返し。</li>
+    </ul>
+  </li>
+  <li>ファイル種類に応じた設定で編集できる。
+    <ul>
+      <li>java</li>
+      <li>html</li>
+      <li>js</li>
+      <li>css</li>
+      <li>txt</li>
+      <li>md</li>
+      <li>php</li>
+      <li>ruby</li>
+      <li>sh</li>
+      <li>sql</li>
+      <li>python</li>
+    </ul>
+  </li>
+  <li>依存するライブラリのリファレンスを表示する。</li>
+  <li>Markdownはリアルタイムでプレビュー表示して欲しい。</li>
+  <li>リファクタリングできることが望ましい。</li>
+</ul>
+
+<h2 id="ビルド機能要件">ビルド機能要件</h2>
+
+<ul>
+  <li>ファイルを変更すると、バックグラウンドでビルドが実行される。
+    <ul>
+      <li>可能な限り軽く。</li>
+      <li>コンパイルエラーを検知する。</li>
+      <li>コーディング規約違反を検知する。</li>
+      <li>バグ疑惑(FindBugsなど)の検知を行う。</li>
+      <li>対象ソースコードに対するテストコードを実行し、結果を表示する。</li>
+    </ul>
+  </li>
+  <li>依存するライブラリを定義し、ダウンロードできる。</li>
+  <li>コンパイルエラー、コーディング規約違反、バグ疑惑などを、ソースコード単位、プロジェクト単位で一覧表示する。
+    <ul>
+      <li>一覧から該当箇所を表示できる。</li>
+    </ul>
+  </li>
+  <li>プロジェクト全体の、複雑度などメトリクスを表示する。</li>
+</ul>
+
+<h2 id="デバッグ機能要件">デバッグ機能要件</h2>
+
+<ul>
+  <li>開発中アプリを起動できる。
+    <ul>
+      <li>ローカル起動。</li>
+      <li>結合環境などでの起動。</li>
+    </ul>
+  </li>
+  <li>デバッグ機能があること。
+    <ul>
+      <li>実行中断(ブレークポイント)</li>
+      <li>ステップ実行</li>
+      <li>変数内容確認</li>
+      <li>デバッグログのリアルタイム表示</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="プロビジョニング機能要件">プロビジョニング機能要件</h2>
+
+<ul>
+  <li>どのプラットフォームでも開発環境をプロビジョニングできる。
+    <ul>
+      <li>Windows</li>
+      <li>Linux</li>
+      <li>Mac</li>
+    </ul>
+  </li>
+  <li>プロビジョニングでは、一発で環境を最新化できる。
+    <ul>
+      <li>環境設定</li>
+      <li>プラグイン</li>
+    </ul>
+  </li>
+  <li>ソースコード、設定ファイル、プロジェクトごとの環境設定を保存する。</li>
+  <li>バージョン管理ツールと連携できる。
+    <ul>
+      <li>ただし、SourceTreeなど優秀な外部ツールがあるので、連携できなくても良い。</li>
+    </ul>
+  </li>
+  <li>コンソール環境のみで利用できることが望ましい。</li>
+</ul>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>Eclipse抜きに「開発環境とは」を考えると、いわゆるIDEがよくできていることが改めてわかります。とは言えもっと簡単にセットアップしたいとも思います。もうちょっと色々と追求してみます。</p>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="http://moznion.hatenadiary.com/entry/20130103/1357234061">Vim でJava を書く環境を整えましたが、IDE で良い気がします</a></li>
+  <li><a href="http://qiita.com/ko2ic/items/9204f5dba907dab37a1b">Javaエンジニアがいまさら始めるRuby開発環境 - Qiita</a></li>
+  <li><a href="https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%83%93%E3%82%B8%E3%83%A7%E3%83%8B%E3%83%B3%E3%82%B0">プロビジョニング - Wikipedia</a></li>
+  <li><a href="http://e-words.jp/w/%E3%83%97%E3%83%AD%E3%83%93%E3%82%B8%E3%83%A7%E3%83%8B%E3%83%B3%E3%82%B0.html">プロビジョニングとは｜provisioning - 意味/解説/説明/定義 ： IT用語辞典</a></li>
+  <li><a href="http://qiita.com/Mura-Mi/items/4a7019d164b9911ba866">Eclipse Oomph のドキュメント日本語訳: Contents-Scopes - Qiita</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>[10回目のリリースとなる「Eclipse Mars」が登場、Docker対応へ</td>
+          <td>OSDN Magazine](http://osdn.jp/magazine/15/06/26/063000)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><a href="http://www.winklerweb.net/index.php/blog/12-eclipse/20-creating-custom-installations-with-oomph">Creating custom installations with Oomph</a></li>
+  <li><a href="http://wiki.eclipse.org/Eclipse_Installer">Eclipse Installer - Eclipsepedia</a></li>
+  <li><a href="https://wiki.eclipse.org/Eclipse_Oomph_Authoring">Eclipse Oomph Authoring - Eclipsepedia</a></li>
+  <li><a href="http://eclipsesource.com/blogs/2015/06/24/top-10-eclipse-mars-features/">Top 10 Eclipse Mars Features « EclipseSource Blog</a>
+    <ul>
+      <li>Eclipse Oomphとやらでyoxos相当のことができるらしい…？</li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#eclipse" class="page__taxonomy-item" rel="tag">Eclipse</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#setup" class="page__taxonomy-item" rel="tag">Setup</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#yoxos" class="page__taxonomy-item" rel="tag">yoxos</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-08T00:00:00+09:00">2015-11-08</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Eclipse%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%81%AByoxos%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E8%A9%B1%E3%80%81%E3%81%8A%E3%82%88%E3%81%B3%E8%87%AA%E5%88%86%E3%81%AF%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AB%E4%BD%95%E3%82%92%E6%B1%82%E3%82%81%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F%20%2F2015%2F11%2F08%2Fusing-yoxos-to-build-eclipse-and-requirement-development-environment.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F11%2F08%2Fusing-yoxos-to-build-eclipse-and-requirement-development-environment.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F11%2F08%2Fusing-yoxos-to-build-eclipse-and-requirement-development-environment.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F11%2F08%2Fusing-yoxos-to-build-eclipse-and-requirement-development-environment.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/11/07/fixed-mojibake-for-csv-and-pdf-on-redmine.html" class="pagination--pager" title="RedmineのCSVおよびPDFの文字化けを解消
+">Previous</a>
+    
+    
+      <a href="/2015/11/30/how-to-run-raspbian-wheezy-on-qemu-on-osx.html" class="pagination--pager" title="Raspberry Pi(Raspbian wheezy)をOS XのQEMUで動作させる手順
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

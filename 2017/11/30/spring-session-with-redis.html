@@ -1,0 +1,734 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>HttpSession with Spring Sessionの挙動検証 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="先日はServlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="HttpSession with Spring Sessionの挙動検証">
+
+
+
+
+  <meta property="og:description" content="先日はServlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="HttpSession with Spring Sessionの挙動検証">
+  <meta name="twitter:description" content="先日はServlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-11-30T23:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="HttpSession with Spring Sessionの挙動検証">
+    <meta itemprop="description" content="先日はServlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。">
+    <meta itemprop="datePublished" content="2017-11-30">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">HttpSession with Spring Sessionの挙動検証
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-30T23:00:00+09:00">2017-11-30</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="https://blog.u6k.me/2017/11/26/servlet-http-session.html">先日は</a>Servlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。</p>
+
+<h2 id="検証するwebアプリケーション">検証するWebアプリケーション</h2>
+
+<p>今回のWebアプリケーションも先日と同様、アクセスすると<code class="highlighter-rouge">count=1</code>、<code class="highlighter-rouge">count=2</code>、<code class="highlighter-rouge">count=3</code>とカウントアップするだけのWebアプリケーションです。</p>
+
+<p><img src="/uml/dff5872ed6f2db2a9b5138230417064a.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<p>検証のために作成したWebアプリケーションは、次のリポジトリにあります。検証では詳細に説明はしないので、READMEやソースコードをご覧ください。</p>
+
+<ul>
+  <li><a href="https://github.com/u6k/sample-spring-session-with-servlet">u6k/sample-spring-session-with-servlet | GitHub</a></li>
+</ul>
+
+<h2 id="検証">検証</h2>
+
+<h3 id="spring-sessionを組み込んだだけで何も設定しない場合">Spring Sessionを組み込んだだけで、何も設定しない場合</h3>
+
+<p><a href="https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html">Spring Session - HttpSession (Quick Start)</a>を参考に実装を進めます。この検証では説明をいろいろ省略するので、詳細は<a href="https://docs.spring.io/spring-session/docs/current/reference/html5/guides/httpsession.html">Spring Session - HttpSession (Quick Start)</a>をご覧ください。</p>
+
+<h4 id="依存関係を追加">依存関係を追加</h4>
+
+<p><code class="highlighter-rouge">pom.xml</code>の依存関係に、次の設定を追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.session&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;
+    &lt;version&gt;1.3.1.RELEASE&lt;/version&gt;
+    &lt;type&gt;pom&lt;/type&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;biz.paluch.redis&lt;/groupId&gt;
+    &lt;artifactId&gt;lettuce&lt;/artifactId&gt;
+    &lt;version&gt;3.5.0.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+    &lt;version&gt;4.3.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<h4 id="spring-java-configurationを作成">Spring Java Configurationを作成</h4>
+
+<p>Spring設定を行う<code class="highlighter-rouge">Config</code>クラスを作成します。<code class="highlighter-rouge">src/main/java/me/u6k/sample/sample_spring_session_with_servlet/Config.java</code>ファイルを次のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">me</span><span class="p">.</span><span class="n">u6k</span><span class="p">.</span><span class="n">sample</span><span class="p">.</span><span class="n">sample_spring_session_with_servlet</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">Bean</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">redis</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">lettuce</span><span class="p">.</span><span class="n">LettuceConnectionFactory</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">redis</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">EnableRedisHttpSession</span><span class="p">;</span>
+
+<span class="p">@</span><span class="n">EnableRedisHttpSession</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Config</span> <span class="p">{</span>
+    <span class="p">@</span><span class="n">Bean</span>
+    <span class="k">public</span> <span class="n">LettuceConnectionFactory</span> <span class="n">connectionFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">return</span> <span class="n">new</span> <span class="n">LettuceConnectionFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">@EnableRedisHttpSession</code>によって、<code class="highlighter-rouge">HttpSession</code>をSpring Sessionで置き換えます。</p>
+
+<p><code class="highlighter-rouge">LettuceConnectionFactory</code>によって、<code class="highlighter-rouge">localhost:6379</code>で待ち受けるRedisに接続するように設定されます。</p>
+
+<h4 id="servletコンテナを初期化">Servletコンテナを初期化</h4>
+
+<p>先ほどのSpring設定を適用するため、Servletコンテナの初期化を行う<code class="highlighter-rouge">Initializer</code>クラスを作成します。<code class="highlighter-rouge">src/main/java/me/u6k/sample/sample_spring_session_with_servlet/Initializer.java</code>ファイルを次のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">me</span><span class="p">.</span><span class="n">u6k</span><span class="p">.</span><span class="n">sample</span><span class="p">.</span><span class="n">sample_spring_session_with_servlet</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">context</span><span class="p">.</span><span class="n">AbstractHttpSessionApplicationInitializer</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="n">class</span> <span class="n">Initializer</span> <span class="n">extends</span> <span class="n">AbstractHttpSessionApplicationInitializer</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="n">Initializer</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">super</span><span class="p">(</span><span class="n">Config</span><span class="p">.</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>コンストラクタの<code class="highlighter-rouge">super()</code>に先ほどの<code class="highlighter-rouge">Config</code>クラスを渡すことで、Spring設定を適用します。</p>
+
+<h4 id="セッションを使用する">セッションを使用する</h4>
+
+<p><code class="highlighter-rouge">HttpSession</code>が内部的に置き換えられているため、使い方は普段と同じです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">me</span><span class="p">.</span><span class="n">u6k</span><span class="p">.</span><span class="n">sample</span><span class="p">.</span><span class="n">sample_spring_session_with_servlet</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOException</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">ServletException</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">WebServlet</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">HttpServlet</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">HttpServletRequest</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">HttpServletResponse</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">javax</span><span class="p">.</span><span class="n">servlet</span><span class="p">.</span><span class="n">http</span><span class="p">.</span><span class="n">HttpSession</span><span class="p">;</span>
+
+<span class="p">@</span><span class="n">SuppressWarnings</span><span class="p">(</span><span class="s2">"serial"</span><span class="p">)</span>
+<span class="p">@</span><span class="n">WebServlet</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">HelloServlet</span> <span class="n">extends</span> <span class="n">HttpServlet</span> <span class="p">{</span>
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">protected</span> <span class="n">void</span> <span class="n">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="p">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="p">)</span> <span class="n">throws</span> <span class="n">ServletException</span><span class="p">,</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="n">HttpSession</span> <span class="n">session</span> <span class="p">=</span> <span class="n">req</span><span class="p">.</span><span class="n">getSession</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span> <span class="p">==</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">session</span><span class="p">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">"count"</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">int</span> <span class="k">count</span> <span class="p">=</span> <span class="p">(</span><span class="k">Integer</span><span class="p">)</span> <span class="n">session</span><span class="p">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+        <span class="n">session</span><span class="p">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="s2">"count"</span><span class="p">,</span> <span class="k">count</span><span class="p">);</span>
+
+        <span class="n">resp</span><span class="p">.</span><span class="n">setContentType</span><span class="p">(</span><span class="s2">"text/plain"</span><span class="p">);</span>
+        <span class="n">resp</span><span class="p">.</span><span class="n">getWriter</span><span class="p">().</span><span class="nb">write</span><span class="p">(</span><span class="s2">"count="</span> <span class="p">+</span> <span class="k">count</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">req.getSession()</code>で<code class="highlighter-rouge">HttpSession</code>を取得して、<code class="highlighter-rouge">getAttribute()</code>や<code class="highlighter-rouge">setAttribute()</code>でセッションに値を入出力します。内部的にはSpring Sessionが使用され、Redisに値が保存されます。</p>
+
+<h4 id="実行する">実行する</h4>
+
+<p>まず、Redisを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name redis -d -p 6379:6379 redis
+</code></pre></div></div>
+
+<p>この時点のRedisは空ですが、空であることを確認します。Redisの内容を確認するには、redis-cliを使用します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -it --link redis:redis --rm redis redis-cli -h redis -p 6379
+</code></pre></div></div>
+
+<p>全てのキーを確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+(empty list or set)
+</code></pre></div></div>
+
+<p>空であることが確認できます。</p>
+
+<p>次に、Webアプリケーションを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./mvnw jetty:run
+</code></pre></div></div>
+
+<p><a href="http://localhost:8080/">http://localhost:8080/</a> にアクセスすると、<code class="highlighter-rouge">count=1</code>が表示されます。再びアクセスすると<code class="highlighter-rouge">count=2</code>が表示されるはずです。つまり、セッションに値が保存されます。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/redis-session-01.png" alt="redis session 01" /></p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/redis-session-02.png" alt="redis session 02" /></p>
+
+<p>この時のRedisの内容を確認します。再び、全てのキーを確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:expires:b3d335ac-e57e-4a18-a87f-92282aded73e"
+2) "spring:session:sessions:b3d335ac-e57e-4a18-a87f-92282aded73e"
+3) "spring:session:expirations:1512043860000"
+</code></pre></div></div>
+
+<p>セッションに対応するキーが作成されていることが分かります。</p>
+
+<p><code class="highlighter-rouge">Set-Cookie</code>に<code class="highlighter-rouge">Expires</code>が設定されていないため、このセッションはWebブラウザを閉じるとWebブラウザから削除されます。Webブラウザを開いて再び <a href="http://localhost:8080/">http://localhost:8080/</a> にアクセスすると、また<code class="highlighter-rouge">count=1</code>が表示されます。つまり、新しいセッションが作成されます。この時のRedisの内容を確認すると、次のようにキーが増えていることが分かります。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/redis-session-03.png" alt="redis session 03" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:expires:5e50fc3c-7f05-431c-840f-93f1a0d0b8e0"
+2) "spring:session:sessions:expires:b3d335ac-e57e-4a18-a87f-92282aded73e"
+3) "spring:session:sessions:b3d335ac-e57e-4a18-a87f-92282aded73e"
+4) "spring:session:sessions:5e50fc3c-7f05-431c-840f-93f1a0d0b8e0"
+5) "spring:session:expirations:1512043980000"
+6) "spring:session:expirations:1512044040000"
+</code></pre></div></div>
+
+<h3 id="セッションタイムアウトを設定した場合">セッション・タイムアウトを設定した場合</h3>
+
+<p><code class="highlighter-rouge">HttpSession</code>をそのまま使う場合のセッション・タイムアウトは、<code class="highlighter-rouge">web.xml</code>の<code class="highlighter-rouge">&lt;session-timeout&gt;</code>に設定しますが、Spring Session with Redisを使用する場合は、<code class="highlighter-rouge">@EnableRedisHttpSession</code>の<code class="highlighter-rouge">maxInactiveIntervalInSeconds</code>に設定します。パラメータ名の通り、秒単位です。例えば、セッション・タイムアウトを3分に設定する場合は、以下のように設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 150)
+public class Config {
+(中略)
+}
+</code></pre></div></div>
+
+<p>修正したら、先程と同様にRedisを起動して、Webアプリケーションを起動します。起動して <a href="http://localhost:8080/">http://localhost:8080/</a> にアクセスすると、<code class="highlighter-rouge">count=1</code>が表示されます。<code class="highlighter-rouge">Set-Cookie</code>には<code class="highlighter-rouge">Expires</code>は設定されません。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/session-timeout-01.png" alt="session timeout 01" /></p>
+
+<p>この時のRedisの内容を確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:expires:b7f0fc5f-ccc3-4959-9698-803760bc48a8"
+2) "spring:session:expirations:1512043320000"
+3) "spring:session:sessions:b7f0fc5f-ccc3-4959-9698-803760bc48a8"
+</code></pre></div></div>
+
+<p>分かりづらいですが、<code class="highlighter-rouge">spring:session:expirations:xxx</code>の値は、最終アクセス時刻から3分後を示しています。</p>
+
+<p>試しにこの状態で3分以上放置してから、再びRedisの状態を確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:b7f0fc5f-ccc3-4959-9698-803760bc48a8"
+</code></pre></div></div>
+
+<p>キーが減りました。つまり、セッションがサーバー側で破棄されました。Webブラウザで <a href="http://localhost:8080/">http://localhost:8080/</a> にアクセスすると、再び<code class="highlighter-rouge">count=1</code>が表示されます。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/session-timeout-02.png" alt="session timeout 02" /></p>
+
+<p>Redisの状態を確認すると、新しいセッションのキーが増えていることが分かります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:expires:e82d2bde-75f7-491f-b1a6-87c2c6eacf85"
+2) "spring:session:sessions:e82d2bde-75f7-491f-b1a6-87c2c6eacf85"
+3) "spring:session:expirations:1512043560000"
+4) "spring:session:sessions:b7f0fc5f-ccc3-4959-9698-803760bc48a8"
+</code></pre></div></div>
+
+<h3 id="cookie寿命を設定した場合">Cookie寿命を設定した場合</h3>
+
+<p>セッション・タイムアウトを1分、Cookie寿命を2分に設定した時の挙動を確認します。</p>
+
+<p><code class="highlighter-rouge">HttpSession</code>をそのまま使う場合のCookie寿命は、<code class="highlighter-rouge">web.xml</code>の<code class="highlighter-rouge">&lt;cookie-config&gt;/&lt;max-age&gt;</code>に設定しますが、Spring Session with Redisの場合は、<code class="highlighter-rouge">CookieSerializer</code>インスタンスを構築することで設定します。</p>
+
+<p>具体的には、以下のように設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
+public class Config {
+(中略)
+
+    @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setCookieMaxAge(120);
+        return serializer;
+    }
+}
+</code></pre></div></div>
+
+<p>詳細は <a href="https://docs.spring.io/spring-session/docs/current/reference/html5/guides/custom-cookie.html">Spring Session - Custom Cookie</a> をご覧ください。</p>
+
+<p>修正したら、先程と同様にRedisを起動して、Webアプリケーションを起動します。起動して <a href="http://localhost:8080/">http://localhost:8080/</a> にアクセスすると、<code class="highlighter-rouge">count=1</code>が表示されます。この時の<code class="highlighter-rouge">Set-Cookie</code>では<code class="highlighter-rouge">Expires</code>と<code class="highlighter-rouge">Max-Age</code>が設定されます。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/cookie-maxage-01.png" alt="cookie maxage 01" /></p>
+
+<p>1分以内に同様にアクセスすると、カウントアップされ続けます。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/cookie-maxage-02.png" alt="cookie maxage 02" /></p>
+
+<p>Webブラウザを更新し続けていると、最初のアクセスから2分経過後に<code class="highlighter-rouge">count=1</code>に戻ります。</p>
+
+<p><img src="/assets/img/2017-11-30-spring-session-with-redis/cookie-maxage-03.png" alt="cookie maxage 03" /></p>
+
+<p>この時のRedisを確認すると、最初のセッション・キーと2回目のセッション・キーの両方が存在します。最初のセッション・キーはこの時点で消滅していないためです。1分ほど放置すると、最初のセッション・キーは消滅します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:6379&gt; keys *
+1) "spring:session:sessions:expires:e9e0bb2a-c003-468a-b99d-ab5fcfae97d7"
+2) "spring:session:sessions:expires:cd116f8e-ed1f-478a-8774-42c5cb4fbbe5"
+3) "spring:session:expirations:1512044820000"
+4) "spring:session:sessions:cd116f8e-ed1f-478a-8774-42c5cb4fbbe5"
+5) "spring:session:sessions:e9e0bb2a-c003-468a-b99d-ab5fcfae97d7"
+</code></pre></div></div>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>Redisと連携した時のセッション管理がどのように行われるのかが整理できました。次はSpring Securityを食い込んだ時のセッション管理か、Spring Securityによるサインアップかな。</p>
+
+<h1 id="link">Link</h1>
+
+<ul>
+  <li>Author
+    <ul>
+      <li><a href="https://blog.u6k.me/">u6k.Blog()</a></li>
+      <li><a href="https://github.com/u6k">u6k - GitHub</a></li>
+      <li><a href="https://twitter.com/u6k_yu1">u6k_yu1 | Twitter</a></li>
+    </ul>
+  </li>
+  <li>Source
+    <ul>
+      <li><a href="https://github.com/u6k/blog/blob/master/_posts/2017-11-30-spring-session-with-redis.md">2017-11-30-spring-session-with-redis.md</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#redis" class="page__taxonomy-item" rel="tag">Redis</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#servlet" class="page__taxonomy-item" rel="tag">Servlet</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-30T23:00:00+09:00">2017-11-30</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=HttpSession+with+Spring+Session%E3%81%AE%E6%8C%99%E5%8B%95%E6%A4%9C%E8%A8%BC%20%2F2017%2F11%2F30%2Fspring-session-with-redis.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F11%2F30%2Fspring-session-with-redis.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F11%2F30%2Fspring-session-with-redis.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F11%2F30%2Fspring-session-with-redis.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/11/26/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2017-11-20 to 2017-11-26)
+">Previous</a>
+    
+    
+      <a href="/2017/12/03/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2017-11-27 to 2017-12-03)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

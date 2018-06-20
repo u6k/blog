@@ -1,0 +1,606 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Open JTalkで音声合成してみた - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Open JTalkで音声合成してみた">
+
+
+
+
+  <meta property="og:description" content="Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Open JTalkで音声合成してみた">
+  <meta name="twitter:description" content="Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-04-01T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Open JTalkで音声合成してみた">
+    <meta itemprop="description" content="Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。">
+    <meta itemprop="datePublished" content="2016-04-01">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Open JTalkで音声合成してみた
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-04-01T07:00:00+09:00">2016-04-01</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。</p>
+
+<!-- more -->
+
+<p><a href="http://blog.u6k.me/2016/03/open-jtalk-docker.html">Open JTalkで音声合成したい</a>の続きです。</p>
+
+<h1 id="使い方">使い方</h1>
+
+<p>発声させる文字列を標準入力から受け取り、生成した音声wavデータを標準出力に出力します。Docker Hubで公開しているため、以下のように実行できます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo こんにちは | docker run -i --rm u6kapps/open_jtalk &gt; hello.wav
+</code></pre></div></div>
+
+<p>詳細な使い方については、<a href="https://github.com/u6k/open_jtalk-docker/tree/master/docker/open_jtalk">open_jtalk-docker/docker/open_jtalk</a>をご覧ください。</p>
+
+<h1 id="構築スクリプトの説明">構築スクリプトの説明</h1>
+
+<p>使い方、ライセンスなど使用者のための情報は、<a href="https://github.com/u6k/open_jtalk-docker/tree/master/docker/open_jtalk">open_jtalk-docker/docker/open_jtalk</a>で説明しています。この記事では、面倒くさいOpen JTalkの構築を自動化したスクリプトの内容について説明します。</p>
+
+<h2 id="dockerfile">Dockerfile</h2>
+
+<p><a href="https://github.com/u6k/open_jtalk-docker/blob/master/docker/open_jtalk/Dockerfile">Dockerfile</a>の内容について説明します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM ubuntu:latest
+MAINTAINER u6k &lt;u6k.apps@gmail.com&gt;
+</code></pre></div></div>
+
+<p>Ubuntuイメージをベースに使用します。最近だとAlpine Linuxをベースとすることでファイル・サイズを小さくすることがあるみたいですが、とりあえずUbuntu。また、<code class="highlighter-rouge">u6k.apps@gmail.com</code>を作成者として記述しています。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN apt-get update &amp;&amp; \
+    apt-get install -y wget git build-essential
+</code></pre></div></div>
+
+<p>Open JTalkのビルドに必要となるソフトウェアをインストールします。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">wget</code>…ファイルをダウンロードするため。いずれ、<code class="highlighter-rouge">curl</code>に書き換えた方が良いと思っています。</li>
+  <li><code class="highlighter-rouge">git</code>…ソースコードをダウンロードするため。</li>
+  <li><code class="highlighter-rouge">build-essential</code>…コンパイル作業に関連するソフトウェア。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WORKDIR /usr/local/src/
+</code></pre></div></div>
+
+<p>ソフトウェアのダウンロードやコンパイルなどを<code class="highlighter-rouge">/usr/local/src/</code>で行うため、作業ディレクトリを移動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.10.tar.gz &amp;&amp; \
+    tar zxvf hts_engine_API-1.10.tar.gz &amp;&amp; \
+    cd hts_engine_API-1.10/ &amp;&amp; \
+    ./configure &amp;&amp; \
+    make &amp;&amp; \
+    make install
+</code></pre></div></div>
+
+<p>hts_engine_APIをダウンロードして、セットアップします。普通に<code class="highlighter-rouge">configure</code>、<code class="highlighter-rouge">make</code>、<code class="highlighter-rouge">make install</code>しているだけです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COPY manobi.patch manobi.patch
+</code></pre></div></div>
+
+<p>Open JTalkをそのままビルドすると、場合によって音声が間延びしてしまうという問題があるため、パッチを当てる必要があります。そのパッチ・ファイルを取り込みます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN wget http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.09.tar.gz &amp;&amp; \
+    tar zxvf open_jtalk-1.09.tar.gz &amp;&amp; \
+    cd open_jtalk-1.09/ &amp;&amp; \
+    patch -p0 &lt; /usr/local/src/manobi.patch &amp;&amp; \
+    ./configure --with-hts-engine-header-path=/usr/local/include --with-hts-engine-library-path=/usr/local/lib --with-charset=UTF-8 &amp;&amp; \
+    make &amp;&amp; \
+    make install
+</code></pre></div></div>
+
+<p>Open JTalkをダウンロードして、セットアップします。セットアップ前に<code class="highlighter-rouge">patch</code>でパッチを当てます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN wget http://downloads.sourceforge.net/open-jtalk/hts_voice_nitech_jp_atr503_m001-1.05.tar.gz &amp;&amp; \
+    tar zxvf hts_voice_nitech_jp_atr503_m001-1.05.tar.gz &amp;&amp; \
+    cp -r hts_voice_nitech_jp_atr503_m001-1.05 /usr/local/lib/hts_voice_nitech_jp_atr503_m001-1.05
+</code></pre></div></div>
+
+<p>Open JTalkによる音声合成で使用する音響モデルをダウンロードして、展開します。ディレクトリ名をそのままにしていますが、分かりやすくした方が良かったかも。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN wget http://downloads.sourceforge.net/open-jtalk/open_jtalk_dic_utf_8-1.09.tar.gz &amp;&amp; \
+    tar zxvf open_jtalk_dic_utf_8-1.09.tar.gz &amp;&amp; \
+    cp -r open_jtalk_dic_utf_8-1.09 /usr/local/lib/open_jtalk_dic_utf_8-1.09
+</code></pre></div></div>
+
+<p>Open JTalkによる音声合成で使用する辞書をダウンロードして、展開します。ディレクトリ名をそのままにしていますが、分かりやすくした方が良かったかも。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN chmod a+x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+</code></pre></div></div>
+
+<p>スクリプトを取り込み、実行権限を付与して、Docker起動時に実行するように指定します。少し躓いた点として、WindowsのDocker Machineでは<code class="highlighter-rouge">chmod</code>を実行しなくてもスクリプトが実行できましたが、Docker HubやLinuxホストでDockerビルドした場合はPermission deniedになってしまいました。</p>
+
+<h2 id="entrypointsh">entrypoint.sh</h2>
+
+<p><a href="https://github.com/u6k/open_jtalk-docker/blob/0.6.1/5116/update-version/docker/open_jtalk/entrypoint.sh">entrypoint.sh</a>について説明します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+</code></pre></div></div>
+
+<p>お約束。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ -z "$OPEN_JTALK_VOICE_FILE" ]; then
+  OPEN_JTALK_VOICE_FILE=/usr/local/lib/hts_voice_nitech_jp_atr503_m001-1.05/nitech_jp_atr503_m001.htsvoice
+fi
+
+if [ -z "$OPEN_JTALK_DIC_DIR" ]; then
+  OPEN_JTALK_DIC_DIR=/usr/local/lib/open_jtalk_dic_utf_8-1.09
+fi
+
+if [ -z "$OPEN_JTALK_OPTIONS" ]; then
+  OPEN_JTALK_OPTIONS="-s 48000 -p 240"
+fi
+</code></pre></div></div>
+
+<p>環境変数の有無を調べ、無い場合はデフォルト値を設定します。これらの環境変数は、Open JTalkの起動に使用します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OUTPUT_FILE=`mktemp`
+</code></pre></div></div>
+
+<p>Open JTalkの音声ファイルの出力先を<code class="highlighter-rouge">mktemp</code>で作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo open_jtalk -m $OPEN_JTALK_VOICE_FILE -x $OPEN_JTALK_DIC_DIR -ow $OUTPUT_FILE $OPEN_JTALK_OPTIONS &gt;&amp;2
+open_jtalk -m $OPEN_JTALK_VOICE_FILE -x $OPEN_JTALK_DIC_DIR -ow $OUTPUT_FILE $OPEN_JTALK_OPTIONS
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">open_jtalk</code>を実行して、音声ファイルを生成します。入力ファイルを指定していないため、標準入力からテキストを取得します。この場合は、<code class="highlighter-rouge">docker</code>に対する標準入力からテキストを取得します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat $OUTPUT_FILE
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">open_jtalk</code>が出力した音声ファイルを標準出力に出力しています。結果、<code class="highlighter-rouge">docker</code>の実行結果として標準出力に音声ファイルの内容が出力されます。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>とりあえず、簡単にOpen JTalkを使用できるDockerイメージを構築しました。他に、MMDAgentの音響ファイルを入れたり、WebAPIとしてOpen JTalkを使用したかったり、やりたいことはいくつかあるので作業を続行します。</p>
+
+<h1 id="リンク">リンク</h1>
+
+<ul>
+  <li>GitHub
+    <ul>
+      <li><a href="https://github.com/u6k/open_jtalk-docker">u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。</a></li>
+    </ul>
+  </li>
+  <li>Docker Hub
+    <ul>
+      <li><a href="https://hub.docker.com/r/u6kapps/open_jtalk/">u6kapps/open_jtalk</a></li>
+      <li><a href="https://hub.docker.com/r/u6kapps/open-jtalk-api/">u6kapps/open-jtalk-api</a></li>
+    </ul>
+  </li>
+  <li>Redmine
+    <ul>
+      <li><a href="https://myredmine-u6kapps.rhcloud.com/projects/openjtalk-docker">open_jtalk-docker</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#open-jtalk" class="page__taxonomy-item" rel="tag">Open JTalk</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E9%9F%B3%E5%A3%B0%E5%90%88%E6%88%90" class="page__taxonomy-item" rel="tag">音声合成</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-04-01T07:00:00+09:00">2016-04-01</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Open+JTalk%E3%81%A7%E9%9F%B3%E5%A3%B0%E5%90%88%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%20%2F2016%2F04%2F01%2Fopen-jtalk-docker-0.6.1.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2016%2F04%2F01%2Fopen-jtalk-docker-0.6.1.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2016%2F04%2F01%2Fopen-jtalk-docker-0.6.1.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2016%2F04%2F01%2Fopen-jtalk-docker-0.6.1.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/03/30/hts-demo-docker.html" class="pagination--pager" title="Open JTalkで使用する音響モデルを簡単に自作できるようになりたい
+">Previous</a>
+    
+    
+      <a href="/2016/05/19/android-setting.html" class="pagination--pager" title="Xperia Z5設定メモ
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

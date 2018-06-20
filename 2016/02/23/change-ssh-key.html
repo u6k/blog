@@ -1,0 +1,559 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>SSH鍵の変更作業メモ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="SSH鍵の変更作業メモ">
+
+
+
+
+  <meta property="og:description" content="自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="SSH鍵の変更作業メモ">
+  <meta name="twitter:description" content="自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-02-23T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SSH鍵の変更作業メモ">
+    <meta itemprop="description" content="自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。">
+    <meta itemprop="datePublished" content="2016-02-23">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">SSH鍵の変更作業メモ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-23T07:00:00+09:00">2016-02-23</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。</p>
+
+<!-- more -->
+
+<h1 id="方針">方針</h1>
+
+<h2 id="鍵を変更するサービス">鍵を変更するサービス</h2>
+
+<p>まず、鍵を変更するサービスを調べて回りました。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>サービス</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub</td>
+      <td>個人用、仕事用</td>
+    </tr>
+    <tr>
+      <td>BitBucket</td>
+      <td>個人用、仕事用</td>
+    </tr>
+    <tr>
+      <td>OpenShift</td>
+      <td>個人用のみ</td>
+    </tr>
+    <tr>
+      <td>Digital Ocean</td>
+      <td>個人用のみ</td>
+    </tr>
+    <tr>
+      <td>自宅サーバー</td>
+      <td>個人用のみ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>これらに登録してある公開鍵を更新します。個人用と仕事用でアカウントを分けているサービスがあるので、個人用鍵と仕事用鍵を作成します。</p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> 個人用鍵と仕事用鍵で分けるのが面倒だったので1ファイルで管理しようとしましたが、同じ鍵を別アカウントで登録することができなかったので、それぞれ鍵を作成しました。例えば、GitHubの個人用アカウントに鍵を登録して、次に仕事用アカウントに同じ鍵を登録しようとするとエラーになります。</p>
+</blockquote>
+
+<h2 id="鍵を保有する端末">鍵を保有する端末</h2>
+
+<p>次に、鍵を保有する端末を列挙します。</p>
+
+<ul>
+  <li>MacBook</li>
+  <li>Windows PC</li>
+  <li>iPhone</li>
+</ul>
+
+<p>これらが保有する秘密鍵を更新します。iPhoneは、serveraudiatorというアプリでssh接続をするために、秘密鍵を持っています。</p>
+
+<h2 id="鍵の保管方法">鍵の保管方法</h2>
+
+<p>各サービスには公開鍵を登録して、端末には秘密鍵を保有しますが、複数端末で鍵を共有するためにLastPassに秘密鍵(文字列で)とそのパスワードを保管することとします。以前はDropboxに鍵ファイルを格納して、それを各端末で共有していましたが、操作ミスを考えてやめました。</p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> LastPassに秘密鍵をファイル添付しようとしましたが、WindowsとOS Xの両方で試しても動作が不安定だったため、やめました。</p>
+</blockquote>
+
+<h2 id="鍵の作成方針">鍵の作成方針</h2>
+
+<p>ビット数は多いほうが良いと考え、8192bitで作成します。やり過ぎだとは思いますが。パスワードは必ず設定として、英数記号の50桁以上とします。どうせ手入力する機会なんてそう多くはありませんので。</p>
+
+<h1 id="作業">作業</h1>
+
+<h2 id="鍵を作成">鍵を作成</h2>
+
+<p>鍵は、 <strong>必ず端末側で作成</strong> します。端末側で作成して各サービスに公開鍵を登録する、という手順になります。</p>
+
+<p>シェル環境であれば、<code class="highlighter-rouge">ssh-keygen -t rsa -b 8192</code>で作成します。Windows PCであれば、putty-genで作成します。</p>
+
+<p>作成後、秘密鍵・公開鍵・パスワード・秘密鍵(ppk形式)をLastPassのセキュアノートに保管します。</p>
+
+<h2 id="公開鍵をサービスに登録">公開鍵をサービスに登録</h2>
+
+<p>自宅サーバー以外の各サービスに、 <strong>公開鍵を登録</strong> します。間違えて秘密鍵を登録しようとしてもエラーになるだけですが、せっかく秘匿している秘密鍵をネットワークに流すべきではありません。登録手順は、だいたいサービス設定あたりから鍵登録ページに行けます。</p>
+
+<p>自宅サーバーは注意が必要です。旧公開鍵を削除→新公開鍵を登録という手順で行った場合、万が一、操作をミスしたり作業途中でssh接続を切断してしまうと取り返しがつかなくなることがあるので、以下の手順で行ったほうが良いです(ターミナルを2個開くので、ターミナルA、ターミナルBと表記します)。</p>
+
+<ul>
+  <li>ターミナルAを開き、自宅サーバーにssh接続する。</li>
+  <li>旧公開鍵をリネームして、新公開鍵を作成する。</li>
+  <li>端末の旧秘密鍵をリネームして、新秘密鍵を配置する。</li>
+  <li>ターミナルBを開き、自宅サーバーにssh接続する。
+    <ul>
+      <li>失敗した場合、どこかの作業がミスしている。</li>
+    </ul>
+  </li>
+  <li>ターミナルAで、旧公開鍵を削除する。</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTE:</strong> サービスに登録した公開鍵とローカルの鍵が本当に同じであることを確認するには、鍵指紋を比較すると目視確認しやすいです。サービス側の鍵指紋は、公開鍵を登録すると表示されます。ローカルでは、<code class="highlighter-rouge">ssh-keygen -l -E md5 -f id_rsa.pub</code>で鍵指紋を表示することができます。</p>
+</blockquote>
+
+<h2 id="ssh接続確認">ssh接続確認</h2>
+
+<p>GitHub、BitBucketは、<code class="highlighter-rouge">git clone</code>と<code class="highlighter-rouge">git push</code>が出来ることを確認します。アクセス確認用リポジトリを作成して、適当にファイルを編集、プッシュしました。</p>
+
+<p>OpenShift、Digital Ocean、自宅サーバーは、sshログインが出来ることを確認します。</p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> OS Xのキーチェーンは、ssh接続しようとしたサーバーに対応する秘密鍵がキーチェーンに登録されていない場合、初回だけパスワード入力を要求して以降は覚えていてくれますが、これが正しく登録されないことがあります。<code class="highlighter-rouge">ssh-add -K id_rsa</code>でキーチェーンに追加できるので、パスワード・エントリーを作成すれば、以降のパスワード入力を省略できます。</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTE:</strong> OS Xの場合、1サービスに2個以上の鍵が該当しても良い具合に判断して使ってくれますが、Windowsでpagentを使っている場合、アプリによってはリストの先頭にある秘密鍵を使うようです(例えば、SourceTree)。なので、1サービスで2個以上の鍵を使い分けたい場合は、つど使う鍵をpagentに登録する必要があります。</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ssh" class="page__taxonomy-item" rel="tag">ssh</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-23T07:00:00+09:00">2016-02-23</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=SSH%E9%8D%B5%E3%81%AE%E5%A4%89%E6%9B%B4%E4%BD%9C%E6%A5%AD%E3%83%A1%E3%83%A2%20%2F2016%2F02%2F23%2Fchange-ssh-key.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2016%2F02%2F23%2Fchange-ssh-key.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2016%2F02%2F23%2Fchange-ssh-key.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2016%2F02%2F23%2Fchange-ssh-key.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/02/11/operation-and-maintenance.html" class="pagination--pager" title="「運用」と「保守」の違い
+">Previous</a>
+    
+    
+      <a href="/2016/03/02/nativefier-docker.html" class="pagination--pager" title="nativefierをDockerコンテナー化する
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

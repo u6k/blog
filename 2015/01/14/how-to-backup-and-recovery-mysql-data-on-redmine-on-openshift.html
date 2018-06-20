@@ -1,0 +1,499 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー">
+
+
+
+
+  <meta property="og:description" content="自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー">
+  <meta name="twitter:description" content="自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-01-14T20:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー">
+    <meta itemprop="description" content="自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。">
+    <meta itemprop="datePublished" content="2015-01-14">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-14T20:00:00+09:00">2015-01-14</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>MySQLデータ、Redmineソースコードをバックアップします。添付ファイルは考慮しません(私が添付ファイルを使用していないだけ)。</li>
+  <li>phpMyAdminではなく、<code class="highlighter-rouge">mysqldump</code>でダンプします。phpMyAdminでダンプしたら、なぜかダンプファイルが途中までしか出力されませんでした。</li>
+  <li>バックアップしたMySQLデータ、Redmineソースコードを使用して、OpenShift上にリカバリーします。</li>
+</ul>
+
+<h1 id="バックアップ手順">バックアップ手順</h1>
+
+<p><code class="highlighter-rouge">ssh</code>でOpenShiftにログインして、そこから<code class="highlighter-rouge">mysqldump</code>を使用します。しかし、いちいちログインするのは面倒なので、以下のように<code class="highlighter-rouge">ssh</code>を使用して、ローカルにダンプします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh -i ~/.ssh/id_rsa $1@$2 mysqldump -h $3 -u $4 --password=$5 redmine | gzip &gt;redmine.sql.gz
+</code></pre></div></div>
+
+<ul>
+  <li>秘密鍵にパスフレーズを設定している場合、Pagentなり<code class="highlighter-rouge">ssh-agent</code>なりを使うとパスワード入力を省略できます。これは、上記コマンドをcronで定期実行するなどの場合に便利です。</li>
+  <li>変数は以下のように指定します。
+    <ul>
+      <li><strong>$1, $2</strong>…OpenShiftに<code class="highlighter-rouge">ssh</code>アクセスするときのユーザー名、ホスト名です。OpenShiftの該当アプリケーションのページのRemote Accessで確認できます。</li>
+      <li><strong>$3</strong>…MySQLホスト名(IPアドレス)です。phpMyAdminで確認できます。</li>
+      <li><strong>$4, $5</strong>…MySQLユーザー名、パスワードです。OpenShiftの該当アプリケーションのページで確認できます。</li>
+    </ul>
+  </li>
+  <li>出力先ファイル名に日時を含めると時間ごとのバックアップになります。
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redmine_`date +%Y%m%d-%H%M%S`.sql.gz
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="リカバリー手順">リカバリー手順</h1>
+
+<ul>
+  <li>バックアップしたMySQLデータ、Redmineソースコードを使用して、OpenShift上にリカバリーします。</li>
+  <li><code class="highlighter-rouge">rhc</code>で新規のOpenShiftアプリを作成します。</li>
+  <li>Redmineソースコードをpushします。</li>
+  <li>MySQLダンプファイルを<code class="highlighter-rouge">scp</code>でアップロードして、<code class="highlighter-rouge">mysql</code>でインポートします。</li>
+  <li>該当アプリケーションのページで、アプリケーションを再起動します。</li>
+</ul>
+
+<h1 id="備考">備考</h1>
+
+<ul>
+  <li>Redmineをバージョンアップしたいときはどうすれば良い？</li>
+  <li>OpenShift以外の環境(例えばローカル)に復旧する方法を考えておいたほうが良い。万が一、OpenShiftが使えなくなってしまうことを考慮して。</li>
+</ul>
+
+<h1 id="qiita">Qiita</h1>
+
+<ul>
+  <li><a href="http://qiita.com/u6k/items/9d9cd6ec06b7523168bf">Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー - Qiita</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#redmine" class="page__taxonomy-item" rel="tag">Redmine</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-14T20:00:00+09:00">2015-01-14</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Redmine%40OpenShift%E3%81%AEMySQL%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%26%E3%83%AA%E3%82%AB%E3%83%90%E3%83%AA%E3%83%BC%20%2F2015%2F01%2F14%2Fhow-to-backup-and-recovery-mysql-data-on-redmine-on-openshift.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F01%2F14%2Fhow-to-backup-and-recovery-mysql-data-on-redmine-on-openshift.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F01%2F14%2Fhow-to-backup-and-recovery-mysql-data-on-redmine-on-openshift.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F01%2F14%2Fhow-to-backup-and-recovery-mysql-data-on-redmine-on-openshift.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/01/09/setup-openshift-redmine-quickstart.html" class="pagination--pager" title="Redmine@OpenShiftインストール手順(openshift-redmine-quickstart)
+">Previous</a>
+    
+    
+      <a href="/2015/01/23/setup-raspberry-pi-by-displayless.html" class="pagination--pager" title="Raspberry Piセットアップメモ(ディスプレイレス)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

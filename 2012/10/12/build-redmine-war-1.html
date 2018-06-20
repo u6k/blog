@@ -1,0 +1,564 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす">
+
+
+
+
+  <meta property="og:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす">
+  <meta name="twitter:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2012-10-12T21:34:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす">
+    <meta itemprop="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+    <meta itemprop="datePublished" content="2012-10-12">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-12T21:34:00+09:00">2012-10-12</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<p>以下の環境で作業しました。</p>
+
+<ul>
+  <li>Windows 7 64bit</li>
+  <li>Java SDK 1.6.0_34
+    <ul>
+      <li>SDKじゃなくてもいいはず。</li>
+    </ul>
+  </li>
+  <li>JRuby 1.7.0 RC 2</li>
+</ul>
+
+<h1 id="作業手順">作業手順</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順</td>
+      <td>Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="bundlerをインストール">bundlerをインストール</h2>
+
+<p>Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;jgem install bundler --no-rdoc --no-ri
+</code></pre></div></div>
+
+<h2 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h2>
+
+<p>Redmineを<a href="http://rubyforge.org/frs/?group_id=1850">RubyForge: Redmine: ファイルリスト</a>からダウンロードします。</p>
+
+<p>ダウンロードした<code class="highlighter-rouge">redmine-2.1.2.zip</code>を展開します。以降、Redmineを展開したフォルダを<code class="highlighter-rouge">%REDMINE_HOME%</code>と表記します。</p>
+
+<h2 id="redmineを設定">Redmineを設定</h2>
+
+<h3 id="データベース接続を設定">データベース接続を設定</h3>
+
+<p>今回は簡単セットアップを意識して、データベースはSQLite3を使用します。<code class="highlighter-rouge">%REDMINE_HOME%\config\database.yml</code>を以下のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+  adapter: sqlite3
+  database: db/production.sqlite3
+</code></pre></div></div>
+
+<h3 id="メールサーバー接続を設定">メールサーバー接続を設定</h3>
+
+<p>とりあえずメールサーバーを使用しない設定とします。<code class="highlighter-rouge">%REDMINE_HOME%\config\configuration.yml</code>を以下のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+</code></pre></div></div>
+
+<p>添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。</p>
+
+<h3 id="gemパッケージをインストール">Gemパッケージをインストール</h3>
+
+<p>bundlerを使用してGemパッケージをインストールします。<code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;bundle install --without development test postgresql mysql
+</code></pre></div></div>
+
+<p>今回はデータベースにSQLiteを使用するため、<code class="highlighter-rouge">--without</code>に<code class="highlighter-rouge">mysql</code>を指定しています。</p>
+
+<h3 id="redmineの初期設定およびデータベースのテーブルを作成">Redmineの初期設定、およびデータベースのテーブルを作成</h3>
+
+<p>セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。<code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;rake generate_secret_token
+&gt;SET RAILS_ENV=production
+&gt;rake db:migrate
+</code></pre></div></div>
+
+<p>以上で設定は完了です。</p>
+
+<h2 id="いよいよredmineを起動">いよいよRedmineを起動</h2>
+
+<p><code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;jruby script/rails server webrick -e production
+</code></pre></div></div>
+
+<p>正しく起動できたら、以下のように表示されます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;jruby script/rails server webrick -e production
+=&gt; Booting WEBrick
+=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000
+=&gt; Call with -d to detach
+=&gt; Ctrl-C to shutdown server
+D:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV
+[2012-10-11 18:46:17] INFO  WEBrick 1.3.1
+[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java]
+[2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000
+</code></pre></div></div>
+
+<p>Webブラウザで<a href="http://localhost:3000/"></a>にアクセスします。</p>
+
+<p><img src="/assets/img/2012-10-12-build-redmine-war-1/001.png" alt="" /></p>
+
+<p>ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!</p>
+
+<p>今回はとりあえずここまで。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#jruby" class="page__taxonomy-item" rel="tag">JRuby</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#redmine" class="page__taxonomy-item" rel="tag">Redmine</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#redmine-war" class="page__taxonomy-item" rel="tag">redmine-war</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#setup" class="page__taxonomy-item" rel="tag">Setup</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-12T21:34:00+09:00">2012-10-12</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Redmine%E3%82%92war%E5%8C%96+%281%29+%E3%81%A8%E3%82%8A%E3%81%82%E3%81%88%E3%81%9ARedmine%2BJRuby%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99%20%2F2012%2F10%2F12%2Fbuild-redmine-war-1.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2012%2F10%2F12%2Fbuild-redmine-war-1.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2012%2F10%2F12%2Fbuild-redmine-war-1.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2012%2F10%2F12%2Fbuild-redmine-war-1.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2012/10/11/setup-redmine.html" class="pagination--pager" title="Redmineセットアップ
+">Previous</a>
+    
+    
+      <a href="/2012/10/12/change-rails-application-port.html" class="pagination--pager" title="Railsアプリのポート番号を変更
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

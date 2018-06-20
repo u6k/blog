@@ -1,0 +1,932 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Raspberry Piセットアップメモ(ディスプレイレス)">
+
+
+
+
+  <meta property="og:description" content="安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Raspberry Piセットアップメモ(ディスプレイレス)">
+  <meta name="twitter:description" content="安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-01-23T13:59:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Raspberry Piセットアップメモ(ディスプレイレス)">
+    <meta itemprop="description" content="安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。">
+    <meta itemprop="datePublished" content="2015-01-23">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Raspberry Piセットアップメモ(ディスプレイレス)
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T13:59:00+09:00">2015-01-23</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。</p>
+
+<!-- more -->
+
+<h1 id="作業前提">作業前提</h1>
+
+<ul>
+  <li>MacBookProで作業しました。Windowsでも適宜読み替えてもらえば、作業可能なはずです。</li>
+  <li>Raspberry Pi側のセットアップは、ssh接続でセットアップしました。ディスプレイ、キーボード、マウスは使用していません。
+    <ul>
+      <li>正直、何かあってssh接続できない時に状況を確認できないので、ディスプレイ、キーボードくらいは用意したほうが良いと思います。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="使った機材">使った機材</h1>
+
+<ul>
+  <li>Rasberry Pi Model B+
+    <ul>
+      <li>RSコンポーネンツでケースと一緒に購入しました。</li>
+      <li><a href="http://jp.rs-online.com/web/p/processor-microcontroller-development-kits/8111284/">Raspberry PI B+</a></li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[Raspberry Pi B+ Case, Black](http://jp.rs-online.com/web/p/development-board-enclosures/8193655/?origin=PSF_502004</td>
+              <td>acc)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+  <li>LANケーブル、USB無線LANアダプター
+    <ul>
+      <li>最終的には無線だけにしたいですが、最初は有線でのセットアップが必要です。有線のまま運用するなら、USB無線LANアダプターは不要です。</li>
+    </ul>
+  </li>
+  <li>USBケーブル+アダプター
+    <ul>
+      <li>電源供給のために必要です。USBミニBが必要になります。スマホの電源と同じアレです。</li>
+    </ul>
+  </li>
+  <li>microSD、外付けHDD
+    <ul>
+      <li>OSを外付けHDDに格納するなら、microSDは8GB程度で十分です。microSDだけで運用するなら外付けHDDは不要ですが、それなりの容量のものを用意したほうが良いと思います。</li>
+      <li>現時点で、完全にmicroSDレスにはできないもようです。</li>
+    </ul>
+  </li>
+  <li>MacBookPro
+    <ul>
+      <li>セットアップ作業のために必要です。ここではMacBookProを使いましたが、Windowsでも可能なはずです。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="セットアップ後の状態">セットアップ後の状態</h1>
+
+<ul>
+  <li>ネットワーク接続…Wi-Fi
+    <ul>
+      <li>iptables(というかufw)で制限。</li>
+    </ul>
+  </li>
+  <li>ssh接続
+    <ul>
+      <li>LAN、WANからssh接続できる。</li>
+      <li>ポート番号を変更。</li>
+      <li>公開鍵認証を有効、パスワード認証を無効。</li>
+    </ul>
+  </li>
+  <li>ストレージ…ブート関連はmicroSD、OSは外付けHDD。
+    <ul>
+      <li>microSDのみで運用する場合は、外付けHDDに関する手順を読み飛ばす。</li>
+    </ul>
+  </li>
+  <li>タイムゾーン…Asia/Tokyo</li>
+  <li>CPU…1000MHzにオーバークロック。</li>
+  <li>メモリ…GPU割り当てを最小(16MB)。</li>
+</ul>
+
+<h1 id="作業手順">作業手順</h1>
+
+<h2 id="microsdにraspbianをインストール">microSDにRaspbianをインストール</h2>
+
+<p>MacBookProで作業します。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[Downloads</td>
+      <td>Raspberry Pi](http://www.raspberrypi.org/downloads/)からRaspbianをダウンロードします。NOOBSだと楽という話も聞きますが、ここではRaspbianを使います。NOOBSでの手順は別記事をご覧ください。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>microSDをMacBookProに挿入して、ディスクユーティリティでFATフォーマットします。</p>
+
+<p>フォーマットしたmicroSDにRaspbianイメージを書き込みます。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">df</span> <span class="nt">-h</span>
+<span class="nv">$ </span><span class="nb">sudo </span>diskutil unmountDisk /dev/disk2s1
+<span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>2014-09-09-wheezy-raspbian.img <span class="nv">of</span><span class="o">=</span>/dev/disk2 <span class="nv">bs</span><span class="o">=</span>4m
+<span class="nv">$ </span><span class="nb">sudo </span>e2fsck <span class="nt">-f</span> /dev/disk2s1
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">df</code>でデバイス名を確認、<code class="highlighter-rouge">diskutil</code>でmicroSDをアンマウント、<code class="highlighter-rouge">dd</code>でmicroSDにイメージを書き込み、<code class="highlighter-rouge">e2fsck</code>でファイル破損チェックを行っています。</p>
+
+<h2 id="raspberry-piを起動">Raspberry Piを起動</h2>
+
+<p>microSDをRaspberry Piに挿入し、LANケーブルを接続し、電源を接続して起動します。Raspberry Piには電源スイッチが無く、通電すると自動的に起動するので注意してください。この時点では、外付けHDD、USB無線LANアダプターは接続しません。</p>
+
+<p>Raspberry Piが起動して数分経過したら、Raspberry Piに割り当てられたIPアドレスを確認します。ルーターの管理画面でDHCPで割り当てたIPアドレスを確認する、などの方法で確認します。</p>
+
+<p>Raspberry PiのIPアドレスが確認できたら、MacBookProから<code class="highlighter-rouge">ssh</code>でRaspberry Piに接続します。初期ユーザーは”pi”、パスワードは”raspberry”です。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh pi@192.168.1.10
+</code></pre></div></div>
+
+<p>ssh接続できたことを確認したら、シャットダウンします。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>halt
+</code></pre></div></div>
+
+<h2 id="外付けhddにファイルを移行">外付けHDDにファイルを移行</h2>
+
+<p>※microSDのみで運用する場合、この手順は不要です。
+<strong>※筆者はこの手順をRaspberry Piで作業を行いましたが、Linux PCを用意して作業したほうが良いです。</strong></p>
+
+<p>外付けHDDをRaspberry Piに接続し、電源を接続してRaspberry Piを起動します。</p>
+
+<p>Raspberry Piを起動してssh接続したら、外付けHDDをext4でフォーマットします。
+まず、<code class="highlighter-rouge">fdisk</code>で外付けHDDのデバイス名を確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>デバイス名を確認したら、<code class="highlighter-rouge">fdisk</code>でパーティションを編集します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>fdisk /dev/sda
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">fdisk</code>では、以下の操作でパーティションを編集します。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">p</code>で現在のパーティション設定を確認できる。</li>
+  <li><code class="highlighter-rouge">d</code>でパーティションを削除する。</li>
+  <li><code class="highlighter-rouge">n</code>でパーティションを作成する。</li>
+  <li><code class="highlighter-rouge">w</code>で保存する。</li>
+</ul>
+
+<p>パーティションを編集して<code class="highlighter-rouge">fdisk</code>を終了したら、<code class="highlighter-rouge">mkfs.ext4</code>でext4フォーマットします。外付けHDDの容量によっては数分かかります。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mkfs.ext4 /dev/sda1
+</code></pre></div></div>
+
+<p>ext4フォーマットが終了したら、OSのパーティションをmicroSDから外付けHDDにコピーします。<strong>この作業は非常に時間がかかります(1～2時間程度)。</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/dev/mmcblk0p2 <span class="nv">of</span><span class="o">=</span>/dev/sda1
+<span class="nv">$ </span><span class="nb">sudo </span>e2fsck <span class="nt">-f</span> /dev/sda1
+<span class="nv">$ </span><span class="nb">sudo </span>resize2fs /dev/sda1
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">dd</code>でコピー、<code class="highlighter-rouge">e2fsck</code>でファイル破損チェック、<code class="highlighter-rouge">resize2fs</code>でパーティション容量を拡張しています。<code class="highlighter-rouge">dd</code>でコピーしただけだと容量が小さいままなので、<code class="highlighter-rouge">resize2fs</code>で拡張する必要があります。</p>
+
+<blockquote>
+  <p>NOTE: Raspberry Piの<code class="highlighter-rouge">dd</code>は、bsオプションを指定するとエラーになるようです。</p>
+</blockquote>
+
+<p>OSパーティションをコピーしたら、OSパーティションから起動するように設定を変更します。
+まず、外付けHDDを適当なフォルダにマウントします。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>mount /dev/sda1 /mnt
+</code></pre></div></div>
+
+<p>microSD内の自動マウント設定を修正します。自動マウント設定はmicroSD内の”/boot/cmdline.txt”にありますので、これを編集します。</p>
+
+<pre><code class="language-bash:cmdline.txt">前：root=/dev/mmcblk0p2
+後：root=/dev/sda1
+</code></pre>
+
+<p>次に、外付けHDD内の自動マウント設定を修正します。HDD内の自動マウント設定は”/etc/fstab”にありますので、これを編集します。</p>
+
+<pre><code class="language-bash:/etc/fstab">前：/dev/mmcblk0p2
+後：/dev/sda1
+</code></pre>
+
+<p><code class="highlighter-rouge">reboot</code>でRaspberry Piを再起動します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>reboot
+</code></pre></div></div>
+
+<p>再起動が完了したら、マウント位置が”/dev/sda1”に変更されていることを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">df</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<h2 id="初期設定作業">初期設定作業</h2>
+
+<p><code class="highlighter-rouge">raspi-config</code>で初期設定を行います。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>raspi-config
+</code></pre></div></div>
+
+<p>以下のように設定します。</p>
+
+<ul>
+  <li>Expand Filesystem  →Select</li>
+  <li>Change User Password</li>
+  <li>Internationalisation Options / Change Timezone  →Asia / Tokyo</li>
+  <li>Advanced Options / Memory Split  →16</li>
+  <li>Overclock  →Turbo</li>
+</ul>
+
+<p>rootのパスワードを変更します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>passwd
+</code></pre></div></div>
+
+<p>ソフトウェアをアップデートします。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get update
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get upgrade
+</code></pre></div></div>
+
+<p>ファームウェアをアップデートします。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>rpi-update
+<span class="nv">$ </span><span class="nb">sudo </span>reboot
+</code></pre></div></div>
+
+<p>作業ユーザーを作成します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">id</span>
+<span class="nv">$ </span><span class="nb">sudo </span>useradd <span class="nt">-m</span> u6k <span class="nt">-G</span> pi,adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,netdev,input,spi,gpio
+<span class="nv">$ </span><span class="nb">sudo </span>passwd u6k
+<span class="nv">$ </span><span class="nb">sudo </span>visudo
+</code></pre></div></div>
+
+<p>作業ユーザーはpiユーザーと同じグループに所属させます。なので、まず<code class="highlighter-rouge">id</code>でpiユーザーの所属グループを確認し、同じグループを<code class="highlighter-rouge">useradd</code>で指定します。ユーザーを作成したら<code class="highlighter-rouge">passwd</code>でパスワードを設定します。<code class="highlighter-rouge">sudo</code>するときにパスワードを省略したいので、<code class="highlighter-rouge">visudo</code>で設定を編集します。内容は、以下を追加します。</p>
+
+<pre><code class="language-bash:visudo">u6k ALL=(ALL) NOPASSWD: ALL
+</code></pre>
+
+<p>作成したら、作業ユーザーでログインできること、<code class="highlighter-rouge">sudo</code>でパスワードを省略できることを確認します。</p>
+
+<blockquote>
+  <p>NOTE: piユーザーを削除・リネームするなどして使えなくしたほうがセキュリティ的に良いかもしれません。</p>
+</blockquote>
+
+<h2 id="無線lanを設定">無線LANを設定</h2>
+
+<p>※有線で運用する場合、この手順は不要です。</p>
+
+<p>USB無線LANアダプターをRaspberry Piに挿入し、認識されたことを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>lsusb
+</code></pre></div></div>
+
+<p>USB無線LANアダプターが認識されたら、Wi-Fiアクセスポイントが検知できることを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>iwlist wlan0 scan | <span class="nb">grep </span>ESSID
+</code></pre></div></div>
+
+<p>Wi-Fiアクセスポイントが検知できたら、SSIDとパスフレーズを設定します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wpa_passphrase HG8045-2428-bg <span class="nv">$1</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre></div></div>
+
+<ul>
+  <li>$1…Wi-Fiアクセスポイントのパスフレーズ</li>
+  <li>Wi-Fiアクセスポイントの設定によっては、”wpa_supplicant.conf”を編集する必要があります。</li>
+</ul>
+
+<p>ネットワーク設定を修正します。</p>
+
+<pre><code class="language-bash:/etc/network/interfaces">auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto wlan0
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre>
+
+<p>修正したら、ネットワークを再起動します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>service networking restart
+</code></pre></div></div>
+
+<p>Wi-Fiに割り当てられたIPアドレスを確認し、そのIPアドレスでssh接続できることを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh u6k@192.168.10.123
+</code></pre></div></div>
+
+<p>以降、LANケーブルを外してWi-Fiで作業します。</p>
+
+<h2 id="スピードテストを実施">スピードテストを実施</h2>
+
+<p>※この作業は必要ではありません。気になる場合に実施します。</p>
+
+<p>インターネット接続の速度計測を行います。<code class="highlighter-rouge">speedtest-cli</code>を使用します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>aptitude <span class="nb">install </span>python-pip
+<span class="nv">$ </span><span class="nb">sudo </span>pip <span class="nb">install </span>speedtest-cli
+<span class="nv">$ </span>speedtest-cli
+</code></pre></div></div>
+
+<h2 id="sshを鍵認証方式に設定">sshを鍵認証方式に設定</h2>
+
+<p>パスワード認証方式を無効にして、鍵認証方式のみを有効にします。</p>
+
+<p>まず、MacBookPro側で秘密鍵・公開鍵を作成します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh-keygen <span class="nt">-t</span> rsa
+</code></pre></div></div>
+
+<p>カレントフォルダに”id_rsa”、”id_rsa.pub”が作成されます。<strong>秘密鍵(“id_rsa”)は漏洩することがないよう、厳重に管理すること。</strong></p>
+
+<blockquote>
+  <p>NOTE: <code class="highlighter-rouge">ssh-copy-id</code>で簡単に配置できるようです。いつか試す。</p>
+</blockquote>
+
+<p>作成した鍵のうち公開鍵をRaspberry Piに配置します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span>
+<span class="nv">$ </span><span class="nb">mkdir</span> .ssh
+<span class="nv">$ </span><span class="nb">chmod </span>700 .ssh
+<span class="nv">$ </span><span class="nb">cd</span> .ssh
+<span class="nv">$ </span>vi authorized_keys
+</code></pre></div></div>
+
+<p>“id_rsa.pub”の内容をコピー&amp;ペーストします。
+“authorized_keys”のパーミッションを変更します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">chmod </span>600 authorized_keys
+</code></pre></div></div>
+
+<p>sshの公開鍵認証を有効にして、パスワード認証を無効にします。”/etc/ssh/sshd_config”を以下のように設定します。</p>
+
+<pre><code class="language-bash:/etc/ssh/sshd_config">RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PermitRootLogin no
+RhostsRSAAuthentication no
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+</code></pre>
+
+<p>セキュリティのため、sshdのポート番号を変更します。実際は、適当なポート番号に変更してください。<strong>外部からこの作業を行っている場合、ルーターのポートフォワーディング設定と合わせないと接続できなくなるので注意(外部からなんて作業しないと思うけど…)。</strong></p>
+
+<pre><code class="language-bash:/etc/ssh/sshd_config">Port 12345
+</code></pre>
+
+<p>Raspberry Piを再起動します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>reboot
+</code></pre></div></div>
+
+<p>ssh接続を、以下のように確認します。</p>
+
+<ul>
+  <li>変更後のポート番号で接続できること。変更前のポート番号で接続できないこと。</li>
+  <li>rootユーザーのログインが失敗すること。</li>
+  <li>piユーザーのログインが、パスワード認証、公開鍵認証の両方ともに失敗すること。</li>
+  <li>作業ユーザーのログインが、パスワード認証に失敗し、公開鍵認証に成功すること。</li>
+</ul>
+
+<h2 id="iptablesを設定">iptablesを設定</h2>
+
+<p>ufwを使用して、iptablesの設定を行います。</p>
+
+<p>まず、ufwをインストールします。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>aptitude <span class="nb">install </span>ufw
+</code></pre></div></div>
+
+<p>ufwの状況を確認します。この時点では無効になっています。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>ufw status
+</code></pre></div></div>
+
+<p>ufwでiptablesを設定します。以下では、80(http)、443(https)、22(ssh)を設定しています。sshポート番号を変更している場合、読み替えてください。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>ufw default DENY
+<span class="nv">$ </span><span class="nb">sudo </span>ufw allow 80
+<span class="nv">$ </span><span class="nb">sudo </span>ufw allow 443
+<span class="nv">$ </span><span class="nb">sudo </span>ufw allow 22
+</code></pre></div></div>
+
+<p>ufwを有効化にします。「ssh接続が切断されるかもしれないが良いか？」と聞かれますが、”y”を入力します。有効化後、別sshクライアントで接続できることを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>ufw <span class="nb">enable</span>
+</code></pre></div></div>
+
+<p>ufwの状況を表示し、設定が反映されていることを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>ufw status
+</code></pre></div></div>
+
+<blockquote>
+  <p>NOTE: 間違えてルールを追加した場合、以下のコマンドで削除できます。
+<code class="highlighter-rouge">$ sudo ufw delete $1 $2</code>
+例: <code class="highlighter-rouge">$ sudo ufw delete allow 22</code></p>
+</blockquote>
+
+<h2 id="外部から接続">外部から接続</h2>
+
+<p>※LAN内でのみ運用する場合、この手順は不要です。</p>
+
+<p>ルーターにポートフォワーディングの設定を行います。</p>
+
+<p>“ieserver.net”で、会員登録を行い、DDNSの設定を行います。</p>
+
+<p>“ieserver.net”からDDNS更新スクリプトをダウンロードして、定期実行するように設定します。</p>
+
+<p>“ddns-update.txt”を”/usr/local/bin”にダウンロードします。”ddns-update.pl”にリネームし、実行権限を与えます。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /usr/local/bin
+<span class="nv">$ </span><span class="nb">sudo </span>wget http://ieserver.net/ddns-update.txt
+<span class="nv">$ </span><span class="nb">sudo mv </span>ddns-update.txt ddns-update.pl
+<span class="nv">$ </span><span class="nb">sudo chmod</span> +x ddns-update.pl
+</code></pre></div></div>
+
+<p>“ddns-update.pl”を修正します。アカウント、ドメイン名、パスワードを記述します。</p>
+
+<p>“ddns-update.pl”を実行します。実行後、”ieserver.net”でIPアドレスが正しく更新されたことを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./ddns-update.pl
+</code></pre></div></div>
+
+<p>cronで定期的に実行されるように設定します。設定後、しばらく後に”ieserver.net”を表示し、IPアドレスが正しく更新されたことを確認します。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<pre><code class="language-bash:crontab">*/10 * * * * /usr/local/bin/ddns-update.pl
+</code></pre>
+
+<p>LAN、WANから、ドメイン名指定でssh接続できることを確認します。</p>
+
+<h2 id="usbポートに12aの電力供給を設定">USBポートに1.2Aの電力供給を設定</h2>
+
+<p>初期状態では0.6Aまでに制限されており、1.2Aまで電力供給するように設定します。電力供給が少ないと、USBポートから電力を確保しているUSB HDDやWi-Fiアダプターなどの動作が不安定になるようです。</p>
+
+<p><code class="highlighter-rouge">/boot/config.txt</code>に以下を記述します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>safe_mode_gpio=4
+max_usb_current=1
+</code></pre></div></div>
+
+<p>記述後、再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo reboot
+</code></pre></div></div>
+
+<ul>
+  <li>参考
+    <ul>
+      <li><a href="http://akkiesoft.hatenablog.jp/entry/20140727/1406443999">Raspberry Pi Model B+のUSBポートに1.2Aの電力を供給する</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="http://qiita.com/jh3rox/items/684ba1e746a6a3763b5c">RaspberryPi - Raspberry Pi Model B+セットアップ - Qiita</a></li>
+  <li><a href="http://sheeplogh.hatenablog.com/entry/2013/12/03/124241">speedtest-cliでターミナルから回線速度を計測する - sheeplogh :: memo</a></li>
+  <li><a href="http://qiita.com/tukiyo3/items/78ab5a63aec20632c162">Internet - cliでインターネットの速度計測(speedtest.net) - Qiita</a></li>
+  <li><a href="http://d.hatena.ne.jp/dekovoko/20140509/1399610982">Raspbian の初期設定 その2 (無線LANの設定) - こまけぇこたぁいいんだよ！！</a></li>
+  <li><a href="http://qiita.com/R-STYLE/items/8d37fb59e4872faee2bc">Wi-Fi - RaspberryPi(Raspbian)のWiFiドングル設定メモ - Qiita</a></li>
+  <li><a href="http://qiita.com/ikuwow/items/c5832fd823e869825c80">CentOS - USB外付けHDDをext4にフォーマットする手順 - Qiita</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>[Raspberry Pi Model B+ のUSBポートの電力アップ</td>
+          <td>Making Mugbot　マグボットの作り方](http://www.mugbot.com/2014/08/19/raspberry-pi-model-b-%E3%81%AEusb%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E9%9B%BB%E5%8A%9B%E3%82%A2%E3%83%83%E3%83%97/)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><a href="http://baticadila.dip.jp/rpi_010.html">Raspberry Pi でサーバー構築</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T13:59:00+09:00">2015-01-23</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Raspberry+Pi%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%83%A1%E3%83%A2%28%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E3%83%AC%E3%82%B9%29%20%2F2015%2F01%2F23%2Fsetup-raspberry-pi-by-displayless.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F01%2F23%2Fsetup-raspberry-pi-by-displayless.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F01%2F23%2Fsetup-raspberry-pi-by-displayless.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F01%2F23%2Fsetup-raspberry-pi-by-displayless.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/01/14/how-to-backup-and-recovery-mysql-data-on-redmine-on-openshift.html" class="pagination--pager" title="Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー
+">Previous</a>
+    
+    
+      <a href="/2015/01/23/build-ruby-environment-use-rbenv.html" class="pagination--pager" title="rbenvを使用したRuby環境構築 (Raspbian)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

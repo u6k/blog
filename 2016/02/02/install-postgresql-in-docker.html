@@ -1,0 +1,569 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Dockerコンテナ(ubuntu)にPostgreSQLをインストールする - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Dockerコンテナ(ubuntu)にPostgreSQLをインストールする">
+
+
+
+
+  <meta property="og:description" content="PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Dockerコンテナ(ubuntu)にPostgreSQLをインストールする">
+  <meta name="twitter:description" content="PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-02-02T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dockerコンテナ(ubuntu)にPostgreSQLをインストールする">
+    <meta itemprop="description" content="PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。">
+    <meta itemprop="datePublished" content="2016-02-02">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Dockerコンテナ(ubuntu)にPostgreSQLをインストールする
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-02T07:00:00+09:00">2016-02-02</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。</p>
+
+<!-- more -->
+
+<h1 id="確認したいこと">確認したいこと</h1>
+
+<ul>
+  <li>DockerコンテナにPostgreSQLをインストールして、最低限の動作確認としてpsqlで接続すること。</li>
+</ul>
+
+<h1 id="前提条件">前提条件</h1>
+
+<ul>
+  <li>Windowsを前提に説明しますが、Docker Machineが使えるならどのOSでも大差ないはずです。</li>
+  <li>VirtualBox
+    <ul>
+      <li>Windows、またはOS Xの場合。</li>
+      <li><code class="highlighter-rouge">cinst virtualbox</code>(Windowsの場合)、<code class="highlighter-rouge">brew install virtualbox</code>(OS Xの場合)などでインストール可能です。</li>
+    </ul>
+  </li>
+  <li>Docker Machine
+    <ul>
+      <li>Windows、またはOS Xの場合。LinuxはDockerホスト構築が必要ないため、不要。</li>
+      <li><code class="highlighter-rouge">cinst docker-machine</code>(Windowsの場合)、<code class="highlighter-rouge">brew install docker-machine</code>(OS Xの場合)などでインストール可能です。</li>
+    </ul>
+  </li>
+  <li>Docker Client
+    <ul>
+      <li>Linuxの場合。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="dockerホストを構築">Dockerホストを構築。</h1>
+
+<p>Dockerホストを構築して、sshログインします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-machine create --driver virtualbox test
+$ docker-machine ssh test
+</code></pre></div></div>
+
+<h1 id="postgresqlサーバーコンテナーを構築起動">PostgreSQLサーバー・コンテナーを構築、起動</h1>
+
+<p>PostgreSQLサーバーをインストールしたコンテナーを構築、起動します。このコンテナーは、5432番ポートを開放し、外部ホストからの接続を許可し、<code class="highlighter-rouge">docker</code>というユーザーとデータベースを構築済み、という状態にします。</p>
+
+<p>Dockerfileは作成済みなので、<code class="highlighter-rouge">git clone</code>します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/u6k/ubuntu-postgresql.git
+</code></pre></div></div>
+
+<p>PostgreSQLサーバーのDockerイメージを構築します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ubuntu-postgresql/src/server/
+$ docker build -t u6k/postgresql-server .
+</code></pre></div></div>
+
+<p>構築したDockerイメージをコンテナ起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name postgresql-server -d u6k/postgresql-server
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">--name</code>引数で、コンテナに名前を付けます。<code class="highlighter-rouge">-d</code>引数で、デーモンとして起動します。<code class="highlighter-rouge">-d</code>を付けないと、コンテナ起動後にプロンプトが戻ってこなくなります(<code class="highlighter-rouge">Ctrl+c</code>でコンテナを終了させる必要あり)。</p>
+
+<h1 id="postgresqlクライアントコンテナーを構築起動">PostgreSQLクライアント・コンテナーを構築、起動</h1>
+
+<p>上記でサーバーを起動できましたが、このままでは接続確認ができません。接続確認用に、PostgreSQLクライアントをインストールしたコンテナーを構築、起動します。</p>
+
+<p>サーバー構築時に<code class="highlighter-rouge">git clone</code>したリポジトリにPostgreSQLクライアント・コンテナのDockerfileも作成済みなので、Dockerイメージを構築します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ../client/
+$ docker build -t u6k/postgresql-client .
+</code></pre></div></div>
+
+<p>構築したDockerイメージをコンテナ起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --link postgresql-server:psql -it u6k/postgresql-client bash
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">--link</code>引数で、<code class="highlighter-rouge">postgresql-server</code>という名前のコンテナと連携します。これにより、エイリアス指定した名前(ここでは<code class="highlighter-rouge">psql</code>)で、接続情報の環境変数が設定されます。後ほど、何が設定されるか確認してみます。<code class="highlighter-rouge">-it</code>でコンテナの標準入力を開いて、操作を可能にします。最後の<code class="highlighter-rouge">bash</code>で、シェルに<code class="highlighter-rouge">/bin/bash</code>を使います。</p>
+
+<p>コンテナに入ったら、<code class="highlighter-rouge">--link</code>引数により設定された環境変数を確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># env | grep PSQL
+PSQL_NAME=/tiny_wilson/psql
+PSQL_PORT_5432_TCP=tcp://172.17.0.2:5432
+PSQL_PORT=tcp://172.17.0.2:5432
+PSQL_PORT_5432_TCP_PORT=5432
+PSQL_PORT_5432_TCP_ADDR=172.17.0.2
+PSQL_PORT_5432_TCP_PROTO=tcp
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">PSQL_</code>というプリフィックスの環境変数がいくつか設定されていることが分かります。これらの環境変数を使用することで、PostgreSQLサーバー・コンテナに接続しやすくなります。</p>
+
+<p>psqlでPostgreSQLサーバーに接続を試みます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># psql -h $PSQL_PORT_5432_TCP_ADDR -U docker
+Password for user docker:
+psql (9.3.10)
+SSL connection (cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256)
+Type "help" for help.
+
+docker=#
+</code></pre></div></div>
+
+<p>接続が成功しました。</p>
+
+<h1 id="再度起動する場合">再度、起動する場合</h1>
+
+<p>PostgreSQLサーバー・コンテナを上記の手順で再度起動しようとすると、以下のようにエラーとなります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name postgresql-server -d u6k/postgresql-server
+Error response from daemon: Conflict. The name "postgresql-server" is already in use by container 09892e5fa33e. You have to remove (or rename) that container to be able to reuse that name.
+</code></pre></div></div>
+
+<p>これは、<code class="highlighter-rouge">postgresql-server</code>という名前のコンテナが(停止状態で)残っており衝突しているので、削除するかリネームすることでその名前を使用できる、ということを言っています。</p>
+
+<p>以下の手順で、停止状態のコンテナを一括削除できます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker rm $(docker ps -aq)
+</code></pre></div></div>
+
+<h1 id="参照">参照</h1>
+
+<ul>
+  <li><a href="https://github.com/u6k/ubuntu-postgresql">u6k/ubuntu-postgresql</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-02T07:00:00+09:00">2016-02-02</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Docker%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%28ubuntu%29%E3%81%ABPostgreSQL%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%20%2F2016%2F02%2F02%2Finstall-postgresql-in-docker.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2016%2F02%2F02%2Finstall-postgresql-in-docker.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2016%2F02%2F02%2Finstall-postgresql-in-docker.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2016%2F02%2F02%2Finstall-postgresql-in-docker.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/01/29/install-oracle-java8-in-docker.html" class="pagination--pager" title="Dockerコンテナ(ubuntu)にoracle-java8をインストールする
+">Previous</a>
+    
+    
+      <a href="/2016/02/10/keychain.html" class="pagination--pager" title="sshのパスフレーズ入力を、keychainで省略する
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,798 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Zabbixをインストールして簡単に動作確認を行う - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="ちょっと長めの前置き自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認にAlertMeを利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。AlertMeは簡単に設定できて非常に便利に使っていますが、CPU使用率、ディスク容量など他の項目も柔軟に監視したいと思い、別の監視サービスを利用しようと思います。自宅ではRaspberry Piを動作させているので、これのCPU温度やHDD健康状態も監視したいですね。私はOpenShiftをよく使っており、dkanbier/openshift-zabbix-quickstartを使ってZabbix Serverをインストールし、RPi側にはZabbix Agentをインストールして監視しようとしましたが、どうにも「Zabbix agent on {HOST_NAME} is unreachable for 5 minutes」というエラーが解消できませんでした。 OpenShiftにZabbix Serverを建てる方向は諦めました。後述。そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。前提Zabbixのインストールは、4 ソースからのインストール [Zabbix Documentation 2.2]の手順で行います。Vagrantを使用するので、あらかじめ使用可能にしてください。PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。NOTE: vagrant-vbox-snapshotVagrantで作業する時は、vagrant-vbox-snapshotを使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。  dergachev/vagrant-vbox-snapshot  vagrantの便利に使えるプラグイン6選 - Qiita  Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - QiitaVagrantでCentOSを使用するここではchef/centos-6.5を使用しますが、好きなOSを使用すれば良いです。$ vagrant init chef/centos-6.5ゲストOS側の80番ポートをホストOSの10080番ポートにフォワードする設定をVagrantfileに追記します。config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 10080Vagrantを起動します。$ vagrant init chef/centos-6.5起動したCentOSにsshでログインします。$ vagrant sshNOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。前提パッケージのインストールインストール済みのパッケージを最新化します。$ sudo yum -y update開発ツールをインストールします。$ sudo yum -y groupinstall &quot;Development tools&quot;DBエンジンとしてMySQLを使用したいので、開発用ファイルも含めてインストールします。DBとしては他にPostgreSQL、Oracle、DB2、SQLiteが使えるようです。$ sudo yum -y install mysql-server mysql-devel$ sudo chkconfig mysqld on$ sudo service mysqld startZabbixが必要とするソフトウェアをインストールします。これは、後で行う./configureのエラーを見ながらつどインストールしたほうが良いかもしれません。$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-develZabbixソースコードのダウンロードインストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。$ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.8/zabbix-2.2.8.tar.gz?r=http%3A%2F%2Fwww.zabbix.com%2Fdownload.php&amp;ts=1424460111&amp;use_mirror=tcpdiagNOTE: zabbix-2.2.8.tar.gzというファイル名になれば良いですが、クエリパラメータも含めた変なファイル名になってしまうことがあるので、リネームします。展開します。$ tar zxvf zabbix-2.2.8.tar.gzZabbix用ユーザーを作成するZabbixが使用するユーザーを作成します。とりあえずここではzabbixというユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。$ sudo groupadd zabbix$ sudo useradd -g zabbix zabbixDBを作成するDBを作成し、zabbixに用意されているSQLスクリプトを実行します。まず、DBを作成します。mysql&gt; create database zabbix character set utf8 collate次にzabbixに用意されているSQLスクリプトを実行します。$ mysql -u root -p zabbix &lt; database/mysql/schema.sql$ mysql -u root -p zabbix &lt; database/mysql/images.sql$ mysql -u root -p zabbix &lt; database/mysql/data.sqlソースを設定し、インストールする./configureを実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。$ ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2関連ソフトウェアが揃っていれば、エラーが表示されず終了します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。言われた通り、make installを実行します。$ sudo make installインストールが完了しました。NOTE: 関連ソフトウェアがインストールされていない場合関連ソフトウェアがインストールされていないと、エラーになります。configure: error: LIBXML2 library not foundLIBXML2が見つからないため、yum search libxml2を実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install libxml2 libxml2-devel./configureを再実行します。configure: error: Invalid Net-SNMP directory - unable to find net-snmp-configNet-SNMPが見つからないため、yum search net-snmpを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install net-snmp net-snmp-devel./configureを再実行します。configure: error: Curl library not foundCurlライブラリが見つからないため、yum search curlを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install curl libcurl libcurl-devel./configureを再実行します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。設定ファイルの編集Zabbix Serverの設定ファイルは/usr/local/etc/zabbix_server.confにあります。Zabbix Agentの設定ファイルは/usr/local/etc/zabbix_agentd.confにあります。とりあえず今回は編集することがないので、そのままにしておきます。NOTE: zabbix_agent.confというファイルもありますが、こちらは使用しないようです。Zabbix ServerとZabbix Agentを起動Zabbix Serverを起動します。$ zabbix_serverZabbix Agentを起動します。$ zabbix_agentdコンソールには何も出力されないですが、これで起動します。ps aux | grep zabbixで起動していることが確認できます。WebインターフェイスをインストールZabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。$ sudo yum -y install httpd php$ sudo chkconfig httpd on$ sudo service httpd startWebインターフェイスをインストールします。単にWeb公開フォルダに配置するだけです。$ sudo mkdir /var/www/html/zabbix$ cd frontends/php/$ sudo cp -a . /var/www/html/zabbix/$ sudo chown -R apache:apache /var/www/html/zabbix/Webブラウザからhttp://localhost:10080/zabbix/にアクセスします。「Next」をクリックします。必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。ここでは、以下の項目が「Fail」になりました。  PHP option post_max_size  PHP option max_execution_time  PHP option max_input_time  PHP time zone  PHP databases support  PHP bcmath  PHP mbstring  PHP gd  PHP gd PNG support  PHP gd JPEG support  PHP gd FreeType support  PHP xmlwriter  PHP xmlreaderこれを解消します。まずPHPオプションを設定するため、/var/www/html/zabbix/.htaccessファイルを作成し、内容を以下のようにします。php_value post_max_size 16Mphp_value max_execution_time 300php_value max_input_time 300php_value date.timezone Asia/Tokyo.htaccessが禁止されている場合、/etc/httpd/conf/httpd.confを編集します。AllowOverride All次に、PHPモジュールをインストールします。不足しているモジュールを「Fail」をクリックして調べて、yumでインストールしていきます。$ sudo yum -y install php-mysql php-bcmath php-mbstring gd gd-devel php-gd php-xmlApache HTTP Serverを再起動します。$ sudo service httpd gracefulWebブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。「Next」をクリックします。DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。「Next」をクリックします。Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。「Next」をクリックします。設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。Zabbixにログインし、Zabbix Server自体の監視を開始インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。リストに「Zabbix server」が表示されますので、クリックします。「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。おわりにこれでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。NOTE: Zabbix Server on OpenShiftを諦めたわけOpenShiftではポートを開けられないっぽい。rhc port-forwardはローカル→OpenShiftのsshフォワーディングであり用途が違うし…  参考          Getting Started with Port Forwarding on OpenShift – OpenShift Blog      AWSかDigitalOceanにZabbix Serverを建てる方向で検討します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Zabbixをインストールして簡単に動作確認を行う">
+
+
+
+
+  <meta property="og:description" content="ちょっと長めの前置き自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認にAlertMeを利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。AlertMeは簡単に設定できて非常に便利に使っていますが、CPU使用率、ディスク容量など他の項目も柔軟に監視したいと思い、別の監視サービスを利用しようと思います。自宅ではRaspberry Piを動作させているので、これのCPU温度やHDD健康状態も監視したいですね。私はOpenShiftをよく使っており、dkanbier/openshift-zabbix-quickstartを使ってZabbix Serverをインストールし、RPi側にはZabbix Agentをインストールして監視しようとしましたが、どうにも「Zabbix agent on {HOST_NAME} is unreachable for 5 minutes」というエラーが解消できませんでした。 OpenShiftにZabbix Serverを建てる方向は諦めました。後述。そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。前提Zabbixのインストールは、4 ソースからのインストール [Zabbix Documentation 2.2]の手順で行います。Vagrantを使用するので、あらかじめ使用可能にしてください。PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。NOTE: vagrant-vbox-snapshotVagrantで作業する時は、vagrant-vbox-snapshotを使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。  dergachev/vagrant-vbox-snapshot  vagrantの便利に使えるプラグイン6選 - Qiita  Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - QiitaVagrantでCentOSを使用するここではchef/centos-6.5を使用しますが、好きなOSを使用すれば良いです。$ vagrant init chef/centos-6.5ゲストOS側の80番ポートをホストOSの10080番ポートにフォワードする設定をVagrantfileに追記します。config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 10080Vagrantを起動します。$ vagrant init chef/centos-6.5起動したCentOSにsshでログインします。$ vagrant sshNOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。前提パッケージのインストールインストール済みのパッケージを最新化します。$ sudo yum -y update開発ツールをインストールします。$ sudo yum -y groupinstall &quot;Development tools&quot;DBエンジンとしてMySQLを使用したいので、開発用ファイルも含めてインストールします。DBとしては他にPostgreSQL、Oracle、DB2、SQLiteが使えるようです。$ sudo yum -y install mysql-server mysql-devel$ sudo chkconfig mysqld on$ sudo service mysqld startZabbixが必要とするソフトウェアをインストールします。これは、後で行う./configureのエラーを見ながらつどインストールしたほうが良いかもしれません。$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-develZabbixソースコードのダウンロードインストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。$ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.8/zabbix-2.2.8.tar.gz?r=http%3A%2F%2Fwww.zabbix.com%2Fdownload.php&amp;ts=1424460111&amp;use_mirror=tcpdiagNOTE: zabbix-2.2.8.tar.gzというファイル名になれば良いですが、クエリパラメータも含めた変なファイル名になってしまうことがあるので、リネームします。展開します。$ tar zxvf zabbix-2.2.8.tar.gzZabbix用ユーザーを作成するZabbixが使用するユーザーを作成します。とりあえずここではzabbixというユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。$ sudo groupadd zabbix$ sudo useradd -g zabbix zabbixDBを作成するDBを作成し、zabbixに用意されているSQLスクリプトを実行します。まず、DBを作成します。mysql&gt; create database zabbix character set utf8 collate次にzabbixに用意されているSQLスクリプトを実行します。$ mysql -u root -p zabbix &lt; database/mysql/schema.sql$ mysql -u root -p zabbix &lt; database/mysql/images.sql$ mysql -u root -p zabbix &lt; database/mysql/data.sqlソースを設定し、インストールする./configureを実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。$ ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2関連ソフトウェアが揃っていれば、エラーが表示されず終了します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。言われた通り、make installを実行します。$ sudo make installインストールが完了しました。NOTE: 関連ソフトウェアがインストールされていない場合関連ソフトウェアがインストールされていないと、エラーになります。configure: error: LIBXML2 library not foundLIBXML2が見つからないため、yum search libxml2を実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install libxml2 libxml2-devel./configureを再実行します。configure: error: Invalid Net-SNMP directory - unable to find net-snmp-configNet-SNMPが見つからないため、yum search net-snmpを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install net-snmp net-snmp-devel./configureを再実行します。configure: error: Curl library not foundCurlライブラリが見つからないため、yum search curlを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install curl libcurl libcurl-devel./configureを再実行します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。設定ファイルの編集Zabbix Serverの設定ファイルは/usr/local/etc/zabbix_server.confにあります。Zabbix Agentの設定ファイルは/usr/local/etc/zabbix_agentd.confにあります。とりあえず今回は編集することがないので、そのままにしておきます。NOTE: zabbix_agent.confというファイルもありますが、こちらは使用しないようです。Zabbix ServerとZabbix Agentを起動Zabbix Serverを起動します。$ zabbix_serverZabbix Agentを起動します。$ zabbix_agentdコンソールには何も出力されないですが、これで起動します。ps aux | grep zabbixで起動していることが確認できます。WebインターフェイスをインストールZabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。$ sudo yum -y install httpd php$ sudo chkconfig httpd on$ sudo service httpd startWebインターフェイスをインストールします。単にWeb公開フォルダに配置するだけです。$ sudo mkdir /var/www/html/zabbix$ cd frontends/php/$ sudo cp -a . /var/www/html/zabbix/$ sudo chown -R apache:apache /var/www/html/zabbix/Webブラウザからhttp://localhost:10080/zabbix/にアクセスします。「Next」をクリックします。必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。ここでは、以下の項目が「Fail」になりました。  PHP option post_max_size  PHP option max_execution_time  PHP option max_input_time  PHP time zone  PHP databases support  PHP bcmath  PHP mbstring  PHP gd  PHP gd PNG support  PHP gd JPEG support  PHP gd FreeType support  PHP xmlwriter  PHP xmlreaderこれを解消します。まずPHPオプションを設定するため、/var/www/html/zabbix/.htaccessファイルを作成し、内容を以下のようにします。php_value post_max_size 16Mphp_value max_execution_time 300php_value max_input_time 300php_value date.timezone Asia/Tokyo.htaccessが禁止されている場合、/etc/httpd/conf/httpd.confを編集します。AllowOverride All次に、PHPモジュールをインストールします。不足しているモジュールを「Fail」をクリックして調べて、yumでインストールしていきます。$ sudo yum -y install php-mysql php-bcmath php-mbstring gd gd-devel php-gd php-xmlApache HTTP Serverを再起動します。$ sudo service httpd gracefulWebブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。「Next」をクリックします。DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。「Next」をクリックします。Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。「Next」をクリックします。設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。Zabbixにログインし、Zabbix Server自体の監視を開始インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。リストに「Zabbix server」が表示されますので、クリックします。「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。おわりにこれでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。NOTE: Zabbix Server on OpenShiftを諦めたわけOpenShiftではポートを開けられないっぽい。rhc port-forwardはローカル→OpenShiftのsshフォワーディングであり用途が違うし…  参考          Getting Started with Port Forwarding on OpenShift – OpenShift Blog      AWSかDigitalOceanにZabbix Serverを建てる方向で検討します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Zabbixをインストールして簡単に動作確認を行う">
+  <meta name="twitter:description" content="ちょっと長めの前置き自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認にAlertMeを利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。AlertMeは簡単に設定できて非常に便利に使っていますが、CPU使用率、ディスク容量など他の項目も柔軟に監視したいと思い、別の監視サービスを利用しようと思います。自宅ではRaspberry Piを動作させているので、これのCPU温度やHDD健康状態も監視したいですね。私はOpenShiftをよく使っており、dkanbier/openshift-zabbix-quickstartを使ってZabbix Serverをインストールし、RPi側にはZabbix Agentをインストールして監視しようとしましたが、どうにも「Zabbix agent on {HOST_NAME} is unreachable for 5 minutes」というエラーが解消できませんでした。 OpenShiftにZabbix Serverを建てる方向は諦めました。後述。そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。前提Zabbixのインストールは、4 ソースからのインストール [Zabbix Documentation 2.2]の手順で行います。Vagrantを使用するので、あらかじめ使用可能にしてください。PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。NOTE: vagrant-vbox-snapshotVagrantで作業する時は、vagrant-vbox-snapshotを使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。  dergachev/vagrant-vbox-snapshot  vagrantの便利に使えるプラグイン6選 - Qiita  Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - QiitaVagrantでCentOSを使用するここではchef/centos-6.5を使用しますが、好きなOSを使用すれば良いです。$ vagrant init chef/centos-6.5ゲストOS側の80番ポートをホストOSの10080番ポートにフォワードする設定をVagrantfileに追記します。config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 10080Vagrantを起動します。$ vagrant init chef/centos-6.5起動したCentOSにsshでログインします。$ vagrant sshNOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。前提パッケージのインストールインストール済みのパッケージを最新化します。$ sudo yum -y update開発ツールをインストールします。$ sudo yum -y groupinstall &quot;Development tools&quot;DBエンジンとしてMySQLを使用したいので、開発用ファイルも含めてインストールします。DBとしては他にPostgreSQL、Oracle、DB2、SQLiteが使えるようです。$ sudo yum -y install mysql-server mysql-devel$ sudo chkconfig mysqld on$ sudo service mysqld startZabbixが必要とするソフトウェアをインストールします。これは、後で行う./configureのエラーを見ながらつどインストールしたほうが良いかもしれません。$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-develZabbixソースコードのダウンロードインストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。$ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.8/zabbix-2.2.8.tar.gz?r=http%3A%2F%2Fwww.zabbix.com%2Fdownload.php&amp;ts=1424460111&amp;use_mirror=tcpdiagNOTE: zabbix-2.2.8.tar.gzというファイル名になれば良いですが、クエリパラメータも含めた変なファイル名になってしまうことがあるので、リネームします。展開します。$ tar zxvf zabbix-2.2.8.tar.gzZabbix用ユーザーを作成するZabbixが使用するユーザーを作成します。とりあえずここではzabbixというユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。$ sudo groupadd zabbix$ sudo useradd -g zabbix zabbixDBを作成するDBを作成し、zabbixに用意されているSQLスクリプトを実行します。まず、DBを作成します。mysql&gt; create database zabbix character set utf8 collate次にzabbixに用意されているSQLスクリプトを実行します。$ mysql -u root -p zabbix &lt; database/mysql/schema.sql$ mysql -u root -p zabbix &lt; database/mysql/images.sql$ mysql -u root -p zabbix &lt; database/mysql/data.sqlソースを設定し、インストールする./configureを実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。$ ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2関連ソフトウェアが揃っていれば、エラーが表示されず終了します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。言われた通り、make installを実行します。$ sudo make installインストールが完了しました。NOTE: 関連ソフトウェアがインストールされていない場合関連ソフトウェアがインストールされていないと、エラーになります。configure: error: LIBXML2 library not foundLIBXML2が見つからないため、yum search libxml2を実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install libxml2 libxml2-devel./configureを再実行します。configure: error: Invalid Net-SNMP directory - unable to find net-snmp-configNet-SNMPが見つからないため、yum search net-snmpを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install net-snmp net-snmp-devel./configureを再実行します。configure: error: Curl library not foundCurlライブラリが見つからないため、yum search curlを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install curl libcurl libcurl-devel./configureを再実行します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。設定ファイルの編集Zabbix Serverの設定ファイルは/usr/local/etc/zabbix_server.confにあります。Zabbix Agentの設定ファイルは/usr/local/etc/zabbix_agentd.confにあります。とりあえず今回は編集することがないので、そのままにしておきます。NOTE: zabbix_agent.confというファイルもありますが、こちらは使用しないようです。Zabbix ServerとZabbix Agentを起動Zabbix Serverを起動します。$ zabbix_serverZabbix Agentを起動します。$ zabbix_agentdコンソールには何も出力されないですが、これで起動します。ps aux | grep zabbixで起動していることが確認できます。WebインターフェイスをインストールZabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。$ sudo yum -y install httpd php$ sudo chkconfig httpd on$ sudo service httpd startWebインターフェイスをインストールします。単にWeb公開フォルダに配置するだけです。$ sudo mkdir /var/www/html/zabbix$ cd frontends/php/$ sudo cp -a . /var/www/html/zabbix/$ sudo chown -R apache:apache /var/www/html/zabbix/Webブラウザからhttp://localhost:10080/zabbix/にアクセスします。「Next」をクリックします。必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。ここでは、以下の項目が「Fail」になりました。  PHP option post_max_size  PHP option max_execution_time  PHP option max_input_time  PHP time zone  PHP databases support  PHP bcmath  PHP mbstring  PHP gd  PHP gd PNG support  PHP gd JPEG support  PHP gd FreeType support  PHP xmlwriter  PHP xmlreaderこれを解消します。まずPHPオプションを設定するため、/var/www/html/zabbix/.htaccessファイルを作成し、内容を以下のようにします。php_value post_max_size 16Mphp_value max_execution_time 300php_value max_input_time 300php_value date.timezone Asia/Tokyo.htaccessが禁止されている場合、/etc/httpd/conf/httpd.confを編集します。AllowOverride All次に、PHPモジュールをインストールします。不足しているモジュールを「Fail」をクリックして調べて、yumでインストールしていきます。$ sudo yum -y install php-mysql php-bcmath php-mbstring gd gd-devel php-gd php-xmlApache HTTP Serverを再起動します。$ sudo service httpd gracefulWebブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。「Next」をクリックします。DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。「Next」をクリックします。Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。「Next」をクリックします。設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。Zabbixにログインし、Zabbix Server自体の監視を開始インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。リストに「Zabbix server」が表示されますので、クリックします。「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。おわりにこれでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。NOTE: Zabbix Server on OpenShiftを諦めたわけOpenShiftではポートを開けられないっぽい。rhc port-forwardはローカル→OpenShiftのsshフォワーディングであり用途が違うし…  参考          Getting Started with Port Forwarding on OpenShift – OpenShift Blog      AWSかDigitalOceanにZabbix Serverを建てる方向で検討します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-02-22T05:34:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Zabbixをインストールして簡単に動作確認を行う">
+    <meta itemprop="description" content="ちょっと長めの前置き自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認にAlertMeを利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。AlertMeは簡単に設定できて非常に便利に使っていますが、CPU使用率、ディスク容量など他の項目も柔軟に監視したいと思い、別の監視サービスを利用しようと思います。自宅ではRaspberry Piを動作させているので、これのCPU温度やHDD健康状態も監視したいですね。私はOpenShiftをよく使っており、dkanbier/openshift-zabbix-quickstartを使ってZabbix Serverをインストールし、RPi側にはZabbix Agentをインストールして監視しようとしましたが、どうにも「Zabbix agent on {HOST_NAME} is unreachable for 5 minutes」というエラーが解消できませんでした。 OpenShiftにZabbix Serverを建てる方向は諦めました。後述。そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。前提Zabbixのインストールは、4 ソースからのインストール [Zabbix Documentation 2.2]の手順で行います。Vagrantを使用するので、あらかじめ使用可能にしてください。PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。NOTE: vagrant-vbox-snapshotVagrantで作業する時は、vagrant-vbox-snapshotを使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。  dergachev/vagrant-vbox-snapshot  vagrantの便利に使えるプラグイン6選 - Qiita  Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - QiitaVagrantでCentOSを使用するここではchef/centos-6.5を使用しますが、好きなOSを使用すれば良いです。$ vagrant init chef/centos-6.5ゲストOS側の80番ポートをホストOSの10080番ポートにフォワードする設定をVagrantfileに追記します。config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 10080Vagrantを起動します。$ vagrant init chef/centos-6.5起動したCentOSにsshでログインします。$ vagrant sshNOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。前提パッケージのインストールインストール済みのパッケージを最新化します。$ sudo yum -y update開発ツールをインストールします。$ sudo yum -y groupinstall &quot;Development tools&quot;DBエンジンとしてMySQLを使用したいので、開発用ファイルも含めてインストールします。DBとしては他にPostgreSQL、Oracle、DB2、SQLiteが使えるようです。$ sudo yum -y install mysql-server mysql-devel$ sudo chkconfig mysqld on$ sudo service mysqld startZabbixが必要とするソフトウェアをインストールします。これは、後で行う./configureのエラーを見ながらつどインストールしたほうが良いかもしれません。$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-develZabbixソースコードのダウンロードインストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。$ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.8/zabbix-2.2.8.tar.gz?r=http%3A%2F%2Fwww.zabbix.com%2Fdownload.php&amp;ts=1424460111&amp;use_mirror=tcpdiagNOTE: zabbix-2.2.8.tar.gzというファイル名になれば良いですが、クエリパラメータも含めた変なファイル名になってしまうことがあるので、リネームします。展開します。$ tar zxvf zabbix-2.2.8.tar.gzZabbix用ユーザーを作成するZabbixが使用するユーザーを作成します。とりあえずここではzabbixというユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。$ sudo groupadd zabbix$ sudo useradd -g zabbix zabbixDBを作成するDBを作成し、zabbixに用意されているSQLスクリプトを実行します。まず、DBを作成します。mysql&gt; create database zabbix character set utf8 collate次にzabbixに用意されているSQLスクリプトを実行します。$ mysql -u root -p zabbix &lt; database/mysql/schema.sql$ mysql -u root -p zabbix &lt; database/mysql/images.sql$ mysql -u root -p zabbix &lt; database/mysql/data.sqlソースを設定し、インストールする./configureを実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。$ ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2関連ソフトウェアが揃っていれば、エラーが表示されず終了します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。言われた通り、make installを実行します。$ sudo make installインストールが完了しました。NOTE: 関連ソフトウェアがインストールされていない場合関連ソフトウェアがインストールされていないと、エラーになります。configure: error: LIBXML2 library not foundLIBXML2が見つからないため、yum search libxml2を実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install libxml2 libxml2-devel./configureを再実行します。configure: error: Invalid Net-SNMP directory - unable to find net-snmp-configNet-SNMPが見つからないため、yum search net-snmpを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install net-snmp net-snmp-devel./configureを再実行します。configure: error: Curl library not foundCurlライブラリが見つからないため、yum search curlを実行してそれっぽいパッケージを探し、インストールします。$ sudo yum -y install curl libcurl libcurl-devel./configureを再実行します。************************************************************            Now run &#39;make install&#39;                       **                                                         **            Thank you for using Zabbix!                  **              &lt;http://www.zabbix.com&gt;                    ************************************************************設定が成功しました。設定ファイルの編集Zabbix Serverの設定ファイルは/usr/local/etc/zabbix_server.confにあります。Zabbix Agentの設定ファイルは/usr/local/etc/zabbix_agentd.confにあります。とりあえず今回は編集することがないので、そのままにしておきます。NOTE: zabbix_agent.confというファイルもありますが、こちらは使用しないようです。Zabbix ServerとZabbix Agentを起動Zabbix Serverを起動します。$ zabbix_serverZabbix Agentを起動します。$ zabbix_agentdコンソールには何も出力されないですが、これで起動します。ps aux | grep zabbixで起動していることが確認できます。WebインターフェイスをインストールZabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。$ sudo yum -y install httpd php$ sudo chkconfig httpd on$ sudo service httpd startWebインターフェイスをインストールします。単にWeb公開フォルダに配置するだけです。$ sudo mkdir /var/www/html/zabbix$ cd frontends/php/$ sudo cp -a . /var/www/html/zabbix/$ sudo chown -R apache:apache /var/www/html/zabbix/Webブラウザからhttp://localhost:10080/zabbix/にアクセスします。「Next」をクリックします。必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。ここでは、以下の項目が「Fail」になりました。  PHP option post_max_size  PHP option max_execution_time  PHP option max_input_time  PHP time zone  PHP databases support  PHP bcmath  PHP mbstring  PHP gd  PHP gd PNG support  PHP gd JPEG support  PHP gd FreeType support  PHP xmlwriter  PHP xmlreaderこれを解消します。まずPHPオプションを設定するため、/var/www/html/zabbix/.htaccessファイルを作成し、内容を以下のようにします。php_value post_max_size 16Mphp_value max_execution_time 300php_value max_input_time 300php_value date.timezone Asia/Tokyo.htaccessが禁止されている場合、/etc/httpd/conf/httpd.confを編集します。AllowOverride All次に、PHPモジュールをインストールします。不足しているモジュールを「Fail」をクリックして調べて、yumでインストールしていきます。$ sudo yum -y install php-mysql php-bcmath php-mbstring gd gd-devel php-gd php-xmlApache HTTP Serverを再起動します。$ sudo service httpd gracefulWebブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。「Next」をクリックします。DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。「Next」をクリックします。Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。「Next」をクリックします。設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。Zabbixにログインし、Zabbix Server自体の監視を開始インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。リストに「Zabbix server」が表示されますので、クリックします。「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。おわりにこれでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。NOTE: Zabbix Server on OpenShiftを諦めたわけOpenShiftではポートを開けられないっぽい。rhc port-forwardはローカル→OpenShiftのsshフォワーディングであり用途が違うし…  参考          Getting Started with Port Forwarding on OpenShift – OpenShift Blog      AWSかDigitalOceanにZabbix Serverを建てる方向で検討します。">
+    <meta itemprop="datePublished" content="2015-02-22">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Zabbixをインストールして簡単に動作確認を行う
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-22T05:34:00+09:00">2015-02-22</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="ちょっと長めの前置き">ちょっと長めの前置き</h1>
+
+<p>自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認に<a href="http://www.securestar.jp/alertme/">AlertMe</a>を利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。</p>
+
+<p>AlertMeは簡単に設定できて非常に便利に使っていますが、CPU使用率、ディスク容量など他の項目も柔軟に監視したいと思い、別の監視サービスを利用しようと思います。自宅ではRaspberry Piを動作させているので、これのCPU温度やHDD健康状態も監視したいですね。</p>
+
+<p><del>私はOpenShiftをよく使っており、<a href="https://github.com/dkanbier/openshift-zabbix-quickstart">dkanbier/openshift-zabbix-quickstart</a>を使ってZabbix Serverをインストールし、RPi側にはZabbix Agentをインストールして監視しようとしましたが、どうにも「Zabbix agent on {HOST_NAME} is unreachable for 5 minutes」というエラーが解消できませんでした。</del> OpenShiftにZabbix Serverを建てる方向は諦めました。後述。</p>
+
+<p>そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<p>Zabbixのインストールは、<a href="https://www.zabbix.com/documentation/2.2/jp/manual/installation/install">4 ソースからのインストール [Zabbix Documentation 2.2]</a>の手順で行います。</p>
+
+<p>Vagrantを使用するので、あらかじめ使用可能にしてください。</p>
+
+<p>PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。</p>
+
+<h2 id="note-vagrant-vbox-snapshot">NOTE: vagrant-vbox-snapshot</h2>
+
+<p>Vagrantで作業する時は、<code class="highlighter-rouge">vagrant-vbox-snapshot</code>を使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。</p>
+
+<ul>
+  <li><a href="https://github.com/dergachev/vagrant-vbox-snapshot">dergachev/vagrant-vbox-snapshot</a></li>
+  <li><a href="http://qiita.com/succi0303/items/e06bca7db5a0c3de96af">vagrantの便利に使えるプラグイン6選 - Qiita</a></li>
+  <li><a href="http://qiita.com/takuan_osho/items/682b776b41989f0b016f">Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - Qiita</a></li>
+</ul>
+
+<h1 id="vagrantでcentosを使用する">VagrantでCentOSを使用する</h1>
+
+<p>ここでは<code class="highlighter-rouge">chef/centos-6.5</code>を使用しますが、好きなOSを使用すれば良いです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant init chef/centos-6.5
+</code></pre></div></div>
+
+<p>ゲストOS側の80番ポートをホストOSの10080番ポートにフォワードする設定を<code class="highlighter-rouge">Vagrantfile</code>に追記します。</p>
+
+<pre><code class="language-bash:Vagrantfile">config.vm.network "forwarded_port", guest: 80, host: 10080
+</code></pre>
+
+<p>Vagrantを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant init chef/centos-6.5
+</code></pre></div></div>
+
+<p>起動したCentOSにsshでログインします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant ssh
+</code></pre></div></div>
+
+<p><em>NOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。</em></p>
+
+<h1 id="前提パッケージのインストール">前提パッケージのインストール</h1>
+
+<p>インストール済みのパッケージを最新化します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y update
+</code></pre></div></div>
+
+<p>開発ツールをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y groupinstall "Development tools"
+</code></pre></div></div>
+
+<p>DBエンジンとしてMySQLを使用したいので、開発用ファイルも含めてインストールします。DBとしては他にPostgreSQL、Oracle、DB2、SQLiteが使えるようです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install mysql-server mysql-devel
+$ sudo chkconfig mysqld on
+$ sudo service mysqld start
+</code></pre></div></div>
+
+<p>Zabbixが必要とするソフトウェアをインストールします。これは、後で行う<code class="highlighter-rouge">./configure</code>のエラーを見ながらつどインストールしたほうが良いかもしれません。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-devel
+</code></pre></div></div>
+
+<h1 id="zabbixソースコードのダウンロード">Zabbixソースコードのダウンロード</h1>
+
+<p>インストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.8/zabbix-2.2.8.tar.gz?r=http%3A%2F%2Fwww.zabbix.com%2Fdownload.php&amp;ts=1424460111&amp;use_mirror=tcpdiag
+</code></pre></div></div>
+
+<p><em>NOTE: <code class="highlighter-rouge">zabbix-2.2.8.tar.gz</code>というファイル名になれば良いですが、クエリパラメータも含めた変なファイル名になってしまうことがあるので、リネームします。</em></p>
+
+<p>展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tar zxvf zabbix-2.2.8.tar.gz
+</code></pre></div></div>
+
+<h1 id="zabbix用ユーザーを作成する">Zabbix用ユーザーを作成する</h1>
+
+<p>Zabbixが使用するユーザーを作成します。とりあえずここでは<code class="highlighter-rouge">zabbix</code>というユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo groupadd zabbix
+$ sudo useradd -g zabbix zabbix
+</code></pre></div></div>
+
+<h1 id="dbを作成する">DBを作成する</h1>
+
+<p>DBを作成し、zabbixに用意されているSQLスクリプトを実行します。</p>
+
+<p>まず、DBを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; create database zabbix character set utf8 collate
+</code></pre></div></div>
+
+<p>次にzabbixに用意されているSQLスクリプトを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root -p zabbix &lt; database/mysql/schema.sql
+$ mysql -u root -p zabbix &lt; database/mysql/images.sql
+$ mysql -u root -p zabbix &lt; database/mysql/data.sql
+</code></pre></div></div>
+
+<h1 id="ソースを設定しインストールする">ソースを設定し、インストールする</h1>
+
+<p><code class="highlighter-rouge">./configure</code>を実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2
+</code></pre></div></div>
+
+<p>関連ソフトウェアが揃っていれば、エラーが表示されず終了します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***********************************************************
+*            Now run 'make install'                       *
+*                                                         *
+*            Thank you for using Zabbix!                  *
+*              &lt;http://www.zabbix.com&gt;                    *
+***********************************************************
+</code></pre></div></div>
+
+<p>設定が成功しました。言われた通り、<code class="highlighter-rouge">make install</code>を実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo make install
+</code></pre></div></div>
+
+<p>インストールが完了しました。</p>
+
+<h2 id="note-関連ソフトウェアがインストールされていない場合">NOTE: 関連ソフトウェアがインストールされていない場合</h2>
+
+<p>関連ソフトウェアがインストールされていないと、エラーになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>configure: error: LIBXML2 library not found
+</code></pre></div></div>
+
+<p>LIBXML2が見つからないため、<code class="highlighter-rouge">yum search libxml2</code>を実行してそれっぽいパッケージを探し、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install libxml2 libxml2-devel
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">./configure</code>を再実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>configure: error: Invalid Net-SNMP directory - unable to find net-snmp-config
+</code></pre></div></div>
+
+<p>Net-SNMPが見つからないため、<code class="highlighter-rouge">yum search net-snmp</code>を実行してそれっぽいパッケージを探し、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install net-snmp net-snmp-devel
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">./configure</code>を再実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>configure: error: Curl library not found
+</code></pre></div></div>
+
+<p>Curlライブラリが見つからないため、<code class="highlighter-rouge">yum search curl</code>を実行してそれっぽいパッケージを探し、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install curl libcurl libcurl-devel
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">./configure</code>を再実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***********************************************************
+*            Now run 'make install'                       *
+*                                                         *
+*            Thank you for using Zabbix!                  *
+*              &lt;http://www.zabbix.com&gt;                    *
+***********************************************************
+</code></pre></div></div>
+
+<p>設定が成功しました。</p>
+
+<h1 id="設定ファイルの編集">設定ファイルの編集</h1>
+
+<p>Zabbix Serverの設定ファイルは<code class="highlighter-rouge">/usr/local/etc/zabbix_server.conf</code>にあります。</p>
+
+<p>Zabbix Agentの設定ファイルは<code class="highlighter-rouge">/usr/local/etc/zabbix_agentd.conf</code>にあります。</p>
+
+<p>とりあえず今回は編集することがないので、そのままにしておきます。</p>
+
+<p><em>NOTE: <code class="highlighter-rouge">zabbix_agent.conf</code>というファイルもありますが、こちらは使用しないようです。</em></p>
+
+<h1 id="zabbix-serverとzabbix-agentを起動">Zabbix ServerとZabbix Agentを起動</h1>
+
+<p>Zabbix Serverを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ zabbix_server
+</code></pre></div></div>
+
+<p>Zabbix Agentを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ zabbix_agentd
+</code></pre></div></div>
+
+<p>コンソールには何も出力されないですが、これで起動します。<code class="highlighter-rouge">ps aux | grep zabbix</code>で起動していることが確認できます。</p>
+
+<h1 id="webインターフェイスをインストール">Webインターフェイスをインストール</h1>
+
+<p>Zabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install httpd php
+$ sudo chkconfig httpd on
+$ sudo service httpd start
+</code></pre></div></div>
+
+<p>Webインターフェイスをインストールします。単にWeb公開フォルダに配置するだけです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mkdir /var/www/html/zabbix
+$ cd frontends/php/
+$ sudo cp -a . /var/www/html/zabbix/
+$ sudo chown -R apache:apache /var/www/html/zabbix/
+</code></pre></div></div>
+
+<p>Webブラウザから<a href="http://localhost:18080/zabbix/">http://localhost:10080/zabbix/</a>にアクセスします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/001.png" alt="Zabbix Web Interface Installation 1" /></p>
+
+<p>「Next」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/002.png" alt="Zabbix Web Interface Installation 2" /></p>
+
+<p>必要要件がチェックされます。要件を満たしていない場合、「Fail」が表示されます。「Fail」にカーソルをポイントすると、どうすれば良いかが表示されます。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/003.png" alt="Zabbix Web Interface Installation 3" /></p>
+
+<p>ここでは、以下の項目が「Fail」になりました。</p>
+
+<ul>
+  <li>PHP option post_max_size</li>
+  <li>PHP option max_execution_time</li>
+  <li>PHP option max_input_time</li>
+  <li>PHP time zone</li>
+  <li>PHP databases support</li>
+  <li>PHP bcmath</li>
+  <li>PHP mbstring</li>
+  <li>PHP gd</li>
+  <li>PHP gd PNG support</li>
+  <li>PHP gd JPEG support</li>
+  <li>PHP gd FreeType support</li>
+  <li>PHP xmlwriter</li>
+  <li>PHP xmlreader</li>
+</ul>
+
+<p>これを解消します。</p>
+
+<p>まずPHPオプションを設定するため、<code class="highlighter-rouge">/var/www/html/zabbix/.htaccess</code>ファイルを作成し、内容を以下のようにします。</p>
+
+<pre><code class="language-apache:/var/www/html/zabbix/.htaccess">php_value post_max_size 16M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value date.timezone Asia/Tokyo
+</code></pre>
+
+<p><code class="highlighter-rouge">.htaccess</code>が禁止されている場合、<code class="highlighter-rouge">/etc/httpd/conf/httpd.conf</code>を編集します。</p>
+
+<pre><code class="language-apache:/etc/httpd/conf/httpd.conf">AllowOverride All
+</code></pre>
+
+<p>次に、PHPモジュールをインストールします。不足しているモジュールを「Fail」をクリックして調べて、<code class="highlighter-rouge">yum</code>でインストールしていきます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install php-mysql php-bcmath php-mbstring gd gd-devel php-gd php-xml
+</code></pre></div></div>
+
+<p>Apache HTTP Serverを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service httpd graceful
+</code></pre></div></div>
+
+<p>Webブラウザに戻り、「Retry」ボタンをクリックします。必要要件を満たしていれば、全て「OK」になります。まだ「Fail」が表示されている場合、個別に解消方法を調べてください。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/004.png" alt="Zabbix Web Interface Installation 4" /></p>
+
+<p>「Next」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/005.png" alt="Zabbix Web Interface Installation 5" /></p>
+
+<p>DB接続を設定します。設定を入力し、「Test connection」をクリックすることでDB接続を確認できます。ここは変更はしません。設定に問題が無ければ、「OK」が表示されます。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/006.png" alt="Zabbix Web Interface Installation 6" /></p>
+
+<p>「Next」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/007.png" alt="Zabbix Web Interface Installation 7" /></p>
+
+<p>Zabbix Serverの設定を入力します。ここでは何も変更しませんので、そのまま「Next」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/008.png" alt="Zabbix Web Interface Installation 8" /></p>
+
+<p>「Next」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/009.png" alt="Zabbix Web Interface Installation 9" /></p>
+
+<p>設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。</p>
+
+<h1 id="zabbixにログインしzabbix-server自体の監視を開始">Zabbixにログインし、Zabbix Server自体の監視を開始</h1>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/010.png" alt="Login" /></p>
+
+<p>インストールが完了すると、ログインページが表示されます。初期ユーザーは「Admin」、パスワードは「zabbix」になっていますので、入力して「Sign in」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/011.png" alt="Dashboard" /></p>
+
+<p>ログインすると、ダッシュボードが表示されます。すぐにAdminユーザーのパスワード変更や、作業ユーザーの作成などを行うべきですが、ここではとりあえずスキップします。</p>
+
+<p>Zabbix Server自体の監視を有効にするため、メニューの「Configuration」→「Hosts」をクリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/012.png" alt="Hosts" /></p>
+
+<p>リストに「Zabbix server」が表示されますので、クリックします。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/013.png" alt="Hosts" /></p>
+
+<p>「Status」を「Monitored」に変更して、「Save」をクリックして設定を保存します。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/014.png" alt="Hosts" /></p>
+
+<p>リストの「Zabbix server」の「Status」が「Monitored」に変わっていることがわかります。</p>
+
+<p>メニューの「Monitoring」→「Graphs」をクリックして、「Graph」を適当に、例えば「CPU load」に設定すると、グラフが表示されて監視できていることがわかります。</p>
+
+<p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/015.png" alt="Graph" /></p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>これでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。</p>
+
+<h2 id="note-zabbix-server-on-openshiftを諦めたわけ">NOTE: Zabbix Server on OpenShiftを諦めたわけ</h2>
+
+<p>OpenShiftではポートを開けられないっぽい。<code class="highlighter-rouge">rhc port-forward</code>はローカル→OpenShiftのsshフォワーディングであり用途が違うし…</p>
+
+<ul>
+  <li>参考
+    <ul>
+      <li><a href="https://blog.openshift.com/getting-started-with-port-forwarding-on-openshift/">Getting Started with Port Forwarding on OpenShift – OpenShift Blog</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>AWSかDigitalOceanにZabbix Serverを建てる方向で検討します。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#vagrant" class="page__taxonomy-item" rel="tag">Vagrant</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#zabbix" class="page__taxonomy-item" rel="tag">Zabbix</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-22T05:34:00+09:00">2015-02-22</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Zabbix%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E7%B0%A1%E5%8D%98%E3%81%AB%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E3%82%92%E8%A1%8C%E3%81%86%20%2F2015%2F02%2F22%2Finstall-zabbix-and-verify.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F02%2F22%2Finstall-zabbix-and-verify.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F02%2F22%2Finstall-zabbix-and-verify.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F02%2F22%2Finstall-zabbix-and-verify.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/02/19/introduction-to-dropwizard.html" class="pagination--pager" title="Dropwizard入門
+">Previous</a>
+    
+    
+      <a href="/2015/03/06/introduction-to-spring-boot.html" class="pagination--pager" title="Spring Boot入門
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

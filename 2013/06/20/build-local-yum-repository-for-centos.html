@@ -1,0 +1,638 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>CentOSのローカルyumリポジトリの作り方 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。概要例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。  サーバーAの作業          1.必要なソフトウェア(yum-utils、createrepo)をインストールする。      2.reposyncとcreaterepoで、ローカルyumリポジトリを作る。      3.cronで定期更新するように設定する。        サーバーBの作業          4.ローカルyumリポジトリを置くディレクトリを作成する。      5.CentOS-Base.repoを修正する。      6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。      1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。以下のコマンドを実行します。# yum -y install yum-utils createrepoyum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。/var/www/html/yum-repo/にローカルyumリポジトリを作る場合、/usr/local/bin/yum-repo-sync.shを以下のように作成します。#!/bin/shyum -y updatecd /var/www/html/yum-repo/reposync -r base -n -t /var/cache/yumcreaterepo base/reposync -r updates -n -t /var/cache/yumcreaterepo updates/reposync -r extras -n -t /var/cache/yumcreaterepo extras/reposync -r centosplus -n -t /var/cache/yumcreaterepo centosplus/reposync -r contrib -n -t /var/cache/yumcreaterepo contrib/作成したら実行して、正常に完了するか確認します。なお、初回はすごく時間がかかります。(数時間単位)このスクリプトの内容を説明します。/etc/yum.repos.d/CentOS-Base.repoを見ると、yumリポジトリが以下のように分かれていることが分かります。  base  updates  extras  centosplus  contrib各リポジトリは、rpmファイルとリポジトリデータで構成されます。例えば、baseだと以下のようになります。  base/          Packages/                  RPMファイル群                    repodata/                  リポジトリデータファイル                    reposyncで、指定したリポジトリ名のファイルをPackagesディレクトリにコピーします。これだけだと単にファイルをコピーしただけなので、createrepoで指定ディレクトリ以下のファイルを読み込んで、リポジトリデータファイルを作成します。これを各リポジトリの分だけ繰り返します。なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。3. cronで定期更新するように設定する。yum-repo-sync.shを、例えば1日ごとに実行するように、cronで設定します。# crontab -e0 0 * * * /usr/local/bin/yum-repo-sync.shこれを行うことで、ローカルyumリポジトリを最新に保つことが出来ます。以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。4. ローカルyumリポジトリを置くディレクトリを作成する。次に、サーバーB側の作業を行います。まず、ローカルyumリポジトリを置くディレクトリを作成します。ここでは、サーバーAと同じ/var/www/html/yum-repo/とします。# mkdir /var/www/html/yum-repo5. CentOS-Base.repoを修正する。yumが参照するリポジトリの場所は、/etc/yum.repos.d/CentOS-Base.repoに設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=osbaseurl=file:///var/www/html/yum-repo/base/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#released updates[updates]name=CentOS-$releasever - Updates#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updatesbaseurl=file:///var/www/html/yum-repo/updates/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that may be useful[extras]name=CentOS-$releasever - Extras#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extrasbaseurl=file:///var/www/html/yum-repo/extras/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that extend functionality of existing packages[centosplus]name=CentOS-$releasever - Plus#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplusbaseurl=file:///var/www/html/yum-repo/centosplus/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#contrib - packages by Centos Users[contrib]name=CentOS-$releasever - Contrib#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contribbaseurl=file:///var/www/html/yum-repo/contrib/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-66. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。媒体は何を使っても良いですが、サーバーAの/var/www/html/yum-repo/以下の全てのファイルを、サーバーBの/var/www/html/yum-repo/にコピーします。外付けHDDをmountして、rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/などのようにコピーします。サーバーBへのコピーが完了したら、試しにyum updateしてみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。備考  作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。  EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="CentOSのローカルyumリポジトリの作り方">
+
+
+
+
+  <meta property="og:description" content="セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。概要例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。  サーバーAの作業          1.必要なソフトウェア(yum-utils、createrepo)をインストールする。      2.reposyncとcreaterepoで、ローカルyumリポジトリを作る。      3.cronで定期更新するように設定する。        サーバーBの作業          4.ローカルyumリポジトリを置くディレクトリを作成する。      5.CentOS-Base.repoを修正する。      6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。      1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。以下のコマンドを実行します。# yum -y install yum-utils createrepoyum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。/var/www/html/yum-repo/にローカルyumリポジトリを作る場合、/usr/local/bin/yum-repo-sync.shを以下のように作成します。#!/bin/shyum -y updatecd /var/www/html/yum-repo/reposync -r base -n -t /var/cache/yumcreaterepo base/reposync -r updates -n -t /var/cache/yumcreaterepo updates/reposync -r extras -n -t /var/cache/yumcreaterepo extras/reposync -r centosplus -n -t /var/cache/yumcreaterepo centosplus/reposync -r contrib -n -t /var/cache/yumcreaterepo contrib/作成したら実行して、正常に完了するか確認します。なお、初回はすごく時間がかかります。(数時間単位)このスクリプトの内容を説明します。/etc/yum.repos.d/CentOS-Base.repoを見ると、yumリポジトリが以下のように分かれていることが分かります。  base  updates  extras  centosplus  contrib各リポジトリは、rpmファイルとリポジトリデータで構成されます。例えば、baseだと以下のようになります。  base/          Packages/                  RPMファイル群                    repodata/                  リポジトリデータファイル                    reposyncで、指定したリポジトリ名のファイルをPackagesディレクトリにコピーします。これだけだと単にファイルをコピーしただけなので、createrepoで指定ディレクトリ以下のファイルを読み込んで、リポジトリデータファイルを作成します。これを各リポジトリの分だけ繰り返します。なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。3. cronで定期更新するように設定する。yum-repo-sync.shを、例えば1日ごとに実行するように、cronで設定します。# crontab -e0 0 * * * /usr/local/bin/yum-repo-sync.shこれを行うことで、ローカルyumリポジトリを最新に保つことが出来ます。以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。4. ローカルyumリポジトリを置くディレクトリを作成する。次に、サーバーB側の作業を行います。まず、ローカルyumリポジトリを置くディレクトリを作成します。ここでは、サーバーAと同じ/var/www/html/yum-repo/とします。# mkdir /var/www/html/yum-repo5. CentOS-Base.repoを修正する。yumが参照するリポジトリの場所は、/etc/yum.repos.d/CentOS-Base.repoに設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=osbaseurl=file:///var/www/html/yum-repo/base/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#released updates[updates]name=CentOS-$releasever - Updates#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updatesbaseurl=file:///var/www/html/yum-repo/updates/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that may be useful[extras]name=CentOS-$releasever - Extras#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extrasbaseurl=file:///var/www/html/yum-repo/extras/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that extend functionality of existing packages[centosplus]name=CentOS-$releasever - Plus#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplusbaseurl=file:///var/www/html/yum-repo/centosplus/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#contrib - packages by Centos Users[contrib]name=CentOS-$releasever - Contrib#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contribbaseurl=file:///var/www/html/yum-repo/contrib/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-66. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。媒体は何を使っても良いですが、サーバーAの/var/www/html/yum-repo/以下の全てのファイルを、サーバーBの/var/www/html/yum-repo/にコピーします。外付けHDDをmountして、rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/などのようにコピーします。サーバーBへのコピーが完了したら、試しにyum updateしてみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。備考  作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。  EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="CentOSのローカルyumリポジトリの作り方">
+  <meta name="twitter:description" content="セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。概要例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。  サーバーAの作業          1.必要なソフトウェア(yum-utils、createrepo)をインストールする。      2.reposyncとcreaterepoで、ローカルyumリポジトリを作る。      3.cronで定期更新するように設定する。        サーバーBの作業          4.ローカルyumリポジトリを置くディレクトリを作成する。      5.CentOS-Base.repoを修正する。      6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。      1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。以下のコマンドを実行します。# yum -y install yum-utils createrepoyum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。/var/www/html/yum-repo/にローカルyumリポジトリを作る場合、/usr/local/bin/yum-repo-sync.shを以下のように作成します。#!/bin/shyum -y updatecd /var/www/html/yum-repo/reposync -r base -n -t /var/cache/yumcreaterepo base/reposync -r updates -n -t /var/cache/yumcreaterepo updates/reposync -r extras -n -t /var/cache/yumcreaterepo extras/reposync -r centosplus -n -t /var/cache/yumcreaterepo centosplus/reposync -r contrib -n -t /var/cache/yumcreaterepo contrib/作成したら実行して、正常に完了するか確認します。なお、初回はすごく時間がかかります。(数時間単位)このスクリプトの内容を説明します。/etc/yum.repos.d/CentOS-Base.repoを見ると、yumリポジトリが以下のように分かれていることが分かります。  base  updates  extras  centosplus  contrib各リポジトリは、rpmファイルとリポジトリデータで構成されます。例えば、baseだと以下のようになります。  base/          Packages/                  RPMファイル群                    repodata/                  リポジトリデータファイル                    reposyncで、指定したリポジトリ名のファイルをPackagesディレクトリにコピーします。これだけだと単にファイルをコピーしただけなので、createrepoで指定ディレクトリ以下のファイルを読み込んで、リポジトリデータファイルを作成します。これを各リポジトリの分だけ繰り返します。なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。3. cronで定期更新するように設定する。yum-repo-sync.shを、例えば1日ごとに実行するように、cronで設定します。# crontab -e0 0 * * * /usr/local/bin/yum-repo-sync.shこれを行うことで、ローカルyumリポジトリを最新に保つことが出来ます。以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。4. ローカルyumリポジトリを置くディレクトリを作成する。次に、サーバーB側の作業を行います。まず、ローカルyumリポジトリを置くディレクトリを作成します。ここでは、サーバーAと同じ/var/www/html/yum-repo/とします。# mkdir /var/www/html/yum-repo5. CentOS-Base.repoを修正する。yumが参照するリポジトリの場所は、/etc/yum.repos.d/CentOS-Base.repoに設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=osbaseurl=file:///var/www/html/yum-repo/base/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#released updates[updates]name=CentOS-$releasever - Updates#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updatesbaseurl=file:///var/www/html/yum-repo/updates/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that may be useful[extras]name=CentOS-$releasever - Extras#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extrasbaseurl=file:///var/www/html/yum-repo/extras/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that extend functionality of existing packages[centosplus]name=CentOS-$releasever - Plus#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplusbaseurl=file:///var/www/html/yum-repo/centosplus/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#contrib - packages by Centos Users[contrib]name=CentOS-$releasever - Contrib#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contribbaseurl=file:///var/www/html/yum-repo/contrib/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-66. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。媒体は何を使っても良いですが、サーバーAの/var/www/html/yum-repo/以下の全てのファイルを、サーバーBの/var/www/html/yum-repo/にコピーします。外付けHDDをmountして、rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/などのようにコピーします。サーバーBへのコピーが完了したら、試しにyum updateしてみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。備考  作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。  EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2013-06-20T19:34:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CentOSのローカルyumリポジトリの作り方">
+    <meta itemprop="description" content="セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。概要例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。  サーバーAの作業          1.必要なソフトウェア(yum-utils、createrepo)をインストールする。      2.reposyncとcreaterepoで、ローカルyumリポジトリを作る。      3.cronで定期更新するように設定する。        サーバーBの作業          4.ローカルyumリポジトリを置くディレクトリを作成する。      5.CentOS-Base.repoを修正する。      6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。      1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。以下のコマンドを実行します。# yum -y install yum-utils createrepoyum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。/var/www/html/yum-repo/にローカルyumリポジトリを作る場合、/usr/local/bin/yum-repo-sync.shを以下のように作成します。#!/bin/shyum -y updatecd /var/www/html/yum-repo/reposync -r base -n -t /var/cache/yumcreaterepo base/reposync -r updates -n -t /var/cache/yumcreaterepo updates/reposync -r extras -n -t /var/cache/yumcreaterepo extras/reposync -r centosplus -n -t /var/cache/yumcreaterepo centosplus/reposync -r contrib -n -t /var/cache/yumcreaterepo contrib/作成したら実行して、正常に完了するか確認します。なお、初回はすごく時間がかかります。(数時間単位)このスクリプトの内容を説明します。/etc/yum.repos.d/CentOS-Base.repoを見ると、yumリポジトリが以下のように分かれていることが分かります。  base  updates  extras  centosplus  contrib各リポジトリは、rpmファイルとリポジトリデータで構成されます。例えば、baseだと以下のようになります。  base/          Packages/                  RPMファイル群                    repodata/                  リポジトリデータファイル                    reposyncで、指定したリポジトリ名のファイルをPackagesディレクトリにコピーします。これだけだと単にファイルをコピーしただけなので、createrepoで指定ディレクトリ以下のファイルを読み込んで、リポジトリデータファイルを作成します。これを各リポジトリの分だけ繰り返します。なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。3. cronで定期更新するように設定する。yum-repo-sync.shを、例えば1日ごとに実行するように、cronで設定します。# crontab -e0 0 * * * /usr/local/bin/yum-repo-sync.shこれを行うことで、ローカルyumリポジトリを最新に保つことが出来ます。以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。4. ローカルyumリポジトリを置くディレクトリを作成する。次に、サーバーB側の作業を行います。まず、ローカルyumリポジトリを置くディレクトリを作成します。ここでは、サーバーAと同じ/var/www/html/yum-repo/とします。# mkdir /var/www/html/yum-repo5. CentOS-Base.repoを修正する。yumが参照するリポジトリの場所は、/etc/yum.repos.d/CentOS-Base.repoに設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=osbaseurl=file:///var/www/html/yum-repo/base/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#released updates[updates]name=CentOS-$releasever - Updates#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updatesbaseurl=file:///var/www/html/yum-repo/updates/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that may be useful[extras]name=CentOS-$releasever - Extras#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extrasbaseurl=file:///var/www/html/yum-repo/extras/gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#additional packages that extend functionality of existing packages[centosplus]name=CentOS-$releasever - Plus#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplusbaseurl=file:///var/www/html/yum-repo/centosplus/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6#contrib - packages by Centos Users[contrib]name=CentOS-$releasever - Contrib#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contribbaseurl=file:///var/www/html/yum-repo/contrib/gpgcheck=1enabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-66. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。媒体は何を使っても良いですが、サーバーAの/var/www/html/yum-repo/以下の全てのファイルを、サーバーBの/var/www/html/yum-repo/にコピーします。外付けHDDをmountして、rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/などのようにコピーします。サーバーBへのコピーが完了したら、試しにyum updateしてみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。備考  作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。  EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。">
+    <meta itemprop="datePublished" content="2013-06-20">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">CentOSのローカルyumリポジトリの作り方
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2013-06-20T19:34:00+09:00">2013-06-20</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。</p>
+
+<p>そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。</p>
+
+<!-- more -->
+
+<h1 id="概要">概要</h1>
+
+<p>例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。</p>
+
+<p><img src="/assets/img/2013-06-20-build-local-yum-repository-for-centos/001.png" alt="" /></p>
+
+<p>これを解消するために、ローカルにyumリポジトリを作ることで、yumを使えるようにすることが出来ます。</p>
+
+<p><img src="/assets/img/2013-06-20-build-local-yum-repository-for-centos/002.png" alt="" /></p>
+
+<p>また、多数のCentOSサーバーを抱えている場合、ローカルyumリポジトリを参照することで、回線負荷と処理時間を低減することが出来ます。</p>
+
+<p><img src="/assets/img/2013-06-20-build-local-yum-repository-for-centos/003.png" alt="" /></p>
+
+<p>この記事では、インターネットから切り離されたCentOSサーバーでyumを使えるようにする方法を説明します。手順は、以下の通りです。</p>
+
+<ul>
+  <li>サーバーAの作業
+    <ul>
+      <li>1.必要なソフトウェア(yum-utils、createrepo)をインストールする。</li>
+      <li>2.reposyncとcreaterepoで、ローカルyumリポジトリを作る。</li>
+      <li>3.cronで定期更新するように設定する。</li>
+    </ul>
+  </li>
+  <li>サーバーBの作業
+    <ul>
+      <li>4.ローカルyumリポジトリを置くディレクトリを作成する。</li>
+      <li>5.CentOS-Base.repoを修正する。</li>
+      <li>6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="1-必要なソフトウェアyum-utilscreaterepoをインストールする">1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。</h1>
+
+<p>以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum -y install yum-utils createrepo
+</code></pre></div></div>
+
+<p>yum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。</p>
+
+<h1 id="2-reposyncとcreaterepoでローカルyumリポジトリを作る">2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。</h1>
+
+<p><code class="highlighter-rouge">/var/www/html/yum-repo/</code>にローカルyumリポジトリを作る場合、<code class="highlighter-rouge">/usr/local/bin/yum-repo-sync.sh</code>を以下のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+yum <span class="nt">-y</span> update
+
+<span class="nb">cd</span> /var/www/html/yum-repo/
+
+reposync <span class="nt">-r</span> base <span class="nt">-n</span> <span class="nt">-t</span> /var/cache/yum
+createrepo base/
+reposync <span class="nt">-r</span> updates <span class="nt">-n</span> <span class="nt">-t</span> /var/cache/yum
+createrepo updates/
+reposync <span class="nt">-r</span> extras <span class="nt">-n</span> <span class="nt">-t</span> /var/cache/yum
+createrepo extras/
+reposync <span class="nt">-r</span> centosplus <span class="nt">-n</span> <span class="nt">-t</span> /var/cache/yum
+createrepo centosplus/
+reposync <span class="nt">-r</span> contrib <span class="nt">-n</span> <span class="nt">-t</span> /var/cache/yum
+createrepo contrib/
+</code></pre></div></div>
+
+<p>作成したら実行して、正常に完了するか確認します。なお、初回はすごく時間がかかります。(数時間単位)</p>
+
+<p>このスクリプトの内容を説明します。</p>
+
+<p><code class="highlighter-rouge">/etc/yum.repos.d/CentOS-Base.repo</code>を見ると、yumリポジトリが以下のように分かれていることが分かります。</p>
+
+<ul>
+  <li>base</li>
+  <li>updates</li>
+  <li>extras</li>
+  <li>centosplus</li>
+  <li>contrib</li>
+</ul>
+
+<p>各リポジトリは、rpmファイルとリポジトリデータで構成されます。例えば、baseだと以下のようになります。</p>
+
+<ul>
+  <li>base/
+    <ul>
+      <li>Packages/
+        <ul>
+          <li>RPMファイル群</li>
+        </ul>
+      </li>
+      <li>repodata/
+        <ul>
+          <li>リポジトリデータファイル</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>reposyncで、指定したリポジトリ名のファイルをPackagesディレクトリにコピーします。これだけだと単にファイルをコピーしただけなので、createrepoで指定ディレクトリ以下のファイルを読み込んで、リポジトリデータファイルを作成します。これを各リポジトリの分だけ繰り返します。</p>
+
+<p>なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。</p>
+
+<h1 id="3-cronで定期更新するように設定する">3. cronで定期更新するように設定する。</h1>
+
+<p><code class="highlighter-rouge">yum-repo-sync.sh</code>を、例えば1日ごとに実行するように、cronで設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># crontab -e
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 0 * * * /usr/local/bin/yum-repo-sync.sh
+</code></pre></div></div>
+
+<p>これを行うことで、ローカルyumリポジトリを最新に保つことが出来ます。</p>
+
+<p>以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。</p>
+
+<h1 id="4-ローカルyumリポジトリを置くディレクトリを作成する">4. ローカルyumリポジトリを置くディレクトリを作成する。</h1>
+
+<p>次に、サーバーB側の作業を行います。</p>
+
+<p>まず、ローカルyumリポジトリを置くディレクトリを作成します。ここでは、サーバーAと同じ<code class="highlighter-rouge">/var/www/html/yum-repo/</code>とします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mkdir /var/www/html/yum-repo
+</code></pre></div></div>
+
+<h1 id="5-centos-baserepoを修正する">5. CentOS-Base.repoを修正する。</h1>
+
+<p>yumが参照するリポジトリの場所は、<code class="highlighter-rouge">/etc/yum.repos.d/CentOS-Base.repo</code>に設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os
+baseurl=file:///var/www/html/yum-repo/base/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+#released updates
+[updates]
+name=CentOS-$releasever - Updates
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates
+baseurl=file:///var/www/html/yum-repo/updates/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras
+baseurl=file:///var/www/html/yum-repo/extras/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus
+baseurl=file:///var/www/html/yum-repo/centosplus/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+#contrib - packages by Centos Users
+[contrib]
+name=CentOS-$releasever - Contrib
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contrib
+baseurl=file:///var/www/html/yum-repo/contrib/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+</code></pre></div></div>
+
+<h1 id="6-サーバーaに作ったローカルyumリポジトリを外付けhddなどでサーバーbにコピーする">6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。</h1>
+
+<p>媒体は何を使っても良いですが、サーバーAの<code class="highlighter-rouge">/var/www/html/yum-repo/</code>以下の全てのファイルを、サーバーBの<code class="highlighter-rouge">/var/www/html/yum-repo/</code>にコピーします。外付けHDDをmountして、</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/
+</code></pre></div></div>
+
+<p>などのようにコピーします。</p>
+
+<p>サーバーBへのコピーが完了したら、試しに<code class="highlighter-rouge">yum update</code>してみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。</p>
+
+<h1 id="備考">備考</h1>
+
+<ul>
+  <li>作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。</li>
+  <li>EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E6%89%8B%E9%A0%86" class="page__taxonomy-item" rel="tag">手順</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2013-06-20T19:34:00+09:00">2013-06-20</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=CentOS%E3%81%AE%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AByum%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E4%BD%9C%E3%82%8A%E6%96%B9%20%2F2013%2F06%2F20%2Fbuild-local-yum-repository-for-centos.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2013%2F06%2F20%2Fbuild-local-yum-repository-for-centos.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2013%2F06%2F20%2Fbuild-local-yum-repository-for-centos.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2013%2F06%2F20%2Fbuild-local-yum-repository-for-centos.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2013/03/13/setup-git-and-tortoisegit.html" class="pagination--pager" title="GitとTortoiseGitのセットアップ手順
+">Previous</a>
+    
+    
+      <a href="/2013/06/25/how-to-devour-knowledge-version-201306.html" class="pagination--pager" title="情報インプット・アウトプット経路 (2013/6版)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

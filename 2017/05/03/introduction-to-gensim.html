@@ -1,0 +1,762 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>gensim入門 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="gensim入門">
+
+
+
+
+  <meta property="og:description" content="手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="gensim入門">
+  <meta name="twitter:description" content="手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-05-03T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="gensim入門">
+    <meta itemprop="description" content="手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。">
+    <meta itemprop="datePublished" content="2017-05-03">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">gensim入門
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-03T00:00:00+09:00">2017-05-03</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。</p>
+
+<h1 id="トピック分析ldagensimとは">トピック分析、LDA、gensimとは</h1>
+
+<p>詳しく理解してはいないので、簡単に言うと、</p>
+
+<ul>
+  <li>トピック分析とは、大量の文章からいくつかのトピックを分類して、与えられた文章がどのトピックに属するかを分類する手法</li>
+  <li>LDAとは、トピック分析の1種</li>
+  <li>gensimとは、トピック分析を行うことができるPython製のソフトウェア</li>
+</ul>
+
+<p>gensimを使ったトピック分析は、以下の手順で行えるようです。</p>
+
+<ul>
+  <li>文章を準備</li>
+  <li>文章を単語ごとに分割、調整</li>
+  <li>辞書を作成</li>
+  <li>コーパスを作成</li>
+  <li>LDAモデルを作成</li>
+  <li>分類したい文章をLDAモデルで分類</li>
+</ul>
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>Docker
+    <ul>
+      <li>Python 2環境を作るのが面倒だったのでDockerを使っているだけです。</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker version
+Client:
+ Version:      17.03.1-ce
+ API version:  1.27
+ Go version:   go1.7.5
+ Git commit:   c6d412e
+ Built:        Tue Mar 28 00:40:02 2017
+ OS/Arch:      windows/amd64
+
+Server:
+ Version:      17.04.0-ce
+ API version:  1.28 (minimum version 1.12)
+ Go version:   go1.7.5
+ Git commit:   4845c56
+ Built:        Wed Apr  5 18:45:47 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+</code></pre></div></div>
+
+<ul>
+  <li>Python 2</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># python --version
+Python 2.7.13
+</code></pre></div></div>
+
+<ul>
+  <li>gensim 2.0.0</li>
+</ul>
+
+<h1 id="手順">手順</h1>
+
+<p>pythonコンテナを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -it python:2 bash
+</code></pre></div></div>
+
+<p>gensimをインストールします。それなりに時間がかかります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># pip install gensim
+Collecting gensim
+  Downloading gensim-2.0.0.tar.gz (14.1MB)
+    100% |████████████████████████████████| 14.2MB 51kB/s
+Collecting numpy&gt;=1.3 (from gensim)
+  Downloading numpy-1.12.1-cp27-cp27mu-manylinux1_x86_64.whl (16.5MB)
+    100% |████████████████████████████████| 16.5MB 60kB/s
+Collecting scipy&gt;=0.7.0 (from gensim)
+  Downloading scipy-0.19.0-cp27-cp27mu-manylinux1_x86_64.whl (45.0MB)
+    100% |████████████████████████████████| 45.0MB 25kB/s
+Requirement already satisfied: six&gt;=1.5.0 in /usr/local/lib/python2.7/site-packages (from gensim)
+Collecting smart_open&gt;=1.2.1 (from gensim)
+  Downloading smart_open-1.5.2.tar.gz
+Collecting boto&gt;=2.32 (from smart_open&gt;=1.2.1-&gt;gensim)
+  Downloading boto-2.46.1-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 488kB/s
+Collecting bz2file (from smart_open&gt;=1.2.1-&gt;gensim)
+  Downloading bz2file-0.98.tar.gz
+Collecting requests (from smart_open&gt;=1.2.1-&gt;gensim)
+  Downloading requests-2.13.0-py2.py3-none-any.whl (584kB)
+    100% |████████████████████████████████| 593kB 1.4MB/s
+Building wheels for collected packages: gensim, smart-open, bz2file
+  Running setup.py bdist_wheel for gensim ... done
+  Stored in directory: /root/.cache/pip/wheels/e9/5f/e7/4ff23a3fe4b181b44f37eed5602f179c1cc92a0a34f337e745
+  Running setup.py bdist_wheel for smart-open ... done
+  Stored in directory: /root/.cache/pip/wheels/02/44/43/68e963ce2b45baefa913a4e558bcd787403458afddffcf45ca
+  Running setup.py bdist_wheel for bz2file ... done
+  Stored in directory: /root/.cache/pip/wheels/31/9c/20/996d65ca104cbca940b1b053299b68459391c01c774d073126
+Successfully built gensim smart-open bz2file
+Installing collected packages: numpy, scipy, boto, bz2file, requests, smart-open, gensim
+Successfully installed boto-2.46.1 bz2file-0.98 gensim-2.0.0 numpy-1.12.1 requests-2.13.0 scipy-0.19.0 smart-open-1.5.2
+</code></pre></div></div>
+
+<p>pythonインタープリタを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># python
+Python 2.7.13 (default, Mar 22 2017, 22:44:40)
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt;
+</code></pre></div></div>
+
+<p>gensimをインポートして使用可能にします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; import gensim
+&gt;&gt;&gt; from gensim import corpora
+</code></pre></div></div>
+
+<p>解析対象の文章を準備します。ここでは、短い文章を9個準備しています。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; documents = ["Human machine interface for lab abc computer applications",
+...              "A survey of user opinion of computer system response time",
+...              "The EPS user interface management system",
+...              "System and human system engineering testing of EPS",
+...              "Relation of user perceived response time to error measurement",
+...              "The generation of random binary unordered trees",
+...              "The intersection graph of paths in trees",
+...              "Graph minors IV Widths of trees and well quasi ordering",
+...              "Graph minors A survey"]
+</code></pre></div></div>
+
+<p>文を単語に分割した配列にします。単語配列には分析において無意味な単語も含まれるので、ストップ・ワードを定義して、単語配列から除去します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; # ストップワードを定義
+&gt;&gt;&gt; stop_words = set('for a of the and to in'.split())
+
+&gt;&gt;&gt; # 文を単語に分割し、ストップワードを除去した配列を作成
+&gt;&gt;&gt; texts = [[word for word in document.lower().split() if word not in stop_words] for document in documents]
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE:</strong> 分析に意味のない単語が含まれていても困るので、単語群から無意味な単語を除去しますが、いくつかの方法があります。「名詞以外の単語を除去」「ストップ・ワードを明示的に定義して除去」「高頻度すぎる・低頻度すぎる単語を除去」「TF-IDFで単語の重要度を算出して、重要度が低い単語を除去」など。</p>
+</blockquote>
+
+<p>texts変数の内容は、以下のようになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; from pprint import pprint
+&gt;&gt;&gt; pprint(texts)
+[['human', 'machine', 'interface', 'lab', 'abc', 'computer', 'applications'],
+ ['survey', 'user', 'opinion', 'computer', 'system', 'response', 'time'],
+ ['eps', 'user', 'interface', 'management', 'system'],
+ ['system', 'human', 'system', 'engineering', 'testing', 'eps'],
+ ['relation', 'user', 'perceived', 'response', 'time', 'error', 'measurement'],
+ ['generation', 'random', 'binary', 'unordered', 'trees'],
+ ['intersection', 'graph', 'paths', 'trees'],
+ ['graph', 'minors', 'iv', 'widths', 'trees', 'well', 'quasi', 'ordering'],
+ ['graph', 'minors', 'survey']]
+</code></pre></div></div>
+
+<p>texts変数から、1回しか出現していない単語を除去します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; # 単語の出現回数を格納するfrequency変数を定義
+&gt;&gt;&gt; from collections import defaultdict
+&gt;&gt;&gt; frequency = defaultdict(int)
+
+&gt;&gt;&gt; # 単語の出現回数をfrequency変数でカウント
+&gt;&gt;&gt; for text in texts:
+...     for token in text:
+...         frequency[token] += 1
+
+&gt;&gt;&gt; # frequency変数で1より上の単語のみを配列に構築
+&gt;&gt;&gt; texts = [[token for token in text if frequency[token] &gt; 1] for text in texts]
+</code></pre></div></div>
+
+<p>texts変数の内容を確認すると、単語出現回数1の単語が除去されていることが分かります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; pprint(texts)
+[['human', 'interface', 'computer'],
+ ['survey', 'user', 'computer', 'system', 'response', 'time'],
+ ['eps', 'user', 'interface', 'system'],
+ ['system', 'human', 'system', 'eps'],
+ ['user', 'response', 'time'],
+ ['trees'],
+ ['graph', 'trees'],
+ ['graph', 'minors', 'trees'],
+ ['graph', 'minors', 'survey']]
+</code></pre></div></div>
+
+<p>辞書を作成します。辞書とはここでは、単語ID・単語・単語出現回数を持つデータのことです。</p>
+
+<p>作成した辞書は<code class="highlighter-rouge">save</code>または<code class="highlighter-rouge">save_as_text</code>でファイルに保存することができ、<code class="highlighter-rouge">load</code>または<code class="highlighter-rouge">load_from_text</code>で読み込むことで使いまわすことができます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; dictionary = corpora.Dictionary(texts)
+
+&gt;&gt;&gt; # ファイルに保存できます
+&gt;&gt;&gt; dictionary.save('/tmp/deerwester.dict')
+
+&gt;&gt;&gt; # テキストファイルに保存することもできます
+&gt;&gt;&gt; dictionary.save_as_text('/tmp/deerwester.dict.txt')
+</code></pre></div></div>
+
+<p>辞書をテキストファイルに保存すると、内容は以下のようになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cat /tmp/deerwester.dict.txt
+1       computer        2
+8       eps     2
+10      graph   3
+2       human   2
+0       interface       2
+11      minors  2
+3       response        2
+5       survey  2
+6       system  3
+4       time    2
+9       trees   3
+7       user    3
+</code></pre></div></div>
+
+<p>コーパスを作成します。コーパスとはここでは、文章ごとに「単語ID・出現頻度」タプル配列を持つデータのことです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; corpus = [dictionary.doc2bow(text) for text in texts]
+
+&gt;&gt;&gt; # ファイルに保存できる
+&gt;&gt;&gt; corpora.MmCorpus.serialize('/tmp/deerwester.mm', corpus)
+</code></pre></div></div>
+
+<p>コーパスは、以下のような内容になります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; pprint(corpus)
+[[(0, 1), (1, 1), (2, 1)],
+ [(1, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)],
+ [(0, 1), (6, 1), (7, 1), (8, 1)],
+ [(2, 1), (6, 2), (8, 1)],
+ [(3, 1), (4, 1), (7, 1)],
+ [(9, 1)],
+ [(9, 1), (10, 1)],
+ [(9, 1), (10, 1), (11, 1)],
+ [(5, 1), (10, 1), (11, 1)]]
+</code></pre></div></div>
+
+<p>LDAモデルを構築します。ここで、モデルが持つトピック数を指定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; # num_topics=5で、5個のトピックを持つLDAモデルを作成
+&gt;&gt;&gt; lda = gensim.models.ldamodel.LdaModel(corpus=corpus, num_topics=5, id2word=dictionary)
+</code></pre></div></div>
+
+<p>トピックは以下のように構築されます。トピックが5個あり、トピックは単語・適合度の組み合わせで構築されていることが分かります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; pprint(lda.show_topics())
+[(0,
+  u'0.256*"trees" + 0.178*"system" + 0.177*"graph" + 0.097*"human" + 0.097*"eps" + 0.097*"minors" + 0.016*"time" + 0.016*"interface" + 0.016*"computer" + 0.016*"user"'),
+ (1,
+  u'0.086*"trees" + 0.084*"graph" + 0.083*"eps" + 0.083*"interface" + 0.083*"computer" + 0.083*"system" + 0.083*"minors" + 0.083*"survey" + 0.083*"time" + 0.083*"human"'),
+ (2,
+  u'0.207*"user" + 0.143*"system" + 0.142*"response" + 0.142*"time" + 0.078*"computer" + 0.078*"survey" + 0.078*"eps" + 0.078*"interface" + 0.014*"trees" + 0.013*"graph"'),
+ (3,
+  u'0.220*"interface" + 0.220*"human" + 0.220*"computer" + 0.039*"trees" + 0.038*"graph" + 0.038*"system" + 0.038*"minors" + 0.037*"eps" + 0.037*"survey" + 0.037*"user"'),
+ (4,
+  u'0.221*"graph" + 0.220*"survey" + 0.220*"minors" + 0.039*"trees" + 0.038*"system" + 0.038*"human" + 0.037*"time" + 0.037*"eps" + 0.037*"interface" + 0.037*"user"')]
+</code></pre></div></div>
+
+<p>これで、トピック分析を行う準備ができました。</p>
+
+<p>分析したい文章を定義します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 文を定義
+test_documents = ["Computer themselves and software yet to be developed will revolutionize the way we learn"]
+
+# 単語を分割
+test_texts = [[word for word in document.lower().split()] for document in test_documents]
+
+# 既存の辞書を使用して、コーパスを作成
+test_corpus = [dictionary.doc2bow(text) for text in test_texts]
+</code></pre></div></div>
+
+<p>test_corpus変数の内容は以下のようになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; pprint(test_corpus)
+[[(0, 1)]]
+</code></pre></div></div>
+
+<p>コーパスを文章として認識して、推定トピックを出力します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; for topics_per_document in lda[test_corpus]:
+...     pprint(topics_per_document)
+...
+[(0, 0.10002083277439905),
+ (1, 0.10157201217970441),
+ (2, 0.10004205414751678),
+ (3, 0.59835522682825404),
+ (4, 0.10000987407012563)]
+</code></pre></div></div>
+
+<p>この結果から文章は、約0.60でトピック3だと推定されます。</p>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="https://radimrehurek.com/gensim/tut1.html">gensim: Corpora and Vector Spaces</a></li>
+  <li><a href="http://qiita.com/HirofumiYashima/items/c8aa8df214d48c86ecba">Python で LDAトピック分析手習い 〜 参考ウェブサイトのコード を 写経して、gensimモジュールを使うやり方を１ステップごと、確認してみた - Qiita</a></li>
+  <li><a href="http://qiita.com/suchowan/items/a4231d1c63c835ae88e2">機械学習関連情報をトピックモデルで分類する - Qiita</a></li>
+  <li><a href="https://ja.wikipedia.org/wiki/%E6%BD%9C%E5%9C%A8%E6%84%8F%E5%91%B3%E8%A7%A3%E6%9E%90">潜在意味解析 - Wikipedia</a></li>
+  <li><a href="https://ja.wikipedia.org/wiki/%E5%88%A4%E5%88%A5%E5%88%86%E6%9E%90">判別分析 - Wikipedia</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#gensim" class="page__taxonomy-item" rel="tag">gensim</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E3%83%88%E3%83%94%E3%83%83%E3%82%AF%E3%83%A2%E3%83%87%E3%83%AB" class="page__taxonomy-item" rel="tag">トピックモデル</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92" class="page__taxonomy-item" rel="tag">機械学習</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E8%87%AA%E7%84%B6%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86" class="page__taxonomy-item" rel="tag">自然言語処理</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-03T00:00:00+09:00">2017-05-03</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=gensim%E5%85%A5%E9%96%80%20%2F2017%2F05%2F03%2Fintroduction-to-gensim.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F05%2F03%2Fintroduction-to-gensim.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F05%2F03%2Fintroduction-to-gensim.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F05%2F03%2Fintroduction-to-gensim.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/05/02/my-server-specification-for-software.html" class="pagination--pager" title="自宅サーバー設計(ソフトウェア編)
+">Previous</a>
+    
+    
+      <a href="/2017/07/20/write-blog-on-android.html" class="pagination--pager" title="Android端末でブログを書く
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

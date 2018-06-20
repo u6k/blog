@@ -1,0 +1,985 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>自宅Raspberry PiをZabbix Server on DigitalOceanで監視 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。この文書では、試行錯誤して構築した作業を記録します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="自宅Raspberry PiをZabbix Server on DigitalOceanで監視">
+
+
+
+
+  <meta property="og:description" content="自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。この文書では、試行錯誤して構築した作業を記録します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="自宅Raspberry PiをZabbix Server on DigitalOceanで監視">
+  <meta name="twitter:description" content="自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。この文書では、試行錯誤して構築した作業を記録します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-03-10T19:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="自宅Raspberry PiをZabbix Server on DigitalOceanで監視">
+    <meta itemprop="description" content="自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。この文書では、試行錯誤して構築した作業を記録します。">
+    <meta itemprop="datePublished" content="2015-03-10">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">自宅Raspberry PiをZabbix Server on DigitalOceanで監視
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-10T19:00:00+09:00">2015-03-10</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。
+この文書では、試行錯誤して構築した作業を記録します。</p>
+
+<!-- more -->
+
+<h1 id="パッケージインストール失敗">パッケージインストール→失敗</h1>
+
+<p>インストールできるか確認するため、qemu for Windows上でRaspbianを動作させ、そこで動作確認をしています。</p>
+
+<p><a href="https://www.zabbix.com/documentation/2.2/jp/manual/installation/install_from_packages">3 パッケージからのインストール [Zabbix Documentation 2.2]</a>の手順を試したところ、<code class="highlighter-rouge">aptitude update</code>に失敗しました。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget http://repo.zabbix.com/zabbix/2.2/debian/pool/main/z/zabbix-release/zabbix-release_2.2-1+wheezy_all.deb
+$ sudo dpkg -i zabbix-release_2.2-1+wheezy_all.deb
+$ sudo aptitude update
+(中略)
+W: Failed to fetch http://repo.zabbix.com/zabbix/2.2/debian/dists/wheezy/Release: Unable to find expected entry 'main/binary-armhf/Packages' in Release file (Wrong sources.list entry or malformed file)
+E: Some index files failed to download. They have been ignored, or old ones used instead.
+E: Couldn't rebuild package cache
+</code></pre></div></div>
+
+<h1 id="ソースコードからインストール">ソースコードからインストール</h1>
+
+<p>ソースコードをダウンロード、<code class="highlighter-rouge">--enable-agentd</code>のみにしたら<code class="highlighter-rouge">configure</code>が成功しました。そのまま、<code class="highlighter-rouge">make install</code>も成功しました。</p>
+
+<h1 id="zabbix-server-on-openshiftを構築失敗">Zabbix Server on OpenShiftを構築→失敗</h1>
+
+<p>下記でインストールしました。</p>
+
+<ul>
+  <li><a href="https://github.com/dkanbier/openshift-zabbix-quickstart">dkanbier/openshift-zabbix-quickstart</a></li>
+</ul>
+
+<p>Zabbix Agent on RPiとの接続を設定して認識はできましたが、<code class="highlighter-rouge">Zabbix agent on {HOST_NAME} is unreachable for 5 minutes</code>というエラーが表示されました。自宅側のポートフォワーディングは設定していてポート開放も確認済みなので、OpenShift側を疑いました。</p>
+
+<ul>
+  <li><a href="https://blog.openshift.com/getting-started-with-port-forwarding-on-openshift/">Getting Started with Port Forwarding on OpenShift – OpenShift Blog</a></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rhc port-forward zabbix
+Checking available ports ... done
+Forwarding ports ...
+Address already in use - bind(2) while forwarding port 3306. Trying local port
+3307
+
+To connect to a service running on OpenShift, use the Local address
+
+Service   Local                OpenShift
+--------- --------------- ---- -------------------
+httpd     127.0.0.1:8080   =&gt;  127.11.30.129:8080
+mysql     127.0.0.1:3307   =&gt;  127.11.30.130:3306
+zabbix_ag 127.0.0.1:15050  =&gt;  127.11.30.129:15050
+zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
+</code></pre></div></div>
+
+<p>Zabbixは通常、10050番、10051番ポートを使用しますが、15050番、15051番ポートが使用されているっぽい。ダッシュボードからZabbixサーバーの状態を見ると、15050番ポートで動作していることが分かります。</p>
+
+<ul>
+  <li><a href="https://www.zabbix.com/documentation/2.2/jp/manual/appendix/config/zabbix_agentd">3 Zabbixエージェント（UNIX) [Zabbix Documentation 2.2]</a></li>
+</ul>
+
+<p>ここを見ると、<code class="highlighter-rouge">Server</code>と<code class="highlighter-rouge">ServerActive</code>でZabbix ServerのIPアドレス(またはホスト名)を指定しますが、ポート番号がデフォルトとは異なる場合、<code class="highlighter-rouge">ServerActive</code>でポート番号も指定する必要があるみたい。</p>
+
+<p>→指定したけどダメだった。障害のまま。と言うかZabbix Server on OpenShiftをポート開放確認してみたけど、到達できないっぽい。なんで？</p>
+
+<p>→<code class="highlighter-rouge">rhc port-forward</code>はローカルPC→OpenShiftのsshフォワーディングっぽい。よって、この方法は断念。</p>
+
+<h1 id="digitaloceanのcentosにzabbixをインストール">DigitalOceanのCentOSにZabbixをインストール</h1>
+
+<p>OpenShiftにZabbix Serverを構築するのは諦めて、DigitalOceanに構築することにしました。</p>
+
+<h2 id="dropletを作成する">Dropletを作成する</h2>
+
+<ul>
+  <li>Droplet Hostname
+    <ul>
+      <li>zabbix</li>
+    </ul>
+  </li>
+  <li>Select Size
+    <ul>
+      <li>$5/mo</li>
+    </ul>
+  </li>
+  <li>Select Region
+    <ul>
+      <li>New York</li>
+    </ul>
+  </li>
+  <li>Select Image
+    <ul>
+      <li>CENTOS 6.5 x64</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="作業ユーザーを作成する">作業ユーザーを作成する</h2>
+
+<p><code class="highlighter-rouge">root</code>でsshログインします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># adduser u6k
+# passwd u6k
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># visudo
+</code></pre></div></div>
+
+<p>追記</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u6k ALL=(ALL) NOPASSWD: ALL
+</code></pre></div></div>
+
+<h2 id="ローカルpcで鍵を作成し公開鍵を作業ユーザーに設定する">ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する</h2>
+
+<p>PUTTYgenで作成しました。</p>
+
+<p>ローカルPCで実行。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
+</code></pre></div></div>
+
+<p>以降、<code class="highlighter-rouge">u6k</code>ユーザーで作業します。</p>
+
+<h3 id="note-ssh-copy-idが失敗することがある">NOTE: ssh-copy-idが失敗することがある</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
+/usr/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+
+/usr/local/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
+</code></pre></div></div>
+
+<p>結局、手動でコピーしたほうが良いかも。</p>
+
+<h2 id="sshdの設定を変更する">sshdの設定を変更する</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PermitRootLogin no
+RhostsRSAAuthentication no
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+Port 23347
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service sshd restart
+</code></pre></div></div>
+
+<p>新規にsshセッションを起動し、rootログイン出来ないこと、パスワード認証できないこと、新しいポート番号で接続できること、を確認します。万が一、設定に失敗してssh接続できなくなると非常に困るので、この確認ができるまではsshセッションは切断しないように注意します。</p>
+
+<h2 id="ufwでファイアウォールを設定する">ufwでファイアウォールを設定する</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install wget
+</code></pre></div></div>
+
+<p><a href="https://launchpad.net/ufw/">ufw in Launchpad</a>でダウンロードURLを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget https://launchpad.net/ufw/0.33/0.33/+download/ufw-0.33.tar.gz
+
+$ tar zxvf ufw-0.33.tar.gz
+$ cd ufw-0.33
+$ sudo python ./setup.py install
+$ sudo chmod -R g-w /etc/ufw/ /lib/ufw/ /etc/default/ufw /usr/sbin/ufw
+$ cd ../
+$ sudo rm -r ufw-0.33*
+</code></pre></div></div>
+
+<p>ファイアウォールの設定をリセットします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw reset
+</code></pre></div></div>
+
+<p>現状を確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw status
+Status: inactive
+</code></pre></div></div>
+
+<p>HTTP(80)、HTTPS(443)、ssh(23347)、Zabbix(10051)を許可します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ufw default DENY
+$ sudo ufw allow 80
+$ sudo ufw allow 443
+$ sudo ufw allow 23347
+$ sudo ufw allow 10051
+$ sudo ufw enable
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+80                         ALLOW       Anywhere
+443                        ALLOW       Anywhere
+23347                      ALLOW       Anywhere
+10051                      ALLOW       Anywhere
+80 (v6)                    ALLOW       Anywhere (v6)
+443 (v6)                   ALLOW       Anywhere (v6)
+23347 (v6)                 ALLOW       Anywhere (v6)
+10051 (v6)                 ALLOW       Anywhere (v6)
+</code></pre></div></div>
+
+<ul>
+  <li>参考
+    <ul>
+      <li><a href="http://qiita.com/soramugi/items/d0514895340fc8fa3430">ufwをcentosにインストール - Qiita</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="開発パッケージをインストールする">開発パッケージをインストールする</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y update
+$ sudo yum -y groupinstall "Development tools"
+</code></pre></div></div>
+
+<h2 id="mysqlをインストールする">MySQLをインストールする</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install mysql-server mysql-devel
+$ sudo chkconfig mysqld on
+$ sudo service mysqld start
+</code></pre></div></div>
+
+<p>試しに接続してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root
+</code></pre></div></div>
+
+<h2 id="zabbixをパッケージでインストールする">Zabbixをパッケージでインストールする</h2>
+
+<ul>
+  <li>参考
+    <ul>
+      <li><a href="https://www.zabbix.com/documentation/2.2/jp/manual/installation/install_from_packages">3 パッケージからのインストール [Zabbix Documentation 2.2]</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Zabbixパッケージをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
+$ sudo yum -y install zabbix-server-mysql zabbix-web-mysql zabbix-agent
+</code></pre></div></div>
+
+<p>MySQLデータベースを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root
+mysql&gt; create database zabbix character set utf8 collate utf8_bin;
+mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbix';
+mysql&gt; exit;
+</code></pre></div></div>
+
+<p>データをインポートします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /usr/share/doc/zabbix-server-mysql-2.2.8/create/
+$ mysql -u root zabbix &lt; schema.sql
+$ mysql -u root zabbix &lt; images.sql
+$ mysql -u root zabbix &lt; data.sql
+</code></pre></div></div>
+
+<p>Zabbixサーバーの設定を編集します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/zabbix/zabbix_server.conf
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DBHost=localhost
+DBName=zabbix
+DBUser=zabbix
+DBPassword=zabbix
+</code></pre></div></div>
+
+<p>Zabbixサーバーを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chkconfig zabbix-server on
+$ sudo service zabbix-server start
+</code></pre></div></div>
+
+<p>Zabbix Webインターフェイス(以降、Zabbix管理サイト)の設定を編集します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/httpd/conf.d/zabbix.conf
+</code></pre></div></div>
+
+<p>一部の設定はされています。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php_value max_execution_time 300
+php_value memory_limit 128M
+php_value post_max_size 16M
+php_value upload_max_filesize 2M
+php_value max_input_time 300
+# php_value date.timezone Europe/Riga
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">date.timezone</code>をコメントインして、正しく設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php_value date.timezone Asia/Tokyo
+</code></pre></div></div>
+
+<p>Apache HTTP Serverを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chkconfig httpd on
+$ sudo service httpd start
+</code></pre></div></div>
+
+<p><a href="http://xxx/zabbix">http://xxx/zabbix</a>にアクセスすると、Zabbix管理サイトのセットアップページが表示されます。設定が正しければ、「Next」ボタンをクリックしていってセットアップを完了できます。セットアップ完了後、ログインページが表示されます。アカウントは、ユーザーID: Admin、パスワード: zabbix。</p>
+
+<p>続いて、Zabbixエージェントの設定を編集します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/zabbix/zabbix_agentd.conf
+</code></pre></div></div>
+
+<p>既に同一マシン上のZabbixサーバーと接続する設定がされているので、編集は必要ありません。</p>
+
+<p>Zabbixエージェントを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chkconfig zabbix-agent on
+$ sudo service zabbix-agent start
+</code></pre></div></div>
+
+<p>Zabbix管理サイトに戻り、<code class="highlighter-rouge">Admin</code>ユーザーのパスワードを変更します。</p>
+
+<p>次に、<code class="highlighter-rouge">Zabbix server</code>のStatusを<code class="highlighter-rouge">Monitored</code>に変更し、監視を開始します。しばらくしてからグラフを表示して、監視が正常動作していることを確認します。</p>
+
+<h2 id="note-lack-of-free-swap-space-on-zabbix-server">NOTE: Lack of free swap space on Zabbix server</h2>
+
+<p>Zabbixはスワップ領域を監視しますが、<code class="highlighter-rouge">Lack of free swap space on Zabbix server</code>はスワップ領域が不足している or 存在しないことを表すエラーです。</p>
+
+<p>小さなスワップ領域を作成することで回避します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo dd if=/dev/zero of=/var/swapfile bs=1M count=2048
+$ sudo chmod 600 /var/swapfile
+$ sudo mkswap /var/swapfile
+$ echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab
+$ sudo swapon -a
+</code></pre></div></div>
+
+<p>問題が解消されていることを確認します。</p>
+
+<ul>
+  <li>参考
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[ZabbixでLack of free swap spaceのエラーが出るときの対処</td>
+              <td>Scribble](http://scribble.washo3.com/linux/zabbix%E3%81%A7lack-of-free-swap-space%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%8C%E5%87%BA%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E5%AF%BE%E5%87%A6.html)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="raspberry-piにzabbix-agentをインストール">Raspberry PiにZabbix Agentをインストール</h1>
+
+<h2 id="zabbix管理サイトにホストを追加する">Zabbix管理サイトにホストを追加する</h2>
+
+<p>Zabbix管理サイトのホストにRaspberry Piを追加します。この時点では、Zabbixエージェントが動作していないので、監視が失敗します。</p>
+
+<h2 id="zabbixエージェントをソースコードからインストールする">Zabbixエージェントをソースコードからインストールする</h2>
+
+<p>Zabbixソースコードをダウンロードし、展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tar zxvf zabbix-2.2.8.tar.gz
+</code></pre></div></div>
+
+<p>ユーザーを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo groupadd zabbix
+$ sudo useradd -g zabbix zabbix
+</code></pre></div></div>
+
+<p>ソースコードを設定し、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./configure --enable-agent
+$ sudo make install
+$ cd ../
+$ sudo rm -r zabbix-2.2.8*
+</code></pre></div></div>
+
+<p>Zabbixエージェント設定を編集します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /usr/local/etc/zabbix_agentd.conf
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Server=104.131.110.177
+ServerActive=104.131.110.177:10050
+Hostname=RPi
+</code></pre></div></div>
+
+<p>Zabbixエージェントを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo /usr/local/sbin/zabbix_agentd
+</code></pre></div></div>
+
+<p>しばらくして、Zabbix管理サイトのステータスを確認します。</p>
+
+<h2 id="zabbix-agentのログ">Zabbix Agentのログ</h2>
+
+<p><code class="highlighter-rouge">/tmp/zabbix_agentd.log</code>に出力されます。<code class="highlighter-rouge">/var/log/</code>以下でないことに注意(多くのサイトでは<code class="highlighter-rouge">/var/log/zabbix/</code>以下で説明されていますが、なぜ違うのだろう…)。</p>
+
+<h2 id="zabbix監視が問題のまま">Zabbix監視が問題のまま</h2>
+
+<p><code class="highlighter-rouge">Received empty response from Zabbix Agent at Assuming that agent dropped connection because of access permission</code></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[zabbix_getの返り値が空白</td>
+      <td>ZABBIX-JP](http://www.zabbix.jp/node/1088)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>パッケージインストールした場合、<code class="highlighter-rouge">zabbix-get</code>はインストールされないので、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install zabbix-get
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ zabbix_get -s u6kapps.dip.jp -p 10050 -k agent.version
+2.2.8
+</code></pre></div></div>
+
+<p>Zabbix管理サイトを見たら、状況が変化していました。</p>
+
+<p><code class="highlighter-rouge">Lack of free swap space on 自宅Raspberry Pi</code>が出力されたので、Zabbixサーバーと同様に解消しました。</p>
+
+<h1 id="zabbix-agentをサーバー起動時に起動">Zabbix Agentをサーバー起動時に起動</h1>
+
+<p><code class="highlighter-rouge">zabbix_agentd</code>を停止するには<code class="highlighter-rouge">kill -TERM</code>するしかなさそうです。また、このままではサーバー起動時にZabbix Agentが起動しません。これを解決するため、<code class="highlighter-rouge">zabbix_agentd</code>の起動スクリプトを作成します。</p>
+
+<p><code class="highlighter-rouge">/etc/init.d/zabbix_agentd</code>を以下のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat /etc/init.d/zabbix_agentd
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: zabbix-agentd
+# Required-Start: $network $syslog
+# Required-Stop: $network
+# chkconfig: 2345 99 1
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: Start or stop the Zabbix-Agent
+### END INIT INFO
+
+case $1 in
+    start)
+        /usr/local/sbin/zabbix_agentd
+        ;;
+    stop)
+        kill -TERM `cat /tmp/zabbix_agentd.pid`
+        ;;
+    restart)
+        $0 stop
+        sleep 3
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 start|stop|restart"
+        exit 1
+esac
+</code></pre></div></div>
+
+<p>実行権限を与えます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chmod +x /etc/init.d/zabbix_agentd
+</code></pre></div></div>
+
+<p>サービスとして登録します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chkconfig --add zabbix_agentd
+</code></pre></div></div>
+
+<p>試しに起動、停止してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service zabbix_agentd start
+$ sudo service zabbix_agentd stop
+</code></pre></div></div>
+
+<ul>
+  <li>参考
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[ZABBIXエージェントの停止方法（AIXエージェント）</td>
+              <td>ZABBIX-JP](http://www.zabbix.jp/node/557)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="raspberry-piのcpu温度をzabbix-serverに送信">Raspberry PiのCPU温度をZabbix Serverに送信</h1>
+
+<p><code class="highlighter-rouge">zabbix_sender</code>を使用してRaspberry PiのCPU温度をZabbix Serverに送信します。</p>
+
+<p>Zabbix ServerのRPiホストにアイテムを追加します。</p>
+
+<ul>
+  <li>Name: cpu_temp</li>
+  <li>Type: Zabbix.trapper</li>
+  <li>Key: system.cpu.temp</li>
+  <li>Type of information: Numeric (unsigned)</li>
+  <li>Data type: Decimal</li>
+</ul>
+
+<p>グラフを追加します。</p>
+
+<ul>
+  <li>Name: CPU Temperature</li>
+  <li>Graph type: Normal</li>
+  <li>Items: cpu_tempを追加</li>
+</ul>
+
+<p>RaspberryPiで以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ zabbix_sender -z 104.131.110.177 -s RPi -k system.cpu.temp -o `cat /sys/class/thermal/thermal_zone0/temp`
+</code></pre></div></div>
+
+<p>グラフを見て、値が登録されていることを確認します。</p>
+
+<p>問題なければ、上記コマンドをcrontabやJenkinsなどで定期実行するように設定します。</p>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="https://blog.openshift.com/introducing-zabbix-monitoring-cartridges-for-openshift/">Introducing Zabbix Monitoring Cartridges for OpenShift – OpenShift Blog</a></li>
+  <li><a href="https://www.zabbix.org/wiki/Zabbix_on_the_Raspberry_Pi_(OS_Raspbian)">Zabbix on the Raspberry Pi (OS Raspbian) - Zabbix.org</a></li>
+  <li><a href="http://www.atmarkit.co.jp/flinux/index/indexfiles/zabbixindex.html">連載記事 「ZABBIXで脱・人手頼りの統合監視」</a></li>
+  <li><a href="http://www.atmarkit.co.jp/ait/kw/devops_zabbix.html">「クラウド＆DevOps時代の運用をZabbixで」最新記事一覧 - ITmedia Keywords</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#zabbix" class="page__taxonomy-item" rel="tag">Zabbix</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-10T19:00:00+09:00">2015-03-10</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E8%87%AA%E5%AE%85Raspberry+Pi%E3%82%92Zabbix+Server+on+DigitalOcean%E3%81%A7%E7%9B%A3%E8%A6%96%20%2F2015%2F03%2F10%2Fmonitoring-raspberry-pi-using-zabbix.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F03%2F10%2Fmonitoring-raspberry-pi-using-zabbix.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F03%2F10%2Fmonitoring-raspberry-pi-using-zabbix.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F03%2F10%2Fmonitoring-raspberry-pi-using-zabbix.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/03/06/introduction-to-spring-boot.html" class="pagination--pager" title="Spring Boot入門
+">Previous</a>
+    
+    
+      <a href="/2015/03/11/run-redmine3-on-jruby-but-failed.html" class="pagination--pager" title="Redmine 3.0.0をJRubyで動かす→ダメだった…
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

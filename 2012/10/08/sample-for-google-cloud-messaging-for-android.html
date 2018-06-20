@@ -1,0 +1,700 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Google Cloud Messaging for Android(GCM)のサンプル - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。参照元GCMのコーディング方法は、GCM: Getting Startedを読めばだいたいわかります。当記事では、GCM: Getting Startedをなぞりながらサンプルを作成します。「そもそもGCMって何?」というレベルの場合、GCM Architectural Overviewを読むか、C2DMに関するページを検索してください(C2DMはGCMの前身)。ちなみに、GCMではGoogleがライブラリを提供してくれているので、C2DMに比べて実装がすごく楽になっています。  TODO: そもそものところから書いたほうが良いかな…GCMを有効化実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。  プロジェクトを作成  プロジェクトIDを取得  GCMサービスを有効化  API Keyを作成プロジェクトを作成API Consoleにアクセスします。プロジェクトを作成していない場合は、「Create project…」をクリックして、プロジェクト名を入力してプロジェクトを作成します。プロジェクトIDを取得プロジェクトを作成すると、URLが以下のようになるはずです。  https://code.google.com/apis/console/#project:4815162342URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。GCMサービスを有効化API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。API Keyを作成API ConsoleのAPI AccessからAPI Keyを作成します。「Create new Server key」をクリックします。APIへのアクセスを許可するIPアドレスを指定できます。サーバーのIPアドレスを指定することで、他PCからのAPI使用を拒否することができるようです。未入力の場合、全許可になるようです。Server appsのAPI Keyが作成されました。ちなみに、「Key for browser apps」という項目もあり紛らわしいので注意です。ちょっと面倒ですが、これでGCMを有効化できました。アプリ側を作成次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。  gcm.jarファイルをビルドパスに含める  GCMIntentServiceを作成  GCMを登録/解除するActivityを作成  AndroidManifestを修正gcm.jarファイルをビルドパスに含めるGCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「$YOUR_SDK_ROOT/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。GCMIntentServiceを作成GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。  NOTE: クラス名をGCMIntentService以外にしたら動作しなかった…public class GCMIntentService extends GCMBaseIntentService {    // TODO SENDER_ID    public static final String SENDER_ID = &quot;xxx&quot;;    public GCMIntentService() {        super(SENDER_ID);    }    @Override    protected void onRegistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onRegistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM登録&quot;);    }    @Override    protected void onUnregistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onUnregistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM解除&quot;);    }    @Override    protected void onError(Context ctx, String errorId) {        Log.d(&quot;sample-gcm&quot;, &quot;onError: errorId=&quot; + errorId);        handleMessage(&quot;GCMエラー&quot;);    }    @Override    protected void onMessage(Context ctx, Intent intent) {        String msg = intent.getStringExtra(&quot;message&quot;);        Log.d(&quot;sample-gcm&quot;, &quot;onMessage: msg=&quot; + msg);        handleMessage(&quot;GCM受信: msg=&quot; + msg);    }    private void handleMessage(String msg) {        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);        Notification n = new Notification(android.R.drawable.btn_default, msg, System.currentTimeMillis());        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);        n.setLatestEventInfo(getApplicationContext(), &quot;sample-gcm&quot;, msg, contentIntent);        nm.notify(1, n);    }}SENDER_IDには、API Consoleで取得したプロジェクトIDを設定します。基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。GCMを登録/解除するActivityを作成GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。GCMRegistrar.checkDevice(MainActivity.this);GCMRegistrar.checkManifest(MainActivity.this);String registrationId = GCMRegistrar.getRegistrationId(MainActivity.this);if (&quot;&quot;.equals(registrationId)) {    GCMRegistrar.register(MainActivity.this, GCMIntentService.SENDER_ID);} else {    Toast.makeText(MainActivity.this, &quot;既にGCM登録済み&quot;, Toast.LENGTH_SHORT).show();}checkDevice()は、その端末でGCMがサポートされているか確認します。checkManifest()は、AndroidManifestでGCMが使用可能になっているか確認します。双方とも、不可の場合は例外がスローされます。getRegistrationId()で、端末(というかアプリ)に登録されているRegistrationIDを取得します。未登録の場合は空文字列が返ります。register()で、GoogleのGCMサーバーにリクエストを送信し、RegistrationIDを取得します。取得したRegistrationIDは、SharedPreferenceに保存されます。保存されたRegistrationIDは、先ほどのgetRegistratioId()で取得することができます。便利だ。GCMの解除はもっと簡単で、単にunregister()を呼び出すだけです。GCMRegistrar.unregister(MainActivity.this);AndroidManifestを修正&lt;permission&gt;、&lt;uses-permission&gt;を以下のように追加します。&lt;permission    android:name=&quot;your_package.permission.C2D_MESSAGE&quot;    android:protectionLevel=&quot;signature&quot; /&gt;&lt;uses-permission android:name=&quot;your_package.permission.C2D_MESSAGE&quot; /&gt;&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;&lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;your_packageは、アプリのパッケージに置き換えます。GCMIntentServiceクラスを追加します。&lt;service android:name=&quot;.GCMIntentService&quot; /&gt;GCMを受信できるように、&lt;receiver&gt;を追加します。&lt;receiver    android:name=&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot;&gt;    &lt;intent-filter&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;        &lt;category android:name=&quot;your_package&quot; /&gt;    &lt;/intent-filter&gt;&lt;/receiver&gt;以上で、アプリ側の作成は完了です。サーバー側を作成サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。  jarファイルをビルドパスに含める  コードを作成jarファイルをビルドパスに含めるアプリ側と同じように以下のjarファイルをビルドパスに含めます。  gcm-server.jar  json_simple-1.1.jar  mockito-all-1.8.5.jarコードを作成1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。// TODO API KeyString key = &quot;xxx&quot;;// TODO GCM Registration IDString registrationId = &quot;xxx&quot;;Sender sender = new Sender(key);Message message = new Message.Builder().addData(&quot;message&quot;, &quot;てすと&quot;).build();Result result = sender.send(message, registrationId, 1);System.out.println(result.toString());API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登録した時にLogCatに表示されるものです。以上で、サーバー側の作成は完了です。動作確認これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。  アプリを動作させ、RegistrationIDを取得できる。  サーバー側を動作させ、アプリにメッセージが送信されて表示される。作成したサンプルは以下で公開しています。  sample-push-notification">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Google Cloud Messaging for Android(GCM)のサンプル">
+
+
+
+
+  <meta property="og:description" content="既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。参照元GCMのコーディング方法は、GCM: Getting Startedを読めばだいたいわかります。当記事では、GCM: Getting Startedをなぞりながらサンプルを作成します。「そもそもGCMって何?」というレベルの場合、GCM Architectural Overviewを読むか、C2DMに関するページを検索してください(C2DMはGCMの前身)。ちなみに、GCMではGoogleがライブラリを提供してくれているので、C2DMに比べて実装がすごく楽になっています。  TODO: そもそものところから書いたほうが良いかな…GCMを有効化実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。  プロジェクトを作成  プロジェクトIDを取得  GCMサービスを有効化  API Keyを作成プロジェクトを作成API Consoleにアクセスします。プロジェクトを作成していない場合は、「Create project…」をクリックして、プロジェクト名を入力してプロジェクトを作成します。プロジェクトIDを取得プロジェクトを作成すると、URLが以下のようになるはずです。  https://code.google.com/apis/console/#project:4815162342URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。GCMサービスを有効化API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。API Keyを作成API ConsoleのAPI AccessからAPI Keyを作成します。「Create new Server key」をクリックします。APIへのアクセスを許可するIPアドレスを指定できます。サーバーのIPアドレスを指定することで、他PCからのAPI使用を拒否することができるようです。未入力の場合、全許可になるようです。Server appsのAPI Keyが作成されました。ちなみに、「Key for browser apps」という項目もあり紛らわしいので注意です。ちょっと面倒ですが、これでGCMを有効化できました。アプリ側を作成次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。  gcm.jarファイルをビルドパスに含める  GCMIntentServiceを作成  GCMを登録/解除するActivityを作成  AndroidManifestを修正gcm.jarファイルをビルドパスに含めるGCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「$YOUR_SDK_ROOT/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。GCMIntentServiceを作成GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。  NOTE: クラス名をGCMIntentService以外にしたら動作しなかった…public class GCMIntentService extends GCMBaseIntentService {    // TODO SENDER_ID    public static final String SENDER_ID = &quot;xxx&quot;;    public GCMIntentService() {        super(SENDER_ID);    }    @Override    protected void onRegistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onRegistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM登録&quot;);    }    @Override    protected void onUnregistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onUnregistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM解除&quot;);    }    @Override    protected void onError(Context ctx, String errorId) {        Log.d(&quot;sample-gcm&quot;, &quot;onError: errorId=&quot; + errorId);        handleMessage(&quot;GCMエラー&quot;);    }    @Override    protected void onMessage(Context ctx, Intent intent) {        String msg = intent.getStringExtra(&quot;message&quot;);        Log.d(&quot;sample-gcm&quot;, &quot;onMessage: msg=&quot; + msg);        handleMessage(&quot;GCM受信: msg=&quot; + msg);    }    private void handleMessage(String msg) {        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);        Notification n = new Notification(android.R.drawable.btn_default, msg, System.currentTimeMillis());        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);        n.setLatestEventInfo(getApplicationContext(), &quot;sample-gcm&quot;, msg, contentIntent);        nm.notify(1, n);    }}SENDER_IDには、API Consoleで取得したプロジェクトIDを設定します。基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。GCMを登録/解除するActivityを作成GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。GCMRegistrar.checkDevice(MainActivity.this);GCMRegistrar.checkManifest(MainActivity.this);String registrationId = GCMRegistrar.getRegistrationId(MainActivity.this);if (&quot;&quot;.equals(registrationId)) {    GCMRegistrar.register(MainActivity.this, GCMIntentService.SENDER_ID);} else {    Toast.makeText(MainActivity.this, &quot;既にGCM登録済み&quot;, Toast.LENGTH_SHORT).show();}checkDevice()は、その端末でGCMがサポートされているか確認します。checkManifest()は、AndroidManifestでGCMが使用可能になっているか確認します。双方とも、不可の場合は例外がスローされます。getRegistrationId()で、端末(というかアプリ)に登録されているRegistrationIDを取得します。未登録の場合は空文字列が返ります。register()で、GoogleのGCMサーバーにリクエストを送信し、RegistrationIDを取得します。取得したRegistrationIDは、SharedPreferenceに保存されます。保存されたRegistrationIDは、先ほどのgetRegistratioId()で取得することができます。便利だ。GCMの解除はもっと簡単で、単にunregister()を呼び出すだけです。GCMRegistrar.unregister(MainActivity.this);AndroidManifestを修正&lt;permission&gt;、&lt;uses-permission&gt;を以下のように追加します。&lt;permission    android:name=&quot;your_package.permission.C2D_MESSAGE&quot;    android:protectionLevel=&quot;signature&quot; /&gt;&lt;uses-permission android:name=&quot;your_package.permission.C2D_MESSAGE&quot; /&gt;&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;&lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;your_packageは、アプリのパッケージに置き換えます。GCMIntentServiceクラスを追加します。&lt;service android:name=&quot;.GCMIntentService&quot; /&gt;GCMを受信できるように、&lt;receiver&gt;を追加します。&lt;receiver    android:name=&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot;&gt;    &lt;intent-filter&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;        &lt;category android:name=&quot;your_package&quot; /&gt;    &lt;/intent-filter&gt;&lt;/receiver&gt;以上で、アプリ側の作成は完了です。サーバー側を作成サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。  jarファイルをビルドパスに含める  コードを作成jarファイルをビルドパスに含めるアプリ側と同じように以下のjarファイルをビルドパスに含めます。  gcm-server.jar  json_simple-1.1.jar  mockito-all-1.8.5.jarコードを作成1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。// TODO API KeyString key = &quot;xxx&quot;;// TODO GCM Registration IDString registrationId = &quot;xxx&quot;;Sender sender = new Sender(key);Message message = new Message.Builder().addData(&quot;message&quot;, &quot;てすと&quot;).build();Result result = sender.send(message, registrationId, 1);System.out.println(result.toString());API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登録した時にLogCatに表示されるものです。以上で、サーバー側の作成は完了です。動作確認これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。  アプリを動作させ、RegistrationIDを取得できる。  サーバー側を動作させ、アプリにメッセージが送信されて表示される。作成したサンプルは以下で公開しています。  sample-push-notification">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Google Cloud Messaging for Android(GCM)のサンプル">
+  <meta name="twitter:description" content="既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。参照元GCMのコーディング方法は、GCM: Getting Startedを読めばだいたいわかります。当記事では、GCM: Getting Startedをなぞりながらサンプルを作成します。「そもそもGCMって何?」というレベルの場合、GCM Architectural Overviewを読むか、C2DMに関するページを検索してください(C2DMはGCMの前身)。ちなみに、GCMではGoogleがライブラリを提供してくれているので、C2DMに比べて実装がすごく楽になっています。  TODO: そもそものところから書いたほうが良いかな…GCMを有効化実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。  プロジェクトを作成  プロジェクトIDを取得  GCMサービスを有効化  API Keyを作成プロジェクトを作成API Consoleにアクセスします。プロジェクトを作成していない場合は、「Create project…」をクリックして、プロジェクト名を入力してプロジェクトを作成します。プロジェクトIDを取得プロジェクトを作成すると、URLが以下のようになるはずです。  https://code.google.com/apis/console/#project:4815162342URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。GCMサービスを有効化API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。API Keyを作成API ConsoleのAPI AccessからAPI Keyを作成します。「Create new Server key」をクリックします。APIへのアクセスを許可するIPアドレスを指定できます。サーバーのIPアドレスを指定することで、他PCからのAPI使用を拒否することができるようです。未入力の場合、全許可になるようです。Server appsのAPI Keyが作成されました。ちなみに、「Key for browser apps」という項目もあり紛らわしいので注意です。ちょっと面倒ですが、これでGCMを有効化できました。アプリ側を作成次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。  gcm.jarファイルをビルドパスに含める  GCMIntentServiceを作成  GCMを登録/解除するActivityを作成  AndroidManifestを修正gcm.jarファイルをビルドパスに含めるGCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「$YOUR_SDK_ROOT/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。GCMIntentServiceを作成GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。  NOTE: クラス名をGCMIntentService以外にしたら動作しなかった…public class GCMIntentService extends GCMBaseIntentService {    // TODO SENDER_ID    public static final String SENDER_ID = &quot;xxx&quot;;    public GCMIntentService() {        super(SENDER_ID);    }    @Override    protected void onRegistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onRegistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM登録&quot;);    }    @Override    protected void onUnregistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onUnregistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM解除&quot;);    }    @Override    protected void onError(Context ctx, String errorId) {        Log.d(&quot;sample-gcm&quot;, &quot;onError: errorId=&quot; + errorId);        handleMessage(&quot;GCMエラー&quot;);    }    @Override    protected void onMessage(Context ctx, Intent intent) {        String msg = intent.getStringExtra(&quot;message&quot;);        Log.d(&quot;sample-gcm&quot;, &quot;onMessage: msg=&quot; + msg);        handleMessage(&quot;GCM受信: msg=&quot; + msg);    }    private void handleMessage(String msg) {        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);        Notification n = new Notification(android.R.drawable.btn_default, msg, System.currentTimeMillis());        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);        n.setLatestEventInfo(getApplicationContext(), &quot;sample-gcm&quot;, msg, contentIntent);        nm.notify(1, n);    }}SENDER_IDには、API Consoleで取得したプロジェクトIDを設定します。基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。GCMを登録/解除するActivityを作成GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。GCMRegistrar.checkDevice(MainActivity.this);GCMRegistrar.checkManifest(MainActivity.this);String registrationId = GCMRegistrar.getRegistrationId(MainActivity.this);if (&quot;&quot;.equals(registrationId)) {    GCMRegistrar.register(MainActivity.this, GCMIntentService.SENDER_ID);} else {    Toast.makeText(MainActivity.this, &quot;既にGCM登録済み&quot;, Toast.LENGTH_SHORT).show();}checkDevice()は、その端末でGCMがサポートされているか確認します。checkManifest()は、AndroidManifestでGCMが使用可能になっているか確認します。双方とも、不可の場合は例外がスローされます。getRegistrationId()で、端末(というかアプリ)に登録されているRegistrationIDを取得します。未登録の場合は空文字列が返ります。register()で、GoogleのGCMサーバーにリクエストを送信し、RegistrationIDを取得します。取得したRegistrationIDは、SharedPreferenceに保存されます。保存されたRegistrationIDは、先ほどのgetRegistratioId()で取得することができます。便利だ。GCMの解除はもっと簡単で、単にunregister()を呼び出すだけです。GCMRegistrar.unregister(MainActivity.this);AndroidManifestを修正&lt;permission&gt;、&lt;uses-permission&gt;を以下のように追加します。&lt;permission    android:name=&quot;your_package.permission.C2D_MESSAGE&quot;    android:protectionLevel=&quot;signature&quot; /&gt;&lt;uses-permission android:name=&quot;your_package.permission.C2D_MESSAGE&quot; /&gt;&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;&lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;your_packageは、アプリのパッケージに置き換えます。GCMIntentServiceクラスを追加します。&lt;service android:name=&quot;.GCMIntentService&quot; /&gt;GCMを受信できるように、&lt;receiver&gt;を追加します。&lt;receiver    android:name=&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot;&gt;    &lt;intent-filter&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;        &lt;category android:name=&quot;your_package&quot; /&gt;    &lt;/intent-filter&gt;&lt;/receiver&gt;以上で、アプリ側の作成は完了です。サーバー側を作成サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。  jarファイルをビルドパスに含める  コードを作成jarファイルをビルドパスに含めるアプリ側と同じように以下のjarファイルをビルドパスに含めます。  gcm-server.jar  json_simple-1.1.jar  mockito-all-1.8.5.jarコードを作成1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。// TODO API KeyString key = &quot;xxx&quot;;// TODO GCM Registration IDString registrationId = &quot;xxx&quot;;Sender sender = new Sender(key);Message message = new Message.Builder().addData(&quot;message&quot;, &quot;てすと&quot;).build();Result result = sender.send(message, registrationId, 1);System.out.println(result.toString());API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登録した時にLogCatに表示されるものです。以上で、サーバー側の作成は完了です。動作確認これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。  アプリを動作させ、RegistrationIDを取得できる。  サーバー側を動作させ、アプリにメッセージが送信されて表示される。作成したサンプルは以下で公開しています。  sample-push-notification">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2012-10-08T22:48:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Google Cloud Messaging for Android(GCM)のサンプル">
+    <meta itemprop="description" content="既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。参照元GCMのコーディング方法は、GCM: Getting Startedを読めばだいたいわかります。当記事では、GCM: Getting Startedをなぞりながらサンプルを作成します。「そもそもGCMって何?」というレベルの場合、GCM Architectural Overviewを読むか、C2DMに関するページを検索してください(C2DMはGCMの前身)。ちなみに、GCMではGoogleがライブラリを提供してくれているので、C2DMに比べて実装がすごく楽になっています。  TODO: そもそものところから書いたほうが良いかな…GCMを有効化実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。  プロジェクトを作成  プロジェクトIDを取得  GCMサービスを有効化  API Keyを作成プロジェクトを作成API Consoleにアクセスします。プロジェクトを作成していない場合は、「Create project…」をクリックして、プロジェクト名を入力してプロジェクトを作成します。プロジェクトIDを取得プロジェクトを作成すると、URLが以下のようになるはずです。  https://code.google.com/apis/console/#project:4815162342URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。GCMサービスを有効化API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。API Keyを作成API ConsoleのAPI AccessからAPI Keyを作成します。「Create new Server key」をクリックします。APIへのアクセスを許可するIPアドレスを指定できます。サーバーのIPアドレスを指定することで、他PCからのAPI使用を拒否することができるようです。未入力の場合、全許可になるようです。Server appsのAPI Keyが作成されました。ちなみに、「Key for browser apps」という項目もあり紛らわしいので注意です。ちょっと面倒ですが、これでGCMを有効化できました。アプリ側を作成次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。  gcm.jarファイルをビルドパスに含める  GCMIntentServiceを作成  GCMを登録/解除するActivityを作成  AndroidManifestを修正gcm.jarファイルをビルドパスに含めるGCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「$YOUR_SDK_ROOT/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。GCMIntentServiceを作成GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。  NOTE: クラス名をGCMIntentService以外にしたら動作しなかった…public class GCMIntentService extends GCMBaseIntentService {    // TODO SENDER_ID    public static final String SENDER_ID = &quot;xxx&quot;;    public GCMIntentService() {        super(SENDER_ID);    }    @Override    protected void onRegistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onRegistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM登録&quot;);    }    @Override    protected void onUnregistered(Context ctx, String registrationId) {        Log.d(&quot;sample-gcm&quot;, &quot;onUnregistered: registrationId=&quot; + registrationId);        handleMessage(&quot;GCM解除&quot;);    }    @Override    protected void onError(Context ctx, String errorId) {        Log.d(&quot;sample-gcm&quot;, &quot;onError: errorId=&quot; + errorId);        handleMessage(&quot;GCMエラー&quot;);    }    @Override    protected void onMessage(Context ctx, Intent intent) {        String msg = intent.getStringExtra(&quot;message&quot;);        Log.d(&quot;sample-gcm&quot;, &quot;onMessage: msg=&quot; + msg);        handleMessage(&quot;GCM受信: msg=&quot; + msg);    }    private void handleMessage(String msg) {        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);        Notification n = new Notification(android.R.drawable.btn_default, msg, System.currentTimeMillis());        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);        n.setLatestEventInfo(getApplicationContext(), &quot;sample-gcm&quot;, msg, contentIntent);        nm.notify(1, n);    }}SENDER_IDには、API Consoleで取得したプロジェクトIDを設定します。基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。GCMを登録/解除するActivityを作成GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。GCMRegistrar.checkDevice(MainActivity.this);GCMRegistrar.checkManifest(MainActivity.this);String registrationId = GCMRegistrar.getRegistrationId(MainActivity.this);if (&quot;&quot;.equals(registrationId)) {    GCMRegistrar.register(MainActivity.this, GCMIntentService.SENDER_ID);} else {    Toast.makeText(MainActivity.this, &quot;既にGCM登録済み&quot;, Toast.LENGTH_SHORT).show();}checkDevice()は、その端末でGCMがサポートされているか確認します。checkManifest()は、AndroidManifestでGCMが使用可能になっているか確認します。双方とも、不可の場合は例外がスローされます。getRegistrationId()で、端末(というかアプリ)に登録されているRegistrationIDを取得します。未登録の場合は空文字列が返ります。register()で、GoogleのGCMサーバーにリクエストを送信し、RegistrationIDを取得します。取得したRegistrationIDは、SharedPreferenceに保存されます。保存されたRegistrationIDは、先ほどのgetRegistratioId()で取得することができます。便利だ。GCMの解除はもっと簡単で、単にunregister()を呼び出すだけです。GCMRegistrar.unregister(MainActivity.this);AndroidManifestを修正&lt;permission&gt;、&lt;uses-permission&gt;を以下のように追加します。&lt;permission    android:name=&quot;your_package.permission.C2D_MESSAGE&quot;    android:protectionLevel=&quot;signature&quot; /&gt;&lt;uses-permission android:name=&quot;your_package.permission.C2D_MESSAGE&quot; /&gt;&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;&lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;your_packageは、アプリのパッケージに置き換えます。GCMIntentServiceクラスを追加します。&lt;service android:name=&quot;.GCMIntentService&quot; /&gt;GCMを受信できるように、&lt;receiver&gt;を追加します。&lt;receiver    android:name=&quot;com.google.android.gcm.GCMBroadcastReceiver&quot;    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot;&gt;    &lt;intent-filter&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;        &lt;category android:name=&quot;your_package&quot; /&gt;    &lt;/intent-filter&gt;&lt;/receiver&gt;以上で、アプリ側の作成は完了です。サーバー側を作成サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。  jarファイルをビルドパスに含める  コードを作成jarファイルをビルドパスに含めるアプリ側と同じように以下のjarファイルをビルドパスに含めます。  gcm-server.jar  json_simple-1.1.jar  mockito-all-1.8.5.jarコードを作成1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。// TODO API KeyString key = &quot;xxx&quot;;// TODO GCM Registration IDString registrationId = &quot;xxx&quot;;Sender sender = new Sender(key);Message message = new Message.Builder().addData(&quot;message&quot;, &quot;てすと&quot;).build();Result result = sender.send(message, registrationId, 1);System.out.println(result.toString());API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登録した時にLogCatに表示されるものです。以上で、サーバー側の作成は完了です。動作確認これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。  アプリを動作させ、RegistrationIDを取得できる。  サーバー側を動作させ、アプリにメッセージが送信されて表示される。作成したサンプルは以下で公開しています。  sample-push-notification">
+    <meta itemprop="datePublished" content="2012-10-08">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Google Cloud Messaging for Android(GCM)のサンプル
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-08T22:48:00+09:00">2012-10-08</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。</p>
+
+<!-- more -->
+
+<h1 id="参照元">参照元</h1>
+
+<p>GCMのコーディング方法は、<a href="http://developer.android.com/guide/google/gcm/gs.html">GCM: Getting Started</a>を読めばだいたいわかります。当記事では、<a href="http://developer.android.com/guide/google/gcm/gs.html">GCM: Getting Started</a>をなぞりながらサンプルを作成します。</p>
+
+<p>「そもそもGCMって何?」というレベルの場合、<a href="http://developer.android.com/guide/google/gcm/gcm.html">GCM Architectural Overview</a>を読むか、C2DMに関するページを検索してください(C2DMはGCMの前身)。</p>
+
+<p>ちなみに、GCMではGoogleがライブラリを提供してくれているので、C2DMに比べて実装がすごく楽になっています。</p>
+
+<blockquote>
+  <p>TODO: そもそものところから書いたほうが良いかな…</p>
+</blockquote>
+
+<h1 id="gcmを有効化">GCMを有効化</h1>
+
+<p>実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。</p>
+
+<ol>
+  <li>プロジェクトを作成</li>
+  <li>プロジェクトIDを取得</li>
+  <li>GCMサービスを有効化</li>
+  <li>API Keyを作成</li>
+</ol>
+
+<h2 id="プロジェクトを作成">プロジェクトを作成</h2>
+
+<p><a href="https://code.google.com/apis/console/#project:884497848039">API Console</a>にアクセスします。プロジェクトを作成していない場合は、「Create project…」をクリックして、プロジェクト名を入力してプロジェクトを作成します。</p>
+
+<p><img src="http://developer.android.com/images/gcm/gcm-create-api-proj.png" alt="" /></p>
+
+<h2 id="プロジェクトidを取得">プロジェクトIDを取得</h2>
+
+<p>プロジェクトを作成すると、URLが以下のようになるはずです。</p>
+
+<blockquote>
+  <p>https://code.google.com/apis/console/#project:4815162342</p>
+</blockquote>
+
+<p>URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。</p>
+
+<h2 id="gcmサービスを有効化">GCMサービスを有効化</h2>
+
+<p>API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。</p>
+
+<p><img src="/assets/img/2012-10-08-sample-for-google-cloud-messaging-for-android/001.png" alt="" /></p>
+
+<h2 id="api-keyを作成">API Keyを作成</h2>
+
+<p>API ConsoleのAPI AccessからAPI Keyを作成します。</p>
+
+<p><img src="http://developer.android.com/images/gcm/gcm-api-access.png" alt="" /></p>
+
+<p>「Create new Server key」をクリックします。</p>
+
+<p><img src="http://developer.android.com/images/gcm/gcm-config-server-key.png" alt="" /></p>
+
+<p>APIへのアクセスを許可するIPアドレスを指定できます。サーバーのIPアドレスを指定することで、他PCからのAPI使用を拒否することができるようです。未入力の場合、全許可になるようです。</p>
+
+<p><img src="http://developer.android.com/images/gcm/gcm-api-key.png" alt="" /></p>
+
+<p>Server appsのAPI Keyが作成されました。ちなみに、「Key for browser apps」という項目もあり紛らわしいので注意です。</p>
+
+<p>ちょっと面倒ですが、これでGCMを有効化できました。</p>
+
+<h1 id="アプリ側を作成">アプリ側を作成</h1>
+
+<p>次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。</p>
+
+<ol>
+  <li>gcm.jarファイルをビルドパスに含める</li>
+  <li>GCMIntentServiceを作成</li>
+  <li>GCMを登録/解除するActivityを作成</li>
+  <li>AndroidManifestを修正</li>
+</ol>
+
+<h2 id="gcmjarファイルをビルドパスに含める">gcm.jarファイルをビルドパスに含める</h2>
+
+<p>GCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「<em>$YOUR_SDK_ROOT</em>/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。</p>
+
+<h2 id="gcmintentserviceを作成">GCMIntentServiceを作成</h2>
+
+<p>GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。</p>
+
+<blockquote>
+  <p>NOTE: クラス名をGCMIntentService以外にしたら動作しなかった…</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class GCMIntentService extends GCMBaseIntentService {
+    // TODO SENDER_ID
+    public static final String SENDER_ID = "xxx";
+    public GCMIntentService() {
+        super(SENDER_ID);
+    }
+
+    @Override
+    protected void onRegistered(Context ctx, String registrationId) {
+        Log.d("sample-gcm", "onRegistered: registrationId=" + registrationId);
+        handleMessage("GCM登録");
+    }
+
+    @Override
+    protected void onUnregistered(Context ctx, String registrationId) {
+        Log.d("sample-gcm", "onUnregistered: registrationId=" + registrationId);
+        handleMessage("GCM解除");
+    }
+
+    @Override
+    protected void onError(Context ctx, String errorId) {
+        Log.d("sample-gcm", "onError: errorId=" + errorId);
+        handleMessage("GCMエラー");
+    }
+
+    @Override
+    protected void onMessage(Context ctx, Intent intent) {
+        String msg = intent.getStringExtra("message");
+        Log.d("sample-gcm", "onMessage: msg=" + msg);
+        handleMessage("GCM受信: msg=" + msg);
+    }
+
+    private void handleMessage(String msg) {
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification n = new Notification(android.R.drawable.btn_default, msg, System.currentTimeMillis());
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+        n.setLatestEventInfo(getApplicationContext(), "sample-gcm", msg, contentIntent);
+        nm.notify(1, n);
+    }
+}
+</code></pre></div></div>
+
+<p>SENDER_IDには、API Consoleで取得したプロジェクトIDを設定します。</p>
+
+<p>基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。</p>
+
+<h2 id="gcmを登録解除するactivityを作成">GCMを登録/解除するActivityを作成</h2>
+
+<p>GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GCMRegistrar.checkDevice(MainActivity.this);
+GCMRegistrar.checkManifest(MainActivity.this);
+String registrationId = GCMRegistrar.getRegistrationId(MainActivity.this);
+if ("".equals(registrationId)) {
+    GCMRegistrar.register(MainActivity.this, GCMIntentService.SENDER_ID);
+} else {
+    Toast.makeText(MainActivity.this, "既にGCM登録済み", Toast.LENGTH_SHORT).show();
+}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">checkDevice()</code>は、その端末でGCMがサポートされているか確認します。<code class="highlighter-rouge">checkManifest()</code>は、AndroidManifestでGCMが使用可能になっているか確認します。双方とも、不可の場合は例外がスローされます。</p>
+
+<p><code class="highlighter-rouge">getRegistrationId()</code>で、端末(というかアプリ)に登録されているRegistrationIDを取得します。未登録の場合は空文字列が返ります。</p>
+
+<p><code class="highlighter-rouge">register()</code>で、GoogleのGCMサーバーにリクエストを送信し、RegistrationIDを取得します。取得したRegistrationIDは、SharedPreferenceに保存されます。保存されたRegistrationIDは、先ほどの<code class="highlighter-rouge">getRegistratioId()</code>で取得することができます。便利だ。</p>
+
+<p>GCMの解除はもっと簡単で、単に<code class="highlighter-rouge">unregister()</code>を呼び出すだけです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GCMRegistrar.unregister(MainActivity.this);
+</code></pre></div></div>
+
+<h2 id="androidmanifestを修正">AndroidManifestを修正</h2>
+
+<p><code class="highlighter-rouge">&lt;permission&gt;</code>、<code class="highlighter-rouge">&lt;uses-permission&gt;</code>を以下のように追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;permission
+    android:name="your_package.permission.C2D_MESSAGE"
+    android:protectionLevel="signature" /&gt;
+&lt;uses-permission android:name="your_package.permission.C2D_MESSAGE" /&gt;
+&lt;uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /&gt;
+&lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">your_package</code>は、アプリのパッケージに置き換えます。</p>
+
+<p>GCMIntentServiceクラスを追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;service android:name=".GCMIntentService" /&gt;
+</code></pre></div></div>
+
+<p>GCMを受信できるように、<code class="highlighter-rouge">&lt;receiver&gt;</code>を追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;receiver
+    android:name="com.google.android.gcm.GCMBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND"&gt;
+
+    &lt;intent-filter&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+        &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
+        &lt;category android:name="your_package" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre></div></div>
+
+<p>以上で、アプリ側の作成は完了です。</p>
+
+<h1 id="サーバー側を作成">サーバー側を作成</h1>
+
+<p>サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。</p>
+
+<ol>
+  <li>jarファイルをビルドパスに含める</li>
+  <li>コードを作成</li>
+</ol>
+
+<h2 id="jarファイルをビルドパスに含める">jarファイルをビルドパスに含める</h2>
+
+<p>アプリ側と同じように以下のjarファイルをビルドパスに含めます。</p>
+
+<ul>
+  <li>gcm-server.jar</li>
+  <li>json_simple-1.1.jar</li>
+  <li>mockito-all-1.8.5.jar</li>
+</ul>
+
+<h2 id="コードを作成">コードを作成</h2>
+
+<p>1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// TODO API Key
+String key = "xxx";
+
+// TODO GCM Registration ID
+String registrationId = "xxx";
+
+Sender sender = new Sender(key);
+Message message = new Message.Builder().addData("message", "てすと").build();
+Result result = sender.send(message, registrationId, 1);
+System.out.println(result.toString());
+</code></pre></div></div>
+
+<p>API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登録した時にLogCatに表示されるものです。</p>
+
+<p>以上で、サーバー側の作成は完了です。</p>
+
+<h1 id="動作確認">動作確認</h1>
+
+<p>これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。</p>
+
+<ol>
+  <li>アプリを動作させ、RegistrationIDを取得できる。</li>
+  <li>サーバー側を動作させ、アプリにメッセージが送信されて表示される。</li>
+</ol>
+
+<p>作成したサンプルは以下で公開しています。</p>
+
+<ul>
+  <li><a href="https://bitbucket.org/u6k/sample-push-notification/">sample-push-notification</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#android" class="page__taxonomy-item" rel="tag">Android</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gcm" class="page__taxonomy-item" rel="tag">GCM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#push-notification" class="page__taxonomy-item" rel="tag">Push Notification</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-08T22:48:00+09:00">2012-10-08</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Google+Cloud+Messaging+for+Android%28GCM%29%E3%81%AE%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%20%2F2012%2F10%2F08%2Fsample-for-google-cloud-messaging-for-android.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2012%2F10%2F08%2Fsample-for-google-cloud-messaging-for-android.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2012%2F10%2F08%2Fsample-for-google-cloud-messaging-for-android.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2012%2F10%2F08%2Fsample-for-google-cloud-messaging-for-android.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2012/10/08/verifying-how-to-install-apk.html" class="pagination--pager" title="apkインストール方法の実験 - “adb install -r”
+">Previous</a>
+    
+    
+      <a href="/2012/10/09/registration-for-google-play-developer.html" class="pagination--pager" title="Google Play開発者登録の手順
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

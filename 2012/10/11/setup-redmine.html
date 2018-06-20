@@ -1,0 +1,867 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Redmineセットアップ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Redmineセットアップ">
+
+
+
+
+  <meta property="og:description" content="何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Redmineセットアップ">
+  <meta name="twitter:description" content="何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2012-10-11T23:37:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Redmineセットアップ">
+    <meta itemprop="description" content="何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…">
+    <meta itemprop="datePublished" content="2012-10-11">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Redmineセットアップ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-11T23:37:00+09:00">2012-10-11</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…</p>
+
+<p>というわけで、JRuby+Redmine+Tomcatという環境を作って、直ぐに展開できる状態にしたいと思います。展開するだけで使用可能！</p>
+
+<p>ただその前に、もう一度Redmineのセットアップをおさらいすることで、セットアップ過程を再確認するとともに理解を深めたいと思います。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>CentOS 6.3</li>
+  <li>Redmine 2.1.2</li>
+  <li>MySQL 5.1.61</li>
+  <li>Apache HTTP Server 2.2.15</li>
+</ul>
+
+<p>いずれも、2012/10/11時点の最新バージョンです。CentOSは、OSセットアップ直後に近い状態です(作業ユーザーの追加、ネットワーク設定などを行いました)。</p>
+
+<h1 id="参考ページ">参考ページ</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td>ほとんど[Redmine 2.1をCentOS 6.3にインストールする手順</td>
+      <td>Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)を参考にしています。以下の手順も、参考ページに沿って進めます。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="セットアップ手順">セットアップ手順</h1>
+
+<h2 id="selinuxを無効に設定">SELinuxを無効に設定</h2>
+
+<p><code class="highlighter-rouge">/etc/sysconfig/selinux</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/sysconfig/selinux
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">SELINUX</code>の値を<code class="highlighter-rouge">disabled</code>に変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELINUX=enforcing
+↓
+SELINUX=disabled
+</code></pre></div></div>
+
+<p>変更後、OSを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo reboot
+</code></pre></div></div>
+
+<p>再起動後、getenforceコマンドを実行してSELinuxが無効に設定されたことを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ getenforce
+Disabled
+</code></pre></div></div>
+
+<h2 id="iptablesでhttpを許可">iptablesでHTTPを許可</h2>
+
+<p><code class="highlighter-rouge">/etc/sysconfig/iptables</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/sysconfig/iptables
+</code></pre></div></div>
+
+<p>80/tcpへの接続を許可する設定を追記します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Firewall configuration written by system-config-firewall
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+# ↓追記
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT
+</code></pre></div></div>
+
+<p>設定を変更後、iptablesを再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service iptables restart
+</code></pre></div></div>
+
+<h2 id="epelリポジトリを登録">EPELリポジトリを登録</h2>
+
+<p>以下のページで、最新のepel-releaseパッケージのURLを確認します。</p>
+
+<ul>
+  <li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/repoview/epel-release.html">RepoView: “Fedora EPEL 6 - x86_64”</a></li>
+</ul>
+
+<p>URLを確認したら、以下のようにrpmコマンドを実行します。yumリポジトリにEPELが追加されます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rpm -Uvh &lt;epel-releaseパッケージのURL&gt;
+</code></pre></div></div>
+
+<h2 id="開発ツール類をインストール">開発ツール類をインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum groupinstall "Development Tools"
+</code></pre></div></div>
+
+<h2 id="rubyとpassengerのビルドに必要なヘッダーファイルなどをインストール">RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install openssl-devel readline-devel zlib-devel curl-devel libyaml-devel
+</code></pre></div></div>
+
+<h2 id="mysqlとヘッダーファイルをインストール">MySQLとヘッダーファイルをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install mysql-server mysql-devel
+</code></pre></div></div>
+
+<h2 id="apacheとヘッダーファイルをインストール">Apacheとヘッダーファイルをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install httpd httpd-devel
+</code></pre></div></div>
+
+<h2 id="imagemagickとヘッダーファイルをインストール">ImageMagickとヘッダーファイルをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install ImageMagick ImageMagick-devel
+</code></pre></div></div>
+
+<h2 id="rubyをインストール">Rubyをインストール</h2>
+
+<h3 id="ソースコードをダウンロード">ソースコードをダウンロード</h3>
+
+<p>以下のページからRubyのソースコードをダウンロードします。</p>
+
+<ul>
+  <li><a href="http://www.ruby-lang.org/ja/downloads/">ダウンロード - Ruby</a></li>
+</ul>
+
+<p>wgetを使用してダウンロードします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.zip
+</code></pre></div></div>
+
+<h3 id="ソースコードをビルド">ソースコードをビルド</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ unzip ruby-1.9.3-p194.zip
+$ cd ruby-1.9.3-p194
+$ ./configure
+$ make
+$ sudo make install
+$ make clean
+</code></pre></div></div>
+<p>インストール後、rubyコマンドを実行してバージョンを表示することで、正しくインストールされたことを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby -v
+ruby 1.9.3p194 (2012-04-20 revision 35410) [i686-linux]
+</code></pre></div></div>
+
+<h3 id="bundlerをインストール">bundlerをインストール</h3>
+
+<p>Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># gem install bundler --no-rdoc --no-ri
+</code></pre></div></div>
+
+<h2 id="mysqlを設定">MySQLを設定</h2>
+
+<h3 id="デフォルトキャラクターセットをutf8に設定">デフォルトキャラクターセットをutf8に設定</h3>
+
+<p><code class="highlighter-rouge">/etc/my.cnf</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/my.cnf
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">[mysqld]</code>セクションに<code class="highlighter-rouge">character-set-server=utf8</code>を、<code class="highlighter-rouge">[mysql]</code>セクションに<code class="highlighter-rouge">default-character-set=utf8</code>を追記します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+character-set-server=utf8
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+[mysql]
+default-character-set=utf8
+</code></pre></div></div>
+
+<p>変更したら、MySQLを起動します。ついでに、OS再起動時にもMySQLが自動起動するように設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service mysqld start
+$ sudo chkconfig mysqld on
+
+$ chkconfig --list | grep mysqld
+mysqld          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">my.cnf</code>への設定が反映されていることを確認します。MySQLに接続して、<code class="highlighter-rouge">show variables like 'character_set%';</code>を実行します。表示された値のうち、<code class="highlighter-rouge">character_set_filesystem</code>と<code class="highlighter-rouge">character_sets_dir</code>以外の値が全てutf8に設定されていることを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root
+mysql&gt; show variables like 'character_set%';
++--------------------------+----------------------------+
+| Variable_name            | Value                      |
++--------------------------+----------------------------+
+| character_set_client     | utf8                       |
+| character_set_connection | utf8                       |
+| character_set_database   | utf8                       |
+| character_set_filesystem | binary                     |
+| character_set_results    | utf8                       |
+| character_set_server     | utf8                       |
+| character_set_system     | utf8                       |
+| character_sets_dir       | /usr/share/mysql/charsets/ |
++--------------------------+----------------------------+
+8 rows in set (0.00 sec)
+</code></pre></div></div>
+
+<h2 id="rootユーザーのパスワードを変更">rootユーザーのパスワードを変更</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; set password for root@localhost=password('新しいrootのパスワード');
+</code></pre></div></div>
+
+<p>一度、MySQLをログアウトして、rootでログインし直してみます。パスワード無しではログインに失敗し、先ほど設定したパスワードだとログインできることを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
+$ mysql -u root -p
+Enter password:
+</code></pre></div></div>
+
+<h2 id="匿名ユーザーを削除">匿名ユーザーを削除</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; delete from mysql.user where user = '';
+mysql&gt; flush privileges;
+</code></pre></div></div>
+
+<h3 id="redmine用のデータベースユーザーを作成">Redmine用のデータベース、ユーザーを作成</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; create database db_redmine default character set utf8;
+mysql&gt; grant all on db_redmine.* to user_redmine identified by 'user_redmineのパスワード';
+mysql&gt; flush privileges;
+</code></pre></div></div>
+
+<h2 id="redmineをインストール">Redmineをインストール</h2>
+
+<h3 id="redmineをダウンロード">Redmineをダウンロード</h3>
+
+<p><a href="http://rubyforge.org/frs/?group_id=1850">RubyForge: Redmine: ファイルリスト</a>からRedmineをダウンロードします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget http://rubyforge.org/frs/download.php/76497/redmine-2.1.2.zip
+</code></pre></div></div>
+
+<h3 id="redmineを展開配置">Redmineを展開、配置</h3>
+
+<p>ダウンロードしたアーカイブを展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ unzip redmine-2.1.2.zip
+</code></pre></div></div>
+
+<p>展開したRedmineを配置先ディレクトリに移動します。ここでは、配置先を<code class="highlighter-rouge">/var/lib/redmine</code>として説明します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mv redmine-2.1.2 /var/lib/redmine
+</code></pre></div></div>
+
+<p>以降、Redmineの配置先ディレクトリを<em>$REDMINE_HOME</em>と表記します。</p>
+
+<h3 id="データベース接続を設定">データベース接続を設定</h3>
+
+<p><code class="highlighter-rouge">$REDMINE_HOME/config/database.yml</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi /var/lib/redmine/config/database.yml
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">database.yml</code>を以下のように作成します。同ディレクトリに<code class="highlighter-rouge">database.yml.example</code>があるので、設定の参考にしてください。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+  adapter: mysql2
+  database: db_redmine
+  host: localhost
+  username: user_redmine
+  password: MySQLのパスワード
+  encoding: utf8
+</code></pre></div></div>
+
+<h3 id="メールサーバー接続を設定">メールサーバー接続を設定</h3>
+
+<p><code class="highlighter-rouge">$REDMINE_HOME/config/configuration.yml</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi /var/lib/redmine/config/configuration.yml
+</code></pre></div></div>
+
+<p>以下のように作成します。同ディレクトリに<code class="highlighter-rouge">configuration.yml.example</code>があるので、設定の参考にしてください。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      address: "localhost"
+      port: 25
+      domain: 'example.com'
+</code></pre></div></div>
+
+<p>実際は、ご利用のメール環境に合わせて設定してください。また、<code class="highlighter-rouge">configuration.yml</code>には、アップロードされたファイルの保管場所、データベース暗号化などの設定があります。詳細は<a href="http://blog.redmine.jp/articles/configuration_yml/">configuration.ymlによるRedmineの設定</a>をご覧ください。</p>
+
+<blockquote>
+  <p>tips: GMailのSMTPサーバーを利用する場合の設定</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      enable_starttls_auto: true
+      address: "smtp.gmail.com"
+      port: 587
+      domain: "smtp.gmail.com"
+      authentication: :login
+      user_name: "your_email@gmail.com"
+      password: "your_password"
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="gemパッケージをインストール">Gemパッケージをインストール</h2>
+
+<p>bundlerを使用して、Redmineで使用するGemを一括でインストールします。<em>$REDMINE_HOME</em> で以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># bundle install --without development test postgresql sqlite
+</code></pre></div></div>
+
+<h2 id="redmineの初期設定とデータベースのテーブルを作成">Redmineの初期設定とデータベースのテーブルを作成</h2>
+
+<p>セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。<em>$REDMINE_HOME</em> で以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># rake generate_secret_token
+# RAILS_ENV=production rake db:migrate
+</code></pre></div></div>
+
+<h2 id="passengerをインストール">Passengerをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># gem install passenger --no-rdoc --no-ri
+</code></pre></div></div>
+
+<h2 id="passengerのapache用モジュールをインストール">PassengerのApache用モジュールをインストール</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># passenger-install-apache2-module
+</code></pre></div></div>
+
+<p>インストールが完了すると、Apacheに設定する内容が表示されます。以下の表示の<code class="highlighter-rouge">LoadModule</code>から<code class="highlighter-rouge">PassengerRuby</code>の行までを控えておきます。表示内容は、<code class="highlighter-rouge">passenger-install-apache2-module --snippet</code>で後から確認することができます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Apache 2 module was successfully installed.
+
+Please edit your Apache configuration file, and add these lines:
+
+   LoadModule passenger_module /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.17/ext/apache2/mod_passenger.so
+   PassengerRoot /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.17
+   PassengerRuby /usr/local/bin/ruby
+
+After you restart Apache, you are ready to deploy any number of Ruby on Rails
+applications on Apache, without any further Ruby on Rails-specific
+configuration!
+</code></pre></div></div>
+
+<h2 id="apacheを設定">Apacheを設定</h2>
+
+<h3 id="passengerを設定">Passengerを設定</h3>
+
+<p>Passengerの設定をApacheに追加します。<code class="highlighter-rouge">httpd.conf</code>に直接追加すると紛らわしくなるので、別ファイルで設定します。<code class="highlighter-rouge">/etc/httpd/conf.d/passenger.conf</code>を先ほど表示された内容を使用して作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LoadModule passenger_module /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.17/ext/apache2/mod_passenger.so
+PassengerRoot /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.17
+PassengerRuby /usr/local/bin/ruby
+</code></pre></div></div>
+
+<p>設定したら、Apacheを起動します。ついでに、OS起動時にApacheが自動起動するように設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service httpd start
+$ sudo chkconfig httpd on
+
+$ chkconfig --list | grep httpd
+httpd           0:off   1:off   2:on    3:on    4:on    5:on    6:off
+</code></pre></div></div>
+
+<h3 id="ファイルオーナーを変更">ファイルオーナーを変更</h3>
+
+<p>Redmineの配置先ディレクトリのファイルを、Apacheを実行するユーザー・グループ(CentOSの場合は<code class="highlighter-rouge">apache</code>)で読み書きできるよう、ファイルオーナーを変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chown -R apache:apache /var/lib/redmine
+</code></pre></div></div>
+
+<h3 id="redmine公開設定サブディレクトリで公開">Redmine公開設定(サブディレクトリで公開)</h3>
+
+<p>ここでは、Redmineをサブディレクトリで公開する方法を説明します。</p>
+
+<p>Apacheの公開ディレクトリに、<em>$REDMINE_HOME</em> に対するシンボリックリンクを作成します。シンボリックリンクの名前が、URLのディレクトリ名の部分になります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ln -s /var/lib/redmine/public /var/www/html/redmine
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">passenger.conf</code>に以下の設定を追加します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RackBaseURI /redmine
+</code></pre></div></div>
+
+<blockquote>
+  <p>tips: 説明元ページには<code class="highlighter-rouge">RailsBaseURI</code>と記述されていますが、自分の環境ではInternal Server Errorになりました。詳細は<a href="http://stackoverflow.com/questions/4430847/passenger-error-phusionpassengerclassicrailsapplicationspawnererror">Passenger error - PhusionPassenger::ClassicRails::ApplicationSpawner::Error</a>をご覧ください。</p>
+</blockquote>
+
+<p>Apache設定に間違いが無いことを確認し、再起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ service httpd configtest
+Syntax OK
+$ sudo service httpd graceful
+</code></pre></div></div>
+
+<p>以上で、Redmineを動作させる設定は完了です。</p>
+
+<p>インストール後は、<a href="http://redmine.jp/tech_note/first-step/admin/">Redmineを使い始めるための初期設定</a>を参考にして初期設定を行います。</p>
+
+<p>さて、次回はいよいよJRuby+Redmineをセットアップします。まずはTomcat無しで直接起動してみる予定です。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#redmine" class="page__taxonomy-item" rel="tag">Redmine</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#setup" class="page__taxonomy-item" rel="tag">Setup</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-11T23:37:00+09:00">2012-10-11</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Redmine%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%20%2F2012%2F10%2F11%2Fsetup-redmine.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2012%2F10%2F11%2Fsetup-redmine.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2012%2F10%2F11%2Fsetup-redmine.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2012%2F10%2F11%2Fsetup-redmine.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2012/10/09/registration-for-google-play-developer.html" class="pagination--pager" title="Google Play開発者登録の手順
+">Previous</a>
+    
+    
+      <a href="/2012/10/12/build-redmine-war-1.html" class="pagination--pager" title="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

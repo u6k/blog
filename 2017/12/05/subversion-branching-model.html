@@ -1,0 +1,979 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Subversionによる構成管理の運用基本方針 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Subversionによる構成管理の運用基本方針">
+
+
+
+
+  <meta property="og:description" content="あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Subversionによる構成管理の運用基本方針">
+  <meta name="twitter:description" content="あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-12-05T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Subversionによる構成管理の運用基本方針">
+    <meta itemprop="description" content="あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？">
+    <meta itemprop="datePublished" content="2017-12-05">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Subversionによる構成管理の運用基本方針
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-12-05T00:00:00+09:00">2017-12-05</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？</p>
+
+<p>GitHubスタイルの運用方針があるのであれば、大変結構です。しかし、SIerの現場ではSubversion(以降、SVN)による運用がまだまだ多いように思います。更に、コミット・ルールはあるけどブランチ運用はされておらず、みんなでtrunkに格納しているとか。</p>
+
+<p>ここでは、SVNを使った場合の運用方針を定義したいと思います。これをベースとして、現場ごとにカスタマイズして運用方針を定義すると良いと思います。</p>
+
+<p><strong>Table of Contents:</strong></p>
+
+<!-- TOC -->
+
+<ul>
+  <li><a href="#結論">結論</a></li>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#よくある状況と問題点">よくある状況と問題点</a></li>
+  <li><a href="#svnブランチ運用方針">SVNブランチ運用方針</a>
+    <ul>
+      <li><a href="#最初期">最初期</a>
+        <ul>
+          <li><a href="#フォルダを作成">フォルダを作成</a></li>
+          <li><a href="#ユーザーを作成">ユーザーを作成</a></li>
+          <li><a href="#権限を設定">権限を設定</a></li>
+          <li><a href="#運用方針を定義">運用方針を定義</a></li>
+        </ul>
+      </li>
+      <li><a href="#作業開始">作業開始</a></li>
+      <li><a href="#開発テスト">開発、テスト</a></li>
+      <li><a href="#レビュー">レビュー</a>
+        <ul>
+          <li><a href="#自動化できることはciサーバーに任せる">自動化できることはCIサーバーに任せる</a></li>
+          <li><a href="#ソースコードの内容確認">ソースコードの内容確認</a></li>
+          <li><a href="#マージの事前確認">マージの事前確認</a></li>
+        </ul>
+      </li>
+      <li><a href="#マージ">マージ</a></li>
+      <li><a href="#リリース">リリース</a></li>
+      <li><a href="#緊急バグ対応">緊急バグ対応</a>
+        <ul>
+          <li><a href="#バグ対応開始">バグ対応開始</a></li>
+          <li><a href="#リリース-1">リリース</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#faq">FAQ</a>
+    <ul>
+      <li><a href="#プロジェクト途中から導入するには">プロジェクト途中から導入するには？</a></li>
+      <li><a href="#作業ごとにブランチを作成するの">作業ごとにブランチを作成するの？</a></li>
+      <li><a href="#ブランチをたくさん作成したら容量が">ブランチをたくさん作成したら容量が…</a></li>
+      <li><a href="#間違ったブランチにコミットしないか">間違ったブランチにコミットしないか？</a></li>
+      <li><a href="#レビューのためにブランチ切り替えがメンドウ">レビューのためにブランチ切り替えがメンドウ</a></li>
+      <li><a href="#横展開対応はどのように対応するか">横展開対応はどのように対応するか？</a></li>
+      <li><a href="#現在リリースされているアプリケーションのソースコードは">現在、リリースされているアプリケーションのソースコードは？</a></li>
+      <li><a href="#リリース後に些細なミスを見つけたら">リリース後に些細なミスを見つけたら？</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#関連ページ">関連ページ</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="結論">結論</h1>
+
+<p>git-flowを参考にブランチ運用方針を定義します。SVN標準フォルダ構成(<code class="highlighter-rouge">trunk</code>、<code class="highlighter-rouge">branches</code>、<code class="highlighter-rouge">tags</code>フォルダ)の上に定義するため、git-flowと次の相違点があります。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>git-flow</th>
+      <th>SVN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">master</code>ブランチ</td>
+      <td><code class="highlighter-rouge">trunk</code>フォルダ</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">develop</code>ブランチ</td>
+      <td><code class="highlighter-rouge">branches/develop</code>フォルダ</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">feature</code>ブランチ</td>
+      <td><code class="highlighter-rouge">branches/xxx</code>フォルダ</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">releases</code>ブランチ</td>
+      <td><code class="highlighter-rouge">branches/releases</code>フォルダ</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">hotfix</code>ブランチ</td>
+      <td><code class="highlighter-rouge">branches/xxx</code>フォルダ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="注意">注意</h1>
+
+<ul>
+  <li>この文書では、SVNサーバーの構築方法やSVNコマンドの解説は行いません。</li>
+  <li>SVNコマンドで説明を行いますが、TortoiseSVNを使った方が楽です。TortoiseSVNユーザーは、SVNコマンドをTortoiseSVNの該当する操作に読み替えてください。</li>
+</ul>
+
+<h1 id="よくある状況と問題点">よくある状況と問題点</h1>
+
+<p>git以前の現場では、次のような状況が見られます。</p>
+
+<ul>
+  <li>SVN、VSSを使ってはいるが、運用方針は定義していない。<code class="highlighter-rouge">trunk</code>フォルダやルート・フォルダに直接格納している。</li>
+  <li>そもそもバージョン管理システムを使用していない。ファイル・サーバーに直接格納しており、日次でバックアップしている。</li>
+</ul>
+
+<p>こういった現場では、次のような問題が発生しがちです。</p>
+
+<ul>
+  <li>コンパイルが失敗するソースコードが混入している！</li>
+  <li>リリースを行うから、しばらく触らないで！</li>
+  <li>複数のソースコードを一括で修正するから、しばらく触らないで！</li>
+  <li>現在、リリースされているアプリケーションはどの時点のソースコード？</li>
+  <li>リリース物件に作業中のソースコードが混入している…</li>
+  <li>レビューが完了するまで、何日～何週間もソースコードを格納できない…</li>
+</ul>
+
+<p>このような問題を解消するため、ブランチ運用方針を定義します。</p>
+
+<h1 id="svnブランチ運用方針">SVNブランチ運用方針</h1>
+
+<p>git-flowを基に、次のようなブランチ運用方針を定義します。</p>
+
+<p><img src="/assets/img/2017-12-05-subversion-branching-model/subversion-branching-model.png" alt="subversion branching model" /></p>
+
+<p>SVN標準フォルダ構成に比べて増えています。次に、フォルダごとの役割を説明します。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>フォルダ</th>
+      <th>役割</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">trunk</code></td>
+      <td>リリースされたソースコードのみを格納する。</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">tags</code></td>
+      <td>リリースされたソースコードにバージョン名を付ける。</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">branches/releases</code></td>
+      <td>リリースを行うための一時フォルダ。</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">branches/develop</code></td>
+      <td>機能ごとのテストまで完了したソースコードを格納する。</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">branches/xxx</code></td>
+      <td>作業ごとの開発中ソースコードを格納する。ここはコンパイルを壊すようなソースコードを格納しても良い。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>この方針により、次のようなことができるようになります。</p>
+
+<ul>
+  <li>いつでも安全にリリースできるベースラインが欲しい。
+    <ul>
+      <li><code class="highlighter-rouge">trunk</code>はいつでも安全にリリース可能。</li>
+    </ul>
+  </li>
+  <li>作業中に緊急バグ対応など割り込み作業に対応したい。
+    <ul>
+      <li><code class="highlighter-rouge">branches/xxx</code>に開発中ソースコードを格納して、新たに<code class="highlighter-rouge">branches/yyy</code>を分岐することで安全に切り替えることができる。</li>
+    </ul>
+  </li>
+  <li>作業中ソースコードを複数チームでキャッチボールしたい。
+    <ul>
+      <li>業務チームで開発 -&gt; 品質管理チームでレビュー -&gt; 構成管理チームでマージ -&gt; ビルドチームでリリース、といったキャッチボール。</li>
+      <li><code class="highlighter-rouge">branches/xxx</code>に開発中ソースコードを格納して、各チームで共有することができる。</li>
+    </ul>
+  </li>
+  <li>作業完了まで自PCの中にしかソースコードがないのはツライので、作業中でもコミットしたい。
+    <ul>
+      <li><code class="highlighter-rouge">branches/xxx</code>に頻繁にコミットしても良い。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>次に、これらのフォルダの運用手順を説明します。</p>
+
+<h2 id="最初期">最初期</h2>
+
+<p>プロジェクト開始時、当ブランチ運用開始時に実施することを説明します。</p>
+
+<h3 id="フォルダを作成">フォルダを作成</h3>
+
+<p>SVNリポジトリを作成直後は、基本フォルダ構成が作成されていると思います。作成されていなければ、手動で作成してください。さらに、<code class="highlighter-rouge">trunk</code>から分岐して<code class="highlighter-rouge">branches/develop</code>を作成します。<code class="highlighter-rouge">branches/releases</code>は直接作成します。結果、次のようなフォルダ構成になります。</p>
+
+<ul>
+  <li>trunk</li>
+  <li>branches
+    <ul>
+      <li>develop</li>
+      <li>releases</li>
+    </ul>
+  </li>
+  <li>tags</li>
+</ul>
+
+<h3 id="ユーザーを作成">ユーザーを作成</h3>
+
+<p>フォルダ作成後、SVNリポジトリにアクセスするユーザーを作成します。Apache HTTP Serverであればhtpasswd管理、Visual SVNであればGUIからユーザーを作成するなど、プロダクトごとに対応してください。</p>
+
+<h3 id="権限を設定">権限を設定</h3>
+
+<p>ユーザー作成後、フォルダに読み書きできるユーザーを限定するため、権限を設定します。これは、<code class="highlighter-rouge">trunk</code>や<code class="highlighter-rouge">branches/develop</code>に不用意にコミットしてしまわないようにする処置です。なので、権限設定がメンドウであれば、運用で気を付ければよいと思います。</p>
+
+<h3 id="運用方針を定義">運用方針を定義</h3>
+
+<p>最後に、一番重要ですが <strong>バージョン管理運用方針を策定し、文書化</strong> します。現場ごとの書式で文書化すれば良いと思いますが、おおむね次の構成になると考えます。</p>
+
+<ul>
+  <li>バージョン管理概要
+    <ul>
+      <li>バージョン管理とは</li>
+      <li>管理対象要素</li>
+      <li>管理対象外要素</li>
+      <li>ステークホルダー</li>
+    </ul>
+  </li>
+  <li>SVNリポジトリ、フォルダ構造
+    <ul>
+      <li>SVNリポジトリと作業拠点の構造</li>
+      <li>フォルダ構造</li>
+    </ul>
+  </li>
+  <li>基本方針
+    <ul>
+      <li>ユーザー管理、権限管理</li>
+      <li>チェックアウト</li>
+      <li>ブランチ
+        <ul>
+          <li><code class="highlighter-rouge">branches/xxx</code>の命名規則</li>
+          <li><code class="highlighter-rouge">tags/xxx</code>の命名規則</li>
+        </ul>
+      </li>
+      <li>コミット
+        <ul>
+          <li><code class="highlighter-rouge">trunk</code>、<code class="highlighter-rouge">branches/develop</code>のビルドは破壊しない</li>
+          <li><code class="highlighter-rouge">branches/xxx</code>は好きにコミットして良い</li>
+          <li>コミットメッセージ</li>
+          <li>マージにおけるコンフリクト</li>
+        </ul>
+      </li>
+      <li>マージ</li>
+      <li>ロック</li>
+      <li>その他
+        <ul>
+          <li>ファイルコピー、移動</li>
+          <li>ゴミファイル</li>
+          <li>作業中ファイル</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>運用手順
+    <ul>
+      <li>作業開始 - <code class="highlighter-rouge">branches/xxx</code>を作成</li>
+      <li>開発、テスト - <code class="highlighter-rouge">branches/xxx</code>の中で作業</li>
+      <li>レビュー - <code class="highlighter-rouge">branches/xxx</code>の差分をレビュー</li>
+      <li>マージ - <code class="highlighter-rouge">branches/xxx</code>から<code class="highlighter-rouge">branches/develop</code>にマージ</li>
+      <li>リリース</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="作業開始">作業開始</h2>
+
+<p>作業ごとにブランチを作成します。基本的に<code class="highlighter-rouge">branches/develop</code>を<code class="highlighter-rouge">branches/xxx</code>にコピーすることで、ブランチを作成します。<code class="highlighter-rouge">xxx</code>の命名規則は現場ごとに決めれば良いですが、作業はWBSやチケットやバグ票で定義されるはずなので、WBS番号やチケットIDやバグ番号でブランチを作成すると良いでしょう。こうすることで、そのブランチが何のためのブランチなのかが分かりやすくなります。</p>
+
+<p>例えば、「WBS番号 2-3-5-8 発注画面」という作業を行う場合、次のようにブランチを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2-3-5-8 発注画面の製造を開始" https://svn.example.com/branches/develop/ https://svn.example.com/branches/2-3-5-8/
+</code></pre></div></div>
+
+<h2 id="開発テスト">開発、テスト</h2>
+
+<p>先ほど作成したブランチで作業を行います。このブランチは作業専用のブランチであり他作業者に影響はないので、作業中のコードをコミットしても良いですし、なんなら一時的にビルドが壊れてしまっても良いです。作業が少しでも進捗したら、気軽にコミットしましょう。</p>
+
+<h2 id="レビュー">レビュー</h2>
+
+<p>開発者が作業を終えたら<code class="highlighter-rouge">branches/develop</code>にマージしますが、その前にもちろんレビューを行います。プロジェクトごとに品質基準があるでしょうし、チームごとにもあるかもしれません。それらの品質確認をパスしたコードのみ、<code class="highlighter-rouge">branches/develop</code>にマージして良いです。次のような基準が良くあるのではないでしょうか。</p>
+
+<ul>
+  <li>コーディング規約に準拠していること
+    <ul>
+      <li>静的チェックツールを実行</li>
+      <li>目視で確認</li>
+    </ul>
+  </li>
+  <li>コード設計に問題がないこと</li>
+  <li>動作すること</li>
+  <li>テストをパスしていること
+    <ul>
+      <li>テストが正しく設計されていること</li>
+    </ul>
+  </li>
+  <li>マージが失敗しないこと</li>
+</ul>
+
+<h3 id="自動化できることはciサーバーに任せる">自動化できることはCIサーバーに任せる</h3>
+
+<p>自動化できることは自動化してしまいましょう。CIサーバーで、静的チェックを実行、コード設計の問題報告、テストまでは実行してしまいたいです。</p>
+
+<h3 id="ソースコードの内容確認">ソースコードの内容確認</h3>
+
+<p>ソースコードの内容確認は、ブランチの最初から最新までの差分を表示することで行います。まずは、ブランチがどのリビジョンから派生したのかを確認します。<code class="highlighter-rouge">--stop-on-copy</code>オプションを指定してログを表示することで、派生したリビジョンから最新までのログが表示されます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn log --stop-on-copy -v https://svn.example.com/branches/2-3-5-8/
+</code></pre></div></div>
+
+<p>派生したリビジョンが確認できたら、そのリビジョンから最新までの差分を表示します。例えばリビジョン35813が派生したリビジョンだとした場合、次のように実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn diff -r 35813:HEAD https://svn.example.com/branches/2-3-5-8/
+</code></pre></div></div>
+
+<h3 id="マージの事前確認">マージの事前確認</h3>
+
+<p>「マージが失敗しないこと」は、<code class="highlighter-rouge">--dry-run</code>オプションを指定してマージすることで確認します。例えば、先ほどの<code class="highlighter-rouge">2-3-5-8</code>ブランチがマージに失敗しないことを確認するには、次のように実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge --dry-run https://svn.example.com/branches/2-3-5-8/ https://svn.example.com/branches/develop/
+</code></pre></div></div>
+
+<p>実際にはマージを行わず、マージを行った場合にどうなるかがシミュレーションできます。ログにファイルパスとともに記号が表示されます。記号は次の意味を持ちます。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>記号</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>追加</td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td>削除</td>
+    </tr>
+    <tr>
+      <td>U</td>
+      <td>更新</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>コンフリクト</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>マージされた</td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>既に存在する</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>置換された</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>コンフリクトするとマージに失敗するので、解消する必要があります。解消するには、コンフリクトしているファイルを修正したり、<code class="highlighter-rouge">branches/develop</code>から逆マージを行います。マージ時に<code class="highlighter-rouge">postpone</code>(競合を後で解決)を選択してから修正して<code class="highlighter-rouge">resolved</code>(競合を解決)しても良いです。</p>
+
+<h2 id="マージ">マージ</h2>
+
+<p>開発して、テストして、レビューしたら、いよいよ<code class="highlighter-rouge">branches/develop</code>にマージします。マージ作業は、<code class="highlighter-rouge">--dry-run</code>オプションを指定せずにマージを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "2-3-5-8 発注画面の製造、テストが完了" https://svn.example.com/branches/2-3-5-8/ https://svn.example.com/branches/develop/
+</code></pre></div></div>
+
+<p>マージ後のブランチを削除するか放置するかは、どちらでも良いです。<code class="highlighter-rouge">branches</code>の下が見づらいと思えば削除すれば良いし、メンドウであれば放置してもさほど問題はないはずです。ただ、後で作業ログを確認するかもということであれば、放置したほうが良いでしょう。</p>
+
+<h2 id="リリース">リリース</h2>
+
+<p>開発が進み、いよいよテスト環境や本番環境にリリースする時が来ました。リリース作業にどの程度の時間がかかるかはプロダクトによって異なりますが、リリース作業中も開発作業は進むでしょう。そのため、リリース作業は<code class="highlighter-rouge">branches/releases</code>で行います。</p>
+
+<p>まず、<code class="highlighter-rouge">branches/develop</code>から<code class="highlighter-rouge">branches/releases/xxx</code>にコピーします。<code class="highlighter-rouge">xxx</code>はバージョン番号を付けます。バージョン番号の付け方はプロジェクトごとに異なると思いますが、特になければ日付でもつければ良いと思います。</p>
+
+<p>例えば、2017/12/5の1回目のリリースの場合、次のように実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2017/12/5 1回目のリリースを開始" https://svn.example.com/branches/develop/ https://svn.example.com/branches/releases/20171205-1/
+</code></pre></div></div>
+
+<p>リリース作業は、例えば次のようなことを行うでしょう。</p>
+
+<ul>
+  <li>バージョン番号を変更</li>
+  <li>全テストを実行</li>
+  <li>リリース先環境用に設定ファイルなどを変更
+    <ul>
+      <li><a href="https://12factor.net/ja/">The Twelve-Factor App</a>のように環境変数で制御できるようにした方が良いですが…</li>
+    </ul>
+  </li>
+  <li>ビルド、デプロイ</li>
+  <li>リリース先環境でスモーク・テスト</li>
+</ul>
+
+<p>リリース作業が完了したら、<code class="highlighter-rouge">branches/releases/xxx</code>を<code class="highlighter-rouge">trunk</code>にマージします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "2017/12/5 1回目のリリースが完了" https://svn.example.com/branches/releases/20171205-1/ https://svn.example.com/trunk/
+</code></pre></div></div>
+
+<p>同時に、<code class="highlighter-rouge">tags/xxx</code>も作成します。<code class="highlighter-rouge">tags/xxx</code>は<code class="highlighter-rouge">trunk</code>をコピーすることで作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2017/12/5 1回目のリリース" https://svn.example.com/trunk/ https://svn.example.com/tags/20171205-1/
+</code></pre></div></div>
+
+<h2 id="緊急バグ対応">緊急バグ対応</h2>
+
+<p>リリースを繰り返すと、きっと、「<code class="highlighter-rouge">xxx</code>バージョンのアプリに致命的バグがあるので緊急で対応してほしい！」という状況が来るでしょう。この時、通常の作業と同様に<code class="highlighter-rouge">branches/develop</code>から分岐すると、<code class="highlighter-rouge">xxx</code>バージョン以降のソースコードも入ってしまいます。なので、特定バージョンに関連する緊急バグ対応は手順が少し異なります。</p>
+
+<h3 id="バグ対応開始">バグ対応開始</h3>
+
+<p>緊急バグ対応の場合、<code class="highlighter-rouge">tags/xxx</code>から<code class="highlighter-rouge">branches/xxx</code>に分岐します。例えば、「バグ管理番号 1123 受注画面の確定ボタンをクリックするとクラッシュする」に対応する場合、次のようにブランチを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "バグ 1123 対応を開始" https://svn.example.com/tags/20171205-1/ https://svn.example.com/branches/1123/
+</code></pre></div></div>
+
+<h3 id="リリース-1">リリース</h3>
+
+<p>通常の開発と同様に、開発、テスト、レビューを行い、問題がなければリリースを行います。緊急バグ対応のリリースの場合、<code class="highlighter-rouge">branches/xxx</code>から<code class="highlighter-rouge">branches/releases/xxx</code>に分岐します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2017/12/5 2回目のリリース" https://svn.example.com/branches/1123/ https://svn.example.com/branches/releases/20171205-2/
+</code></pre></div></div>
+
+<p>リリース作業が完了したら、<code class="highlighter-rouge">branches/releases/xxx</code>を<code class="highlighter-rouge">trunk</code>にマージして、<code class="highlighter-rouge">trunk</code>を<code class="highlighter-rouge">tags/xxx</code>にコピーします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "2017/12/5 2回目のリリースが完了" https://svn.example.com/branches/releases/20171205-2/ https://svn.example.com/trunk/
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2017/12/5 2回目のリリース" https://svn.example.com/trunk/ https://svn.example.com/tags/20171205-2/
+</code></pre></div></div>
+
+<p>また、開発中のソースコードにも反映する必要がある場合(普通、反映する必要がありますが)、<code class="highlighter-rouge">branches/develop</code>にもマージします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "バグ 1123 の対応をマージ" https://svn.example.com/branches/releases/20171205-2/ https://svn.example.com/branches/develop/
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">branches/releases/xxx</code>をマージするとリリース先環境用の設定が入ってしまい困る場合、<code class="highlighter-rouge">branches/xxx</code>をマージすると良いでしょう。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "バグ 1123 の対応をマージ" https://svn.example.com/branches/1123/ https://svn.example.com/branches/develop/
+</code></pre></div></div>
+
+<h1 id="faq">FAQ</h1>
+
+<p>よくあるケースに対する対応を説明します。</p>
+
+<h2 id="プロジェクト途中から導入するには">プロジェクト途中から導入するには？</h2>
+
+<p>もし<code class="highlighter-rouge">trunk</code>のみで運用しているのであれば、ブランチ運用方針を文書化して周知したのちに、運用手順を最初から実行すると良いでしょう。ぜひ、導入してください！</p>
+
+<p>一つ注意としては、SVNユーザーは(私の観測範囲では)ブランチの扱いに慣れていないことが多いです。ですので、ある程度の学習コストは必要となるでしょう。また、ここではSVNコマンドで説明しましたが、WindowsにはTortoiseSVNとWinMergeという最強コンボがありますので、それらを使うべきです。</p>
+
+<h2 id="作業ごとにブランチを作成するの">作業ごとにブランチを作成するの？</h2>
+
+<p>運用手順でも説明しましたが、作業ごとにブランチを作成します。安全な作業のためですので、多少のメンドウは受け入れましょう。この時、1作業の作業量が多くなりすぎないように注意してください。生存期間が長いブランチは、マージでコンフリクトする危険性が高まります。ここら辺は、マネージメント技術やアーキテクトの分野ですが。</p>
+
+<h2 id="ブランチをたくさん作成したら容量が">ブランチをたくさん作成したら容量が…</h2>
+
+<p>VSSではもろにコピーするので容量をバカ食いしますが、SVNのコピーはSVN内部で「コピーした」と記録されるだけですので、容量は(ほとんど)消費しません。気にせずどんどんブランチを作成しましょう。</p>
+
+<p>ただ、SVNリポジトリ全体をチェックアウトしている人はブランチやタグを全てチェックアウトしてしまうため、自PCの容量を消費してしまいます。必要なブランチのみをチェックアウトして、他ブランチを見たい場合は<code class="highlighter-rouge">switch</code>で切り替えましょう。</p>
+
+<h2 id="間違ったブランチにコミットしないか">間違ったブランチにコミットしないか？</h2>
+
+<p>例えば、自分の作業ブランチは<code class="highlighter-rouge">branches/1123</code>なのに間違えて<code class="highlighter-rouge">branches/1124</code>をチェックアウトして作業してしまった！というケースですが、これはさすがにチェックアウトするときに気を付けてくださいとしか言えないです。気を付けてください。</p>
+
+<h2 id="レビューのためにブランチ切り替えがメンドウ">レビューのためにブランチ切り替えがメンドウ</h2>
+
+<p>はい、メンドウです。正直、GitHubやGitLabが使えたら、SVNコマンドで説明していることのほとんどがWebブラウザでポチポチして終わる話です。GitHubやGitLabを導入できるよう、がんばりましょう。</p>
+
+<h2 id="横展開対応はどのように対応するか">横展開対応はどのように対応するか？</h2>
+
+<p>ある程度開発が進んでから、「xxxの場所にトレース・ログ出力処理を追加すること」のようなポリシーができた、「xxx共通部品を作成したので、yyyという処理は全体的に修正」のようなケースです。プロジェクトによって、「1人が全て対応する」「作業者それぞれが対応する」に分かれると思います。</p>
+
+<p>「1人が全て対応する」場合は、<code class="highlighter-rouge">branches/xxx</code>を1個作成して対応を行い、<code class="highlighter-rouge">branches/develop</code>にマージします。この時、他作業者(他ブランチ)が作業しているファイルも対応範囲である場合、コンフリクトに注意してください。</p>
+
+<p>「作業者それぞれが対応する」場合は、作業ごとに<code class="highlighter-rouge">branches/xxx</code>を作成して対応を行い、<code class="highlighter-rouge">branches/develop</code>にマージします。この方法はコンフリクトの危険性が非常に低い代わりに、ブランチを複数作成しなければならないメンドウさがあります。</p>
+
+<h2 id="現在リリースされているアプリケーションのソースコードは">現在、リリースされているアプリケーションのソースコードは？</h2>
+
+<p>CIサーバーでデプロイを行っているのであれば、CIサーバーのログを確認することで特定できるでしょう。そうでなくても、何らかの手段でバージョンを特定することができるはずです。実行ファイルのファイル名、ファイルのプロパティ、APIが返すバージョン、など。特定さえできれば、バージョンに対応するタグをチェックアウトすることで、ソースコードを確認することができます。</p>
+
+<h2 id="リリース後に些細なミスを見つけたら">リリース後に些細なミスを見つけたら？</h2>
+
+<p>リリース後に、画面文言のスペルミスを見つけてしまった！修正したいけどブランチ運用は面倒だから<code class="highlighter-rouge">trunk</code>を直接修正したい！といったケースです。</p>
+
+<p>気持ちは分かりますが、ブランチを作成して対応しましょう。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>慣れるまでは少々メンドウかもしれませんが、引き換えに気軽にコミットできる環境ができます。このメリットは想像するよりはるかに大きいでしょう。ぜひ、あなたの現場にも導入してください。</p>
+
+<h1 id="関連ページ">関連ページ</h1>
+
+<ul>
+  <li><a href="https://www.slideshare.net/KatokichiSoft/git-flow-16616440">Git flowの活用事例</a></li>
+  <li><a href="https://qiita.com/homhom44/items/9f13c646fa2619ae63d0">[日本語訳]A successful Git branching model - Qiita</a></li>
+</ul>
+
+<h1 id="link">Link</h1>
+
+<ul>
+  <li>Author
+    <ul>
+      <li><a href="https://blog.u6k.me/">u6k.Blog()</a></li>
+      <li><a href="https://github.com/u6k">u6k - GitHub</a></li>
+      <li><a href="https://twitter.com/u6k_yu1">u6k_yu1 | Twitter</a></li>
+    </ul>
+  </li>
+  <li>Source
+    <ul>
+      <li><a href="https://github.com/u6k/blog/blob/master/_posts/2017-12-05-subversion-branching-model.md">2017-12-05-subversion-branching-model.md</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#subversion" class="page__taxonomy-item" rel="tag">Subversion</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#vcs" class="page__taxonomy-item" rel="tag">VCS</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-12-05T00:00:00+09:00">2017-12-05</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Subversion%E3%81%AB%E3%82%88%E3%82%8B%E6%A7%8B%E6%88%90%E7%AE%A1%E7%90%86%E3%81%AE%E9%81%8B%E7%94%A8%E5%9F%BA%E6%9C%AC%E6%96%B9%E9%87%9D%20%2F2017%2F12%2F05%2Fsubversion-branching-model.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F12%2F05%2Fsubversion-branching-model.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F12%2F05%2Fsubversion-branching-model.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F12%2F05%2Fsubversion-branching-model.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/12/03/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2017-11-27 to 2017-12-03)
+">Previous</a>
+    
+    
+      <a href="/2017/12/10/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2017-12-04 to 2017-12-10)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

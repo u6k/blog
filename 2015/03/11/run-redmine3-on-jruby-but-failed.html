@@ -1,0 +1,586 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Redmine 3.0.0をJRubyで動かす→ダメだった… - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="昔にRedmineをwar化 (1) とりあえずRedmine+JRubyを動かすなんてことをやりましたが、Redmine 3.0.0がリリースされたということで、この最新バージョンでRedmine on JRubyを試してみました。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Redmine 3.0.0をJRubyで動かす→ダメだった…">
+
+
+
+
+  <meta property="og:description" content="昔にRedmineをwar化 (1) とりあえずRedmine+JRubyを動かすなんてことをやりましたが、Redmine 3.0.0がリリースされたということで、この最新バージョンでRedmine on JRubyを試してみました。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Redmine 3.0.0をJRubyで動かす→ダメだった…">
+  <meta name="twitter:description" content="昔にRedmineをwar化 (1) とりあえずRedmine+JRubyを動かすなんてことをやりましたが、Redmine 3.0.0がリリースされたということで、この最新バージョンでRedmine on JRubyを試してみました。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-03-11T22:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Redmine 3.0.0をJRubyで動かす→ダメだった…">
+    <meta itemprop="description" content="昔にRedmineをwar化 (1) とりあえずRedmine+JRubyを動かすなんてことをやりましたが、Redmine 3.0.0がリリースされたということで、この最新バージョンでRedmine on JRubyを試してみました。">
+    <meta itemprop="datePublished" content="2015-03-11">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Redmine 3.0.0をJRubyで動かす→ダメだった…
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-11T22:00:00+09:00">2015-03-11</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>昔に<a href="http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html">Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす</a>なんてことをやりましたが、<a href="http://redmine.jp/redmine_today/2015/02/redmine-3_0_0-released/">Redmine 3.0.0がリリースされた</a>ということで、この最新バージョンでRedmine on JRubyを試してみました。</p>
+
+<h1 id="結論">結論</h1>
+
+<p>途中で詰まってしまいました…</p>
+
+<p>なので、この文書は「試したけどダメだったログ」になります。</p>
+
+<!-- more -->
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>Windows
+    <ul>
+      <li>Macでも問題ないはず。</li>
+    </ul>
+  </li>
+  <li>Vagrant
+    <ul>
+      <li>chef/centos-7.0を使用</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="vagrantを起動">Vagrantを起動</h1>
+
+<p><code class="highlighter-rouge">chef/centos-7.0</code>を使用するように、Vagrantを初期化・起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;vagrant init chef/centos-7.0
+&gt;vagrant up
+&gt;vagrant ssh
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">vagrant ssh</code>は、Windowsでは<code class="highlighter-rouge">ssh</code>コマンドがインストールされていないため失敗します。<code class="highlighter-rouge">Cygwin</code>などで<code class="highlighter-rouge">ssh</code>コマンドをインストールするか、任意のsshクライアント(TeraTermなど)を使用してください。</p>
+
+<h1 id="各種パッケージを更新インストール">各種パッケージを更新、インストール</h1>
+
+<p>インストール済みソフトウェアを最新化します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y update
+</code></pre></div></div>
+
+<p>開発パッケージ群をインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y groupinstall "Development tools"
+</code></pre></div></div>
+
+<p>Java SDKをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel
+</code></pre></div></div>
+
+<h1 id="jrubyをインストール">JRubyをインストール</h1>
+
+<p>JRubyをインストールします。パッケージインストールではなく手動インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /usr/local/src/
+$ sudo wget https://s3.amazonaws.com/jruby.org/downloads/9.0.0.0.pre1/jruby-bin-9.0.0.0.pre1.zip
+$ sudo unzip jruby-bin-9.0.0.0.pre1.zip
+$ sudo mv jruby-9.0.0.0.pre1/ ../lib/
+$ sudo ln -s /usr/local/lib/jruby-9.0.0.0.pre1/bin/jruby.sh /usr/bin/jruby
+$ cd
+</code></pre></div></div>
+
+<p>動作確認をします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jruby -v
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">bundler</code>をインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo jruby -S gem install bundler --no-rdoc --no-ri
+</code></pre></div></div>
+
+<h1 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h1>
+
+<p>Redmineをダウンロード、展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget http://www.redmine.org/releases/redmine-3.0.0.zip
+$ unzip redmine-3.0.0.zip
+$ cd redmine-3.0.0
+</code></pre></div></div>
+
+<h1 id="redmine設定を作成">Redmine設定を作成</h1>
+
+<p>データベース設定を作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi config/database.yml
+</code></pre></div></div>
+
+<p>SQLite3を使用するように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+  adapter: sqlite3
+  database: db/production.sqlite3
+</code></pre></div></div>
+
+<p>共通設定を作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi config/configuration.yml
+</code></pre></div></div>
+
+<p>メールサーバーは使用しない、その他はデフォルト設定として作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
+</code></pre></div></div>
+
+<h1 id="gemパッケージをインストール">Gemパッケージをインストール</h1>
+
+<p>Redmineが使用するGemパッケージをインストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jruby -S bundle install --without development test postgresql mysql
+</code></pre></div></div>
+
+<h1 id="データベース初期化">データベース初期化</h1>
+
+<p>セッションデータ暗号化用鍵の生成を行います。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jruby -S rake generate_secret_token
+</code></pre></div></div>
+
+<p>エラーになってしまいました…</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC, please help us finish 4.2 support - check http://bit.ly/jruby-42 for starters
+</code></pre></div></div>
+
+<h1 id="note-activerecord-42-is-not-yet-fully-supported-by-ar-jdbc">NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC</h1>
+
+<p><a href="http://bit.ly/jruby-42">http://bit.ly/jruby-42</a>にアクセスしましたが、正直良く分かりません…</p>
+
+<p><a href="https://github.com/jruby/activerecord-jdbc-adapter">jruby/activerecord-jdbc-adapter</a>にアクセスすると、以下の文章を見つけました。</p>
+
+<blockquote>
+  <p>Extending AR-JDBC
+You can create your own extension to AR-JDBC for a JDBC-based database that core AR-JDBC does not support. We’ve created an example project for the Intersystems Cache database that you can examine as a template. See the cachedb-adapter project for more information.</p>
+</blockquote>
+
+<p>“core AR-JDBC does not support”と言われてしまっているので、とりあえずここまででギブアップします。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>これが成功したら、次は1jarでRedmineを使用できるようにしたいなぁ。Dropwizardとかで。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#redmine" class="page__taxonomy-item" rel="tag">Redmine</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-11T22:00:00+09:00">2015-03-11</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Redmine+3.0.0%E3%82%92JRuby%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E2%86%92%E3%83%80%E3%83%A1%E3%81%A0%E3%81%A3%E3%81%9F%E2%80%A6%20%2F2015%2F03%2F11%2Frun-redmine3-on-jruby-but-failed.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F03%2F11%2Frun-redmine3-on-jruby-but-failed.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F03%2F11%2Frun-redmine3-on-jruby-but-failed.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F03%2F11%2Frun-redmine3-on-jruby-but-failed.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/03/10/monitoring-raspberry-pi-using-zabbix.html" class="pagination--pager" title="自宅Raspberry PiをZabbix Server on DigitalOceanで監視
+">Previous</a>
+    
+    
+      <a href="/2015/04/22/setup-windows.html" class="pagination--pager" title="Windows再セットアップメモ (2015/4/22版)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

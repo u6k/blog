@@ -1,0 +1,548 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ラバーダック・デバッギング、自問自答 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="久しぶりにラバーダッキング(ラバーダック・デバッギング)という単語が目に留まったので、整理してみます。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="ラバーダック・デバッギング、自問自答">
+
+
+
+
+  <meta property="og:description" content="久しぶりにラバーダッキング(ラバーダック・デバッギング)という単語が目に留まったので、整理してみます。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="ラバーダック・デバッギング、自問自答">
+  <meta name="twitter:description" content="久しぶりにラバーダッキング(ラバーダック・デバッギング)という単語が目に留まったので、整理してみます。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-01T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ラバーダック・デバッギング、自問自答">
+    <meta itemprop="description" content="久しぶりにラバーダッキング(ラバーダック・デバッギング)という単語が目に留まったので、整理してみます。">
+    <meta itemprop="datePublished" content="2017-08-01">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">ラバーダック・デバッギング、自問自答
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-01T00:00:00+09:00">2017-08-01</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>久しぶりにラバーダッキング(ラバーダック・デバッギング)という単語が目に留まったので、整理してみます。</p>
+
+<h1 id="ラバーダッキングラバーダックデバッギングテディベアペアプログラミングとは">ラバーダッキング(ラバーダック・デバッギング、テディベア・ペア・プログラミング)とは</h1>
+
+<p>問題解決に詰まったとき、人に問題を説明すると説明途中で解決することがあるように、人ではなくラバーダック(アヒルのおもちゃ)やテディベアに話しかけることで問題解決を試みる手法のことです。</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging">Rubber duck debugging - Wikipedia</a></li>
+  <li><a href="http://blog.adrianbolboaca.ro/2012/12/teddy-bear-pair-programming/">Teddy Bear Pair Programming by Adrian Bolboaca</a></li>
+  <li><a href="http://www.aoky.net/articles/john_graham_cumming/talking_to_porgy.htm">ポーギーに話す</a></li>
+  <li><a href="https://baigie.me/nippo/2017/04/25/rubberducking/">「ラバーダッキング」と人に教えることの意義 - ベイジの日報</a></li>
+  <li><a href="http://next49.hatenadiary.jp/entry/20111025/p2">ベアプログラミング（テディベア効果） - 発声練習</a></li>
+  <li><a href="http://qiita.com/sta/items/6661cfcb57cfefa9a36a">ベアプログラミングが無理ならサイレントベアプログラミングを検討しよう - Qiita</a></li>
+</ul>
+
+<p>人に説明すると相手の時間を奪ってしまいますが、ラバーダックやテディベアであれば時間を奪うことがありません。ただ、他人から見るとアヒルのおもちゃに話しかける変な人になってしまうので、それを克服しようとしているサイレントベアプログラミングの記事は、興味深いです。</p>
+
+<h1 id="自問自答">自問自答</h1>
+
+<p>ただ漠然と「何に困っているか」を呟くだけでも効果はありますが、およそ以下のような自問自答で解決案に至ることが多いです。</p>
+
+<ul>
+  <li>処理の流れが分からない場合
+    <ul>
+      <li>登場人物は把握できているか？</li>
+      <li>時系列で、誰と誰がどのように会話しているか把握できているか？</li>
+    </ul>
+  </li>
+  <li>デバッグでつまずいている場合
+    <ul>
+      <li>変数や設定値は把握できているか？</li>
+      <li>どのような値を設定して、どのような結果になったか、とりあえずで良いから記録しているか？</li>
+    </ul>
+  </li>
+  <li>システムや仕様の構成がよく分からない場合
+    <ul>
+      <li>どのような登場人物がいるか？</li>
+      <li>登場人物同士は、どのように会話しているか？</li>
+    </ul>
+  </li>
+  <li>どのように仕事を進めれば良いのか分からない場合
+    <ul>
+      <li>仕事の具体的な目的、成果物は把握しているか？</li>
+      <li>目的を達成するために、どのようなステップが考えられるか？
+        <ul>
+          <li>ステップは契機と結果が繋がってなくてはならない。</li>
+        </ul>
+      </li>
+      <li>ステップの中で、自分以外が関わるステップはあるか？</li>
+      <li>デッドラインはいつか？つまり、この仕事が遅延すると、どの作業に影響が出るか？</li>
+      <li>ステップを実行するために、何が(5W1H)必要か？</li>
+    </ul>
+  </li>
+  <li>「～はず」
+    <ul>
+      <li>本当にそうなのか？</li>
+    </ul>
+  </li>
+  <li>「確認した」
+    <ul>
+      <li>どのように確認したか、網羅的に確認したか？</li>
+    </ul>
+  </li>
+</ul>
+
+<p>自問自答のまとめをGoogle先生に聞いても良いと思います。例えば、以下のページのようによくまとまったリストが見つかるかもしれません。</p>
+
+<ul>
+  <li><a href="http://next49.hatenadiary.jp/entry/20081114/p1">一匹狼のための一人Ｑ＆Ａ大会 - 発声練習</a></li>
+</ul>
+
+<h1 id="質問テンプレート">質問テンプレート</h1>
+
+<p>コミュニティには、質問テンプレートがある場合があります。これらのように、困ったときのテンプレートを作っておくとよいかもしれません。</p>
+
+<ul>
+  <li><a href="https://meta.serverfault.com/questions/6074/do-you-have-a-checklist-that-can-help-me-ask-a-better-question">Do you have a checklist that can help me ask a better question? - Meta Server Fault</a></li>
+  <li><a href="https://meta.stackexchange.com/questions/20016/why-is-it-that-properly-formulating-your-question-for-stackoverflow-often-yiel">Why is it that properly formulating your question (for stackoverflow) often yields you your answer - Meta Stack Exchange</a></li>
+</ul>
+
+<h1 id="設計で煮詰まった時は">設計で煮詰まった時は？</h1>
+
+<p>ラバーダック・デバッギングは主にプログラミングの文脈で語られますが、設計においてはどうでしょうか？</p>
+
+<p>「コーディングも設計」という主張は置いておいて、設計の場合は、例えばUMLモデル図のような、多角的視点に基づく設計情報があるはずなので、設計情報を見直すことで机上デバッグを行います。モデルの粒度、属性、役割、接続を見直します。この見直し作業の時に、やはり人に説明したり、自問自答したり、つまりラバーダック・デバッギングを行うことで解決することもあります。</p>
+
+<p>この時、設計モデルを何らかのツールで作成している場合、プログラミングと同様にラバーダック・デバッギングの効果が高まると思います。筆者は残念ながら、そのようなツールで設計を行うことはまれですが。</p>
+
+<h1 id="ツールサービスはあるか">ツール、サービスはあるか？</h1>
+
+<p>上記のサイレントベアプログラミングの記事で、チャット・ツールを用いた手法が提案されています。</p>
+
+<p>アプリがないか探したところ、Androidアプリを見つけました。試用してはいないので、どのようなアプリかは不明です。</p>
+
+<ul>
+  <li><a href="https://play.google.com/store/apps/details?id=com.rddebugger.moldo.rubberduckdebugger">Rubber Duck Debugger</a></li>
+</ul>
+
+<p>昔、Eclipseプラグインで一人チャットがあった気がしますが、それでもできそうです。</p>
+
+<p>自然言語解析技術が進歩した現代なら、ユーザーの呟きから自問自答文を返信することは、できそうにも思います。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3" class="page__taxonomy-item" rel="tag">コミュニケーション</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0" class="page__taxonomy-item" rel="tag">プログラミング</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-01T00:00:00+09:00">2017-08-01</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E3%83%A9%E3%83%90%E3%83%BC%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%83%87%E3%83%90%E3%83%83%E3%82%AE%E3%83%B3%E3%82%B0%E3%80%81%E8%87%AA%E5%95%8F%E8%87%AA%E7%AD%94%20%2F2017%2F08%2F01%2Frubber-duck-debugging.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F08%2F01%2Frubber-duck-debugging.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F08%2F01%2Frubber-duck-debugging.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F08%2F01%2Frubber-duck-debugging.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/07/22/vagrant-up-on-ssh-on-macos-will-timeout.html" class="pagination--pager" title="macOSにssh接続してvagrant upするとタイムアウトになる
+">Previous</a>
+    
+    
+      <a href="/2017/08/08/migrate-blogger-to-jekyll.html" class="pagination--pager" title="BloggerからJekyllにブログを引っ越し
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

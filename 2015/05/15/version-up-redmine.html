@@ -1,0 +1,766 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Redmineバージョンアップの作業メモ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。この記事では、バージョンアップ手順を説明します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Redmineバージョンアップの作業メモ">
+
+
+
+
+  <meta property="og:description" content="OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。この記事では、バージョンアップ手順を説明します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Redmineバージョンアップの作業メモ">
+  <meta name="twitter:description" content="OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。この記事では、バージョンアップ手順を説明します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-05-15T23:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Redmineバージョンアップの作業メモ">
+    <meta itemprop="description" content="OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。この記事では、バージョンアップ手順を説明します。">
+    <meta itemprop="datePublished" content="2015-05-15">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Redmineバージョンアップの作業メモ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-15T23:00:00+09:00">2015-05-15</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。
+この記事では、バージョンアップ手順を説明します。</p>
+
+<!-- more -->
+
+<h1 id="構築手順">構築手順</h1>
+
+<p>前回は<a href="https://github.com/openshift/openshift-redmine-quickstart">openshift/openshift-redmine-quickstart</a>でRedmineを構築しました。改めて良い構築手順はないかと探したら、<a href="https://hub.openshift.com/quickstarts/5-redmine-2-4">Redmine 2.4</a>を見つけました。</p>
+
+<p>この手順だと、ボタン1押しで構築できる上に、スケーリングできる設定となっています。</p>
+
+<p>構築作業を実施する手順を考えました。</p>
+
+<ul>
+  <li>旧Redmineのデータ(MySQL、ファイル)をダンプする。</li>
+  <li>上記手順で、新Redmineをデプロイしてみる。
+    <ul>
+      <li>デプロイ後、プロジェクト作成、チケット作成などで動作確認する。</li>
+    </ul>
+  </li>
+  <li>新Redmineにデータをインポートする。</li>
+  <li>しばらく使った後、問題無いと判断したら、旧Redmineを削除する。</li>
+</ul>
+
+<h1 id="旧redmineのデータをダンプ">旧Redmineのデータをダンプ</h1>
+
+<p>MySQLデータをダンプし、添付ファイルを取得します。MySQLへの接続、ssh接続の方法はOpenShiftコンソールに表示されているので、接続・ダンプします。</p>
+
+<h1 id="新redmineを構築">新Redmineを構築</h1>
+
+<p><a href="https://hub.openshift.com/quickstarts/5-redmine-2-4">Redmine 2.4</a>の手順で構築しました。必要情報を入力してボタンをクリックするだけなので、特に迷うことはありません。</p>
+
+<p>デプロイ後、念の為にデプロイ状況を確認した。<code class="highlighter-rouge">rhc show-app</code>コマンドでアプリ情報を確認したところ、以下のように表示されました。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;rhc show-app myredmine
+DL is deprecated, please use Fiddle
+myredmine @ http://myredmine-u6kapps.rhcloud.com/ (uuid: 5507c99dfcf933bc9c000162)
+----------------------------------------------------------------------------------
+  Domain:          u6kapps
+  Created:         3:28 PM
+  Gears:           2 (defaults to small)
+  Git URL:         ssh://5507c99dfcf933bc9c000162@myredmine-u6kapps.rhcloud.com/~/git/myredmine.git/
+  Initial Git URL: https://github.com/openshift/openshift-redmine-quickstart.git
+  SSH:             5507c99dfcf933bc9c000162@myredmine-u6kapps.rhcloud.com
+  Deployment:      auto (on git push)
+
+  mysql-5.5 (MySQL 5.5)
+  ---------------------
+    Gears:          1 small
+    Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+    Database Name:  myredmine
+    Password:       ***
+    Username:       ***
+
+  haproxy-1.4 (Web Load Balancer)
+  -------------------------------
+    Gears: Located with ruby-1.9
+
+  ruby-1.9 (Ruby 1.9)
+  -------------------
+    Scaling: x1 (minimum: 1, maximum: available) on small gears
+</code></pre></div></div>
+
+<p>MySQL接続情報が表示されます。MySQLホストとポート番号が環境変数ですが、これはこれで問題ありません。</p>
+
+<p>sshログインして、MySQL接続を確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; mysql -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -u *** --password=***
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.5.41 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql&gt;
+</code></pre></div></div>
+
+<p>接続できました。ついでにデータベースも確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| myredmine          |
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+</code></pre></div></div>
+
+<p>とりあえず、デプロイした新Redmineで動作確認を行います。</p>
+
+<h1 id="新redmineにデータをインポート">新Redmineにデータをインポート</h1>
+
+<p><code class="highlighter-rouge">myredmine</code>データベースを事前ダンプしたデータと入れ替えます。</p>
+
+<p>まず、<code class="highlighter-rouge">myredmine</code>データベースを削除して、作成し直します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; drop database myredmine;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql&gt; create database myredmine character set utf8;
+Query OK, 1 row affected (0.00 sec)
+</code></pre></div></div>
+
+<p>既存RedmineのMySQLダンプデータをOpenShiftホストにアップロードして、以下のコマンドを実行してMySQLにデータをインポートします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; mysql -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -u *** --password=*** myredmine &lt; redmine_20150317-164347.sql
+</code></pre></div></div>
+
+<p>インポートされたことを確認してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; mysql -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -u *** --password=*** myredmine
+
+mysql&gt; show tables;
++-------------------------------------+
+| Tables_in_myredmine                 |
++-------------------------------------+
+| attachments                         |
+| auth_sources                        |
+| boards                              |
+| changes                             |
+| changeset_parents                   |
+| changesets                          |
+| changesets_issues                   |
+| comments                            |
+| custom_fields                       |
+| custom_fields_projects              |
+| custom_fields_roles                 |
+| custom_fields_trackers              |
+| custom_values                       |
+| documents                           |
+| enabled_modules                     |
+| enumerations                        |
+| groups_users                        |
+| issue_categories                    |
+| issue_relations                     |
+| issue_statuses                      |
+| issues                              |
+| journal_details                     |
+| journals                            |
+| member_roles                        |
+| members                             |
+| messages                            |
+| news                                |
+| open_id_authentication_associations |
+| open_id_authentication_nonces       |
+| projects                            |
+| projects_trackers                   |
+| queries                             |
+| queries_roles                       |
+| repositories                        |
+| roles                               |
+| schema_migrations                   |
+| settings                            |
+| time_entries                        |
+| tokens                              |
+| trackers                            |
+| user_preferences                    |
+| users                               |
+| versions                            |
+| watchers                            |
+| wiki_content_versions               |
+| wiki_contents                       |
+| wiki_pages                          |
+| wiki_redirects                      |
+| wikis                               |
+| workflows                           |
++-------------------------------------+
+50 rows in set (0.01 sec)
+
+mysql&gt; select count(1) from issues;
++----------+
+| count(1) |
++----------+
+|     3261 |
++----------+
+1 row in set (0.01 sec)
+</code></pre></div></div>
+
+<p>インポートはできているようです。</p>
+
+<p>次にDBマイグレーションしたいと思いますが、OpenShiftホスト上で<code class="highlighter-rouge">rake</code>を直接実行する方法が分かりません。<code class="highlighter-rouge">git push</code>するとマイグレーションなど一連の処理が自動的に実行されることは知っているので、それで実行してみます。</p>
+
+<p><code class="highlighter-rouge">git clone</code>して適当にファイルを操作して<code class="highlighter-rouge">git push</code>してみます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vi README.md
+&gt; git add README.md
+&gt; git commit -m commit
+&gt; git push
+warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+Counting objects: 5, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 318 bytes, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Stopping Ruby cartridge
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Waiting for stop to finish
+remote: Syncing git content to other proxy gears
+remote: Saving away previously bundled RubyGems
+remote: Building git ref 'master', commit 5d7b3f0
+remote: Building Ruby cartridge
+remote: Restoring previously bundled RubyGems
+remote: NOTE: You can commit .openshift/markers/force_clean_build to force a clean bundle
+remote: NOTE: Skipping 'bundle install' because Gemfile is not modified.
+remote: Preparing build for deployment
+remote: Deployment id is 3fd2bb5a
+remote: Activating deployment
+remote: HAProxy already running
+remote: HAProxy instance is started
+remote: Compilation of assets is disabled or assets not detected.
+remote: Starting Ruby cartridge
+remote: ------------------------
+remote: Selected DBMS: mysql
+remote: ------------------------
+remote: Migrating database
+remote: Generating secret token
+remote: -------------------------
+remote: Git Post-Receive Result: success
+remote: Activation status: success
+remote: Deployment completed with status: success
+To /var/lib/openshift/5507c99dfcf933bc9c000162//git/myredmine.git/
+   3def682..5d7b3f0  master -&gt; master
+</code></pre></div></div>
+
+<p>DBマイグレーション、シークレットトークンの生成が実行されました。</p>
+
+<h1 id="設定の移行">設定の移行</h1>
+
+<p>既存Redmineの新Redmineに移行します。</p>
+
+<p>既存Redmineを<code class="highlighter-rouge">git clone</code>して<code class="highlighter-rouge">config/configuration.yml</code>を確認したところ、メール送信設定を書いていました。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default:
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      address: smtp.gmail.com
+      port: 587
+      domain: smtp.gmail.com
+      authentication: :login
+      user_name: "u6k.apps@gmail.com"
+      password: "***"
+      enable_starttls_auto: true
+</code></pre></div></div>
+
+<p>同様の設定を、新Redmineにも書きます。</p>
+
+<p>まず、新Redmineを<code class="highlighter-rouge">git clone</code>します。GitリポジトリURLは<code class="highlighter-rouge">rhc show-app</code>で確認できます。</p>
+
+<p><code class="highlighter-rouge">config/configuration.yml</code>を作成したいと思いますが、<code class="highlighter-rouge">.gitignore</code>に<code class="highlighter-rouge">config/configuration.yml</code>が無視設定されているので、これを削除します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; vi .gitignore
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">config/configuration.yml.sample</code>を<code class="highlighter-rouge">config/configuration.yml</code>にコピーして、上記設定を書きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; cp config/configuration.yml.sample config/configuration.yml
+&gt; vi config/configuration.yml
+</code></pre></div></div>
+
+<p>編集をコミットして、<code class="highlighter-rouge">git push</code>します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; git add .gitignore
+&gt; git add config/configuration.yml
+&gt; git commit -m "update config"
+&gt; git push
+</code></pre></div></div>
+
+<h1 id="テーマの移行">テーマの移行</h1>
+
+<p>以前はgitmikeを使っていました。面倒なので後で適用しよう。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>以上で、新Redmineの構築とデータ・マイグレーションは完了です。1ヶ月程度使いましたが特に問題はないようなので、旧Redmineは削除しました。</p>
+
+<h1 id="おまけjenkinsジョブ設定---定期バックアップ">(おまけ)Jenkinsジョブ設定 - 定期バックアップ</h1>
+
+<p>JenkinsでRedmineのMySQLデータダンプを定期的に取得しているので、そのジョブを作成しました。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -i /etc/jenkins/id_rsa_openshift ***@myredmine-u6kapps.rhcloud.com -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "mysqldump -h ***-u6kapps.rhcloud.com -P 59861 -u *** --password=*** --lock-all-tables myredmine" | gzip | sudo tee /var/owncloud/u6k/files/backup/Redmine_on_OpenShift/myredmine_`date +%Y%m%d-%H%M%S`.sql.gz
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">rhc show-app</code>ではMySQLホスト名、ポート番号が環境変数で表示されましたが、上記コマンドに環境変数を指定しても空になるだけなので、仕方ないのでOpenShiftホストにsshログインして、環境変数の具体的な値を調べました。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; echo $OPENSHIFT_MYSQL_DB_HOST
+***-u6kapps.rhcloud.com
+&gt; echo $OPENSHIFT_MYSQL_DB_PORT
+59861
+</code></pre></div></div>
+
+<p>Jenkinsジョブを手動実行して、想定通りにDBダンプデータが取得できていることを確認します。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#redmine" class="page__taxonomy-item" rel="tag">Redmine</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-15T23:00:00+09:00">2015-05-15</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Redmine%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E4%BD%9C%E6%A5%AD%E3%83%A1%E3%83%A2%20%2F2015%2F05%2F15%2Fversion-up-redmine.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F05%2F15%2Fversion-up-redmine.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F05%2F15%2Fversion-up-redmine.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F05%2F15%2Fversion-up-redmine.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/05/14/acquire-own-domain-and-set-to-blogger.html" class="pagination--pager" title="独自ドメインを取得したので、Bloggerに設定するまでのメモ
+">Previous</a>
+    
+    
+      <a href="/2015/05/18/set-own-domain-to-own-server.html" class="pagination--pager" title="自宅サーバーに独自ドメインを設定
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

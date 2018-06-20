@@ -1,0 +1,569 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>BloggerからJekyllにブログを引っ越し - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="ブログ引っ越し検討、およびブログサービスに求める要件で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。振り返り - Bloggerで辛いところ  Markdownで書けない。  スマホから書けない。  ガジェットがスマホ向けに表示されない。  コードブロックが整形表示されず、ただのpreブロックになってしまう。Jekyll検討Jekyllについては、以下を参照。  Jekyll • シンプルで、ブログのような、静的サイト  30分のチュートリアルでJekyllを理解する  Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@githubMarkdownで書ける！何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。サーバーの用意Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。  AWS S3          s3_websiteプラグインで、生成した静的サイトをAWS S3で容易に公開することができます。        GitHub Pages          GitHub PagesはJekyllをサポートしています。Using Jekyll as a static site generator with GitHub Pages - User Documentationを参照。      いろいろ制限があることに注意。      現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。引っ越しの手順もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。ドメイン名Blogger時代のblog.u6k.meというドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。Jekyll用ファイル構成単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。ヘッダーMarkdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。旧URLからのリダイレクトBloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。jekyll-redirect-fromプラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部にredirect_fromパラメータを追加しました。画像Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。UML図jekyll-plantumlプラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 超便利！！！ブログ構成以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書きgit pushした後は、blogコンテナが再起動されるまで自動です。以下に、これらを使用したブログの公開ワークフローを説明します。Local PCローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。Android端末でブログを書くで書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitでgit pushするという方法も可能です。GitHub記事を管理しています。GitHubにgit pushすると、WebHookによりCircleCIのビルドが実行されます。CircleCI静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubにdocker pushしてJenkinsのWebHookに通知します。Docker Hubビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIからdocker pushしています。ですので、Dockerイメージを管理しているだけです。macOS自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージをdocker pullして、blogコンテナを再起動します。これにより、最新の記事が公開されます。ちなみに、_config.ymlを見ると分かりますがs3_websiteプラグインを追加しており、実は一時的にAWS S3で公開していました。おわりにブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="BloggerからJekyllにブログを引っ越し">
+
+
+
+
+  <meta property="og:description" content="ブログ引っ越し検討、およびブログサービスに求める要件で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。振り返り - Bloggerで辛いところ  Markdownで書けない。  スマホから書けない。  ガジェットがスマホ向けに表示されない。  コードブロックが整形表示されず、ただのpreブロックになってしまう。Jekyll検討Jekyllについては、以下を参照。  Jekyll • シンプルで、ブログのような、静的サイト  30分のチュートリアルでJekyllを理解する  Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@githubMarkdownで書ける！何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。サーバーの用意Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。  AWS S3          s3_websiteプラグインで、生成した静的サイトをAWS S3で容易に公開することができます。        GitHub Pages          GitHub PagesはJekyllをサポートしています。Using Jekyll as a static site generator with GitHub Pages - User Documentationを参照。      いろいろ制限があることに注意。      現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。引っ越しの手順もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。ドメイン名Blogger時代のblog.u6k.meというドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。Jekyll用ファイル構成単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。ヘッダーMarkdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。旧URLからのリダイレクトBloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。jekyll-redirect-fromプラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部にredirect_fromパラメータを追加しました。画像Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。UML図jekyll-plantumlプラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 超便利！！！ブログ構成以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書きgit pushした後は、blogコンテナが再起動されるまで自動です。以下に、これらを使用したブログの公開ワークフローを説明します。Local PCローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。Android端末でブログを書くで書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitでgit pushするという方法も可能です。GitHub記事を管理しています。GitHubにgit pushすると、WebHookによりCircleCIのビルドが実行されます。CircleCI静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubにdocker pushしてJenkinsのWebHookに通知します。Docker Hubビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIからdocker pushしています。ですので、Dockerイメージを管理しているだけです。macOS自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージをdocker pullして、blogコンテナを再起動します。これにより、最新の記事が公開されます。ちなみに、_config.ymlを見ると分かりますがs3_websiteプラグインを追加しており、実は一時的にAWS S3で公開していました。おわりにブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="BloggerからJekyllにブログを引っ越し">
+  <meta name="twitter:description" content="ブログ引っ越し検討、およびブログサービスに求める要件で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。振り返り - Bloggerで辛いところ  Markdownで書けない。  スマホから書けない。  ガジェットがスマホ向けに表示されない。  コードブロックが整形表示されず、ただのpreブロックになってしまう。Jekyll検討Jekyllについては、以下を参照。  Jekyll • シンプルで、ブログのような、静的サイト  30分のチュートリアルでJekyllを理解する  Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@githubMarkdownで書ける！何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。サーバーの用意Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。  AWS S3          s3_websiteプラグインで、生成した静的サイトをAWS S3で容易に公開することができます。        GitHub Pages          GitHub PagesはJekyllをサポートしています。Using Jekyll as a static site generator with GitHub Pages - User Documentationを参照。      いろいろ制限があることに注意。      現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。引っ越しの手順もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。ドメイン名Blogger時代のblog.u6k.meというドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。Jekyll用ファイル構成単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。ヘッダーMarkdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。旧URLからのリダイレクトBloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。jekyll-redirect-fromプラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部にredirect_fromパラメータを追加しました。画像Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。UML図jekyll-plantumlプラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 超便利！！！ブログ構成以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書きgit pushした後は、blogコンテナが再起動されるまで自動です。以下に、これらを使用したブログの公開ワークフローを説明します。Local PCローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。Android端末でブログを書くで書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitでgit pushするという方法も可能です。GitHub記事を管理しています。GitHubにgit pushすると、WebHookによりCircleCIのビルドが実行されます。CircleCI静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubにdocker pushしてJenkinsのWebHookに通知します。Docker Hubビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIからdocker pushしています。ですので、Dockerイメージを管理しているだけです。macOS自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージをdocker pullして、blogコンテナを再起動します。これにより、最新の記事が公開されます。ちなみに、_config.ymlを見ると分かりますがs3_websiteプラグインを追加しており、実は一時的にAWS S3で公開していました。おわりにブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-08T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="BloggerからJekyllにブログを引っ越し">
+    <meta itemprop="description" content="ブログ引っ越し検討、およびブログサービスに求める要件で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。振り返り - Bloggerで辛いところ  Markdownで書けない。  スマホから書けない。  ガジェットがスマホ向けに表示されない。  コードブロックが整形表示されず、ただのpreブロックになってしまう。Jekyll検討Jekyllについては、以下を参照。  Jekyll • シンプルで、ブログのような、静的サイト  30分のチュートリアルでJekyllを理解する  Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@githubMarkdownで書ける！何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。サーバーの用意Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。  AWS S3          s3_websiteプラグインで、生成した静的サイトをAWS S3で容易に公開することができます。        GitHub Pages          GitHub PagesはJekyllをサポートしています。Using Jekyll as a static site generator with GitHub Pages - User Documentationを参照。      いろいろ制限があることに注意。      現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。引っ越しの手順もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。ドメイン名Blogger時代のblog.u6k.meというドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。Jekyll用ファイル構成単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。ヘッダーMarkdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。旧URLからのリダイレクトBloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。jekyll-redirect-fromプラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部にredirect_fromパラメータを追加しました。画像Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。UML図jekyll-plantumlプラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 超便利！！！ブログ構成以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書きgit pushした後は、blogコンテナが再起動されるまで自動です。以下に、これらを使用したブログの公開ワークフローを説明します。Local PCローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。Android端末でブログを書くで書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitでgit pushするという方法も可能です。GitHub記事を管理しています。GitHubにgit pushすると、WebHookによりCircleCIのビルドが実行されます。CircleCI静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubにdocker pushしてJenkinsのWebHookに通知します。Docker Hubビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIからdocker pushしています。ですので、Dockerイメージを管理しているだけです。macOS自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージをdocker pullして、blogコンテナを再起動します。これにより、最新の記事が公開されます。ちなみに、_config.ymlを見ると分かりますがs3_websiteプラグインを追加しており、実は一時的にAWS S3で公開していました。おわりにブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。">
+    <meta itemprop="datePublished" content="2017-08-08">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">BloggerからJekyllにブログを引っ越し
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-08T07:00:00+09:00">2017-08-08</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="/2015/05/26/review-migration-blog-and-requirement-for-blog-service.html">ブログ引っ越し検討、およびブログサービスに求める要件</a>で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。</p>
+
+<!-- more -->
+
+<h1 id="振り返り---bloggerで辛いところ">振り返り - Bloggerで辛いところ</h1>
+
+<ul>
+  <li>Markdownで書けない。</li>
+  <li>スマホから書けない。</li>
+  <li>ガジェットがスマホ向けに表示されない。</li>
+  <li>コードブロックが整形表示されず、ただのpreブロックになってしまう。</li>
+</ul>
+
+<h1 id="jekyll検討">Jekyll検討</h1>
+
+<p>Jekyllについては、以下を参照。</p>
+
+<ul>
+  <li><a href="https://jekyllrb-ja.github.io/">Jekyll • シンプルで、ブログのような、静的サイト</a></li>
+  <li><a href="http://melborne.github.io/2012/05/13/first-step-of-jekyll/">30分のチュートリアルでJekyllを理解する</a></li>
+  <li><a href="http://akkunchoi.github.io/jekyll-github-blogging.html">Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@github</a></li>
+</ul>
+
+<h2 id="markdownで書ける">Markdownで書ける！</h2>
+
+<p>何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。</p>
+
+<p>後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。</p>
+
+<h2 id="サーバーの用意">サーバーの用意</h2>
+
+<p>Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。</p>
+
+<ul>
+  <li>AWS S3
+    <ul>
+      <li><code class="highlighter-rouge">s3_website</code>プラグインで、生成した静的サイトをAWS S3で容易に公開することができます。</li>
+    </ul>
+  </li>
+  <li>GitHub Pages
+    <ul>
+      <li>GitHub PagesはJekyllをサポートしています。<a href="https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/">Using Jekyll as a static site generator with GitHub Pages - User Documentation</a>を参照。</li>
+      <li>いろいろ制限があることに注意。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。</p>
+
+<h1 id="引っ越しの手順">引っ越しの手順</h1>
+
+<p>もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。</p>
+
+<h2 id="ドメイン名">ドメイン名</h2>
+
+<p>Blogger時代の<code class="highlighter-rouge">blog.u6k.me</code>というドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。</p>
+
+<h2 id="jekyll用ファイル構成">Jekyll用ファイル構成</h2>
+
+<p>単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。</p>
+
+<p>Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。</p>
+
+<h2 id="ヘッダー">ヘッダー</h2>
+
+<p>Markdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。</p>
+
+<h2 id="旧urlからのリダイレクト">旧URLからのリダイレクト</h2>
+
+<p>Bloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。<code class="highlighter-rouge">jekyll-redirect-from</code>プラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部に<code class="highlighter-rouge">redirect_from</code>パラメータを追加しました。</p>
+
+<h2 id="画像">画像</h2>
+
+<p>Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。</p>
+
+<h2 id="uml図">UML図</h2>
+
+<p><code class="highlighter-rouge">jekyll-plantuml</code>プラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 <strong>超便利！！！</strong></p>
+
+<h1 id="ブログ構成">ブログ構成</h1>
+
+<p>以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書き<code class="highlighter-rouge">git push</code>した後は、<code class="highlighter-rouge">blog</code>コンテナが再起動されるまで自動です。</p>
+
+<p><img src="/uml/0d92147169f287496695aebafdb96c55.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<p>以下に、これらを使用したブログの公開ワークフローを説明します。</p>
+
+<h2 id="local-pc">Local PC</h2>
+
+<p>ローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。</p>
+
+<p><a href="/2017/07/20/write-blog-on-android.html">Android端末でブログを書く</a>で書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitで<code class="highlighter-rouge">git push</code>するという方法も可能です。</p>
+
+<h2 id="github">GitHub</h2>
+
+<p>記事を管理しています。GitHubに<code class="highlighter-rouge">git push</code>すると、WebHookによりCircleCIのビルドが実行されます。</p>
+
+<h2 id="circleci">CircleCI</h2>
+
+<p>静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubに<code class="highlighter-rouge">docker push</code>してJenkinsのWebHookに通知します。</p>
+
+<h2 id="docker-hub">Docker Hub</h2>
+
+<p>ビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIから<code class="highlighter-rouge">docker push</code>しています。ですので、Dockerイメージを管理しているだけです。</p>
+
+<h2 id="macos">macOS</h2>
+
+<p>自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージを<code class="highlighter-rouge">docker pull</code>して、blogコンテナを再起動します。これにより、最新の記事が公開されます。</p>
+
+<p>ちなみに、<code class="highlighter-rouge">_config.yml</code>を見ると分かりますが<code class="highlighter-rouge">s3_website</code>プラグインを追加しており、実は一時的にAWS S3で公開していました。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>ブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#circleci" class="page__taxonomy-item" rel="tag">CircleCI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jekyll" class="page__taxonomy-item" rel="tag">Jekyll</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-08T07:00:00+09:00">2017-08-08</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Blogger%E3%81%8B%E3%82%89Jekyll%E3%81%AB%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%BC%95%E3%81%A3%E8%B6%8A%E3%81%97%20%2F2017%2F08%2F08%2Fmigrate-blogger-to-jekyll.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F08%2F08%2Fmigrate-blogger-to-jekyll.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F08%2F08%2Fmigrate-blogger-to-jekyll.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F08%2F08%2Fmigrate-blogger-to-jekyll.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/08/01/rubber-duck-debugging.html" class="pagination--pager" title="ラバーダック・デバッギング、自問自答
+">Previous</a>
+    
+    
+      <a href="/2017/08/11/how-to-search-s3-object.html" class="pagination--pager" title="どのようにS3オブジェクトを検索するか？
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

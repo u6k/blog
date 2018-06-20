@@ -1,0 +1,691 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Windows再セットアップメモ (2015/4/22版) - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="前回のセットアップから変わった手順があるため、再投稿します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Windows再セットアップメモ (2015/4/22版)">
+
+
+
+
+  <meta property="og:description" content="前回のセットアップから変わった手順があるため、再投稿します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Windows再セットアップメモ (2015/4/22版)">
+  <meta name="twitter:description" content="前回のセットアップから変わった手順があるため、再投稿します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-04-22T22:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Windows再セットアップメモ (2015/4/22版)">
+    <meta itemprop="description" content="前回のセットアップから変わった手順があるため、再投稿します。">
+    <meta itemprop="datePublished" content="2015-04-22">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Windows再セットアップメモ (2015/4/22版)
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-04-22T22:00:00+09:00">2015-04-22</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="http://u6k-apps.blogspot.jp/2015/02/windows.html">前回のセットアップ</a>から変わった手順があるため、再投稿します。</p>
+
+<ul>
+  <li>変更点
+    <ul>
+      <li>Chocolateyセットアップを<code class="highlighter-rouge">packages.config</code>で行うように変更。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="目的">目的</h1>
+
+<p>なんだかんだと環境が汚れて、Windowsを再セットアップすることがあります(仮想環境を使えとは思いますが)。ここでは、再セットアップの手順を説明します。
+なお、この文章はあくまで自分向けなので、他の人には参考にならないと思います。たぶん。</p>
+
+<!-- more -->
+
+<h1 id="前準備">前準備</h1>
+
+<ul>
+  <li>IMEの辞書をバックアップする。</li>
+  <li>他にバックアップすべきファイルが無いか、全フォルダを確認する。特に、ユーザーフォルダ以下を確認する。</li>
+  <li>iPhonei USB接続でテザリングする場合、iTunesインストールファイルをダウンロードしておいたほうが良い。
+    <ul>
+      <li>iTunesがインストールされていないとUSB接続でのテザリングができないため。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="用意するもの">用意するもの</h1>
+
+<ul>
+  <li>外付けHDD。PC内にしかないファイルを退避するため。Dropboxなど外部ストレージに保存してあるなら、必要ない。</li>
+  <li>Windowsインストールメディア。Windows PCであれば、PC内に回復用パーティションがあるはず。</li>
+  <li>MS Officeインストールメディア。</li>
+</ul>
+
+<h1 id="手順">手順</h1>
+
+<h2 id="windowsインストール">Windowsインストール</h2>
+
+<ul>
+  <li>インストールメディア、または回復用パーティションからWindowsをインストールする。</li>
+  <li>Microsoftアカウントでログオンする。</li>
+  <li>ログオン方式を変更する。
+    <ul>
+      <li>Microsoftアカウントのパスワードをランダム文字列にしていて覚えていないため、ログオン方式を変更している。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="初期設定">初期設定</h2>
+
+<p>※設定は、前使用していたアカウントから色々引き継がれる。</p>
+
+<ul>
+  <li>ディスプレイ解像度、デスクトップ壁紙、スクリーンセーバーを設定する。</li>
+  <li>エクスプローラーを設定する。
+    <ul>
+      <li>自動的に現在のフォルダーまで展開。</li>
+      <li>全てのフォルダを表示。</li>
+      <li>フォルダの表示設定をクリア、設定</li>
+      <li>拡張子を表示</li>
+    </ul>
+  </li>
+  <li>タスクバーを設定する。
+    <ul>
+      <li>左に表示</li>
+      <li>小さいアイコン</li>
+    </ul>
+  </li>
+  <li>電源を設定する。</li>
+  <li>スタート画面、タスクバーのアイコンを整理する。</li>
+  <li>インターネット接続を設定する。
+    <ul>
+      <li>自宅LANに接続</li>
+      <li>テザリングで接続</li>
+    </ul>
+  </li>
+  <li>Windows Updateを行う。</li>
+  <li>ウィルス対策ソフトウェアをインストールし、最新状態に更新、完全スキャンを行う。</li>
+  <li>コマンドプロンプトを設定する。
+    <ul>
+      <li>フォントサイズ</li>
+      <li>画面幅、バッファ</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="chocolatey">Chocolatey</h2>
+
+<ul>
+  <li><a href="https://chocolatey.org">Chocolatey Gallery</a>に記載されているコマンドをコマンドプロンプトで実行して、Chocolateyをインストールする。</li>
+  <li>gitだけ、先にインストールする。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; cinst git.install
+&gt; git config --global user.name "John Doe"
+&gt; git config --global user.email johndoe@example.com
+&gt; git config --global core.autocrlf false
+&gt; git config --global core.precomposeunicode true
+&gt; git config --global core.quotepath false
+</code></pre></div></div>
+
+<ul>
+  <li>GitHubから、PCセットアップ用のプロジェクトをクローンする。
+TODO os-setupプロジェクトをGitHubに移動する。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; git clone https://github.com/u6k/os-setup.git
+</code></pre></div></div>
+
+<ul>
+  <li>クローンしたフォルダに含まれる<code class="highlighter-rouge">packages.config</code>を使用して、ソフトウェアをインストールする。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; cinst -y packages.config
+</code></pre></div></div>
+
+<p>なお、<code class="highlighter-rouge">packages.config</code>の内容は以下の通り。</p>
+
+<pre><code class="language-xml:packages.config">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;pakages&gt;
+    &lt;package id="TortoiseGit" /&gt;
+    &lt;package id="tortoisesvn" /&gt;
+    &lt;package id="svn" /&gt;
+    &lt;package id="GoogleChrome" /&gt;
+    &lt;package id="thunderbird" /&gt;
+    &lt;package id="winscp" /&gt;
+    &lt;package id="jdk8" /&gt;
+    &lt;package id="vcredist2013" /&gt;
+    &lt;package id="directx" /&gt;
+    &lt;package id="ccleaner" /&gt;
+    &lt;package id="adobereader" /&gt;
+    &lt;package id="cygwin" /&gt;
+    &lt;package id="ruby" /&gt;
+    &lt;package id="python" /&gt;
+    &lt;package id="cygwin" /&gt;
+    &lt;package id="putty" /&gt;
+    &lt;package id="SourceTree" /&gt;
+    &lt;package id="virtualbox" /&gt;
+    &lt;package id="vagrant" /&gt;
+    &lt;package id="genymotion" /&gt;
+    &lt;package id="dropbox" /&gt;
+    &lt;package id="fiddler" /&gt;
+    &lt;package id="sandboxie" /&gt;
+    &lt;package id="truecrypt" /&gt;
+    &lt;package id="android-sdk" /&gt;
+&lt;/packages&gt;
+</code></pre>
+
+<h2 id="手動でソフトウェアをセットアップ">手動でソフトウェアをセットアップ</h2>
+
+<ul>
+  <li>MS Office
+    <ul>
+      <li>オートコレクトを一通りオフに設定。</li>
+    </ul>
+  </li>
+  <li>Explzh
+    <ul>
+      <li>32bit版を使用する。64bit版だと、なぜかアーカイバーDLLがダウンロードできない。</li>
+      <li>アーカイバーDLLを全てインストールする。</li>
+    </ul>
+  </li>
+  <li>IrfanView
+    <ul>
+      <li>本体は日本語ページから、プラグインは英語オフィシャルページからダウンロードする。</li>
+    </ul>
+  </li>
+  <li>CCleaner
+    <ul>
+      <li>起動時にクリーン</li>
+    </ul>
+  </li>
+  <li>WinMerge</li>
+  <li>サクラエディタ
+    <ul>
+      <li>インストール途中で、「Sakuraで起動する」を設定する。これがあるため、Chocolateyからはインストールしない。</li>
+    </ul>
+  </li>
+  <li>astah*</li>
+  <li>CubePDF</li>
+  <li>TeraTerm</li>
+  <li>Google日本語入力</li>
+  <li>GomPlayer</li>
+  <li>DriveAnalyzer</li>
+  <li>Skitch</li>
+  <li>Java SDK
+    <ul>
+      <li>JAVA_HOME環境変数を設定する。</li>
+    </ul>
+  </li>
+  <li>GoogleChrome
+    <ul>
+      <li>Googleアカウントでログインする。</li>
+    </ul>
+  </li>
+  <li>Dropbox
+    <ul>
+      <li>ログインし、同期する。</li>
+    </ul>
+  </li>
+  <li>Skype
+    <ul>
+      <li>ログインする。</li>
+    </ul>
+  </li>
+  <li>SourceTree
+    <ul>
+      <li>GitHubにログインする。</li>
+      <li>BitBucketにログインする。</li>
+    </ul>
+  </li>
+  <li>Genymotion
+    <ul>
+      <li>適当なエミュレーターイメージをダウンロードし、使えるようにする。</li>
+    </ul>
+  </li>
+  <li>Android SDK
+    <ul>
+      <li>適当なモジュールをダウンロードする。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="ソフトウェアの更新ときどき">ソフトウェアの更新(ときどき)</h2>
+
+<p>Chocolateyにはソフトウェアの一括バージョンアップ機能があります。ソフトウェア側が持っている自動バージョンアップ機能はオフにしておいて、Chocolateyに任せる運用をしています。
+Chocolateyでソフトウェアをバージョンアップさせるには、以下のコマンドを実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; cup all
+</code></pre></div></div>
+
+<p>これを定期的に実行するようにすればよいでしょう。</p>
+
+<h3 id="ちなみにonegetの話">ちなみに、OneGetの話</h3>
+
+<p>Windows 10からはOneGetというChocolateyに似た仕組みが標準実装されるらしいです。OneGetはChocolateyリポジトリもサポートされるらしく、将来的には乗り換えるかも。</p>
+
+<p><a href="http://blogs.msdn.com/b/garretts/archive/2014/04/01/my-little-secret-windows-powershell-oneget.aspx">My little secret : Windows PowerShell OneGet - Garrett Serack: Senior Open Source Engineer - Site Home - MSDN Blogs</a></p>
+
+<h1 id="メモ">メモ</h1>
+
+<ul>
+  <li>まだまだ、手動でインストール・設定することが多い…</li>
+  <li>Linuxのdotfile管理みたいなのは、Windowsだとレジストリかな。レジストリを保存しておいて、Chocolateyインストール→レジストリを復元、で設定を復元できないかなぁ。そんなに綺麗にはできないよなぁ…</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#chocolatey" class="page__taxonomy-item" rel="tag">Chocolatey</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-04-22T22:00:00+09:00">2015-04-22</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Windows%E5%86%8D%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%83%A1%E3%83%A2+%282015%2F4%2F22%E7%89%88%29%20%2F2015%2F04%2F22%2Fsetup-windows.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F04%2F22%2Fsetup-windows.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F04%2F22%2Fsetup-windows.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F04%2F22%2Fsetup-windows.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/03/11/run-redmine3-on-jruby-but-failed.html" class="pagination--pager" title="Redmine 3.0.0をJRubyで動かす→ダメだった…
+">Previous</a>
+    
+    
+      <a href="/2015/05/14/acquire-own-domain-and-set-to-blogger.html" class="pagination--pager" title="独自ドメインを取得したので、Bloggerに設定するまでのメモ
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

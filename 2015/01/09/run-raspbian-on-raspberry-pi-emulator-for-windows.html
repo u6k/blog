@@ -1,0 +1,543 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順">
+
+
+
+
+  <meta property="og:description" content="自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順">
+  <meta name="twitter:description" content="自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-01-09T18:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順">
+    <meta itemprop="description" content="自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。">
+    <meta itemprop="datePublished" content="2015-01-09">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T18:00:00+09:00">2015-01-09</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。</p>
+
+<!-- more -->
+
+<h1 id="作業環境">作業環境</h1>
+
+<ul>
+  <li>OS…Windows 7 (32bit)</li>
+</ul>
+
+<h1 id="作業手順">作業手順</h1>
+
+<ul>
+  <li>Raspberry Pi emulation for Windows(以降、qemu)、および最新版のRaspbianをダウンロードします。
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[Raspberry Pi emulation for Windows</td>
+              <td>SourceForge.net](http://sourceforge.net/projects/rpiqemuwindows/)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[Downloads</td>
+              <td>Raspberry Pi](http://www.raspberrypi.org/downloads/)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+  <li>qemuを<code class="highlighter-rouge">C:\</code>に展開します。
+    <ul>
+      <li><code class="highlighter-rouge">C:\qemu\</code>に展開されます。</li>
+    </ul>
+  </li>
+  <li>Raspbianを<code class="highlighter-rouge">C:\qemu\qemu\</code>に展開します。
+    <ul>
+      <li><code class="highlighter-rouge">C:\qemu\qemu\*.img</code>に展開されます。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">C:\qemu\qemu\run.bat</code>を以下のように修正します。
+    <ul>
+      <li>Raspbianファイル名(例: <code class="highlighter-rouge">2012-07-15-wheezy-raspbian.img</code>)が書いてあるので、展開したファイル名に修正します。</li>
+      <li><code class="highlighter-rouge">-append</code>を<code class="highlighter-rouge">root=/dev/sda2 panic=1 rootfstype=ext4 rw init=/bin/bash</code>に変更します。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">C:\qemu\qemu\run.bat</code>を実行します。
+    <ul>
+      <li><code class="highlighter-rouge">root@(none):/#</code>というプロンプトが起動します。</li>
+      <li>キーボード配列が英語配列になっているので、日本語キーボードの刻印と違う文字が入力されることがあります。特に記号。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">/etc/ld.so.preload</code>を修正します。
+    <ul>
+      <li>1行目をコメントアウトします。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">/etc/udev/rules.d/90-qemu.rules</code>を作成します。
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>KERNEL=="sda", SYMLINK+="mmcblk0"
+KERNEL=="sda?", SYMLINK+="mmcblk0p%n"
+KERNEL=="sda2", SYMLINK+="root"
+</code></pre></div>    </div>
+  </li>
+  <li>ウィンドウの[x]をクリックして、qemuを終了します。</li>
+  <li><code class="highlighter-rouge">C:\qemu\qemu\run.bat</code>を修正します。
+    <ul>
+      <li><code class="highlighter-rouge">-append</code>から<code class="highlighter-rouge">init=/bin/bash</code>を除去します。</li>
+      <li>開放したいポートについて、<code class="highlighter-rouge">-redir</code>を追加します。開放したいポートが無ければ、この作業は不要です。
+        <ul>
+          <li><code class="highlighter-rouge">-redir tcp:10022::22</code></li>
+          <li><code class="highlighter-rouge">-redir tcp:10080::80</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>完了です。<code class="highlighter-rouge">C:\qemu\qemu\run.bat</code>を実行して、Raspbianが起動すること、(22番ポートを開放している場合)ssh接続できることを確認します。</li>
+</ul>
+
+<h1 id="備考">備考</h1>
+
+<ul>
+  <li>当手順はWindowsでの作業手順ですが、qemuとカーネルイメージの入手手順を読み替えれば、MacやLinuxでも同様にできるはずです。</li>
+</ul>
+
+<h1 id="qiita">Qiita</h1>
+
+<ul>
+  <li><a href="http://qiita.com/u6k/items/1301cc75d19066150701">RaspberryPi - Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順 - Qiita</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#linux" class="page__taxonomy-item" rel="tag">Linux</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T18:00:00+09:00">2015-01-09</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Raspberry+Pi+emulator+for+Windows%E3%81%A7Raspbian%E6%9C%80%E6%96%B0%E7%89%88%E3%82%92%E5%8B%95%E4%BD%9C%E3%81%95%E3%81%9B%E3%82%8B%E6%89%8B%E9%A0%86%20%2F2015%2F01%2F09%2Frun-raspbian-on-raspberry-pi-emulator-for-windows.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F01%2F09%2Frun-raspbian-on-raspberry-pi-emulator-for-windows.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F01%2F09%2Frun-raspbian-on-raspberry-pi-emulator-for-windows.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F01%2F09%2Frun-raspbian-on-raspberry-pi-emulator-for-windows.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2014/08/19/unread-book-manage-service.html" class="pagination--pager" title="積ん読、積みゲーなどの管理サービス・アプリ
+">Previous</a>
+    
+    
+      <a href="/2015/01/09/setup-openshift-redmine-quickstart.html" class="pagination--pager" title="Redmine@OpenShiftインストール手順(openshift-redmine-quickstart)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

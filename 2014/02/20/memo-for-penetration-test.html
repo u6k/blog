@@ -1,0 +1,614 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ペネトレーションテストについてまとめ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="ペネトレーションテストとは">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="ペネトレーションテストについてまとめ">
+
+
+
+
+  <meta property="og:description" content="ペネトレーションテストとは">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="ペネトレーションテストについてまとめ">
+  <meta name="twitter:description" content="ペネトレーションテストとは">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2014-02-20T21:55:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ペネトレーションテストについてまとめ">
+    <meta itemprop="description" content="ペネトレーションテストとは">
+    <meta itemprop="datePublished" content="2014-02-20">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">ペネトレーションテストについてまとめ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-02-20T21:55:00+09:00">2014-02-20</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="ペネトレーションテストとは">ペネトレーションテストとは</h1>
+
+<p>システムやネットワークの脆弱性を検証するテストのこと。対象に実際に攻撃を行い侵入を試みる。</p>
+
+<p>プログラムの脆弱性対応が不十分だったり、ミドルウェアの設定が不十分だったり、ミドルウェアやOSに新しい脆弱性が発見されることがある。そこで、実際に攻撃を受けた場合にどの程度耐えられるかを検証する。</p>
+
+<p>ペネトレーションテストは実際にシステムを攻撃するため、セキュリティについて専門的な知識が必要になる。このため、テストサービスを提供する専門業者に依頼することもある。</p>
+
+<!-- more -->
+
+<h2 id="参考サイト">参考サイト</h2>
+
+<ul>
+  <li><a href="http://securityblog.jp/words/4661.html">ペネトレーションテストとは | 日立ソリューションズの情報セキュリティブログ</a></li>
+  <li><a href="http://sp.e-words.jp/w/E3839AE3838DE38388E383ACE383BCE382B7E383A7E383B3E38386E382B9E38388.html">ペネトレーションテスト : IT用語辞典 e-Words</a></li>
+  <li><a href="http://ja.wikipedia.org/wiki/%E3%83%9A%E3%83%8D%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%86%E3%82%B9%E3%83%88">ペネトレーションテスト - Wikipedia</a></li>
+  <li><a href="http://itpro.nikkeibp.co.jp/word/page/10006229/">「ペネトレーション・テスト」とは：ITpro</a></li>
+</ul>
+
+<h1 id="実施時期">実施時期</h1>
+
+<p>以下のタイミングでテストを実施する。</p>
+
+<ul>
+  <li>開発中
+    <ul>
+      <li>開発中システムのテストがほぼ完了して修正が落ち着いた段階で行う事が多い。リリース前に脆弱性がないことを確認する。</li>
+    </ul>
+  </li>
+  <li>リリース後、定期的
+    <ul>
+      <li>新たな攻撃手法や脆弱性は日々公表されている。このため、新たな攻撃手法を取り入れたペネトレーションテストを定期的に実施したほうが良い。</li>
+      <li>定期的に行う場合、保守作業として調整する。また、PDCAサイクルに則って運用するべき。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="脆弱性が発見された場合">脆弱性が発見された場合</h1>
+
+<p>脆弱性が発見された場合にどうするかは、テストを行う前に検討するべき。脆弱性の発見は基本的にリスク管理項目であるため、以下のリスク対応を行う。</p>
+
+<ul>
+  <li>リスクの低減
+    <ul>
+      <li>脆弱性に実際に対応する。プログラムの修正、ミドルウェアの設定変更、パッチの適用など。</li>
+      <li>多くの場合、この対応を採用することになる。</li>
+    </ul>
+  </li>
+  <li>リスクの保有
+    <ul>
+      <li>脆弱性を突かれた場合の影響が十分に小さいため、対応を行わずに許容範囲内として受容する。</li>
+      <li>リリース・スケジュールの都合、予算の都合などで決定されることもある。</li>
+    </ul>
+  </li>
+  <li>リスクの回避
+    <ul>
+      <li>脆弱性がある機能・原因を全く別の方法に変更することで、脆弱性を完全に除去する。例えば、「インターネットからの不正侵入」に対して、インターネットへの公開を停止する、など。</li>
+      <li>リスクを保有する機能の利便性よりリスクが十分に大きい場合に取る対応で、非常に慎重に検討するべき。</li>
+    </ul>
+  </li>
+  <li>リスクの移転
+    <ul>
+      <li>リスクを他社に移転すること。例えば、リスクに対して保険をかけたり、一部の運用を他社に委託したりするなど。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="参考サイト-1">参考サイト</h2>
+
+<ul>
+  <li><a href="http://www.ipa.go.jp/security/manager/protect/pdca/risk.html">IPA 独立行政法人 情報処理推進機構：情報セキュリティマネジメントとPDCAサイクル</a></li>
+</ul>
+
+<h1 id="業者">業者</h1>
+
+<p>Google先生に聞いたところ、以下のサービスが見つかった。</p>
+
+<ul>
+  <li><a href="http://www.secomtrust.net/service/consulting/shindan.html">セキュリティ診断サービス【セコム】</a></li>
+  <li><a href="http://www.ntt-east.co.jp/business/solution/marugoto/webshindan/">Webセキュリティ診断 | オフィスまるごとサポート | 法人のお客さま | NTT東日本</a></li>
+  <li><a href="http://www.hitachi-solutions.co.jp/security_assessment/">セキュリティ診断サービス｜日立ソリューションズ</a></li>
+  <li><a href="http://www.symantec.com/ja/jp/page.jsp?id=sds-webdiag">ウェブサイトセキュリティ診断：ウェブアプリケーション脆弱性診断｜シマンテック</a></li>
+  <li><a href="http://www.nri-secure.co.jp/service/assessment/index.html?xadid=ads00054">セキュリティ診断(脆弱性診断)/設計開発支援 | サービス案内 | 情報セキュリティのNRIセキュア</a></li>
+  <li><a href="http://www.gsx.co.jp/service/J3_11.html">【PCI DSSペネトレーションテスト支援】グローバルセキュリティエキスパート株式会社 | GSX</a></li>
+  <li><a href="http://va.rs.jmc.ne.jp/server/server-express?gclid=CL2j-_bX2rwCFUYAvAodJmcAgw">サーバ診断エクスプレス | セキュリティ診断コンシェルジュ</a></li>
+  <li><a href="http://www.proactivedefense.jp/services/diagnosis/">脆弱性診断サービス | Webセキュリティサービス　Proactive Defense</a></li>
+  <li><a href="http://www.lac.co.jp/service/evaluation/">セキュリティ診断 | サービス | 株式会社ラック</a></li>
+</ul>
+
+<h1 id="ツール">ツール</h1>
+
+<p>もちろん、自分でペネトレーションテストを行うこともできる。個別の攻撃ツールを使っても良いが、総合的にテストを支援するツールが提供されている。</p>
+
+<ul>
+  <li>Kali Linux
+    <ul>
+      <li>ペネトレーションテストを目的としたLinuxディストリビューション。Liveディスクや、セットアップ済み仮想マシンなどが提供されている。BackTrackの後継ツール。</li>
+      <li><a href="http://www.kali.org/">Kali Linux | Rebirth of BackTrack, the Penetration Testing Distribution.</a></li>
+      <li><a href="http://dotnsf.blog.jp/archives/378189.html">Kali Linux を使ってみる : まだプログラマーですが何か？</a></li>
+      <li><a href="http://www.websec-room.com/2014/01/07/1485">Kali Linux を VirtualBox にインストールする | Webセキュリティの小部屋</a></li>
+      <li><a href="http://matome.naver.jp/odai/2137346166791157401">【Linux】　”Kali linux”　BackTrackの後継と言われている - NAVER まとめ</a></li>
+    </ul>
+  </li>
+  <li>BackTrack
+    <ul>
+      <li>ペネトレーションテストを目的とした、1DVDタイプのLinuxディストリビューション。後継ツールとしてKali Linuxがある。</li>
+      <li><a href="http://www.backtrack-linux.org/">BackTrack Linux - Penetration Testing Distribution</a></li>
+      <li><a href="http://ja.wikipedia.org/wiki/BackTrack">BackTrack - Wikipedia</a></li>
+      <li><a href="http://www.itmedia.co.jp/enterprise/articles/0806/19/news035.html">Linux Hacks：BackTrackを使ってセキュリティをテストする - ITmedia エンタープライズ</a></li>
+      <li><a href="http://matome.naver.jp/odai/2137113685353331401">【Linux 】　セキュリティーの脆弱を発見する。　”BackTrack” の使い方 - NAVER まとめ</a></li>
+    </ul>
+  </li>
+  <li>Nessus
+    <ul>
+      <li>指定したサーバーに対して、ポートスキャンや擬似アクセスなどを行うことで脆弱性を調査する、脆弱性スキャナー。Windowsでも動作する。</li>
+      <li><a href="http://www.tenable.com/products/nessus">Nessus Vulnerability Scanner</a></li>
+      <li><a href="http://knowledge.sakura.ad.jp/tech/356/">Windowsでも使える脆弱性スキャナ「Nessus」を使う - さくらのナレッジ</a></li>
+      <li><a href="http://sourceforge.jp/magazine/13/06/04/090000">WindowsやLinuxで実行できる脆弱性スキャナ「Nessus」を試す | SourceForge.JP Magazine</a></li>
+      <li><a href="http://ja.wikipedia.org/wiki/Nessus">Nessus - Wikipedia</a></li>
+      <li><a href="http://www.bflets.dyndns.org/Security/Nessus.html">Nessusを利用した総合セキュリティチェック</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="その他参考サイト">その他、参考サイト</h1>
+
+<ul>
+  <li><a href="http://www.sstokkun.net/archives/2005/06/top_1.html">侵入テスト（ペネトレーションテスト）の有効性：情報セキュリティアドミニストレータ試験対策</a></li>
+  <li><a href="http://www.sbbit.jp/article/cont1/15565">実践！Webセキュリティ点検術（1）ペネトレーションテストとは何か 最新ペネトレーション式｜ビジネス+IT</a></li>
+  <li><a href="http://d.hatena.ne.jp/takalognet/20071017/1192586326">セキュリティの弱点を発見するペネトレーションテストとは？ - takalognet</a></li>
+</ul>
+
+<h1 id="備考-不正侵入の手順">備考: 不正侵入の手順</h1>
+
+<p>不正侵入は以下の手順で行われる。</p>
+
+<ul>
+  <li>事前調査
+    <ul>
+      <li>対象とするシステムの侵入方法・脆弱性を調査する。</li>
+    </ul>
+  </li>
+  <li>権限取得
+    <ul>
+      <li>システムに侵入し、ユーザーの権限を取得する。これにより、以降は(システムにとって)正しいユーザーとして行動することができる。</li>
+    </ul>
+  </li>
+  <li>不正行為
+    <ul>
+      <li>個人情報を盗む、パスワードを盗む、個人情報を盗むなどの不正行為を行う。</li>
+    </ul>
+  </li>
+  <li>後処理
+    <ul>
+      <li>侵入・操作した痕跡を消す。これにより、犯行が気づかれにくくなる。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="備考-疑問点課題">備考: 疑問点、課題</h1>
+
+<ul>
+  <li>実施するタイミングによって実施内容は変わるか？</li>
+  <li>報告は、どのような形式で行うか？</li>
+  <li>チェック観点に対する、侵入された時に発生する一般的な事象。</li>
+  <li>発生した場合の想定される事象。影響。</li>
+  <li>対応する場合の工数。</li>
+  <li>瑕疵か否か。</li>
+  <li>実施手順を策定する。対象アプリケーションのパターンを想定して。</li>
+  <li>報告書のテンプレートを作成する。</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E3%83%86%E3%82%B9%E3%83%88" class="page__taxonomy-item" rel="tag">テスト</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-02-20T21:55:00+09:00">2014-02-20</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E3%83%9A%E3%83%8D%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%BE%E3%81%A8%E3%82%81%20%2F2014%2F02%2F20%2Fmemo-for-penetration-test.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2014%2F02%2F20%2Fmemo-for-penetration-test.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2014%2F02%2F20%2Fmemo-for-penetration-test.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2014%2F02%2F20%2Fmemo-for-penetration-test.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2014/01/07/setup-java-sdk-for-windows.html" class="pagination--pager" title="WindowsにJava SDKをセットアップする
+">Previous</a>
+    
+    
+      <a href="/2014/08/19/unread-book-manage-service.html" class="pagination--pager" title="積ん読、積みゲーなどの管理サービス・アプリ
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

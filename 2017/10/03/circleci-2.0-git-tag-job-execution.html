@@ -1,0 +1,625 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>CircleCI 2.0におけるGitタグ・ジョブ実行 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="CircleCI 2.0におけるGitタグ・ジョブ実行">
+
+
+
+
+  <meta property="og:description" content="CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="CircleCI 2.0におけるGitタグ・ジョブ実行">
+  <meta name="twitter:description" content="CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-10-03T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CircleCI 2.0におけるGitタグ・ジョブ実行">
+    <meta itemprop="description" content="CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。">
+    <meta itemprop="datePublished" content="2017-10-03">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">CircleCI 2.0におけるGitタグ・ジョブ実行
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-03T07:00:00+09:00">2017-10-03</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。</p>
+
+<h1 id="結論">結論</h1>
+
+<p>GitタグをpushしてもCircleCIジョブが起動しませんでした。なので、masterブランチにpushされたときに最後のGitタグを取得してデプロイ処理を実行するようにしました。</p>
+
+<p>動作確認用に<a href="https://github.com/u6k/sample-circleci-2.0">u6k/sample-circleci-2.0</a>リポジトリを作成しましたので、こちらの<code class="highlighter-rouge">.circleci/config.yml</code>をご覧ください。</p>
+
+<h1 id="gitタグジョブ実行の関連スレッド">Gitタグ・ジョブ実行の関連スレッド</h1>
+
+<p>CircleCIコミュニティや公式ドキュメントの関連スレッドを挙げます。</p>
+
+<ul>
+  <li><a href="https://discuss.circleci.com/t/git-tag-deploys-in-2-0/9493/24">Git tag deploys in 2.0 - CircleCI 2.0 / 2.0 Support - CircleCI Community Discussion</a></li>
+</ul>
+
+<p>このスレッドによると、2017/8にGitタグ・ジョブ実行が有効になったとのこと。</p>
+
+<ul>
+  <li><a href="https://circleci.com/docs/2.0/workflows/#git-tag-job-execution">Orchestrating Workflows - CircleCI</a></li>
+</ul>
+
+<p>「Git Tag Job Execution」にジョブ(というかワークフロー)の設定方法が説明されていますが、この通りに設定してもそもそもGitタグのpushでCircleCIジョブが起動しませんでした。</p>
+
+<h1 id="configymlの説明"><code class="highlighter-rouge">config.yml</code>の説明</h1>
+
+<p>GitタグのpushでCircleCIジョブが起動しないので、しかたないのでmasterブランチのpushで必要な処理を実行するようにしました。以下の<code class="highlighter-rouge">config.yml</code>が設定例です。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: 2
+jobs:
+    build:
+        docker:
+            - image: docker:17.07.0-ce-git
+        steps:
+            - checkout
+            - setup_remote_docker:
+                version: 17.07.0-ce
+            - run:
+                name: Build docker image
+                command: docker build -t u6kapps/sample-circleci-2.0 .
+            - run:
+                name: Test docker image
+                command: docker run u6kapps/sample-circleci-2.0
+            - run:
+                name: Save docker image
+                command: |
+                    mkdir -p ~/caches
+                    docker save u6kapps/sample-circleci-2.0 -o ~/caches/image.tar
+            - save_cache:
+                key: docker-{{ .Revision }}
+                paths:
+                    - ~/caches/image.tar
+    push:
+        docker:
+            - image: docker:17.07.0-ce-git
+        steps:
+            - checkout
+            - setup_remote_docker:
+                version: 17.07.0-ce
+            - restore_cache:
+                key: docker-{{ .Revision }}
+                paths:
+                    - ~/caches/image.tar
+            - run:
+                name: Load docker image
+                command: docker load -i ~/caches/image.tar
+            - run:
+                name: Push docker image
+                command: |
+                    TAG=`git describe --abbrev=0`
+                    docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+                    docker tag u6kapps/sample-circleci-2.0 u6kapps/sample-circleci-2.0:${TAG}
+                    docker push u6kapps/sample-circleci-2.0
+workflows:
+    version: 2
+    build-and-push:
+        jobs:
+            - build
+            - push:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: master
+</code></pre></div></div>
+
+<p>要所を説明します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker:
+    - image: docker:17.07.0-ce-git
+</code></pre></div></div>
+
+<p>ジョブで使用するDockerイメージを指定します。この時、<code class="highlighter-rouge">-git</code>のイメージを使用しないと、<code class="highlighter-rouge">git</code>コマンドが使用できません。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- setup_remote_docker:
+    version: 17.07.0-ce
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">setup_remote_docker</code>ステップは隔離されたDocker環境を構築するためのステップです。ここでバージョンを指定しない場合、<code class="highlighter-rouge">docker image</code>で指定したバージョンとは異なるデフォルトのバージョン(17.03?)が割り当てられ、multi stage buildが使えません。</p>
+
+<p>なので、無難に<code class="highlighter-rouge">docker image</code>で指定したバージョンと同じバージョンを指定しておきます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- run:
+    name: Save docker image
+    command: |
+        mkdir -p ~/caches
+        docker save u6kapps/sample-circleci-2.0 -o ~/caches/image.tar
+- save_cache:
+    key: docker-{{ .Revision }}
+    paths:
+        - ~/caches/image.tar
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- restore_cache:
+    key: docker-{{ .Revision }}
+    paths:
+        - ~/caches/image.tar
+- run:
+    name: Load docker image
+    command: docker load -i ~/caches/image.tar
+</code></pre></div></div>
+
+<p>ジョブをまたいだファイルの使用は、キャッシュを経由する必要があります。なので、ビルド・ジョブでDockerイメージをtarに出力してキャッシュを保存、pushジョブでキャッシュからtarを取得してDockerイメージを復元します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- run:
+    name: Push docker image
+    command: |
+        TAG=`git describe --abbrev=0`
+        docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+        docker tag u6kapps/sample-circleci-2.0 u6kapps/sample-circleci-2.0:${TAG}
+        docker push u6kapps/sample-circleci-2.0
+</code></pre></div></div>
+
+<p>CircleCI 1.0では<code class="highlighter-rouge">${CIRCLE_TAG}</code>という環境変数にGitタグが設定されていましたが、<code class="highlighter-rouge">env</code>コマンドで確認したところGitタグのような環境変数はありませんでした。しかたないので<code class="highlighter-rouge">git describe</code>で最後のGitタグを取得して、それをDockerタグに設定します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>workflows:
+    version: 2
+    build-and-push:
+        jobs:
+            - build
+            - push:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: master
+</code></pre></div></div>
+
+<p>pushジョブをmasterブランチの時のみ実行するように設定しています。CircleCI 1.0の時はGitタグがpushされた時のみ、という設定ができましたが。</p>
+
+<h1 id="実際の動作">実際の動作</h1>
+
+<p>developブランチとmasterブランチでファイルを修正してGit pushしたところ、CircleCIでは以下のように実行されました。</p>
+
+<p><img src="/assets/img/2017-10-03-circleci-2.0-git-tag-job-execution/circleci-001.png" alt="circleci-001" /></p>
+
+<p>developブランチのビルドではbuildジョブだけ動作していることに対して、masterブランチの場合はbuildジョブとpushジョブが動作しました。</p>
+
+<p><img src="/assets/img/2017-10-03-circleci-2.0-git-tag-job-execution/circleci-002.png" alt="circleci-002" /></p>
+
+<p>pushジョブでは最後のGitタグを取得して<code class="highlighter-rouge">docker push</code>が成功していることが分かります。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>CircleCI 2.0にするだけでビルドが早くなった！という記事をよく見ますが、まだ落とし穴が多く、移行はもう少し様子を見てからにします。</p>
+
+<h1 id="link">Link</h1>
+
+<ul>
+  <li>Author
+    <ul>
+      <li><a href="https://github.com/u6k">u6k- GitHub</a></li>
+      <li><a href="https://blog.u6k.me/">u6k.Blog</a></li>
+      <li><a href="https://qiita.com/u6k">u6k - Qiita</a></li>
+    </ul>
+  </li>
+  <li>Source
+    <ul>
+      <li><a href="https://github.com/u6k/blog/blob/master/_posts/2017-10-03-circleci-2.0-git-tag-job-execution.md">2017-10-03-circleci-2.0-git-tag-job-execution.md</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#circleci" class="page__taxonomy-item" rel="tag">CircleCI</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-03T07:00:00+09:00">2017-10-03</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=CircleCI+2.0%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BGit%E3%82%BF%E3%82%B0%E3%83%BB%E3%82%B8%E3%83%A7%E3%83%96%E5%AE%9F%E8%A1%8C%20%2F2017%2F10%2F03%2Fcircleci-2.0-git-tag-job-execution.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F10%2F03%2Fcircleci-2.0-git-tag-job-execution.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F10%2F03%2Fcircleci-2.0-git-tag-job-execution.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F10%2F03%2Fcircleci-2.0-git-tag-job-execution.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/10/02/clean-jenkins-build-queue.html" class="pagination--pager" title="Jenkinsビルド・キューに溜まったジョブを強制終了する
+">Previous</a>
+    
+    
+      <a href="/2017/10/29/this-week-i-learned.html" class="pagination--pager" title="This Week I Learned (from 2017-10-23 to 2017-10-29)
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

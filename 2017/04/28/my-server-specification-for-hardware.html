@@ -1,0 +1,500 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>自宅サーバー設計(ハードウェア編) - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="自宅サーバー設計(ハードウェア編)">
+
+
+
+
+  <meta property="og:description" content="自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="自宅サーバー設計(ハードウェア編)">
+  <meta name="twitter:description" content="自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-04-28T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="自宅サーバー設計(ハードウェア編)">
+    <meta itemprop="description" content="自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。">
+    <meta itemprop="datePublished" content="2017-04-28">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">自宅サーバー設計(ハードウェア編)
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-28T00:00:00+09:00">2017-04-28</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。</p>
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>昔使っていたMacBookがあるので、これをDockerホストにしたい。</li>
+  <li>HDDが数台あるけど、1個のボリュームにして扱いやすくしたい。</li>
+  <li>ドメイン名でアクセスできるようにしたい。</li>
+  <li>バックアップは、自宅とは別サイトにしたい。</li>
+</ul>
+
+<h1 id="構成図">構成図</h1>
+
+<p>紆余曲折あり、現在は以下のような構成になっています。</p>
+
+<p><img src="/uml/c8dd8be8fca2df8ff3ff49da869d8789.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<h1 id="構成の説明">構成の説明</h1>
+
+<h2 id="coreos-on-virtualbox-on-macos">CoreOS on VirtualBox on macOS</h2>
+
+<p>Docker for macも使っていましたが、以下のような不安定さがあり、結局、CoreOSに戻しました。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">qcow2</code>ファイルが肥大化して、ストレージを圧迫してしまう。</li>
+  <li>ネットワーク通信が頻発すると、接続確立できなくなる？</li>
+</ul>
+
+<h2 id="外部からアクセスする場合はsshまたはvnc">外部からアクセスする場合は、sshまたはVNC</h2>
+
+<p>普段はCoreOSで作業を行うため、sshで接続します。CoreOSの調子がおかしい、macOSをアップデートする、などの場合はVNCでアクセスします。</p>
+
+<h2 id="u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</h2>
+
+<p>ムームードメインで年間契約して、MyDNSでドメイン名とIPアドレスを管理しています。IPアドレスが変わっても良いように、Jenkinsコンテナで定期的にIPアドレスを通知しています。</p>
+
+<h2 id="hddはlvmでボリュームを統合">HDDはLVMでボリュームを統合</h2>
+
+<p>ボリュームを1個に統合して、ext4ストレージとして使っています。これは今でもちょっと迷っていて、個別ボリュームで扱った方が良いかな？故障したときどこまで被害が広がるかな？と悩んでいます。</p>
+
+<h2 id="バックアップはamazonclouddrive">バックアップはAmazonCloudDrive</h2>
+
+<p>まだ全部をバックアップはできていなくて、少しずつ進めています。</p>
+
+<h2 id="macbookpro">MacBookPro</h2>
+
+<p>排熱の観点から、風通しの良い場所において、まな板立てに立て掛けています。温度を監視していますが、変な高温になることは今のところありません。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>ストレージさえ解決すれば、全てAWSかDigitalOceanに持っていきたいのですけど、今のところ自宅で運用しています。また、旅行などで長期間自宅を離れる場合は、Redmineなど必須サービスのみをDigitalOceanで一時的運用するようにしています。</p>
+
+<p>CoreOSの中でどのようなDockerコンテナが動作しているかは、ソフトウェア編で説明します。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC" class="page__taxonomy-item" rel="tag">サーバー</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E8%A8%AD%E8%A8%88" class="page__taxonomy-item" rel="tag">設計</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-28T00:00:00+09:00">2017-04-28</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E8%87%AA%E5%AE%85%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E8%A8%88%28%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E7%B7%A8%29%20%2F2017%2F04%2F28%2Fmy-server-specification-for-hardware.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F04%2F28%2Fmy-server-specification-for-hardware.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F04%2F28%2Fmy-server-specification-for-hardware.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F04%2F28%2Fmy-server-specification-for-hardware.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/12/31/task-management.html" class="pagination--pager" title="タスク管理手順(2016年12月版)
+">Previous</a>
+    
+    
+      <a href="/2017/04/30/introduction-to-minio.html" class="pagination--pager" title="JavaからMinioを使用するサンプルコード
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,600 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>個人開発基盤の構成、およびデプロイ・フロー - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="個人開発基盤の構成、およびデプロイ・フロー">
+
+
+
+
+  <meta property="og:description" content="個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="個人開発基盤の構成、およびデプロイ・フロー">
+  <meta name="twitter:description" content="個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-06-09T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="個人開発基盤の構成、およびデプロイ・フロー">
+    <meta itemprop="description" content="個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。">
+    <meta itemprop="datePublished" content="2018-06-09">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">個人開発基盤の構成、およびデプロイ・フロー
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-09T00:00:00+09:00">2018-06-09</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。</p>
+
+<p>この記事では、開発基盤として利用しているサービス、およびデプロイ・フローの概要を説明します。</p>
+
+<h1 id="前提">前提</h1>
+
+<p>インターネット上のサービスを利用しています。が、オンプレミスでも類似の基盤を構築することは可能です。具体的には、GitLabでいけるはず。</p>
+
+<p>開発するアプリケーションは、Dockerを前提としています。逆に言えば、Dockerで動作すれば言語処理系は問いません。</p>
+
+<p>この記事では、開発基盤を「開発してからリリースするまでの作業を効率化するために利用しているサービス群」のことを言います。</p>
+
+<h1 id="開発基盤の構造">開発基盤の構造</h1>
+
+<p>次のサービス群と流れで、開発からリリースまでの作業を行っています。</p>
+
+<p><img src="/uml/2b2995e13b71ef2839abfa915ff790f4.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<h1 id="サービスの役割">サービスの役割</h1>
+
+<p>サービスごとの役割を説明します。</p>
+
+<h2 id="開発pc">開発PC</h2>
+
+<p>開発PCには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っています。開発するアプリケーションによって言語処理系が混在するのでOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいためです。</p>
+
+<p>開発PCが手元にない場合、本番サーバーでvimとgitで開発を行うことがあります。というか、最近は仕事の都合でノートPCを持ち歩けないため、スマホから本番サーバーにsshして作業することが多いです。</p>
+
+<p>開発PCの場合、VisualStudioCode + SourceTreeを使うことが多いです。本番サーバーの場合、vim + git-flow + tig + tmuxで作業を行っています。</p>
+
+<ul>
+  <li><a href="https://docs.docker.com/">Docker Documentation | Docker Documentation</a></li>
+  <li><a href="https://www.microsoft.com/ja-jp/dev/products/code-vs.aspx">Visual Studio Code - Visual Studio</a></li>
+  <li><a href="https://git-scm.com/">Git</a></li>
+  <li><a href="https://www.vim.org/">welcome home : vim online</a></li>
+  <li><a href="https://www.sourcetreeapp.com/">Sourcetree | Free Git GUI for Mac and Windows</a></li>
+  <li><a href="https://github.com/nvie/gitflow">nvie/gitflow: Git extensions to provide high-level repository operations for Vincent Driessen’s branching model.</a></li>
+  <li><a href="https://github.com/jonas/tig">jonas/tig: Text-mode interface for git</a></li>
+  <li><a href="https://github.com/tmux/tmux">tmux/tmux: tmux source code</a></li>
+</ul>
+
+<h2 id="github">GitHub</h2>
+
+<p>言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービスです。主にソースコードの管理をしています。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していません。</p>
+
+<p>GitHubにプッシュすると、Travis CIに通知され、ビルドが開始されます。</p>
+
+<ul>
+  <li><a href="https://github.com/">The world’s leading software development platform · GitHub</a></li>
+</ul>
+
+<h2 id="travis-ci">Travis CI</h2>
+
+<p>CIサービスです。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行います。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行います(一部のサービスのみ)。</p>
+
+<p>ビルド生成物は、Docker Hubの他に、GitHub Pages、u6k.Minioなどにもアップロードします。</p>
+
+<p>ビルド作業の結果は、Slackで通知します。</p>
+
+<p>GitHubのプルリクエストは、原則としてTravis CIのビルドがパスしないとマージできないように設定しています。これにより、焦っていてうっかりビルドを壊してしまうコミットが混入することを防いでいます。</p>
+
+<ul>
+  <li><a href="https://travis-ci.org/">Travis CI - Test and Deploy Your Code with Confidence</a></li>
+</ul>
+
+<h2 id="slack">Slack</h2>
+
+<p>開発者向けのチャット・サービスです。個人開発では、自分だけのSlackワークスペースに<code class="highlighter-rouge">#build</code>チャンネルを作成して、Travis CIのビルド結果が通知されるようにしています。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い状況にしています。</p>
+
+<p>Slackには他にも、サービス監視によるアラート、バッチ処理失敗などが通知されるようになっています。将来的には、チャット・ボットを飼って、全てチャットから指示できるようにしたいと思っていますが、まだそこまではしていません。</p>
+
+<ul>
+  <li><a href="https://slack.com/">よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ | Slack</a></li>
+</ul>
+
+<h2 id="docker-hub">Docker Hub</h2>
+
+<p>Dockerイメージのホスティング・サービスです。Gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュします。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ないと考えています。</p>
+
+<p>以前は、Docker HubによるAutomated Buildを利用していましたが、どうも思ったタイミングでビルドしてくれないので、Travis CIでビルドしています。</p>
+
+<p>仕事やプライベートな個人開発の場合は、GitLabのDockerリポジトリを利用しています。</p>
+
+<ul>
+  <li><a href="https://hub.docker.com/">Docker Hub</a></li>
+  <li><a href="https://docs.gitlab.com/ce/user/project/container_registry.html">GitLab Container Registry | GitLab</a></li>
+</ul>
+
+<h2 id="rundeck">Rundeck</h2>
+
+<p>ジョブ・スケジューラーです。バッチ処理を管理、実行していますが、一部のDockerコンテナの制御もジョブとして実行できるようにしています。</p>
+
+<p>Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出してジョブを起動します。ジョブは<code class="highlighter-rouge">docker-compose pull</code>、<code class="highlighter-rouge">down</code>、<code class="highlighter-rouge">up -d</code>を行います。これにより、Gitタグをプッシュすると、最終的に最新バージョンのサービスが起動します。同時に、RundeckがSlackにジョブ実行結果を通知します。</p>
+
+<ul>
+  <li><a href="https://www.rundeck.com/">Rundeck Pro | Modern IT Operations Management Platform</a></li>
+</ul>
+
+<h2 id="本番サーバー">本番サーバー</h2>
+
+<p>ほとんどのサービスはDockerコンテナで動作(TODO: ソフトウェア設計にリンクを張る)しています。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされています。このため、以前は<a href="/2017/04/28/my-server-specification-for-hardware.html">CoreOSで運用していた時期</a>もありました。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用しています。</p>
+
+<p>ストレージ・サイズの関係で、基本的には自宅マシンをサーバーとして運用していますが、出張や旅行などで長期間自宅を離れる場合は、DigitalOceanなどのIaaSに一時的に移行して、帰宅後に切り戻します。この場合でも、DNS設定の変更とデータの移行が少々面倒なだけで、OSとDockerコンテナのセットアップはAnsibleで簡単に実行できるようにしています。</p>
+
+<ul>
+  <li><a href="https://www.mydns.jp/">自宅サーバーやVPSに使える無料のダイナミックDNS (Dynamic DNS) | MyDNS.JP</a></li>
+  <li><a href="https://www.digitalocean.com/">DigitalOcean: Cloud Computing, Simplicity at Scale</a></li>
+  <li><a href="https://coreos.com/">Open source, containers, and Kubernetes | CoreOS</a></li>
+  <li><a href="https://www.debian.org/">Debian – ユニバーサルオペレーティングシステム</a></li>
+</ul>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。</p>
+
+<p>この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。</p>
+
+<h1 id="link">Link</h1>
+
+<ul>
+  <li>Author
+    <ul>
+      <li><a href="https://blog.u6k.me/">u6k.Blog()</a></li>
+      <li><a href="https://github.com/u6k">u6k - GitHub</a></li>
+      <li><a href="https://twitter.com/u6k_yu1">u6k_yu1 | Twitter</a></li>
+    </ul>
+  </li>
+  <li>Source
+    <ul>
+      <li><a href="https://github.com/u6k/blog/blob/master/_posts/2018-06-09-my-development-environment-and-deploy-workflow.md">2018-06-09-my-development-environment-and-deploy-workflow.md</a></li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#digitalocean" class="page__taxonomy-item" rel="tag">DigitalOcean</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#git" class="page__taxonomy-item" rel="tag">git</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rundeck" class="page__taxonomy-item" rel="tag">Rundeck</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#travis-ci" class="page__taxonomy-item" rel="tag">Travis CI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC" class="page__taxonomy-item" rel="tag">サーバー</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E8%A8%AD%E8%A8%88" class="page__taxonomy-item" rel="tag">設計</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-09T00:00:00+09:00">2018-06-09</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E5%80%8B%E4%BA%BA%E9%96%8B%E7%99%BA%E5%9F%BA%E7%9B%A4%E3%81%AE%E6%A7%8B%E6%88%90%E3%80%81%E3%81%8A%E3%82%88%E3%81%B3%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%83%BB%E3%83%95%E3%83%AD%E3%83%BC%20%2F2018%2F06%2F09%2Fmy-development-environment-and-deploy-workflow.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F06%2F09%2Fmy-development-environment-and-deploy-workflow.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2018%2F06%2F09%2Fmy-development-environment-and-deploy-workflow.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2018%2F06%2F09%2Fmy-development-environment-and-deploy-workflow.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2018/06/04/my-service-specification-hardware-part.html" class="pagination--pager" title="自宅サーバー設計(ハードウェア編)
+">Previous</a>
+    
+    
+      <a href="/2018/06/12/planning-work-report.html" class="pagination--pager" title="work-reportの素案
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

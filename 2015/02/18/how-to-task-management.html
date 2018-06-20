@@ -1,0 +1,661 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>自分用のタスク管理手順メモ - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="目的">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="自分用のタスク管理手順メモ">
+
+
+
+
+  <meta property="og:description" content="目的">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="自分用のタスク管理手順メモ">
+  <meta name="twitter:description" content="目的">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-02-18T20:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="自分用のタスク管理手順メモ">
+    <meta itemprop="description" content="目的">
+    <meta itemprop="datePublished" content="2015-02-18">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">自分用のタスク管理手順メモ
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-18T20:00:00+09:00">2015-02-18</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="目的">目的</h1>
+
+<p>タスク管理について様々なツールを使って管理を試み(付箋紙→Remember the milk→Google Tasks→Wunderlist→Toodledo→Redmine←今ココ)、不満はたくさんあるものの、それなりに安定した管理になっています。いや、満足は全然してないのですけど…</p>
+
+<p>ベースとなる部分はGTDですが、ツールや手法を色々変えていくうちに、やりたいこと(要求)・やること(要件)・やりかた(運用)・課題がごちゃごちゃしてよく分からなくなってきたので、ここに整理したいと思います。整理というか、今回はとりあえずざっと書き出します。</p>
+
+<!-- more -->
+
+<h1 id="やりたいこと要求">やりたいこと(要求)</h1>
+
+<ul>
+  <li>タスクを漏れ無く記録したい。</li>
+  <li>タスクが発生したら、素早く記録したい。</li>
+  <li>全てのタスクを1つのツールに集約したい。
+    <ul>
+      <li>今やりたいこと、将来やりたいこと、いつやるか決まっていること、全部を一箇所に集めたい。ビューは様々で良い。</li>
+    </ul>
+  </li>
+  <li>タスクの状況に変化があったら、素早く記録を残したい。</li>
+  <li>doingリストを表現したい。今日行うべきタスクのみ、行う順番に表示したい。
+    <ul>
+      <li>割り込みが発生したら、素早く再構成したい。</li>
+      <li>タスクシュート式の管理をしたいが、タスクシュート式を詳細に知らない。</li>
+    </ul>
+  </li>
+  <li>開始日を管理したい。開始しているタスクのみを表示したい。</li>
+  <li>期限を管理したい。期限日でソートしたい。期限日が迫っているタスク、期限日を超過したタスクがすぐに分かるようにしたい。</li>
+  <li>定期的に発生するタスクを自動的に記録したい。</li>
+  <li>タスクごとに、どの場所で実行可能かを管理したい。現在の状況で実行可能なタスクを提案するように表示していほしい。</li>
+  <li>「欲しいもの」「行きたい場所」を管理したい。
+    <ul>
+      <li>これはタスク管理であるべきかは疑問。別ツールで管理すべき?</li>
+    </ul>
+  </li>
+  <li>過去のタスク記録を手順書として使うことはあるかもしれないが、タスク記録自体を仕様書にはしない。</li>
+  <li>ガントチャート表記は必要ない。</li>
+  <li>ルーチンタスクとタスクを明確に分けたい。
+    <ul>
+      <li>doingリスト、doneリストで分けて表示することで、達成感を味わうため。</li>
+      <li>ただ、これは、ルーチンと非ルーチン、という区別ではないという気がしている。4領域の分類のほうが良いかも?</li>
+    </ul>
+  </li>
+  <li>プロジェクトのような大きなタスクを扱いたい。プロジェクトをトップとして、構成するタスクを階層構造で扱いたい。
+    <ul>
+      <li>深い階層構造をどう扱うか迷っている。WBSのように階層構造をガチガチに固めてしまうと、計画変更が手間になってしまう。</li>
+      <li>アジャイル的に、仕掛中サブプロジェクトは細かく管理するが、待機中サブプロジェクトはざっくりとしか書かない、というように管理するか?</li>
+    </ul>
+  </li>
+  <li>週次レビュー、月次レビュー、年次レビューを行いやすいように表示したい。
+    <ul>
+      <li>4領域の分類で、何が終わったのかをタイムライン上に表示できると嬉しいか?</li>
+      <li>各領域で完了したタスク、重要でかつ完了したタスク、先送りにしてしまったタスク、などは自動で集計したい。</li>
+      <li>人力レビューは、KPT、7つの習慣の目標達成度などで表現すれば良いか?　人力レビューをどのように行えば嬉しいか要検討。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="手法">手法</h1>
+
+<ul>
+  <li>GTD
+    <ul>
+      <li>個人向けのタスク管理手法。ストレスフリーの仕事術。</li>
+      <li><a href="http://ja.wikipedia.org/wiki/Getting_Things_Done">Getting Things Done - Wikipedia</a></li>
+      <li><a href="http://www.amazon.co.jp/dp/4576082116/">はじめてのGTD ストレスフリーの整理術</a>。この本が分かりやすい。</li>
+    </ul>
+  </li>
+  <li>タスクシュート
+    <ul>
+      <li>作業管理＋記録ツール。作業管理よりも、時間管理におけるレコーディングダイエットツールだと思っている。</li>
+      <li>タスクシュートは考え方で、それをベースにしたExcelベースのTaskChuteというツールがある。</li>
+      <li>やりたいとは思っているけど適用できていない…</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>[TaskChuteのおすすめ記事一覧</td>
+              <td>jMatsuzaki](http://jmatsuzaki.com/archives/category/%E3%83%A9%E3%82%A4%E3%83%95%E3%83%8F%E3%83%83%E3%82%AF/taskchute)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li><a href="http://matome.naver.jp/odai/2132957287079245101">TaskChute初心者のための参考記事まとめ - NAVER まとめ</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="ツール">ツール</h1>
+
+<ul>
+  <li>Redmine
+    <ul>
+      <li>個人サーバーに設置可能。OpenShiftのようなPaaSにも設置可能。</li>
+      <li>きめ細かい粒度でタスクを管理できる。</li>
+      <li>カスタマイズ可能。</li>
+      <li>バックアップが必要。は、クラウドサービスを使用しても同じなので、デメリットではない。</li>
+      <li>そもそも個人タスク管理向けのツールではない。ぐぬぬ。</li>
+      <li>動作やUIが重い。</li>
+    </ul>
+  </li>
+  <li>RedminePM
+    <ul>
+      <li>スマホ版Redmineクライアント。機能はWeb版より劣るが、タスク管理には十分。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="やること要件やりかた運用">やること(要件)・やりかた(運用)</h1>
+
+<p>課題含む。</p>
+
+<h2 id="タスクを漏れ無く記録したい">タスクを漏れ無く記録したい。</h2>
+
+<ul>
+  <li>全てのタスクを、Redmineに集約する。</li>
+  <li>予定もタスクとして扱い、カレンダーだけでなくRedmineにも記録する。というか、Redmineがメインで、カレンダーはビューの一つ。</li>
+  <li>割り込みが発生した場合も、Redmineに起票する。後追いでも良いので。doingリストとして扱えると、割り込みタスクも管理しやすいのだけど。</li>
+  <li>PC、スマホ、どの環境であろうと、中心はRedmineで、各端末、機能はそのビューにすぎない。</li>
+</ul>
+
+<h2 id="タスクが発生したら素早く記録したい">タスクが発生したら、素早く記録したい。</h2>
+
+<ul>
+  <li>スマホを持ち歩いているので、RedminePMで起票している。</li>
+  <li>doingリストの先頭、または最後にすぐに挿入したい。</li>
+</ul>
+
+<h2 id="全てのタスクを1つのツールに集約したい">全てのタスクを1つのツールに集約したい。</h2>
+
+<ul>
+  <li>Redmineに集約している。</li>
+  <li>doingリストは紙ノートに書いている。あとでRedmineに書き戻している。</li>
+  <li>カレンダーは、まぁ日付が決まっているタスクを書いているが、Redmineと自動連携はしていないし、各タスクも決まっていない。</li>
+  <li>Redmineをデータソースとして自動的にdoingリストやカレンダーに反映したい…</li>
+</ul>
+
+<h2 id="タスクの状況に変化があったら素早く記録を残したい">タスクの状況に変化があったら、素早く記録を残したい。</h2>
+
+<ul>
+  <li>doingリストの場合、紙ノートに状況を記録している。後でRedmineに書き戻す。</li>
+  <li>RedminePMで更新している。</li>
+</ul>
+
+<h2 id="doingリストを表現したい今日行うべきタスクのみ行う順番に表示したい">doingリストを表現したい。今日行うべきタスクのみ、行う順番に表示したい。</h2>
+
+<ul>
+  <li>紙ノートにdoingリストを書き出している。ただ、書き出す作業も書き戻す作業も正直面倒。</li>
+  <li>紙に直接書いてしまうと、順番入れ替えができない。</li>
+  <li>「これとこれとこれ!」みたいに選択するとdoingリストとして抽出できる機能がほしい…</li>
+</ul>
+
+<h2 id="開始日を管理したい開始しているタスクのみを表示したい">開始日を管理したい。開始しているタスクのみを表示したい。</h2>
+
+<ul>
+  <li>現在は管理していない。Redmineチケットの開始日は空にしている。</li>
+  <li>1チケットの作業粒度を日をまたぐレベルにしてしまうことが間違いだと思っている。</li>
+  <li>ただ、ある程度長い作業があることも事実で、そういう場合は1チケットで作業ログを見たい。</li>
+</ul>
+
+<h2 id="期限を管理したい期限日でソートしたい期限日が迫っているタスク期限日を超過したタスクがすぐに分かるようにしたい">期限を管理したい。期限日でソートしたい。期限日が迫っているタスク、期限日を超過したタスクがすぐに分かるようにしたい。</h2>
+
+<ul>
+  <li>Redmineチケットの期限日で管理している。</li>
+</ul>
+
+<h2 id="定期的に発生するタスクを自動的に記録したい">定期的に発生するタスクを自動的に記録したい。</h2>
+
+<ul>
+  <li>今は、チケットタイトルに「定期」と入れて定期チケットが分かるようにしている。Redmineには標準で繰り返しタスクの設定が無いし…</li>
+  <li>週次レビューのタイミングで、次の定期チケットを手動で起票している。超面倒!</li>
+  <li>「Redmine repeat issue」とかで検索するとそれっぽいプラグインがあるので、試してみる。</li>
+</ul>
+
+<h2 id="タスクごとにどの場所で実行可能かを管理したい現在の状況で実行可能なタスクを提案するように表示していほしい">タスクごとに、どの場所で実行可能かを管理したい。現在の状況で実行可能なタスクを提案するように表示していほしい。</h2>
+
+<ul>
+  <li>カテゴリーで管理している。大雑把ではあるけど、場所ごとに実行可能なタスクを検索できる。</li>
+</ul>
+
+<h2 id="欲しいもの行きたい場所を管理したい">「欲しいもの」「行きたい場所」を管理したい。</h2>
+
+<ul>
+  <li>カテゴリー「欲しい」とかで管理している。ウィッシュリスト的な。</li>
+  <li>が、これは何か違うと思っている。何だろう?</li>
+</ul>
+
+<h2 id="過去のタスク記録を手順書として使うことはあるかもしれないがタスク記録自体を仕様書にはしない">過去のタスク記録を手順書として使うことはあるかもしれないが、タスク記録自体を仕様書にはしない。</h2>
+
+<ul>
+  <li>ある程度複雑な作業は、作業記録メモを残している。繰り返し行うなら、チェックリスト化もする。</li>
+  <li>プログラムを書いた時は、BitBucketやGitHubに格納するとともに、Markdownメモを書く。</li>
+</ul>
+
+<h2 id="ルーチンタスクとタスクを明確に分けたい">ルーチンタスクとタスクを明確に分けたい。</h2>
+
+<ul>
+  <li>チケットタイトルに「定期」と入れて区別している。</li>
+  <li>ダサい…</li>
+</ul>
+
+<h2 id="プロジェクトのような大きなタスクを扱いたいプロジェクトをトップとして構成するタスクを階層構造で扱いたい">プロジェクトのような大きなタスクを扱いたい。プロジェクトをトップとして、構成するタスクを階層構造で扱いたい。</h2>
+
+<ul>
+  <li>複数ステップが含まれるチケットは、カテゴリー「プロジェクト」として管理して、子チケットを発行している。</li>
+  <li>外部公開が考えられる場合は、Redmineプロジェクトを作成してそちらで管理する。</li>
+</ul>
+
+<h2 id="週次レビュー月次レビュー年次レビューを行いやすいように表示したい">週次レビュー、月次レビュー、年次レビューを行いやすいように表示したい。</h2>
+
+<ul>
+  <li>これは…どうすればいいんだ?</li>
+  <li>週次レビュー、と言うか整理する意味で、週次レビュー作業チェックリストを作って、チケットの見直しをかけている。ただ、すごく面倒。2時間位かかっている。</li>
+  <li>念のためレベルだけど、週ごとに完了したチケット、週開始時点のチケットを集計している。</li>
+</ul>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>なんかもう、書き出していると自分でも何をしたいのかがよく分からなくなってくる…要求は多々あれど、要件はもっとシンプルに表現できるはず。これをベースにシンプル化を目指そう。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86" class="page__taxonomy-item" rel="tag">タスク管理</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-18T20:00:00+09:00">2015-02-18</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E8%87%AA%E5%88%86%E7%94%A8%E3%81%AE%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E6%89%8B%E9%A0%86%E3%83%A1%E3%83%A2%20%2F2015%2F02%2F18%2Fhow-to-task-management.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F02%2F18%2Fhow-to-task-management.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F02%2F18%2Fhow-to-task-management.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F02%2F18%2Fhow-to-task-management.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/02/05/blog-writing-environment.html" class="pagination--pager" title="ブログ執筆環境
+">Previous</a>
+    
+    
+      <a href="/2015/02/18/checklist-for-verifying-framework-feature.html" class="pagination--pager" title="フレームワーク機能調査一覧
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

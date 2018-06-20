@@ -1,0 +1,544 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>自宅サーバー設計(ソフトウェア編) - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="自宅サーバー設計(ソフトウェア編)">
+
+
+
+
+  <meta property="og:description" content="ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="自宅サーバー設計(ソフトウェア編)">
+  <meta name="twitter:description" content="ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-05-02T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="自宅サーバー設計(ソフトウェア編)">
+    <meta itemprop="description" content="ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。">
+    <meta itemprop="datePublished" content="2017-05-02">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">自宅サーバー設計(ソフトウェア編)
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-02T00:00:00+09:00">2017-05-02</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。</p>
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>サービスを楽に構築するため、Dockerコンテナで(ほぼ)全てを構成したい。</li>
+  <li>ユーザー数が少ない(自分しか使わない)ので、DBMSはSQLiteでとりあえずいいや。</li>
+  <li>定期ジョブは、Jenkinsおじさんにやってもらう。</li>
+  <li>ファイル管理は、(可能な限り)minioコンテナに集約したい。最悪、minioコンテナのファイルから環境を復元したい。
+    <ul>
+      <li>ジョブのログ、再発行可能な証明書など消えても良いファイルは、各コンテナのボリュームで扱う。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="構成図">構成図</h1>
+
+<p><img src="/uml/bd1137401ae80a72960bb08f97d80bcf.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
+
+<h1 id="構成の説明">構成の説明</h1>
+
+<h2 id="nginx-proxyとletsencrypt-nginx-proxy-companion">nginx-proxyとletsencrypt-nginx-proxy-companion</h2>
+
+<p>nginx-proxyコンテナが外部からのHTTP(S)接続を受け入れ、ホスト名に応じて各コンテナに振り分けます。しばしば<code class="highlighter-rouge">jwilder/nginx-proxy</code>が使用されますが、1コンテナに複数のドメイン名をマッピングしたかったので、<code class="highlighter-rouge">dbendelman/nginx-proxy</code>を使用しています。</p>
+
+<p>letsencrypt-nginx-proxy-companionコンテナは、Let’s Encryptを使用してドメイン名に対して自動的にサーバー証明書を発行してくれます。</p>
+
+<p>nginx-proxyコンテナとletsencrypt-nginx-proxy-companionコンテナの組み合わせは、Dockerコンテナにおける複数サービス提供の鉄板構成だと思っていて、サービスが増減しても動的に管理してくれるので、すごく便利です。</p>
+
+<h2 id="redmine">redmine</h2>
+
+<p>redmineコンテナで、自分用のRedmineを運用しています。プラグイン、テーマなどをビルド時に追加しています。</p>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">redmine.u6k.me</code>でアクセスできるようにしています。</p>
+
+<p>Redmineは趣味開発や仕事だけではなく私生活のタスクも管理しているため、頻繁にバックアップを取り、長期旅行では一時的にDigitalOceanで運用するなどしています。</p>
+
+<h2 id="owncloud">owncloud</h2>
+
+<p>owncloudコンテナで、自分用のownCloudを運用しています。スマホの写真や動画、PC内ファイルの管理などで使っています。</p>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">owncloud.u6k.me</code>でアクセスできるようにしています。</p>
+
+<p>ownCloudにはS3と連携するプラグインがあるため、minioコンテナにファイル管理を集約できるはずですが、エラーになってしまい、今のところ実現できていません。</p>
+
+<h2 id="blog">blog</h2>
+
+<p>blogコンテナで、blogを公開しています。以前はBloggerを使っていましたが、Markdownの扱いが不便だったため、jekyllに乗り換えました。なので、記事を書いたらCircleCIでDockerイメージをビルドして、blogコンテナを再起動することで記事を更新しています。</p>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">blog.u6k.me</code>でアクセスできるようにしています。</p>
+
+<h2 id="bookmark">bookmark</h2>
+
+<p>自作のブックマーク管理サービスを運用しています。一般的なブックマーク管理サービスのようにタグ管理や検索ができる他、REST APIでアクセスでき、ブックマークすることでWebページをキャッシュすることができます。</p>
+
+<p>とはいえまだ開発中で、ドッグフーディングしているところです。</p>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">bookmark.u6k.me</code>でアクセスできるようにしています。</p>
+
+<h2 id="jenkins">jenkins</h2>
+
+<p>jenkinsコンテナで自分用のJenkinsを運用しています。ただ、ビルドのためではなく、なんちゃってジョブ管理システムとして使っています。具体的には、以下のようなことをしています。</p>
+
+<ul>
+  <li>コンテナのバックアップ
+    <ul>
+      <li>redmineのSQLite</li>
+      <li>bookmarkのhsqldb</li>
+      <li>narou-crawler-dbのダンプ</li>
+      <li>上記を取得して、minioコンテナにアップロード。</li>
+    </ul>
+  </li>
+  <li>MyDNSにIPアドレスを通知。</li>
+  <li>ceron-analyzeのAPIを定期呼び出し。</li>
+  <li>narou-crawlerのAPIの定期呼び出し。</li>
+  <li>minio、owncloudが管理するファイルをAmazonCloudDriveへバックアップ。</li>
+</ul>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">jenkins.u6k.me</code>でアクセスできるようにしています。</p>
+
+<h2 id="minio">minio</h2>
+
+<p>コンテナのファイル管理を一手に引き受ける、S3互換ストレージであるMinioを運用しています。全てのファイルはここに集約されるため、minioコンテナが管理するファイルをバックアップすれば、万が一システムが壊れてもリストアできる…はず。</p>
+
+<p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">s3.u6k.me</code>でアクセスできるようにしています。</p>
+
+<h1 id="コンテナの起動再起動更新">コンテナの起動、再起動、更新</h1>
+
+<p>swarmやshipyardなどで管理するべきかなとは思いますが、サービスごとにシェルで管理しています。このシェルは、コンテナ停止→イメージ更新→コンテナ起動、を行います。</p>
+
+<p>どこかの記事で「サーバー管理は、sshして作業しなければならない時点で負け」とあって、できればそこを目指したいですが、目標ということで。</p>
+
+<p>CIビルド後のコンテナ自動再起動を仕込もうと考えたことはありますが、ビルドと再起動が必ずしも同時ではないと考えて、仕込んでいません。実際、仕組みを大きく変えるためにコンテナ再起動前後で手作業が発生することがあります。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>若干煩雑ではありますが、今のところこのように運用しています。リソースに余裕があれば、CoreOS起動→全コンテナが最新化されて起動、とかやってみたいです。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC" class="page__taxonomy-item" rel="tag">サーバー</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E8%A8%AD%E8%A8%88" class="page__taxonomy-item" rel="tag">設計</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-02T00:00:00+09:00">2017-05-02</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E8%87%AA%E5%AE%85%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E8%A8%88%28%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E7%B7%A8%29%20%2F2017%2F05%2F02%2Fmy-server-specification-for-software.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F05%2F02%2Fmy-server-specification-for-software.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F05%2F02%2Fmy-server-specification-for-software.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F05%2F02%2Fmy-server-specification-for-software.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/04/30/introduction-to-minio.html" class="pagination--pager" title="JavaからMinioを使用するサンプルコード
+">Previous</a>
+    
+    
+      <a href="/2017/05/03/introduction-to-gensim.html" class="pagination--pager" title="gensim入門
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1099 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-20T12:28:26+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">work-reportの素案</title><link href="/2018/06/12/planning-work-report.html" rel="alternate" type="text/html" title="work-reportの素案" /><published>2018-06-12T00:00:00+09:00</published><updated>2018-06-12T00:00:00+09:00</updated><id>/2018/06/12/planning-work-report</id><content type="html" xml:base="/2018/06/12/planning-work-report.html">&lt;p&gt;個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。&lt;/p&gt;
+
+&lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
+
+&lt;p&gt;過去に週次レビュー(u6k.RedmineのWiki、u6k.BlogのThis Week I Learnedなど)をしていましたが、現在は滞っています。活動の集計やコメントする作業が非常に手間がかかるためです。&lt;/p&gt;
+
+&lt;p&gt;GitHubでコードを管理しているので、コードを書くという活動量についてはGitHub Contributionを見ればある程度はわかります。興味があることもとりあえずTwitterに書いているので、twilogを見ればわかります。しかし、Wikiや多くのタスク、企画案などコードで表現できないものはu6k.Redmineで管理しており、こちらの活動は集計することが困難です。また、GitHub ContributionやTwitterも、ブログに書くとなると面倒です。&lt;/p&gt;
+
+&lt;p&gt;なので、上記のことを集計して、「あとはコメントを書くだけ」という状態にしたブログ原稿を生成するツールがほしいです。&lt;/p&gt;
+
+&lt;h1 id=&quot;要件&quot;&gt;要件&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;各種の活動をレポートとして生成してほしい
+    &lt;ul&gt;
+      &lt;li&gt;活動を収集する
+        &lt;ul&gt;
+          &lt;li&gt;GitHubのコミット、Issue更新など&lt;/li&gt;
+          &lt;li&gt;Redmineのチケット更新、Wiki更新など&lt;/li&gt;
+          &lt;li&gt;Pocketの増加、消化&lt;/li&gt;
+          &lt;li&gt;Twitterのツイート&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;活動レポートを見たい
+    &lt;ul&gt;
+      &lt;li&gt;活動をレポートとして表示する
+        &lt;ul&gt;
+          &lt;li&gt;数量&lt;/li&gt;
+          &lt;li&gt;ログ&lt;/li&gt;
+          &lt;li&gt;カレンダー&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;活動をブログ記事として生成する
+        &lt;ul&gt;
+          &lt;li&gt;Jekyllページ形式&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;サンプル&quot;&gt;サンプル&lt;/h1&gt;
+
+&lt;p&gt;こんな感じの記事を生成したいです。&lt;/p&gt;
+
+&lt;h2 id=&quot;weekly-report-from-2018-06-04-to-2018-06-10&quot;&gt;Weekly Report (from 2018-06-04 to 2018-06-10)&lt;/h2&gt;
+
+&lt;p&gt;2018-06-04から2018-06-10の活動のレポートです。&lt;/p&gt;
+
+&lt;h3 id=&quot;リリース&quot;&gt;リリース&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;公開した記事
+    &lt;ul&gt;
+      &lt;li&gt;コメント&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;公開したプロダクトのバージョン
+    &lt;ul&gt;
+      &lt;li&gt;コメント&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;主なツイートとコメント&quot;&gt;主なツイートとコメント&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ツイート
+    &lt;ul&gt;
+      &lt;li&gt;コメント&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;github&quot;&gt;GitHub&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;12 コミットしました。&lt;/li&gt;
+  &lt;li&gt;Issueを 23 回更新しました。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;GitHub Contribution画像を表示&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;redmine&quot;&gt;Redmine&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;チケットを xx 回更新しました。
+    &lt;ul&gt;
+      &lt;li&gt;新規チケットを x 個作成しました。&lt;/li&gt;
+      &lt;li&gt;チケットを x 個終了しました。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Wikiを xx 回更新しました。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Redmine活動グラフを表示&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;twitter&quot;&gt;Twitter&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;xx 回ツイートしました。
+    &lt;ul&gt;
+      &lt;li&gt;x 回リツイートしました。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Twitter活動グラフを表示&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;pocket&quot;&gt;Pocket&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;xxxxx ページが未読です。&lt;/li&gt;
+  &lt;li&gt;xx ページ追加しました。&lt;/li&gt;
+  &lt;li&gt;xx ページアーカイブしました。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Pocket活動グラフを表示&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;author&quot;&gt;Author&lt;/h3&gt;
+
+&lt;p&gt;authorを表示&lt;/p&gt;
+
+&lt;h1 id=&quot;リポジトリ&quot;&gt;リポジトリ&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/work-report&quot;&gt;u6k/work-report: 個人的な活動ログをレポートする - GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://redmine.u6k.me/projects/work-report&quot;&gt;概要 - work-report - u6k.Redmine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-12-planning-work-report.md&quot;&gt;2018-06-12-planning-work-report.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="企画" /><category term="レビュー" /><category term="ブログ" /><summary type="html">個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。</summary></entry><entry><title type="html">個人開発基盤の構成、およびデプロイ・フロー</title><link href="/2018/06/09/my-development-environment-and-deploy-workflow.html" rel="alternate" type="text/html" title="個人開発基盤の構成、およびデプロイ・フロー" /><published>2018-06-09T00:00:00+09:00</published><updated>2018-06-09T00:00:00+09:00</updated><id>/2018/06/09/my-development-environment-and-deploy-workflow</id><content type="html" xml:base="/2018/06/09/my-development-environment-and-deploy-workflow.html">&lt;p&gt;個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。&lt;/p&gt;
+
+&lt;p&gt;この記事では、開発基盤として利用しているサービス、およびデプロイ・フローの概要を説明します。&lt;/p&gt;
+
+&lt;h1 id=&quot;前提&quot;&gt;前提&lt;/h1&gt;
+
+&lt;p&gt;インターネット上のサービスを利用しています。が、オンプレミスでも類似の基盤を構築することは可能です。具体的には、GitLabでいけるはず。&lt;/p&gt;
+
+&lt;p&gt;開発するアプリケーションは、Dockerを前提としています。逆に言えば、Dockerで動作すれば言語処理系は問いません。&lt;/p&gt;
+
+&lt;p&gt;この記事では、開発基盤を「開発してからリリースするまでの作業を効率化するために利用しているサービス群」のことを言います。&lt;/p&gt;
+
+&lt;h1 id=&quot;開発基盤の構造&quot;&gt;開発基盤の構造&lt;/h1&gt;
+
+&lt;p&gt;次のサービス群と流れで、開発からリリースまでの作業を行っています。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/uml/2b2995e13b71ef2839abfa915ff790f4.svg&quot; alt=&quot;PlantUML SVG diagram&quot; class=&quot;plantuml&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;サービスの役割&quot;&gt;サービスの役割&lt;/h1&gt;
+
+&lt;p&gt;サービスごとの役割を説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;開発pc&quot;&gt;開発PC&lt;/h2&gt;
+
+&lt;p&gt;開発PCには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っています。開発するアプリケーションによって言語処理系が混在するのでOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいためです。&lt;/p&gt;
+
+&lt;p&gt;開発PCが手元にない場合、本番サーバーでvimとgitで開発を行うことがあります。というか、最近は仕事の都合でノートPCを持ち歩けないため、スマホから本番サーバーにsshして作業することが多いです。&lt;/p&gt;
+
+&lt;p&gt;開発PCの場合、VisualStudioCode + SourceTreeを使うことが多いです。本番サーバーの場合、vim + git-flow + tig + tmuxで作業を行っています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/&quot;&gt;Docker Documentation | Docker Documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.microsoft.com/ja-jp/dev/products/code-vs.aspx&quot;&gt;Visual Studio Code - Visual Studio&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.vim.org/&quot;&gt;welcome home : vim online&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.sourcetreeapp.com/&quot;&gt;Sourcetree | Free Git GUI for Mac and Windows&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nvie/gitflow&quot;&gt;nvie/gitflow: Git extensions to provide high-level repository operations for Vincent Driessen’s branching model.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jonas/tig&quot;&gt;jonas/tig: Text-mode interface for git&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tmux/tmux&quot;&gt;tmux/tmux: tmux source code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;github&quot;&gt;GitHub&lt;/h2&gt;
+
+&lt;p&gt;言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービスです。主にソースコードの管理をしています。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していません。&lt;/p&gt;
+
+&lt;p&gt;GitHubにプッシュすると、Travis CIに通知され、ビルドが開始されます。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/&quot;&gt;The world’s leading software development platform · GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;travis-ci&quot;&gt;Travis CI&lt;/h2&gt;
+
+&lt;p&gt;CIサービスです。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行います。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行います(一部のサービスのみ)。&lt;/p&gt;
+
+&lt;p&gt;ビルド生成物は、Docker Hubの他に、GitHub Pages、u6k.Minioなどにもアップロードします。&lt;/p&gt;
+
+&lt;p&gt;ビルド作業の結果は、Slackで通知します。&lt;/p&gt;
+
+&lt;p&gt;GitHubのプルリクエストは、原則としてTravis CIのビルドがパスしないとマージできないように設定しています。これにより、焦っていてうっかりビルドを壊してしまうコミットが混入することを防いでいます。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI - Test and Deploy Your Code with Confidence&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;slack&quot;&gt;Slack&lt;/h2&gt;
+
+&lt;p&gt;開発者向けのチャット・サービスです。個人開発では、自分だけのSlackワークスペースに&lt;code class=&quot;highlighter-rouge&quot;&gt;#build&lt;/code&gt;チャンネルを作成して、Travis CIのビルド結果が通知されるようにしています。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い状況にしています。&lt;/p&gt;
+
+&lt;p&gt;Slackには他にも、サービス監視によるアラート、バッチ処理失敗などが通知されるようになっています。将来的には、チャット・ボットを飼って、全てチャットから指示できるようにしたいと思っていますが、まだそこまではしていません。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://slack.com/&quot;&gt;よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ | Slack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;docker-hub&quot;&gt;Docker Hub&lt;/h2&gt;
+
+&lt;p&gt;Dockerイメージのホスティング・サービスです。Gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュします。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ないと考えています。&lt;/p&gt;
+
+&lt;p&gt;以前は、Docker HubによるAutomated Buildを利用していましたが、どうも思ったタイミングでビルドしてくれないので、Travis CIでビルドしています。&lt;/p&gt;
+
+&lt;p&gt;仕事やプライベートな個人開発の場合は、GitLabのDockerリポジトリを利用しています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hub.docker.com/&quot;&gt;Docker Hub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.gitlab.com/ce/user/project/container_registry.html&quot;&gt;GitLab Container Registry | GitLab&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;rundeck&quot;&gt;Rundeck&lt;/h2&gt;
+
+&lt;p&gt;ジョブ・スケジューラーです。バッチ処理を管理、実行していますが、一部のDockerコンテナの制御もジョブとして実行できるようにしています。&lt;/p&gt;
+
+&lt;p&gt;Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出してジョブを起動します。ジョブは&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose pull&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;down&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;up -d&lt;/code&gt;を行います。これにより、Gitタグをプッシュすると、最終的に最新バージョンのサービスが起動します。同時に、RundeckがSlackにジョブ実行結果を通知します。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.rundeck.com/&quot;&gt;Rundeck Pro | Modern IT Operations Management Platform&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;本番サーバー&quot;&gt;本番サーバー&lt;/h2&gt;
+
+&lt;p&gt;ほとんどのサービスはDockerコンテナで動作(TODO: ソフトウェア設計にリンクを張る)しています。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされています。このため、以前は&lt;a href=&quot;/2017/04/28/my-server-specification-for-hardware.html&quot;&gt;CoreOSで運用していた時期&lt;/a&gt;もありました。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用しています。&lt;/p&gt;
+
+&lt;p&gt;ストレージ・サイズの関係で、基本的には自宅マシンをサーバーとして運用していますが、出張や旅行などで長期間自宅を離れる場合は、DigitalOceanなどのIaaSに一時的に移行して、帰宅後に切り戻します。この場合でも、DNS設定の変更とデータの移行が少々面倒なだけで、OSとDockerコンテナのセットアップはAnsibleで簡単に実行できるようにしています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mydns.jp/&quot;&gt;自宅サーバーやVPSに使える無料のダイナミックDNS (Dynamic DNS) | MyDNS.JP&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.digitalocean.com/&quot;&gt;DigitalOcean: Cloud Computing, Simplicity at Scale&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://coreos.com/&quot;&gt;Open source, containers, and Kubernetes | CoreOS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.debian.org/&quot;&gt;Debian – ユニバーサルオペレーティングシステム&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。&lt;/p&gt;
+
+&lt;p&gt;この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-09-my-development-environment-and-deploy-workflow.md&quot;&gt;2018-06-09-my-development-environment-and-deploy-workflow.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="git" /><category term="DigitalOcean" /><category term="Travis CI" /><category term="Rundeck" /><category term="サーバー" /><category term="設計" /><summary type="html">個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。</summary></entry><entry><title type="html">自宅サーバー設計(ハードウェア編)</title><link href="/2018/06/04/my-service-specification-hardware-part.html" rel="alternate" type="text/html" title="自宅サーバー設計(ハードウェア編)" /><published>2018-06-04T00:00:00+09:00</published><updated>2018-06-04T00:00:00+09:00</updated><id>/2018/06/04/my-service-specification-hardware-part</id><content type="html" xml:base="/2018/06/04/my-service-specification-hardware-part.html">&lt;p&gt;自分用のRedmineやminioを運用するためにDockerホストを運用していますが、&lt;a href=&quot;https://blog.u6k.me/2017/04/28/my-server-specification-for-hardware.html&quot;&gt;前回&lt;/a&gt;から約1年が経過して、少し構成が変わったので整理します。&lt;/p&gt;
+
+&lt;p&gt;この記事では、自分用のサービス群を運用するために利用しているサービスやハードウェアの構成を説明します。&lt;/p&gt;
+
+&lt;h1 id=&quot;前提&quot;&gt;前提&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;昔使っていたMacBookがあるので、これをDockerホストにしたい。&lt;/li&gt;
+  &lt;li&gt;HDDが数台あるけど、1個のボリュームにして扱いやすくしたい。&lt;/li&gt;
+  &lt;li&gt;ドメイン名でアクセスできるようにしたい。&lt;/li&gt;
+  &lt;li&gt;バックアップは、自宅とは別サイトにしたい。&lt;/li&gt;
+  &lt;li&gt;ダウンタイムをなくしたいサービスは外部サービスで動作させる。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;構成図&quot;&gt;構成図&lt;/h1&gt;
+
+&lt;p&gt;現在は以下のような構成になっています。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/uml/ff261bc14980fe296b507c8afdb5fb31.svg&quot; alt=&quot;PlantUML SVG diagram&quot; class=&quot;plantuml&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;構成の説明&quot;&gt;構成の説明&lt;/h1&gt;
+
+&lt;p&gt;前回からの変更点とあわせて、構成を説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-on-debian&quot;&gt;Docker on Debian&lt;/h2&gt;
+
+&lt;p&gt;サービスはほぼDockerコンテナとして動作させています。当初はDocker for macで動作させていましたが、qcow2ファイルが肥大化する、ネットワークが不安定、などの問題があるため、Bootcampで確保したパーティションにDebianをセットアップして運用しています。&lt;/p&gt;
+
+&lt;p&gt;前回はCoreOS on VirtualHost on MacBookで、一時的にDebian on DeigitalOceanに移行して、やっぱりDebian on MacBookに戻りました。サーバー上でいろいろ作業したい場合、CoreOSはやはり不便ですね。そういうOSなのでしかたありませんが。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;TODO:&lt;/strong&gt; 実は、この記事を執筆している現時点ではまだDebian on VirtualBox on MacBookで、LVM RAID logical volumeの実験が完了したら、上記のように移行する予定です。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;運用しているDockerサービス群は、別記事で説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;運用作業のためにアクセスする場合はsshまたはvnc&quot;&gt;運用作業のためにアクセスする場合は、sshまたはVNC&lt;/h2&gt;
+
+&lt;p&gt;普段の運用作業はsshで接続します。macOSの調子がおかしい、macOSをアップデートする、などGUIで作業を行う場合はVNCでアクセスします。&lt;/p&gt;
+
+&lt;p&gt;この方式は、前回から変わりありません。&lt;/p&gt;
+
+&lt;h2 id=&quot;u6kmeでアクセスできるようにムームードメインで契約&quot;&gt;“u6k.me”でアクセスできるように、ムームードメインで契約&lt;/h2&gt;
+
+&lt;p&gt;ムームードメインで年間契約して、MyDNSでドメイン名とIPアドレスを管理しています。IPアドレスが変わっても良いように、Rundeckコンテナで定期的にIPアドレスを通知しています。&lt;/p&gt;
+
+&lt;p&gt;前回までは、ジョブをJenkinsで実行していましたが(いわゆる闇のJenkinsおじさん)、現在はRundeckでジョブを実行しています。ただ、Rundeckへの移行は、正直、あまり意味がなかったかなと思っています。&lt;/p&gt;
+
+&lt;h2 id=&quot;ブログはgithub-pagesで独自ドメイン--https&quot;&gt;ブログはGitHub Pagesで独自ドメイン + HTTPS&lt;/h2&gt;
+
+&lt;p&gt;ブログはダウンタイムをゼロにしたく、DockerではなくGitHub Pagesに移行しました。これにより、Dockerホストが不安定になったときやmacOSをアップデートしたいときに、ブログも巻き込まれてダウンしていましたが、現在ではそれはなくなりました。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;TODO:&lt;/strong&gt; ブログのGitHub Pagesへの移行は、この記事執筆時点では検証中です。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;hddはlvmで統合&quot;&gt;HDDはLVMで統合&lt;/h2&gt;
+
+&lt;p&gt;HDDは、LVM RAID logical volumeで統合しています。この構成の場合、LVMの機能でミラーリングするので、HDDが1個故障する程度なら復旧が可能のはずです。&lt;/p&gt;
+
+&lt;p&gt;前回はLVMで統合していただけであり、対障害性の観点からは脆弱でした。そうは言ってもDigitalOcean Spacesにバックアップしているので、絶対に失いたくないデータについてはあまり問題はありませんが。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;TODO:&lt;/strong&gt; この記事を執筆している現在は、まだLVM on macOSからデータを移行している途中です。ある程度の検証ができたら、別記事でセットアップ、復旧手順などを整理したいと思います。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;バックアップはdigitalocean-spacesとクラウドストレージ&quot;&gt;バックアップはDigitalOcean Spacesとクラウドストレージ&lt;/h2&gt;
+
+&lt;p&gt;Redmineのように絶対に失いたくないデータや、失うと再収集に時間がかかりすぎるクローリング・データなどは、minioサービスの他にDigitalOcean Spacesに保存しています。他のデータはクラウドストレージに保存しようとしていますが、まだ全ては保存できておらず、少しずつ進めています。&lt;/p&gt;
+
+&lt;h2 id=&quot;macbookpro&quot;&gt;MacBookPro&lt;/h2&gt;
+
+&lt;p&gt;排熱の観点から、風通しの良い場所において、まな板立てに立て掛けています。温度を監視していますが、変な高温になることは今のところありません。&lt;/p&gt;
+
+&lt;p&gt;この運用方法は、前回から変わりありません。&lt;/p&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;前回も書きましたが、できればAWSなりDigitalOceanなりに全て移行してしまいたいのですが、どーにもストレージの料金や性能を考えると、自宅ハードウエアがあるならそれで運用したい、という結論になっています。データのサイズがなぁ…&lt;/p&gt;
+
+&lt;p&gt;ちなみに、旅行などで長期間自宅を離れる場合に、一時的にDigitalOceanに切り替える運用は、前回から変わらずです。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-04-my-service-specification-hardware-part.md&quot;&gt;2018-06-04-my-service-specification-hardware-part.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="サーバー" /><category term="設計" /><summary type="html">自分用のRedmineやminioを運用するためにDockerホストを運用していますが、前回から約1年が経過して、少し構成が変わったので整理します。</summary></entry><entry><title type="html">「アンテナを張る」とは？</title><link href="/2018/05/19/what-is-keep-myself-open-to-news.html" rel="alternate" type="text/html" title="「アンテナを張る」とは？" /><published>2018-05-19T00:00:00+09:00</published><updated>2018-05-19T00:00:00+09:00</updated><id>/2018/05/19/what-is-keep-myself-open-to-news</id><content type="html" xml:base="/2018/05/19/what-is-keep-myself-open-to-news.html">&lt;p&gt;世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。&lt;/p&gt;
+
+&lt;p&gt;では、「アンテナを張る」とはどういうことで、何をするべきで、具体的にはどのような環境・運用になるのでしょうか。&lt;/p&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;情報を収集し、整理し、蓄積する&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;蓄積することが大事&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;自分が使いやすいように/検索しやすいように蓄積する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;アンテナを張るとはどういうことか&quot;&gt;「アンテナを張る」とはどういうことか？&lt;/h1&gt;
+
+&lt;p&gt;まず、「アンテナを張る」とはどういうことか調べてみます。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.weblio.jp/content/%E3%82%A2%E3%83%B3%E3%83%86%E3%83%8A%E3%82%92%E5%BC%B5%E3%82%8B&quot;&gt;アンテナを張るとは - 日本語表現辞典 Weblio辞書&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;このページによると、「情報収集のため、特定の話題に対して注意深くすること」を表します。もう少し分解してみます。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;情報収集…情報を収集することが目的です。が、ただ目に入れても活用できません。蓄積すること、つまり何らかのアウトプットをすることが重要です。&lt;/li&gt;
+  &lt;li&gt;特定の話題…世の中の全ての話題に反応することはできません。ある特定のテーマ、キーワードを決めて情報収集を行います。&lt;/li&gt;
+  &lt;li&gt;注意深く…情報には価値の軽重があり、消費期限があります。有益な情報、価値が高い情報、時事性が高い情報を逃さないように、注意します。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上記の事ができれば、「アンテナを張っている」と言えるでしょう。&lt;/p&gt;
+
+&lt;h1 id=&quot;具体的にどうすればよいか&quot;&gt;具体的にどうすればよいか&lt;/h1&gt;
+
+&lt;p&gt;アンテナを張るには具体的にどうすればよいでしょうか。まず、「特定の話題」「注意深く」「情報収集」の構造を示します。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/uml/6db2f61e9eb18d2600376d477af63ca9.svg&quot; alt=&quot;PlantUML SVG diagram&quot; class=&quot;plantuml&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;それぞれの構造を説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;特定の話題厳選した情報源&quot;&gt;特定の話題…厳選した情報源&lt;/h2&gt;
+
+&lt;p&gt;前述した通り、全ての話題に反応することはできません。ですので、情報源は厳選します。&lt;/p&gt;
+
+&lt;p&gt;ブログをチェックしましょう。知りたい分野ごとにキュレーターがいるはずで、意欲的な人は情報を整理するために、個人ブログや企業サイトに投稿しています。もちろん、ブラウザでブログを開いていちいちチェックなどしていられないので、FeedlyなどのRSSサービスを利用しましょう。&lt;/p&gt;
+
+&lt;p&gt;OSSの製品や、具体的なソースコードをチェックしたい場合は、GitHubをチェックしましょう。分野ごとにスターが多いリポジトリがあるので、それをウォッチすると良いです。&lt;/p&gt;
+
+&lt;p&gt;TwitterやFacebookなどSNSからの情報収集は避けた方が良いです。最新情報をキャッチしたい場合には確かに有効ですが、整理されていない雑多な情報が多すぎて整理しきれませんし、有効な情報であればキュレーターがすぐに整理してくれます。&lt;/p&gt;
+
+&lt;p&gt;Google News、スマートニュース、グノシー、Ceronなどニュースサービスは、参考程度にします。ある程度のジャンル分けはされていますが、「インターネット全体からピックアップした情報」であって「自分が気になる分野の濃い情報」ではないからです。それでも、自分の視界範囲外からピックアップしてくれるので、全く無視するべきでもありません。&lt;/p&gt;
+
+&lt;h2 id=&quot;注意深くいったん全てに目を通しあとで熟読&quot;&gt;注意深く…いったん全てに目を通し、あとで熟読&lt;/h2&gt;
+
+&lt;p&gt;情報源を厳選しても流れてくる情報は膨大なので、全て読むことは困難です。読み方を工夫しましょう。&lt;/p&gt;
+
+&lt;p&gt;流れてくる情報のタイトルをざっと流し読み、気になる記事はブックマークするか、Pocketのようないわゆる「あとで読む」サービスにストックしておきましょう。良質の記事は、タイトルを読むだけで何のことを言っているのかが分かるものです。&lt;/p&gt;
+
+&lt;p&gt;そして、スキマ時間を作ってストックした記事を読み進めます。この時も、記事を全て読むのではなくざっと全文を流し読みしましょう。それでも深く読み進めたい記事のみ、まとまった時間を作って読むと良いです。&lt;/p&gt;
+
+&lt;h2 id=&quot;情報収集自分用のwikipediaを構築&quot;&gt;情報収集…自分用のWikipediaを構築&lt;/h2&gt;
+
+&lt;p&gt;厳選した情報源から気になる情報を入手したら、それを整理して蓄積しましょう。整理方法はいろいろありますが、まずは「自分用のWikipedia」を目指すと良いです。つまり、「気になった用語」ごとにページを作り、記事へのURLだったりチェックリストだったり手法だったり手順書だったりをメモします。&lt;/p&gt;
+
+&lt;p&gt;最初のうちはざっくりしたメモで良いです。重要度の高い情報は何度も目にするので、その内に「使えるように整理しよう」という気になり、有用な情報を追記するようになります。&lt;/p&gt;
+
+&lt;p&gt;ツールはアナログでもデジタルでも良いですが、「容易に書けること」「容易に検索できる」ことが非常に重要です。書きづらい場所にはそもそも蓄積されませんし、いろいろ蓄積しても探しづらかったらそのうち使わなくなってしまいます。スマホでもPCでも見れるように、Evernoteのようなメモサービスに蓄積して、全文検索できるようにしましょう。&lt;/p&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;アンテナを張ることについて、「アンテナを張るとはどう言うことか？(要求)」「どうすれば良いのか？(要件)」を文書化してみました。人と会話していると、ここら辺が意外と整理されておらず、漫然と情報収集っぽいことをしている人が見られます。もう少し的を絞って効率的に情報収集すれば良いのに、と思ったので、この記事を書いてみました。&lt;/p&gt;
+
+&lt;p&gt;どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-05-19-what-is-keep-myself-open-to-news.md&quot;&gt;2018-05-19-what-is-keep-myself-open-to-news.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="情報収集" /><summary type="html">世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。</summary></entry><entry><title type="html">Sidekiq on Dockerサンプル</title><link href="/2018/04/29/sample-sidekiq.html" rel="alternate" type="text/html" title="Sidekiq on Dockerサンプル" /><published>2018-04-29T00:00:00+09:00</published><updated>2018-04-29T00:00:00+09:00</updated><id>/2018/04/29/sample-sidekiq</id><content type="html" xml:base="/2018/04/29/sample-sidekiq.html">&lt;p&gt;この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。&lt;/p&gt;
+
+&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
+
+&lt;p&gt;Rubyでジョブ管理を行おうと考えたとき、&lt;a href=&quot;https://github.com/resque/resque&quot;&gt;Resque&lt;/a&gt;、&lt;a href=&quot;https://github.com/collectiveidea/delayed_job&quot;&gt;Delayed::Job&lt;/a&gt;、&lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;Sidekiq&lt;/a&gt;などの仕組みがあります。さらに定期的にジョブを実行したいと思い方法を探していると、&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;Sidekiq-Cron&lt;/a&gt;や&lt;a href=&quot;https://github.com/moove-it/sidekiq-scheduler&quot;&gt;sidekiq-scheduler&lt;/a&gt;の解説が多く見られました。このため、Sidekiqを使うことにしました。&lt;/p&gt;
+
+&lt;p&gt;なお、Rails 5ではジョブ実装の共通的な仕組みとして&lt;a href=&quot;https://railsguides.jp/active_job_basics.html&quot;&gt;Active Job&lt;/a&gt;が使えますが、Active Jobがsidekiq-schedulerなどで使えるか分からなかったので、今回はSidekiqをそのまま使うことにしました。&lt;/p&gt;
+
+&lt;p&gt;今回の手順で作成したプロジェクトは、 &lt;a href=&quot;https://github.com/u6k/sample-sidekiq/&quot;&gt;u6k/sample-sidekiq&lt;/a&gt; にあります。&lt;/p&gt;
+
+&lt;h1 id=&quot;前提&quot;&gt;前提&lt;/h1&gt;
+
+&lt;p&gt;筆者はRails開発をvim + Dockerで行っており、ホストPCにRubyをインストールしてはいません。Dockerおよびdocker-composeを使用しますので、あらかじめインストールしておいてください。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker version
+Client:
+ Version:       18.03.0-ce
+ API version:   1.37
+ Go version:    go1.9.4
+ Git commit:    0520e24
+ Built: Wed Mar 21 23:10:06 2018
+ OS/Arch:       linux/amd64
+ Experimental:  false
+ Orchestrator:  swarm
+
+Server:
+ Engine:
+  Version:      18.03.0-ce
+  API version:  1.37 (minimum version 1.12)
+  Go version:   go1.9.4
+  Git commit:   0520e24
+  Built:        Wed Mar 21 23:08:35 2018
+  OS/Arch:      linux/amd64
+  Experimental: false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose --version
+docker-compose version 1.21.0, build 5920eb0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上記は筆者の環境ですが、Docker環境であればOSは問わないはずです。&lt;/p&gt;
+
+&lt;p&gt;エディターは、お好みのものを使いましょう。vimでもさくらエディタでもAtomでもVisual Studio Codeでも問題ありません。&lt;/p&gt;
+
+&lt;p&gt;手順の説明は、なるべくDockerなどの知識がなくてもコピペすれば動作するように書いてあります。ただ、最低限のシェルの知識は必要になります。環境によっては権限設定により一般ユーザーでは動作しないかもしれません。rootになるなり &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; するなりしましょう。&lt;/p&gt;
+
+&lt;p&gt;RubyやRailsなど他のソフトウェアは、全てDockerコンテナ内でインストールするので、ホストPCにインストールする必要はありません。&lt;/p&gt;
+
+&lt;h1 id=&quot;セットアップ実行手順&quot;&gt;セットアップ、実行手順&lt;/h1&gt;
+
+&lt;p&gt;次に、Railsプロジェクトを作成してからジョブを実行するまでの手順を説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;railsプロジェクトを作成&quot;&gt;Railsプロジェクトを作成&lt;/h2&gt;
+
+&lt;p&gt;Railsプロジェクトを作成します。ホストPCにRubyがセットアップ済みであれば &lt;code class=&quot;highlighter-rouge&quot;&gt;rails new .&lt;/code&gt; を実行すれば良いですが、ここではrubyコンテナの中でRailsプロジェクトを作成します。&lt;/p&gt;
+
+&lt;p&gt;まず、rubyコンテナを起動します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --rm -it -v $(pwd):/var/myapp -w /var/myapp ruby bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt; オプションで、カレント・フォルダをコンテナ内の &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/myapp&lt;/code&gt; フォルダに割り当てます。そして &lt;code class=&quot;highlighter-rouge&quot;&gt;-w&lt;/code&gt; オプションで、コンテナ起動直後の作業フォルダを &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/myapp&lt;/code&gt; フォルダに設定しています。&lt;/p&gt;
+
+&lt;p&gt;Ruby on Railsをインストールします。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# gem install rails
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;カレント・フォルダにRailsプロジェクトを作成します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# rails new .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;作成したら、 &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; でファイルを確認してみます。Railsプロジェクトのファイルが作成されていることを確認したら、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl-d&lt;/code&gt; でコンテナからログアウトします。&lt;/p&gt;
+
+&lt;h2 id=&quot;gemfileに-sidekiq-を追加&quot;&gt;Gemfileに &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq&lt;/code&gt; を追加&lt;/h2&gt;
+
+&lt;p&gt;Sidekiqはgemで提供されているので、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルに追加します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem 'sidekiq'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;また、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルの余計なコメント行を削除します。結果、次のように修正します(バージョンは時期により異なります)。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Gemfile
+source 'https://rubygems.org'
+git_source(:github) { |repo| &quot;https://github.com/#{repo}.git&quot; }
+
+ruby '2.5.1'
+
+gem 'rails', '~&amp;gt; 5.2.0'
+gem 'sqlite3'
+gem 'puma', '~&amp;gt; 3.11'
+gem 'sass-rails', '~&amp;gt; 5.0'
+gem 'uglifier', '&amp;gt;= 1.3.0'
+gem 'coffee-rails', '~&amp;gt; 4.2'
+gem 'turbolinks', '~&amp;gt; 5'
+gem 'jbuilder', '~&amp;gt; 2.5'
+gem 'bootsnap', '&amp;gt;= 1.1.0', require: false
+gem 'sidekiq'
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
+
+group :development do
+  gem 'web-console', '&amp;gt;= 3.3.0'
+  gem 'listen', '&amp;gt;= 3.0.5', '&amp;lt; 3.2'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~&amp;gt; 2.0.0'
+end
+
+group :test do
+  gem 'capybara', '&amp;gt;= 2.15', '&amp;lt; 4.0'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dockerコンテナ化&quot;&gt;Dockerコンテナ化&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails&lt;/code&gt; コマンドを使用したり動作確認するため、早々にDockerコンテナ化します。&lt;/p&gt;
+
+&lt;p&gt;簡単にSidekiqを使用したコンテナ構造を説明すると、次のように構成します。ちなみに、今回はRailsアプリケーションが使用するDBとしてSQLiteを指定しているため、DBコンテナは構成しません。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/uml/c1ae5e8de4a4b098433fd8103fc1ae17.svg&quot; alt=&quot;PlantUML SVG diagram&quot; class=&quot;plantuml&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;まず、アプリケーション用コンテナの &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; ファイルを作成します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Dockerfile
+FROM ruby:2.5
+
+RUN apt-get update &amp;amp;&amp;amp; \
+    apt-get install -y \
+        nodejs &amp;amp;&amp;amp; \
+    apt-get clean
+
+VOLUME /var/myapp
+WORKDIR /var/myapp
+
+COPY Gemfile .
+COPY Gemfile.lock .
+
+RUN bundle install
+
+EXPOSE 3000
+
+CMD [&quot;rails&quot;, &quot;server&quot;, &quot;-b&quot;, &quot;0.0.0.0&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;次に、上図で説明したコンテナ構造を構成するため、 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; ファイルを作成します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat docker-compose.yml
+version: '3'
+
+services:
+  app:
+    build: .
+    environment:
+      - &quot;RAILS_ENV=development&quot;
+      - &quot;REDIS_URL=redis://redis:6379&quot;
+    volumes:
+      - &quot;.:/var/myapp&quot;
+    ports:
+      - &quot;3000:3000&quot;
+    depends_on:
+      - &quot;redis&quot;
+  worker:
+    build: .
+    environment:
+      - &quot;RAILS_ENV=development&quot;
+      - &quot;REDIS_URL=redis://redis:6379&quot;
+    volumes:
+      - &quot;.:/var/myapp&quot;
+    depends_on:
+      - &quot;redis&quot;
+    command: sidekiq
+  redis:
+    image: redis:4.0
+    volumes:
+      - &quot;redis:/data&quot;
+    command: redis-server --appendonly yes
+
+volumes:
+  redis:
+    driver: local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;手順が間違えていなければ、イメージをビルドして、Railsアプリケーションを起動することができます。試しに、動作確認してみます。&lt;/p&gt;
+
+&lt;p&gt;イメージをビルドします。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;コンテナを起動します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose up -d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Webブラウザで http://localhost:3000 を開くか &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; コマンドでGETリクエストすると、Welcomeページが表示されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/rails-welcome-page.jpeg&quot; alt=&quot;rails welcome page&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ダッシュボードへのルートを設定&quot;&gt;ダッシュボードへのルートを設定&lt;/h2&gt;
+
+&lt;p&gt;Sidekiqはジョブがどのような状態かを確認するためのダッシュボードを提供しています。ダッシュボードにアクセスするには、 &lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルにルートを設定します。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq/web&lt;/code&gt; をrequireします。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;require 'sidekiq/web'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ダッシュボードへのルートを設定します。次のように設定すると、 http://localhost:3000/sidekiq でダッシュボードにアクセスできます。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount Sidekiq::Web, at: '/sidekiq'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;結果、 &lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルは次のようになります。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat config/routes.rb
+require 'sidekiq/web'
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ワーカーを作成&quot;&gt;ワーカーを作成&lt;/h2&gt;
+
+&lt;p&gt;Sidekiqで実行するワーカーを作成します。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails g&lt;/code&gt; コマンドで、Helloワーカーを作成します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose exec app rails g sidekiq:worker Hello
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;これにより、ワーカーとそのテスト・コードが作成されます。今回はワーカーのみ実装します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;app/worker/hello_worker.rb&lt;/code&gt; ファイルに &lt;code class=&quot;highlighter-rouge&quot;&gt;puts &quot;hello&quot;&lt;/code&gt; コードを追加します。結果、次のように修正します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat app/workers/hello_worker.rb
+class HelloWorker
+  include Sidekiq::Worker
+
+  def perform(*args)
+    puts &quot;hello&quot;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ワーカーを実行&quot;&gt;ワーカーを実行&lt;/h2&gt;
+
+&lt;p&gt;いよいよ、作成したワーカーをSidekiqで実行してみます。&lt;/p&gt;
+
+&lt;p&gt;Sidekiqは変更したソースコードを自動では読み込んでくれないので、いったんコンテナを終了します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose down -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;コンテナを起動します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose up -d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;appコンテナのRailsコンソールを起動します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose exec app rails c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ワーカー・クラスの &lt;code class=&quot;highlighter-rouge&quot;&gt;perform_async&lt;/code&gt; メソッドを呼び出すことで、ワーカーをキューに登録します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; HelloWorker.perform_async
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;正常に登録された場合、IDのような文字列が表示されます。エラーとなってしまいスタックトレースが表示された場合、これまでに作成したファイルや手順のどこかが間違えています。&lt;/p&gt;
+
+&lt;p&gt;今、キューに登録したワーカーはすぐに実行されます。workerコンテナのログを確認します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose logs worker
+Attaching to sample-sidekiq_worker_1
+worker_1  | 2018-04-25T10:30:08.008Z 1 TID-gses4fdh1 INFO: Booting Sidekiq 5.1.3 with redis options {:url=&amp;gt;&quot;redis://redis:6379&quot;, :id=&amp;gt;&quot;Sidekiq-server-PID-1&quot;}
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Running in ruby 2.5.1p57 (2018-03-29 revision 63029)[x86_64-linux]
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: See LICENSE and the LGPL-3.0 for licensing details.
+worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+worker_1  | 2018-04-25T10:30:08.114Z 1 TID-gses4fdh1 INFO: Starting processing, hit Ctrl-C to stop
+worker_1  | 2018-04-25T10:30:25.434Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: start
+worker_1  | hello
+worker_1  | 2018-04-25T10:30:25.441Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: done: 0.005sec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hello&lt;/code&gt; が出力されており、ワーカーが実行されたことが分かります。&lt;/p&gt;
+
+&lt;p&gt;また、 http://localhost:3000/sidekiq にアクセスすると、次のようにダッシュボードが表示されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard.jpeg&quot; alt=&quot;sidekiq dashboard&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sidekiqをcron化&quot;&gt;SidekiqをCron化&lt;/h2&gt;
+
+&lt;p&gt;ここまでの作業で、Sidekiqを使ったジョブの実行ができるようになりました。単純にジョブを実行するだけであれば、ここまでで終わりです。&lt;/p&gt;
+
+&lt;p&gt;ここからは、sidekiq-cronを使ってジョブを定期的に実行してみます。&lt;/p&gt;
+
+&lt;h2 id=&quot;gemfile-と-routesrb-を修正&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; と &lt;code class=&quot;highlighter-rouge&quot;&gt;routes.rb&lt;/code&gt; を修正&lt;/h2&gt;
+
+&lt;p&gt;sidekiq-cronの設定は簡単で、2ファイルを修正するだけです。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルを修正します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq&lt;/code&gt; の後に &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq-cron&lt;/code&gt; を追加します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Gemfile
+
+...(略)...
+gem 'sidekiq'
+gem 'sidekiq-cron'
+...(略)...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルを修正します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;require 'sidekiq/web'&lt;/code&gt; の後に &lt;code class=&quot;highlighter-rouge&quot;&gt;require 'sidekiq/cron/web'&lt;/code&gt; を追加します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat config/routes.rb
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+...(略)...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;これで、ジョブを定期実行する準備は完了です。ワーカーを変更する必要はありません。&lt;/p&gt;
+
+&lt;h2 id=&quot;ジョブを定期実行&quot;&gt;ジョブを定期実行&lt;/h2&gt;
+
+&lt;p&gt;Dockerコンテナを停止して、起動して、Railsコンソールを起動します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose down -v
+$ docker-compose up -d
+$ docker-compose exec app rails c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ジョブを定期実行する場合は、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Sidekiq::Cron::Job.create&lt;/code&gt; を呼び出します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Sidekiq::Cron::Job.create name: &quot;Hello Job&quot;, cron: &quot;* * * * *&quot;, class: &quot;HelloWorker&quot;
+2018-04-27T04:26:05.562Z 50 TID-govsxyfv2 INFO: Cron Jobs - add job with name: Hello Job
+=&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;これでジョブの定期実行が開始されます。しばらくしてから、workerコンテナのログを確認します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo docker-compose logs worker
+worker_1  | 2018-04-27T04:27:25.246Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:27:25.267Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: done: 0.02 sec
+worker_1  | 2018-04-27T04:28:05.080Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:28:05.081Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: done: 0.001 sec
+worker_1  | 2018-04-27T04:29:15.094Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: start
+worker_1  | hello
+worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: done: 0.002 sec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;約1分ごとにジョブが実行されています。&lt;/p&gt;
+
+&lt;p&gt;どのようなジョブが定期実行されているかは、Sidekiqダッシュボードで確認できます。Sidekiqダッシュボードのメニューに”Cron”が追加されています。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-2.jpeg&quot; alt=&quot;sidekiq dashboard 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cronページを見ると、登録したジョブが表示されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-cron.jpeg&quot; alt=&quot;sidekiq dashboard cron&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;このように、Railsアプリケーションに簡単に定期実行ジョブを追加することができました。アプリケーション固有の、クリーンアップ処理や単純な集計バッチ処理などであれば、これで十分だと思います。&lt;/p&gt;
+
+&lt;p&gt;一方、「ジョブ管理システム」として考えると、いろいろと機能が不足しています。ジョブネット、ジョブごとのワークスペース、ジョブ実行履歴、など。そういった機能が必要な場合は、やはりジョブ管理専用のサービスを使うことになると思います。&lt;/p&gt;
+
+&lt;h1 id=&quot;参考リンク&quot;&gt;参考リンク&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;mperham/sidekiq: Simple, efficient background processing for Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/nysalor/items/94ecd53c2141d1c27d1f&quot;&gt;sidekiqの使い方 - Qiita&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://shiro-16.hatenablog.com/entry/2015/10/12/192412&quot;&gt;Sidekiq について基本と1年半運用してのあれこれ - まっしろけっけ&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tech.smarthr.jp/entry/2017/04/20/165555&quot;&gt;Sidekiq アンチパターン: 序 - SmartHR Tech Blog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-04-29-sample-sidekiq.md&quot;&gt;2018-04-29-sample-sidekiq.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="Ruby on Rails" /><category term="Sidekiq" /><category term="Cron" /><category term="ジョブ" /><summary type="html">この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-12 to 2018-02-18)</title><link href="/2018/02/18/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-12 to 2018-02-18)" /><published>2018-02-18T23:50:00+09:00</published><updated>2018-02-18T23:50:00+09:00</updated><id>/2018/02/18/this-week-i-learned</id><content type="html" xml:base="/2018/02/18/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/Anharu/items/c32fbb2347e3da6607ba&quot;&gt;中学生エンジニアについて、知っておきたい10の事実 - Qiita&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;自分の頃は(年代がバレるけど)ベーマガが入門だった。現代の初学者がどのように入門するのか気になっていた。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://togetter.com/li/1198226&quot;&gt;Excelを未だに使っているという事実「億単位の案件に使うなよ！」→使えないExcel地獄で苦しむみなさんが出したExcelを使う理由とは…？ - Togetter&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;プラットフォームの普及度は、良くも悪くも偉大だ。どの現場でもとりあえずWord、Excel、PowerPointはインストールされているし、どの環境でもVBAは使える。良くも悪くも。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/masuda220/rdra-ddd-agile&quot;&gt;RDRA DDD Agile&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;RDRAとICONIXの合わせ技は非常に良い手法なので、積極的に使っていきたい。BABOKは概要だけ知っている状態なので、機会があれば勉強しながら使ってみる。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/dmikurube/items/15899ec9de643e91497c&quot;&gt;タイムゾーン呪いの書 - Qiita&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;ロケールと時刻はどの処理系でもハマる。そもそもの考え方が複雑だから。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tech.nikkeibp.co.jp/atcl/nxt/column/18/00001/00014/&quot;&gt;［特報］27億円の賠償巡り新たなIT裁判始まる、文化シヤッターが提訴 | 日経 xTECH（クロステック）&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;経緯を読む限りではどっちもメチャクチャなのだけど。旭川医大の件も記憶に新しいし、この件がどのように判断されるのか気になる。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
+
+&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-18-this-week-i-learned.md&quot;&gt;2018-02-18-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-05 to 2018-02-11)</title><link href="/2018/02/11/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-05 to 2018-02-11)" /><published>2018-02-11T23:50:00+09:00</published><updated>2018-02-11T23:50:00+09:00</updated><id>/2018/02/11/this-week-i-learned</id><content type="html" xml:base="/2018/02/11/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tech.nikkeibp.co.jp/it/atcl/column/17/010400601/010400010/&quot;&gt;大手IT3社が注力、新型プライベートクラウドの中身 | 日経 xTECH（クロステック）&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;戦略としてパブリッククラウドの運用を目指したとしても、物理筐体で稼働している生のシステムをそのまま移行できるわけではない。少なくともアーキテクチャ、運用が変わらなければならず、だからパブリッククラウドへの移行の過渡期としてオンプレミスクラウドは非常に有効だと思う。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://ascii.jp/elem/000/001/620/1620756/&quot;&gt;ASCII.jp：なぜAmazonはマイクロサービスに舵を切ったのか？｜今年は松山！JAWS FESTA 2017レポート&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;大きすぎるシステムは変更リスクやコストが大きすぎる。適切なサイズで分割すべきで、そのための手法の一つがマイクロサービス・アーキテクチャ。なので、個人的には「大きすぎるな」と思ったタイミングで分割すれば良いと思う。しかし、マイクロサービス先駆者は「途中からマイクロサービスに転換するのはツラい。最初からマイクロサービスを意識すべき」と言う。うーん。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://togetter.com/li/1196733&quot;&gt;フルート奏者『質の高い演奏をしたい』→職場『そういうのは求めていません、きれいなドレスを着てフルートを吹いてくださればそれでいいんです』→契約終了に - Togetter&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;ビジネス要求と技術者欲求が異なるのはよくあることで。歩みよりが必要で、「こうあるべき」と押し付けても解決しない。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.moguravr.com/intel-vaunt-ar/&quot;&gt;インテルのARグラスは眼鏡と見分けつかず 超小型で網膜投影 | Mogura VR - 国内外のVR/AR/MR最新情報&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;次世代のインターフェイスは、視界投影と音声入出力だと強く思っている。早く普及してほしい。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/Hironsan/items/2466fe0f344115aff177&quot;&gt;自然言語処理における前処理の種類とその威力 - Qiita&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/yura/items/6c1481ca652d3d131e47&quot;&gt;自然言語処理用語と解析器まとめ - Qiita&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;ここら辺くらいは基礎知識としてぱぱっと説明できるようにしたい。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
+
+&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-11-this-week-i-learned.md&quot;&gt;2018-02-11-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-29 to 2018-02-04)</title><link href="/2018/02/04/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-29 to 2018-02-04)" /><published>2018-02-04T23:50:00+09:00</published><updated>2018-02-04T23:50:00+09:00</updated><id>/2018/02/04/this-week-i-learned</id><content type="html" xml:base="/2018/02/04/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://bufferings.hatenablog.com/entry/2018/01/28/002935&quot;&gt;「まず公式のドキュメントを読め」というのは分かってるんだけど・・・ - Mitsuyuki.Shiiba&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;とりあえず手を動かして感触をつかんで、それからいろいろ読み漁る。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://hokoxjouhou.blog105.fc2.com/blog-entry-1093.html&quot;&gt;Scrapboxを作文教育に使ってはどうでしょう？ - 情報管理LOG&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;原稿用紙を渡して「さぁ書け」は教育側の怠慢。情報整理技術を学ばせてから。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://css-tricks.com/tools-thinking-tools-systems/&quot;&gt;Tools for Thinking and Tools for Systems | CSS-Tricks&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;紙とペン。マインドマップ、アウトライナー。ToCと思考プロセス。モデリング手法とUML。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/KazuTaka500/items/d26fbdba4e0fe698f26f&quot;&gt;要件定義のポイント　BABOKを学ぼう！ - Qiita&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;要求開発や要件定義ですごく役に立つ考え方。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tabi-labo.com/286047/awake-making-team&quot;&gt;Googleが調査。成功するチームのつくり方。 | TABI LABO&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;知ったかぶりは本当に困る。スキルセットや理解度の把握を間違えるととんでもないことになる。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://coliss.com/articles/build-websites/operation/work/bootstrap-4-new-templates-and-components.html&quot;&gt;新しくなったBootstrap 4の基本テンプレート、ナビゲーション、コンポーネントのまとめ | コリス&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;さすがコリスさん、情報が早い。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://forza.cocolog-nifty.com/blog/2018/01/redmine2-70f9.html&quot;&gt;Redmineに2要素認証のパッチが提供されている: プログラマの思索&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;パスワード認証だけで不安だったから、これはぜひ導入したい。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
+
+&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-04-this-week-i-learned.md&quot;&gt;2018-02-04-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-22 to 2018-01-28)</title><link href="/2018/01/28/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-22 to 2018-01-28)" /><published>2018-01-28T23:50:00+09:00</published><updated>2018-01-28T23:50:00+09:00</updated><id>/2018/01/28/this-week-i-learned</id><content type="html" xml:base="/2018/01/28/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/sirootosan/items/f2f7c20bd604e4542db1&quot;&gt;Web Developer Roadmap 2018が出たので2017年版と比較してみる - Qiita&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/rdlabo/items/8686ffdf9a5e76a68983&quot;&gt;WebはHTML/CSSから学びはじめるべきか｜HTMLも知らない人にIonic本をさせた知見 - Qiita&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jp.techcrunch.com/2018/01/19/engadget-neoplug/&quot;&gt;普通の眼鏡をスマートグラス化、スライド式着脱機構「neoplug」。鯖江ブランドを世界規格へ | TechCrunch Japan&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://gigazine.net/news/20180119-evo-planner/&quot;&gt;脳タイプに合わせて日々の生活を記録・評価し生活を豊かに改善できるシステム手帳「EVO Planner」 - GIGAZINE&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/shiki_tak/items/bf080787b9bb3343ae46&quot;&gt;Ethereumの学習フローを整理した - Qiita&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qiita.com/iwason/items/bcd2485d11c88c5a058e&quot;&gt;いまどきJavascript　基本の「き」 - Qiita&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
+
+&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-01-28-this-week-i-learned.md&quot;&gt;2018-01-28-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-15 to 2018-01-21)</title><link href="/2018/01/21/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-15 to 2018-01-21)" /><published>2018-01-21T23:50:00+09:00</published><updated>2018-01-21T23:50:00+09:00</updated><id>/2018/01/21/this-week-i-learned</id><content type="html" xml:base="/2018/01/21/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://startyourownisp.com/&quot;&gt;Start Your Own ISP&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;独自のISPを構築する手順。日本ではあまり考えられないけど、海外ではこういった需要があるのだろうか？&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.infoq.com/jp/news/2018/01/blockchain-challenges&quot;&gt;ブロックチェーンの普及を妨げる課題&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;技術的課題がブロックチェーンの普及を妨げているように書かれているけど、そこじゃないと思うんだけどなぁ…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://speakerdeck.com/shu223/ji-shu-shu-falsezirenmatopeaks-plus-shu-ping-buroguwoshu-kutips-number-ios11book&quot;&gt;技術書のジレンマとPEAKS + 書評ブログを書くTips #iOS11book // Speaker Deck&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;「読み始めるために書評を書く」というのは面白い。実際、自分も定例報告書のようなものは期間の初めに書いてしまい後で結果を反映する、というような運用をしているし。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
+
+&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-01-21-this-week-i-learned.md&quot;&gt;2018-01-21-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>

@@ -1,0 +1,615 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ブログ引っ越し検討、およびブログサービスに求める要件 - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="Bloggerがイケてないので、別のブログサービスへの引越しを検討しています。ついでにブログサービスに求める要件も整理してみました。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="ブログ引っ越し検討、およびブログサービスに求める要件">
+
+
+
+
+  <meta property="og:description" content="Bloggerがイケてないので、別のブログサービスへの引越しを検討しています。ついでにブログサービスに求める要件も整理してみました。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="ブログ引っ越し検討、およびブログサービスに求める要件">
+  <meta name="twitter:description" content="Bloggerがイケてないので、別のブログサービスへの引越しを検討しています。ついでにブログサービスに求める要件も整理してみました。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-05-26T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ブログ引っ越し検討、およびブログサービスに求める要件">
+    <meta itemprop="description" content="Bloggerがイケてないので、別のブログサービスへの引越しを検討しています。ついでにブログサービスに求める要件も整理してみました。">
+    <meta itemprop="datePublished" content="2015-05-26">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">ブログ引っ越し検討、およびブログサービスに求める要件
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-26T07:00:00+09:00">2015-05-26</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Bloggerがイケてないので、別のブログサービスへの引越しを検討しています。ついでにブログサービスに求める要件も整理してみました。</p>
+
+<!-- more -->
+
+<h1 id="bloggerで辛いところ">Bloggerで辛いところ</h1>
+
+<ul>
+  <li>Markdownで書けない。</li>
+  <li>スマホから書けない。
+    <ul>
+      <li>一応、スマホアプリがあるけど低機能。</li>
+    </ul>
+  </li>
+  <li>ガジェットがスマホ向けに表示されない。
+    <ul>
+      <li>テーマもスマホ向けには適用されないっぽい。</li>
+      <li>テーマをいじれば、スマホ向けにもPC向けテーマが表示されるらしいことは知ってる。試してないけど。</li>
+    </ul>
+  </li>
+  <li>コードブロックが整形表示されず、ただのpreブロックになってしまう。
+    <ul>
+      <li>整形してくれるjsを挿入すればいいらしいことは知ってる。ただ、以前に試したけどスマホ向けには適用されなかったような。</li>
+      <li>gistに書いてから引用すればいいのだろうけど、それすら面倒。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="blogger良いところ">Blogger良いところ</h1>
+
+<ul>
+  <li>広告が挿入されない。</li>
+  <li>標準でアクセス分析ツールが利用できる。</li>
+  <li>アドセンスの適用が他ブログサービスに比べて簡単？らしい。</li>
+  <li>ガジェットを簡単に配置できる。</li>
+  <li>無料で利用できる。</li>
+</ul>
+
+<h1 id="ブログサービスに求める要件">ブログサービスに求める要件</h1>
+
+<p>良い機会なので、自分がブログサービスに求める要件を整理してみました。</p>
+
+<ul>
+  <li>Markdown文書を投稿できる。
+    <ul>
+      <li>mdに書いたメタ情報で記事属性を設定できるとなお良い。</li>
+    </ul>
+  </li>
+  <li>コードをスタイリッシュに表示できる。</li>
+  <li>投稿日付を変更できる。</li>
+  <li>予約投稿ができる。</li>
+  <li>スマホ向けアプリが提供されている。
+    <ul>
+      <li>閲覧</li>
+      <li>投稿</li>
+      <li>更新</li>
+    </ul>
+  </li>
+  <li>カスタムHTMLコードを挿入できる。</li>
+  <li>RSS配信している。
+    <ul>
+      <li>RSSエンドポイントは変更したくないな…どうすれば良いのだろう。</li>
+      <li>SNSでの記事周知が流行な理由を少し分かった気がする。</li>
+      <li>正直、もうRSSは要らない子？という気がしなくもない。</li>
+    </ul>
+  </li>
+  <li>レスポンシブデザインに対応している。
+    <ul>
+      <li>PC向け</li>
+      <li>タブレット向け</li>
+      <li>スマホ向け</li>
+    </ul>
+  </li>
+  <li>サイドバーガジェットが提供されている。</li>
+  <li>記事URLを自由に設定できる。
+    <ul>
+      <li>Blogger側で記事単位にリダイレクト先を設定できるのであれば、それでも良い。</li>
+    </ul>
+  </li>
+  <li>SNSシェアボタンを設置できる。
+    <ul>
+      <li>Twitter</li>
+      <li>Facebook</li>
+      <li>Pocket</li>
+      <li>Google+</li>
+    </ul>
+  </li>
+  <li>独自ドメインを設定できる。</li>
+  <li>ファビコンを設定できる。</li>
+  <li>無料で利用可能。</li>
+  <li>広告が自動挿入されない。</li>
+</ul>
+
+<h1 id="ブログサービス候補">ブログサービス候補</h1>
+
+<p>というわけで、要件を満たしてくれそうなサービスを探してみます。</p>
+
+<ul>
+  <li>tumblr</li>
+  <li>Wordpress.com</li>
+  <li>はてなブログ</li>
+  <li>GitHub Pages</li>
+  <li>Jekyll
+    <ul>
+      <li><a href="http://plus.appgiga.jp/masatolan/2015/01/13/55047/">クリック1発で、Github上にブログを無料で作成できる「Jekyll Now」が超絶便利！</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="見送ったブログサービス">見送ったブログサービス</h1>
+
+<p>魅力的ではあったけど見送ったブログサービス。</p>
+
+<ul>
+  <li><a href="http://blog.otakumode.com/2014/08/08/Blogging-with-hexoio/">チームブログをGitHubとHexoではじめよう！</a></li>
+  <li><a href="http://liginc.co.jp/web/programming/server/104594">所要時間3分!? Github PagesとHEXOで爆速ブログ構築してみよう！</a>
+    <ul>
+      <li>自分で全て制御できるところがいかにもエンジニアチックで良いけど、そこまで手間はかけたくない。もっと手軽に投稿したいです。できればスマホだけで。</li>
+    </ul>
+  </li>
+  <li><a href="http://blog.shiroyama.us/blog/2014/02/26/octopress/">エンジニアのブログは Octopress が最適</a>
+    <ul>
+      <li>同上</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="引越し手順">引越し手順</h1>
+
+<p>Bloggerからの引越し手順を考えてみます。</p>
+
+<ul>
+  <li>新ブログを開設。とりあえず動作・表示確認用。</li>
+  <li>いくつか記事を投稿してみて、動作・表示確認をする。
+    <ul>
+      <li>独自ドメインとしてテスト用のサブドメインを設定。</li>
+      <li>PC、スマホ両方で投稿、表示を確認。</li>
+      <li>テーマを表示確認。</li>
+      <li>リダイレクトを動作確認。</li>
+      <li>コード整形がキレイに表示されるか確認。</li>
+    </ul>
+  </li>
+  <li>問題なさそうなら、引っ越し開始。</li>
+  <li>全記事を新ブログに投稿する。</li>
+  <li>ドメイン名を新ブログを指すように設定。</li>
+</ul>
+
+<h1 id="tumblrで辛い点">Tumblrで辛い点</h1>
+
+<ul>
+  <li>tumblr投稿のtwitter連携のURLが、独自ドメインURLではなくtumblrのURLになってしまう。</li>
+  <li>ツイートをtumblr投稿した時のtwitter連携の書式が、コレジャナイ感がすごい。</li>
+  <li>もっと気楽にブログ投稿したいと思うけど、それならBloggerでもできなくはないかな？</li>
+  <li>tumblrのArchiveはおかしすぎ。</li>
+  <li>うーん、Bloggerのままでも良い気がする。</li>
+</ul>
+
+<h1 id="とりあえず">とりあえず</h1>
+
+<p>tumblrはすっごく魅力的なんですけど、どうせカスタマイズが必要になりますし、ならBloggerのままでも良い気がしてきました…この調子で突き詰めていくと、やはり最終的にはみんな大好きWordPressになってしまうのだろうか。</p>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="http://voices.ku-neko.com/2015/02/blogger-tumblr-hatenablog.html">Blogger・Tumblr・はてなブログの徹底比較 〜真面目に文章を書くときのブログ選び〜</a></li>
+  <li><a href="http://denshiyugi.blogspot.jp/2012/01/blogger-bloggertumblr.html">Bloggerに乗り換えました - BloggerとTumblrの比較</a></li>
+  <li><a href="http://blog.jnito.com/entry/2014/09/22/100441">妻のパン屋のブログを自作ツールでエキサイトブログからTumblrに移行した話</a></li>
+  <li><a href="http://matome.naver.jp/odai/2132843425856803701">【初心者】０から始めるtumblrのまとめ【使い方】 - NAVER まとめ</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E8%A6%81%E4%BB%B6" class="page__taxonomy-item" rel="tag">要件</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-26T07:00:00+09:00">2015-05-26</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=%E3%83%96%E3%83%AD%E3%82%B0%E5%BC%95%E3%81%A3%E8%B6%8A%E3%81%97%E6%A4%9C%E8%A8%8E%E3%80%81%E3%81%8A%E3%82%88%E3%81%B3%E3%83%96%E3%83%AD%E3%82%B0%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AB%E6%B1%82%E3%82%81%E3%82%8B%E8%A6%81%E4%BB%B6%20%2F2015%2F05%2F26%2Freview-migration-blog-and-requirement-for-blog-service.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2015%2F05%2F26%2Freview-migration-blog-and-requirement-for-blog-service.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2015%2F05%2F26%2Freview-migration-blog-and-requirement-for-blog-service.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2015%2F05%2F26%2Freview-migration-blog-and-requirement-for-blog-service.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/05/18/set-own-domain-to-own-server.html" class="pagination--pager" title="自宅サーバーに独自ドメインを設定
+">Previous</a>
+    
+    
+      <a href="/2015/05/28/memo-for-chef.html" class="pagination--pager" title="Chef書きかけメモ
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

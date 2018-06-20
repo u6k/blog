@@ -1,0 +1,650 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>QEMU for windowsでRaspbian Jessieを動作させる - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="以前、QEMUでRaspbian Wheezyを動作させましたが、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki動作させる目的自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。ダウンロードこの作業で作成したパッケージは、GitHubで公開しています。作業環境  Surface Pro 4 + Windows 10          qemu-system-armが動作すれば、この環境でなくても問題無いはずです。        Vagrant 1.8.1 + VirtualBox          Raspbianイメージをマウントするために必要ですが、.img内を編集できるのであれば不要です。        QEMU 2.4.1 on Windows  Raspbian Jessie 2016/2/26版作業手順Qemu、Raspbian、カーネルイメージをダウンロードQEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点ではQemu-2.4.1-windows.7zが最新です。Qemu On WindowsRaspbianをダウンロードします。記事執筆時点では2016-02-26-raspbian-jessie.zipが最新です。Download Raspbian for Raspberry Pi  NOTE: 旧バージョンのRaspbianがページに表示されていませんが、 https://downloads.raspberrypi.org/ から旧バージョンをダウンロードできるっぽいです。RaspbianをQEMUで動作させるために必要なカーネルイメージをダウンロードします。Jessie用をダウンロードしてください。記事執筆時点ではkernel-qemu-4.1.13-jessieが最新です。dhruvvyas90/qemu-rpi-kernel: Qemu kernel for emulating Rpi on QEMUダウンロードしたファイルは、全てC:\raspbian-jessie-on-qemu\に置きます。ダウンロードしたファイルを展開ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。Qemu-2.4.1-windows.7zをC:\raspbian-jessie-on-qemu\qemu\に展開します。C:\raspbian-jessie-on-qemu\qemu\以下にQemuのファイル群が展開されている状態になります。2016-02-26-raspbian-jessie.zipをC:\raspbian-jessie-on-qemu\raspbian\に展開します。kernel-qemu-4.1.13-jessieはC:\raspbian-jessie-on-qemu\raspbian\に移動します。これで、以下のようなファイル構成になります。C:\+---raspbian-jessie-on-qemu\    +---qemu\    |   +---qemu-system-arm.exe などQemuのファイル群    +---raspbian\        +---2016-02-26-raspbian-jessie.img        +---kernel-qemu-4.1.13-jessieRaspbianイメージを変更Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。コマンドプロンプトを開き、C:\raspbian-jessie-on-qemu\raspbian\まで移動して、Vagrantを起動します。cd C:\raspbian-jessie-on-qemu\raspbian\vagrant init ubuntu/trusty64vagrant upvagrant sshVagrantは、デフォルトでVagrantfileがあるフォルダを/vagrant/にマウントします。つまり、/vagrant/2016-02-26-raspbian-jessie.imgにRaspbianイメージがあります。このRaspbianイメージをマウントします。$ sudo mount -v -o offset=67108864 -t ext4 /vagrant/2016-02-26-raspbian-jessie.img /mnt//mnt/etc/ld.so.preloadを開きます。$ sudo vi /mnt/etc/ld.so.preload1行目をコメントアウトします。/usr/lib/arm-linux-gnueabihf/libarmmem.so↓#/usr/lib/arm-linux-gnueabihf/libarmmem.so/mnt/etc/fstabを開きます。sudo vi /mnt/etc/fstab/dev/mmcblkを含む行をコメントアウトします。/dev/mmcblk0p1  /boot           vfat    defaults          0       2/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1↓#/dev/mmcblk0p1  /boot           vfat    defaults          0       2#/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1exitして、Vagrantを破棄します。vagrant destroy -frm Vagrantfilermdir /S /Q .vagrantこれで、Raspbianイメージの変更は完了です。Raspbianを起動QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。C:\raspbian-jessie-on-qemu\run.batを以下のように作成します。qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append &quot;root=/dev/sda2 rootfstype=ext4 rw&quot; -hda raspbian\2016-02-26-raspbian-jessie.img -redir tcp:50022::22作成したrun.batを実行します。問題が無ければ、以下のようにRaspbianが起動します。初期ユーザーはpi、パスワードはraspberryです。上記のバッチ・ファイルに-redir tcp:50022::22というオプションが指定されているため、50022番ポートでssh接続ができます。Raspbian Liteの場合以上の作業をRaspbian Liteで行うと、以下のように起動します。おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ$ apt-cache show docker.ioPackage: docker.ioVersion: 1.3.3~dfsg1-2Architecture: armhfMaintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;Installed-Size: 14970Depends: adduser, iptables, init-system-helpers (&gt;= 1.18~), perl, libapparmor1 (&gt;= 2.6~devel), libc6 (&gt;= 2.14), libdevmapper1.02.1 (&gt;= 2:1.02.90), libsqlite3-0 (&gt;= 3.5.9)Recommends: aufs-tools, ca-certificates, cgroupfs-mount | cgroup-lite, git, xz-utilsSuggests: btrfs-tools, debootstrap, lxc, rinseBreaks: docker (&lt;&lt; 1.5~)Replaces: docker (&lt;&lt; 1.5~)Built-Using: golang-context (= 0.0~git20140604.1.14f550f-1), golang-dbus (= 1-1), golang-go-patricia (= 1.0.1-1), golang-go-systemd (= 2-1), golang-go.net-dev (= 0.0~hg20131201-1), golang-gocapability-dev (= 0.0~git20140516-1), golang-gosqlite-dev (= 0.0~hg20130601-1), golang-mux (= 0.0~git20140505.1.136d54f-2), golang-pty (= 0.0~git20140315.1.67e2db2-1)Homepage: https://github.com/docker/dockerPriority: optionalSection: adminFilename: pool/main/d/docker.io/docker.io_1.3.3~dfsg1-2_armhf.debSize: 3081622SHA256: c5808c63bb28259d8bc4d13dad0b3c04675ec4abcf1b7bc18b07979d525fc62bSHA1: 186f392e650ef2d71b9ba7f01078dc35ae3cca95MD5sum: e6e16890ff92228a4607eb1a040e78c7Description: Linux container runtime Docker complements kernel namespacing with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers. . Docker is a great building block for automating distributed systems: large-scale web deployments, database clusters, continuous deployment systems, private PaaS, service-oriented architectures, etc. . This package contains the daemon and client. Using docker.io on non-amd64 hosts is not supported at this time. Please be careful when using it on anything besides amd64. . Also, note that kernel version 3.8 or above is required for proper operation of the daemon process, and that any lower versions may have subtle and/or glaring issues.Description-md5: 05dc9eba68f3bf418e6a0cf29d555878docker.ioがインストールできるので、早速、インストールして簡単なコマンドを実行したところ、エラーになってしまいました…$ sudo docker run ubuntu /bin/echo &#39;Hello world&#39;2016/03/07 05:36:01 Post http:///var/run/docker.sock/v1.15/containers/create: read unix /var/run/docker.sock: connection reset by peerそもそもインストールされたバージョンが古いですし、別の手段を探すこととします。ライセンスRaspbianはDFSGで提供されています。QEMUはGPL v2で提供されています。この文章の作業手順で作成してGitHubで公開しているパッケージは、RaspbianとQEMUのライセンスに準拠します。この文章はクリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。この文章に書いてある内容は無保証であり、自己責任でご利用ください。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="QEMU for windowsでRaspbian Jessieを動作させる">
+
+
+
+
+  <meta property="og:description" content="以前、QEMUでRaspbian Wheezyを動作させましたが、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki動作させる目的自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。ダウンロードこの作業で作成したパッケージは、GitHubで公開しています。作業環境  Surface Pro 4 + Windows 10          qemu-system-armが動作すれば、この環境でなくても問題無いはずです。        Vagrant 1.8.1 + VirtualBox          Raspbianイメージをマウントするために必要ですが、.img内を編集できるのであれば不要です。        QEMU 2.4.1 on Windows  Raspbian Jessie 2016/2/26版作業手順Qemu、Raspbian、カーネルイメージをダウンロードQEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点ではQemu-2.4.1-windows.7zが最新です。Qemu On WindowsRaspbianをダウンロードします。記事執筆時点では2016-02-26-raspbian-jessie.zipが最新です。Download Raspbian for Raspberry Pi  NOTE: 旧バージョンのRaspbianがページに表示されていませんが、 https://downloads.raspberrypi.org/ から旧バージョンをダウンロードできるっぽいです。RaspbianをQEMUで動作させるために必要なカーネルイメージをダウンロードします。Jessie用をダウンロードしてください。記事執筆時点ではkernel-qemu-4.1.13-jessieが最新です。dhruvvyas90/qemu-rpi-kernel: Qemu kernel for emulating Rpi on QEMUダウンロードしたファイルは、全てC:\raspbian-jessie-on-qemu\に置きます。ダウンロードしたファイルを展開ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。Qemu-2.4.1-windows.7zをC:\raspbian-jessie-on-qemu\qemu\に展開します。C:\raspbian-jessie-on-qemu\qemu\以下にQemuのファイル群が展開されている状態になります。2016-02-26-raspbian-jessie.zipをC:\raspbian-jessie-on-qemu\raspbian\に展開します。kernel-qemu-4.1.13-jessieはC:\raspbian-jessie-on-qemu\raspbian\に移動します。これで、以下のようなファイル構成になります。C:\+---raspbian-jessie-on-qemu\    +---qemu\    |   +---qemu-system-arm.exe などQemuのファイル群    +---raspbian\        +---2016-02-26-raspbian-jessie.img        +---kernel-qemu-4.1.13-jessieRaspbianイメージを変更Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。コマンドプロンプトを開き、C:\raspbian-jessie-on-qemu\raspbian\まで移動して、Vagrantを起動します。cd C:\raspbian-jessie-on-qemu\raspbian\vagrant init ubuntu/trusty64vagrant upvagrant sshVagrantは、デフォルトでVagrantfileがあるフォルダを/vagrant/にマウントします。つまり、/vagrant/2016-02-26-raspbian-jessie.imgにRaspbianイメージがあります。このRaspbianイメージをマウントします。$ sudo mount -v -o offset=67108864 -t ext4 /vagrant/2016-02-26-raspbian-jessie.img /mnt//mnt/etc/ld.so.preloadを開きます。$ sudo vi /mnt/etc/ld.so.preload1行目をコメントアウトします。/usr/lib/arm-linux-gnueabihf/libarmmem.so↓#/usr/lib/arm-linux-gnueabihf/libarmmem.so/mnt/etc/fstabを開きます。sudo vi /mnt/etc/fstab/dev/mmcblkを含む行をコメントアウトします。/dev/mmcblk0p1  /boot           vfat    defaults          0       2/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1↓#/dev/mmcblk0p1  /boot           vfat    defaults          0       2#/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1exitして、Vagrantを破棄します。vagrant destroy -frm Vagrantfilermdir /S /Q .vagrantこれで、Raspbianイメージの変更は完了です。Raspbianを起動QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。C:\raspbian-jessie-on-qemu\run.batを以下のように作成します。qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append &quot;root=/dev/sda2 rootfstype=ext4 rw&quot; -hda raspbian\2016-02-26-raspbian-jessie.img -redir tcp:50022::22作成したrun.batを実行します。問題が無ければ、以下のようにRaspbianが起動します。初期ユーザーはpi、パスワードはraspberryです。上記のバッチ・ファイルに-redir tcp:50022::22というオプションが指定されているため、50022番ポートでssh接続ができます。Raspbian Liteの場合以上の作業をRaspbian Liteで行うと、以下のように起動します。おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ$ apt-cache show docker.ioPackage: docker.ioVersion: 1.3.3~dfsg1-2Architecture: armhfMaintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;Installed-Size: 14970Depends: adduser, iptables, init-system-helpers (&gt;= 1.18~), perl, libapparmor1 (&gt;= 2.6~devel), libc6 (&gt;= 2.14), libdevmapper1.02.1 (&gt;= 2:1.02.90), libsqlite3-0 (&gt;= 3.5.9)Recommends: aufs-tools, ca-certificates, cgroupfs-mount | cgroup-lite, git, xz-utilsSuggests: btrfs-tools, debootstrap, lxc, rinseBreaks: docker (&lt;&lt; 1.5~)Replaces: docker (&lt;&lt; 1.5~)Built-Using: golang-context (= 0.0~git20140604.1.14f550f-1), golang-dbus (= 1-1), golang-go-patricia (= 1.0.1-1), golang-go-systemd (= 2-1), golang-go.net-dev (= 0.0~hg20131201-1), golang-gocapability-dev (= 0.0~git20140516-1), golang-gosqlite-dev (= 0.0~hg20130601-1), golang-mux (= 0.0~git20140505.1.136d54f-2), golang-pty (= 0.0~git20140315.1.67e2db2-1)Homepage: https://github.com/docker/dockerPriority: optionalSection: adminFilename: pool/main/d/docker.io/docker.io_1.3.3~dfsg1-2_armhf.debSize: 3081622SHA256: c5808c63bb28259d8bc4d13dad0b3c04675ec4abcf1b7bc18b07979d525fc62bSHA1: 186f392e650ef2d71b9ba7f01078dc35ae3cca95MD5sum: e6e16890ff92228a4607eb1a040e78c7Description: Linux container runtime Docker complements kernel namespacing with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers. . Docker is a great building block for automating distributed systems: large-scale web deployments, database clusters, continuous deployment systems, private PaaS, service-oriented architectures, etc. . This package contains the daemon and client. Using docker.io on non-amd64 hosts is not supported at this time. Please be careful when using it on anything besides amd64. . Also, note that kernel version 3.8 or above is required for proper operation of the daemon process, and that any lower versions may have subtle and/or glaring issues.Description-md5: 05dc9eba68f3bf418e6a0cf29d555878docker.ioがインストールできるので、早速、インストールして簡単なコマンドを実行したところ、エラーになってしまいました…$ sudo docker run ubuntu /bin/echo &#39;Hello world&#39;2016/03/07 05:36:01 Post http:///var/run/docker.sock/v1.15/containers/create: read unix /var/run/docker.sock: connection reset by peerそもそもインストールされたバージョンが古いですし、別の手段を探すこととします。ライセンスRaspbianはDFSGで提供されています。QEMUはGPL v2で提供されています。この文章の作業手順で作成してGitHubで公開しているパッケージは、RaspbianとQEMUのライセンスに準拠します。この文章はクリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。この文章に書いてある内容は無保証であり、自己責任でご利用ください。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="QEMU for windowsでRaspbian Jessieを動作させる">
+  <meta name="twitter:description" content="以前、QEMUでRaspbian Wheezyを動作させましたが、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki動作させる目的自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。ダウンロードこの作業で作成したパッケージは、GitHubで公開しています。作業環境  Surface Pro 4 + Windows 10          qemu-system-armが動作すれば、この環境でなくても問題無いはずです。        Vagrant 1.8.1 + VirtualBox          Raspbianイメージをマウントするために必要ですが、.img内を編集できるのであれば不要です。        QEMU 2.4.1 on Windows  Raspbian Jessie 2016/2/26版作業手順Qemu、Raspbian、カーネルイメージをダウンロードQEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点ではQemu-2.4.1-windows.7zが最新です。Qemu On WindowsRaspbianをダウンロードします。記事執筆時点では2016-02-26-raspbian-jessie.zipが最新です。Download Raspbian for Raspberry Pi  NOTE: 旧バージョンのRaspbianがページに表示されていませんが、 https://downloads.raspberrypi.org/ から旧バージョンをダウンロードできるっぽいです。RaspbianをQEMUで動作させるために必要なカーネルイメージをダウンロードします。Jessie用をダウンロードしてください。記事執筆時点ではkernel-qemu-4.1.13-jessieが最新です。dhruvvyas90/qemu-rpi-kernel: Qemu kernel for emulating Rpi on QEMUダウンロードしたファイルは、全てC:\raspbian-jessie-on-qemu\に置きます。ダウンロードしたファイルを展開ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。Qemu-2.4.1-windows.7zをC:\raspbian-jessie-on-qemu\qemu\に展開します。C:\raspbian-jessie-on-qemu\qemu\以下にQemuのファイル群が展開されている状態になります。2016-02-26-raspbian-jessie.zipをC:\raspbian-jessie-on-qemu\raspbian\に展開します。kernel-qemu-4.1.13-jessieはC:\raspbian-jessie-on-qemu\raspbian\に移動します。これで、以下のようなファイル構成になります。C:\+---raspbian-jessie-on-qemu\    +---qemu\    |   +---qemu-system-arm.exe などQemuのファイル群    +---raspbian\        +---2016-02-26-raspbian-jessie.img        +---kernel-qemu-4.1.13-jessieRaspbianイメージを変更Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。コマンドプロンプトを開き、C:\raspbian-jessie-on-qemu\raspbian\まで移動して、Vagrantを起動します。cd C:\raspbian-jessie-on-qemu\raspbian\vagrant init ubuntu/trusty64vagrant upvagrant sshVagrantは、デフォルトでVagrantfileがあるフォルダを/vagrant/にマウントします。つまり、/vagrant/2016-02-26-raspbian-jessie.imgにRaspbianイメージがあります。このRaspbianイメージをマウントします。$ sudo mount -v -o offset=67108864 -t ext4 /vagrant/2016-02-26-raspbian-jessie.img /mnt//mnt/etc/ld.so.preloadを開きます。$ sudo vi /mnt/etc/ld.so.preload1行目をコメントアウトします。/usr/lib/arm-linux-gnueabihf/libarmmem.so↓#/usr/lib/arm-linux-gnueabihf/libarmmem.so/mnt/etc/fstabを開きます。sudo vi /mnt/etc/fstab/dev/mmcblkを含む行をコメントアウトします。/dev/mmcblk0p1  /boot           vfat    defaults          0       2/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1↓#/dev/mmcblk0p1  /boot           vfat    defaults          0       2#/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1exitして、Vagrantを破棄します。vagrant destroy -frm Vagrantfilermdir /S /Q .vagrantこれで、Raspbianイメージの変更は完了です。Raspbianを起動QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。C:\raspbian-jessie-on-qemu\run.batを以下のように作成します。qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append &quot;root=/dev/sda2 rootfstype=ext4 rw&quot; -hda raspbian\2016-02-26-raspbian-jessie.img -redir tcp:50022::22作成したrun.batを実行します。問題が無ければ、以下のようにRaspbianが起動します。初期ユーザーはpi、パスワードはraspberryです。上記のバッチ・ファイルに-redir tcp:50022::22というオプションが指定されているため、50022番ポートでssh接続ができます。Raspbian Liteの場合以上の作業をRaspbian Liteで行うと、以下のように起動します。おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ$ apt-cache show docker.ioPackage: docker.ioVersion: 1.3.3~dfsg1-2Architecture: armhfMaintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;Installed-Size: 14970Depends: adduser, iptables, init-system-helpers (&gt;= 1.18~), perl, libapparmor1 (&gt;= 2.6~devel), libc6 (&gt;= 2.14), libdevmapper1.02.1 (&gt;= 2:1.02.90), libsqlite3-0 (&gt;= 3.5.9)Recommends: aufs-tools, ca-certificates, cgroupfs-mount | cgroup-lite, git, xz-utilsSuggests: btrfs-tools, debootstrap, lxc, rinseBreaks: docker (&lt;&lt; 1.5~)Replaces: docker (&lt;&lt; 1.5~)Built-Using: golang-context (= 0.0~git20140604.1.14f550f-1), golang-dbus (= 1-1), golang-go-patricia (= 1.0.1-1), golang-go-systemd (= 2-1), golang-go.net-dev (= 0.0~hg20131201-1), golang-gocapability-dev (= 0.0~git20140516-1), golang-gosqlite-dev (= 0.0~hg20130601-1), golang-mux (= 0.0~git20140505.1.136d54f-2), golang-pty (= 0.0~git20140315.1.67e2db2-1)Homepage: https://github.com/docker/dockerPriority: optionalSection: adminFilename: pool/main/d/docker.io/docker.io_1.3.3~dfsg1-2_armhf.debSize: 3081622SHA256: c5808c63bb28259d8bc4d13dad0b3c04675ec4abcf1b7bc18b07979d525fc62bSHA1: 186f392e650ef2d71b9ba7f01078dc35ae3cca95MD5sum: e6e16890ff92228a4607eb1a040e78c7Description: Linux container runtime Docker complements kernel namespacing with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers. . Docker is a great building block for automating distributed systems: large-scale web deployments, database clusters, continuous deployment systems, private PaaS, service-oriented architectures, etc. . This package contains the daemon and client. Using docker.io on non-amd64 hosts is not supported at this time. Please be careful when using it on anything besides amd64. . Also, note that kernel version 3.8 or above is required for proper operation of the daemon process, and that any lower versions may have subtle and/or glaring issues.Description-md5: 05dc9eba68f3bf418e6a0cf29d555878docker.ioがインストールできるので、早速、インストールして簡単なコマンドを実行したところ、エラーになってしまいました…$ sudo docker run ubuntu /bin/echo &#39;Hello world&#39;2016/03/07 05:36:01 Post http:///var/run/docker.sock/v1.15/containers/create: read unix /var/run/docker.sock: connection reset by peerそもそもインストールされたバージョンが古いですし、別の手段を探すこととします。ライセンスRaspbianはDFSGで提供されています。QEMUはGPL v2で提供されています。この文章の作業手順で作成してGitHubで公開しているパッケージは、RaspbianとQEMUのライセンスに準拠します。この文章はクリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。この文章に書いてある内容は無保証であり、自己責任でご利用ください。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-03-08T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="QEMU for windowsでRaspbian Jessieを動作させる">
+    <meta itemprop="description" content="以前、QEMUでRaspbian Wheezyを動作させましたが、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki動作させる目的自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。ダウンロードこの作業で作成したパッケージは、GitHubで公開しています。作業環境  Surface Pro 4 + Windows 10          qemu-system-armが動作すれば、この環境でなくても問題無いはずです。        Vagrant 1.8.1 + VirtualBox          Raspbianイメージをマウントするために必要ですが、.img内を編集できるのであれば不要です。        QEMU 2.4.1 on Windows  Raspbian Jessie 2016/2/26版作業手順Qemu、Raspbian、カーネルイメージをダウンロードQEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点ではQemu-2.4.1-windows.7zが最新です。Qemu On WindowsRaspbianをダウンロードします。記事執筆時点では2016-02-26-raspbian-jessie.zipが最新です。Download Raspbian for Raspberry Pi  NOTE: 旧バージョンのRaspbianがページに表示されていませんが、 https://downloads.raspberrypi.org/ から旧バージョンをダウンロードできるっぽいです。RaspbianをQEMUで動作させるために必要なカーネルイメージをダウンロードします。Jessie用をダウンロードしてください。記事執筆時点ではkernel-qemu-4.1.13-jessieが最新です。dhruvvyas90/qemu-rpi-kernel: Qemu kernel for emulating Rpi on QEMUダウンロードしたファイルは、全てC:\raspbian-jessie-on-qemu\に置きます。ダウンロードしたファイルを展開ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。Qemu-2.4.1-windows.7zをC:\raspbian-jessie-on-qemu\qemu\に展開します。C:\raspbian-jessie-on-qemu\qemu\以下にQemuのファイル群が展開されている状態になります。2016-02-26-raspbian-jessie.zipをC:\raspbian-jessie-on-qemu\raspbian\に展開します。kernel-qemu-4.1.13-jessieはC:\raspbian-jessie-on-qemu\raspbian\に移動します。これで、以下のようなファイル構成になります。C:\+---raspbian-jessie-on-qemu\    +---qemu\    |   +---qemu-system-arm.exe などQemuのファイル群    +---raspbian\        +---2016-02-26-raspbian-jessie.img        +---kernel-qemu-4.1.13-jessieRaspbianイメージを変更Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。コマンドプロンプトを開き、C:\raspbian-jessie-on-qemu\raspbian\まで移動して、Vagrantを起動します。cd C:\raspbian-jessie-on-qemu\raspbian\vagrant init ubuntu/trusty64vagrant upvagrant sshVagrantは、デフォルトでVagrantfileがあるフォルダを/vagrant/にマウントします。つまり、/vagrant/2016-02-26-raspbian-jessie.imgにRaspbianイメージがあります。このRaspbianイメージをマウントします。$ sudo mount -v -o offset=67108864 -t ext4 /vagrant/2016-02-26-raspbian-jessie.img /mnt//mnt/etc/ld.so.preloadを開きます。$ sudo vi /mnt/etc/ld.so.preload1行目をコメントアウトします。/usr/lib/arm-linux-gnueabihf/libarmmem.so↓#/usr/lib/arm-linux-gnueabihf/libarmmem.so/mnt/etc/fstabを開きます。sudo vi /mnt/etc/fstab/dev/mmcblkを含む行をコメントアウトします。/dev/mmcblk0p1  /boot           vfat    defaults          0       2/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1↓#/dev/mmcblk0p1  /boot           vfat    defaults          0       2#/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1exitして、Vagrantを破棄します。vagrant destroy -frm Vagrantfilermdir /S /Q .vagrantこれで、Raspbianイメージの変更は完了です。Raspbianを起動QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。C:\raspbian-jessie-on-qemu\run.batを以下のように作成します。qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append &quot;root=/dev/sda2 rootfstype=ext4 rw&quot; -hda raspbian\2016-02-26-raspbian-jessie.img -redir tcp:50022::22作成したrun.batを実行します。問題が無ければ、以下のようにRaspbianが起動します。初期ユーザーはpi、パスワードはraspberryです。上記のバッチ・ファイルに-redir tcp:50022::22というオプションが指定されているため、50022番ポートでssh接続ができます。Raspbian Liteの場合以上の作業をRaspbian Liteで行うと、以下のように起動します。おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ$ apt-cache show docker.ioPackage: docker.ioVersion: 1.3.3~dfsg1-2Architecture: armhfMaintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;Installed-Size: 14970Depends: adduser, iptables, init-system-helpers (&gt;= 1.18~), perl, libapparmor1 (&gt;= 2.6~devel), libc6 (&gt;= 2.14), libdevmapper1.02.1 (&gt;= 2:1.02.90), libsqlite3-0 (&gt;= 3.5.9)Recommends: aufs-tools, ca-certificates, cgroupfs-mount | cgroup-lite, git, xz-utilsSuggests: btrfs-tools, debootstrap, lxc, rinseBreaks: docker (&lt;&lt; 1.5~)Replaces: docker (&lt;&lt; 1.5~)Built-Using: golang-context (= 0.0~git20140604.1.14f550f-1), golang-dbus (= 1-1), golang-go-patricia (= 1.0.1-1), golang-go-systemd (= 2-1), golang-go.net-dev (= 0.0~hg20131201-1), golang-gocapability-dev (= 0.0~git20140516-1), golang-gosqlite-dev (= 0.0~hg20130601-1), golang-mux (= 0.0~git20140505.1.136d54f-2), golang-pty (= 0.0~git20140315.1.67e2db2-1)Homepage: https://github.com/docker/dockerPriority: optionalSection: adminFilename: pool/main/d/docker.io/docker.io_1.3.3~dfsg1-2_armhf.debSize: 3081622SHA256: c5808c63bb28259d8bc4d13dad0b3c04675ec4abcf1b7bc18b07979d525fc62bSHA1: 186f392e650ef2d71b9ba7f01078dc35ae3cca95MD5sum: e6e16890ff92228a4607eb1a040e78c7Description: Linux container runtime Docker complements kernel namespacing with a high-level API which operates at the process level. It runs unix processes with strong guarantees of isolation and repeatability across servers. . Docker is a great building block for automating distributed systems: large-scale web deployments, database clusters, continuous deployment systems, private PaaS, service-oriented architectures, etc. . This package contains the daemon and client. Using docker.io on non-amd64 hosts is not supported at this time. Please be careful when using it on anything besides amd64. . Also, note that kernel version 3.8 or above is required for proper operation of the daemon process, and that any lower versions may have subtle and/or glaring issues.Description-md5: 05dc9eba68f3bf418e6a0cf29d555878docker.ioがインストールできるので、早速、インストールして簡単なコマンドを実行したところ、エラーになってしまいました…$ sudo docker run ubuntu /bin/echo &#39;Hello world&#39;2016/03/07 05:36:01 Post http:///var/run/docker.sock/v1.15/containers/create: read unix /var/run/docker.sock: connection reset by peerそもそもインストールされたバージョンが古いですし、別の手段を探すこととします。ライセンスRaspbianはDFSGで提供されています。QEMUはGPL v2で提供されています。この文章の作業手順で作成してGitHubで公開しているパッケージは、RaspbianとQEMUのライセンスに準拠します。この文章はクリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。この文章に書いてある内容は無保証であり、自己責任でご利用ください。">
+    <meta itemprop="datePublished" content="2016-03-08">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">QEMU for windowsでRaspbian Jessieを動作させる
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-08T07:00:00+09:00">2016-03-08</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html">以前、QEMUでRaspbian Wheezyを動作させました</a>が、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。</p>
+
+<p><a href="https://github.com/dhruvvyas90/qemu-rpi-kernel/wiki/Emulating-Jessie-image-with-4.1.x-kernel">Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki</a></p>
+
+<!-- more -->
+
+<h1 id="動作させる目的">動作させる目的</h1>
+
+<p>自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。</p>
+
+<p>ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。</p>
+
+<h1 id="ダウンロード">ダウンロード</h1>
+
+<p>この作業で作成したパッケージは、<a href="https://github.com/u6k/raspbian-on-qemu/releases/tag/20160307-raspbian-jessie-on-qemu">GitHubで公開</a>しています。</p>
+
+<h1 id="作業環境">作業環境</h1>
+
+<ul>
+  <li>Surface Pro 4 + Windows 10
+    <ul>
+      <li><code class="highlighter-rouge">qemu-system-arm</code>が動作すれば、この環境でなくても問題無いはずです。</li>
+    </ul>
+  </li>
+  <li>Vagrant 1.8.1 + VirtualBox
+    <ul>
+      <li>Raspbianイメージをマウントするために必要ですが、<code class="highlighter-rouge">.img</code>内を編集できるのであれば不要です。</li>
+    </ul>
+  </li>
+  <li>QEMU 2.4.1 on Windows</li>
+  <li>Raspbian Jessie 2016/2/26版</li>
+</ul>
+
+<h1 id="作業手順">作業手順</h1>
+
+<h2 id="qemuraspbianカーネルイメージをダウンロード">Qemu、Raspbian、カーネルイメージをダウンロード</h2>
+
+<p>QEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点では<code class="highlighter-rouge">Qemu-2.4.1-windows.7z</code>が最新です。</p>
+
+<p><a href="http://lassauge.free.fr/qemu/">Qemu On Windows</a></p>
+
+<p>Raspbianをダウンロードします。記事執筆時点では<code class="highlighter-rouge">2016-02-26-raspbian-jessie.zip</code>が最新です。</p>
+
+<p><a href="https://www.raspberrypi.org/downloads/raspbian/">Download Raspbian for Raspberry Pi</a></p>
+
+<blockquote>
+  <p><em>NOTE:</em> 旧バージョンのRaspbianがページに表示されていませんが、 https://downloads.raspberrypi.org/ から旧バージョンをダウンロードできるっぽいです。</p>
+</blockquote>
+
+<p>RaspbianをQEMUで動作させるために必要なカーネルイメージをダウンロードします。Jessie用をダウンロードしてください。記事執筆時点では<code class="highlighter-rouge">kernel-qemu-4.1.13-jessie</code>が最新です。</p>
+
+<p><a href="https://github.com/dhruvvyas90/qemu-rpi-kernel">dhruvvyas90/qemu-rpi-kernel: Qemu kernel for emulating Rpi on QEMU</a></p>
+
+<p>ダウンロードしたファイルは、全て<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\</code>に置きます。</p>
+
+<h2 id="ダウンロードしたファイルを展開">ダウンロードしたファイルを展開</h2>
+
+<p>ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。</p>
+
+<p><code class="highlighter-rouge">Qemu-2.4.1-windows.7z</code>を<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\qemu\</code>に展開します。<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\qemu\</code>以下にQemuのファイル群が展開されている状態になります。</p>
+
+<p><code class="highlighter-rouge">2016-02-26-raspbian-jessie.zip</code>を<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\raspbian\</code>に展開します。</p>
+
+<p><code class="highlighter-rouge">kernel-qemu-4.1.13-jessie</code>は<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\raspbian\</code>に移動します。</p>
+
+<p>これで、以下のようなファイル構成になります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\
++---raspbian-jessie-on-qemu\
+    +---qemu\
+    |   +---qemu-system-arm.exe などQemuのファイル群
+    +---raspbian\
+        +---2016-02-26-raspbian-jessie.img
+        +---kernel-qemu-4.1.13-jessie
+</code></pre></div></div>
+
+<h2 id="raspbianイメージを変更">Raspbianイメージを変更</h2>
+
+<p>Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。</p>
+
+<p>コマンドプロンプトを開き、<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\raspbian\</code>まで移動して、Vagrantを起動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd C:\raspbian-jessie-on-qemu\raspbian\
+vagrant init ubuntu/trusty64
+vagrant up
+vagrant ssh
+</code></pre></div></div>
+
+<p>Vagrantは、デフォルトで<code class="highlighter-rouge">Vagrantfile</code>があるフォルダを<code class="highlighter-rouge">/vagrant/</code>にマウントします。つまり、<code class="highlighter-rouge">/vagrant/2016-02-26-raspbian-jessie.img</code>にRaspbianイメージがあります。このRaspbianイメージをマウントします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mount -v -o offset=67108864 -t ext4 /vagrant/2016-02-26-raspbian-jessie.img /mnt/
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">/mnt/etc/ld.so.preload</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /mnt/etc/ld.so.preload
+</code></pre></div></div>
+
+<p>1行目をコメントアウトします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/lib/arm-linux-gnueabihf/libarmmem.so
+↓
+#/usr/lib/arm-linux-gnueabihf/libarmmem.so
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">/mnt/etc/fstab</code>を開きます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /mnt/etc/fstab
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">/dev/mmcblk</code>を含む行をコメントアウトします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/mmcblk0p1  /boot           vfat    defaults          0       2
+/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+↓
+#/dev/mmcblk0p1  /boot           vfat    defaults          0       2
+#/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">exit</code>して、Vagrantを破棄します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant destroy -f
+rm Vagrantfile
+rmdir /S /Q .vagrant
+</code></pre></div></div>
+
+<p>これで、Raspbianイメージの変更は完了です。</p>
+
+<h2 id="raspbianを起動">Raspbianを起動</h2>
+
+<p>QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\run.bat</code>を以下のように作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176 -m 256 -M versatilepb -serial stdio -append "root=/dev/sda2 rootfstype=ext4 rw" -hda raspbian\2016-02-26-raspbian-jessie.img -redir tcp:50022::22
+</code></pre></div></div>
+
+<p>作成した<code class="highlighter-rouge">run.bat</code>を実行します。問題が無ければ、以下のようにRaspbianが起動します。</p>
+
+<p><img src="/assets/img/2016-03-08-raspbian-jessie-on-qemu/001.png" alt="raspbian-startup" /></p>
+
+<p>初期ユーザーは<code class="highlighter-rouge">pi</code>、パスワードは<code class="highlighter-rouge">raspberry</code>です。</p>
+
+<p>上記のバッチ・ファイルに<code class="highlighter-rouge">-redir tcp:50022::22</code>というオプションが指定されているため、50022番ポートでssh接続ができます。</p>
+
+<h2 id="raspbian-liteの場合">Raspbian Liteの場合</h2>
+
+<p>以上の作業をRaspbian Liteで行うと、以下のように起動します。</p>
+
+<p><img src="/assets/img/2016-03-08-raspbian-jessie-on-qemu/002.png" alt="raspbian-lite-startup" /></p>
+
+<h1 id="おまけraspbian-jessie-on-qemuでdockerを動作させようとして失敗したメモ">おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ apt-cache show docker.io
+Package: docker.io
+Version: 1.3.3~dfsg1-2
+Architecture: armhf
+Maintainer: Paul Tagliamonte &lt;paultag@debian.org&gt;
+Installed-Size: 14970
+Depends: adduser, iptables, init-system-helpers (&gt;= 1.18~), perl, libapparmor1 (&gt;= 2.6~devel), libc6 (&gt;= 2.14), libdevmapper1.02.1 (&gt;= 2:1.02.90), libsqlite3-0 (&gt;= 3.5.9)
+Recommends: aufs-tools, ca-certificates, cgroupfs-mount | cgroup-lite, git, xz-utils
+Suggests: btrfs-tools, debootstrap, lxc, rinse
+Breaks: docker (&lt;&lt; 1.5~)
+Replaces: docker (&lt;&lt; 1.5~)
+Built-Using: golang-context (= 0.0~git20140604.1.14f550f-1), golang-dbus (= 1-1), golang-go-patricia (= 1.0.1-1), golang-go-systemd (= 2-1), golang-go.net-dev (= 0.0~hg20131201-1), golang-gocapability-dev (= 0.0~git20140516-1), golang-gosqlite-dev (= 0.0~hg20130601-1), golang-mux (= 0.0~git20140505.1.136d54f-2), golang-pty (= 0.0~git20140315.1.67e2db2-1)
+Homepage: https://github.com/docker/docker
+Priority: optional
+Section: admin
+Filename: pool/main/d/docker.io/docker.io_1.3.3~dfsg1-2_armhf.deb
+Size: 3081622
+SHA256: c5808c63bb28259d8bc4d13dad0b3c04675ec4abcf1b7bc18b07979d525fc62b
+SHA1: 186f392e650ef2d71b9ba7f01078dc35ae3cca95
+MD5sum: e6e16890ff92228a4607eb1a040e78c7
+Description: Linux container runtime
+ Docker complements kernel namespacing with a high-level API which operates at
+ the process level. It runs unix processes with strong guarantees of isolation
+ and repeatability across servers.
+ .
+ Docker is a great building block for automating distributed systems:
+ large-scale web deployments, database clusters, continuous deployment systems,
+ private PaaS, service-oriented architectures, etc.
+ .
+ This package contains the daemon and client. Using docker.io on non-amd64 hosts
+ is not supported at this time. Please be careful when using it on anything
+ besides amd64.
+ .
+ Also, note that kernel version 3.8 or above is required for proper operation of
+ the daemon process, and that any lower versions may have subtle and/or glaring
+ issues.
+Description-md5: 05dc9eba68f3bf418e6a0cf29d555878
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">docker.io</code>がインストールできるので、早速、インストールして簡単なコマンドを実行したところ、エラーになってしまいました…</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo docker run ubuntu /bin/echo 'Hello world'
+2016/03/07 05:36:01 Post http:///var/run/docker.sock/v1.15/containers/create: read unix /var/run/docker.sock: connection reset by peer
+</code></pre></div></div>
+
+<p>そもそもインストールされたバージョンが古いですし、別の手段を探すこととします。</p>
+
+<h1 id="ライセンス">ライセンス</h1>
+
+<p><a href="https://www.debian.org/legal/licenses/">RaspbianはDFSGで提供</a>されています。</p>
+
+<p><a href="http://wiki.qemu.org/License">QEMUはGPL v2で提供</a>されています。</p>
+
+<p>この文章の作業手順で作成してGitHubで公開しているパッケージは、RaspbianとQEMUのライセンスに準拠します。</p>
+
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="クリエイティブ・コモンズ・ライセンス" /></a>この文章は<a href="http://creativecommons.org/licenses/by-sa/4.0/">クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。</a>この文章に書いてある内容は無保証であり、自己責任でご利用ください。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-08T07:00:00+09:00">2016-03-08</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=QEMU+for+windows%E3%81%A7Raspbian+Jessie%E3%82%92%E5%8B%95%E4%BD%9C%E3%81%95%E3%81%9B%E3%82%8B%20%2F2016%2F03%2F08%2Fraspbian-jessie-on-qemu.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2016%2F03%2F08%2Fraspbian-jessie-on-qemu.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2016%2F03%2F08%2Fraspbian-jessie-on-qemu.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2016%2F03%2F08%2Fraspbian-jessie-on-qemu.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/03/02/nativefier-docker.html" class="pagination--pager" title="nativefierをDockerコンテナー化する
+">Previous</a>
+    
+    
+      <a href="/2016/03/09/ruby-docker.html" class="pagination--pager" title="DockerでRubyを使用する
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

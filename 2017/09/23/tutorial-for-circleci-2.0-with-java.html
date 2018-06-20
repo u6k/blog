@@ -1,0 +1,685 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>CircleCI 2.0 + Javaのチュートリアル - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。前提  Docker          Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。      $ docker version Version:      17.03.1-ce API version:  1.27 Go version:   go1.7.5 Git commit:   c6d412e Built:        Tue Mar 28 00:40:02 2017 OS/Arch:      windows/amd64Server: Version:      17.06.2-ce API version:  1.30 (minimum version 1.12) Go version:   go1.8.3 Git commit:   cec0b72 Built:        Tue Sep  5 19:59:19 2017 OS/Arch:      linux/amd64 Experimental: false  Gradle          未インストールでも、Gradleイメージを使用するので問題ありません。      $ gradle --version------------------------------------------------------------Gradle 4.1------------------------------------------------------------Build time:   2017-08-07 14:38:48 UTCRevision:     941559e020f6c357ebb08d5c67acdb858a3defc2Groovy:       2.4.11Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)OS:           Linux 4.4.86-boot2docker amd64手順CircleCI CLIをインストールUsing the CircleCI Command Line Interface (CLI) - CircleCIに、インストール手順が書いてあります。$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci/usr/local/bin/に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。$PATHを見ると$HOME/binが通っていることが分かりますので、$HOME/binを作成した上で、以下のように実行します。$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x $HOME/bin/circleci動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。$ circleci helpUnable to find image &#39;circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb&#39; locallysha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb: Pulling from circleci/picard90f4dba627d6: Pull complete91846fb0d5cc: Pull complete06d74f32ea0e: Pull complete52c8a4ef6260: Pull complete96859c268820: Pull completef3fce07f01bd: Pull completeDigest: sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbStatus: Downloaded newer image for circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbThe CLI tool to be used in CircleCI.Usage:  circleci [flags]  circleci [command]Available Commands:  build       run a full build locally  config      validate and update configuration files  help        Help about any command  step        execute steps  tests       collect and split files with tests  version     output version infoFlags:  -c, --config string   config file (default is .circleci/config.yml)  -h, --help            help for circleci      --taskId string   TaskID      --verbose         emit verbose logging outputUse &quot;circleci [command] --help&quot; for more information about a command.Javaアプリケーションを作成ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。まず、Gradleラッパーを作成します。$ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapperGradleプロジェクトを作成します。$ ./gradlew initsettings.gradleを変更します。$ cat settings.gradlerootProject.name = &#39;hello&#39;build.gradleを変更します。$ cat build.gradleapply plugin: &#39;java&#39;apply plugin: &#39;application&#39;repositories {    jcenter()}mainClassName = &#39;Hello&#39;dependencies {    compile &#39;org.slf4j:slf4j-api:1.7.25&#39;    testCompile &#39;junit:junit:4.12&#39;}Hello.javaを作成します。$ cat src/main/java/Hello.javapublic class Hello {    public static void main(String[] args) {        System.out.println(&quot;hello&quot;);    }}動作確認をします。helloという文字列が表示されます。$ ./gradlew run&gt; Task :runhelloBUILD SUCCESSFUL in 1s2 actionable tasks: 2 executedCircleCI設定ファイルを作成CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。$ cat .circleci/config.ymlversion: 2jobs:    build:        docker:            - image: circleci/openjdk:8-jdk        working_directory: ~/repo        steps:            - checkout            - run: ./gradlew runローカルPCでビルドローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。$ circleci build====&gt;&gt; Spin up EnvironmentBuild-agent version 0.0.4233-c9a1216 (2017-09-21T04:41:54+0000)Starting container circleci/openjdk:8-jdk  using image circleci/openjdk@sha256:4e3319daf38eb0464066e1e6413980b74e11a5253cd5038a6e2f415b07fee3faUsing build environment variables:  BASH_ENV=/tmp/.bash_env-localbuild-1506050141  CI=true  CIRCLECI=true  CIRCLE_BRANCH=  CIRCLE_BUILD_NUM=  CIRCLE_ENV=/tmp/.bash_env-localbuild-1506050141  CIRCLE_JOB=build  CIRCLE_NODE_INDEX=0  CIRCLE_NODE_TOTAL=1  CIRCLE_REPOSITORY_URL=  CIRCLE_SHA1=  CIRCLE_WORKING_DIRECTORY=~/repo====&gt;&gt; Checkout code  #!/bin/shmkdir -p /home/circleci/repo &amp;&amp; cp -r /tmp/_circleci_local_build_repo/. /home/circleci/repo====&gt;&gt; ./gradlew run  #!/bin/bash -eo pipefail./gradlew runDownloading https://services.gradle.org/distributions/gradle-4.1-bin.zip................................................................Unzipping /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vsSet executable permissions for: /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1/bin/gradleStarting a Gradle Daemon (subsequent builds will be faster):compileJavaDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:processResources NO-SOURCE:classes:runhelloBUILD SUCCESSFUL in 46s2 actionable tasks: 2 executedSuccess!無事、ビルドが成功しました。おわりにローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="CircleCI 2.0 + Javaのチュートリアル">
+
+
+
+
+  <meta property="og:description" content="単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。前提  Docker          Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。      $ docker version Version:      17.03.1-ce API version:  1.27 Go version:   go1.7.5 Git commit:   c6d412e Built:        Tue Mar 28 00:40:02 2017 OS/Arch:      windows/amd64Server: Version:      17.06.2-ce API version:  1.30 (minimum version 1.12) Go version:   go1.8.3 Git commit:   cec0b72 Built:        Tue Sep  5 19:59:19 2017 OS/Arch:      linux/amd64 Experimental: false  Gradle          未インストールでも、Gradleイメージを使用するので問題ありません。      $ gradle --version------------------------------------------------------------Gradle 4.1------------------------------------------------------------Build time:   2017-08-07 14:38:48 UTCRevision:     941559e020f6c357ebb08d5c67acdb858a3defc2Groovy:       2.4.11Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)OS:           Linux 4.4.86-boot2docker amd64手順CircleCI CLIをインストールUsing the CircleCI Command Line Interface (CLI) - CircleCIに、インストール手順が書いてあります。$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci/usr/local/bin/に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。$PATHを見ると$HOME/binが通っていることが分かりますので、$HOME/binを作成した上で、以下のように実行します。$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x $HOME/bin/circleci動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。$ circleci helpUnable to find image &#39;circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb&#39; locallysha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb: Pulling from circleci/picard90f4dba627d6: Pull complete91846fb0d5cc: Pull complete06d74f32ea0e: Pull complete52c8a4ef6260: Pull complete96859c268820: Pull completef3fce07f01bd: Pull completeDigest: sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbStatus: Downloaded newer image for circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbThe CLI tool to be used in CircleCI.Usage:  circleci [flags]  circleci [command]Available Commands:  build       run a full build locally  config      validate and update configuration files  help        Help about any command  step        execute steps  tests       collect and split files with tests  version     output version infoFlags:  -c, --config string   config file (default is .circleci/config.yml)  -h, --help            help for circleci      --taskId string   TaskID      --verbose         emit verbose logging outputUse &quot;circleci [command] --help&quot; for more information about a command.Javaアプリケーションを作成ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。まず、Gradleラッパーを作成します。$ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapperGradleプロジェクトを作成します。$ ./gradlew initsettings.gradleを変更します。$ cat settings.gradlerootProject.name = &#39;hello&#39;build.gradleを変更します。$ cat build.gradleapply plugin: &#39;java&#39;apply plugin: &#39;application&#39;repositories {    jcenter()}mainClassName = &#39;Hello&#39;dependencies {    compile &#39;org.slf4j:slf4j-api:1.7.25&#39;    testCompile &#39;junit:junit:4.12&#39;}Hello.javaを作成します。$ cat src/main/java/Hello.javapublic class Hello {    public static void main(String[] args) {        System.out.println(&quot;hello&quot;);    }}動作確認をします。helloという文字列が表示されます。$ ./gradlew run&gt; Task :runhelloBUILD SUCCESSFUL in 1s2 actionable tasks: 2 executedCircleCI設定ファイルを作成CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。$ cat .circleci/config.ymlversion: 2jobs:    build:        docker:            - image: circleci/openjdk:8-jdk        working_directory: ~/repo        steps:            - checkout            - run: ./gradlew runローカルPCでビルドローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。$ circleci build====&gt;&gt; Spin up EnvironmentBuild-agent version 0.0.4233-c9a1216 (2017-09-21T04:41:54+0000)Starting container circleci/openjdk:8-jdk  using image circleci/openjdk@sha256:4e3319daf38eb0464066e1e6413980b74e11a5253cd5038a6e2f415b07fee3faUsing build environment variables:  BASH_ENV=/tmp/.bash_env-localbuild-1506050141  CI=true  CIRCLECI=true  CIRCLE_BRANCH=  CIRCLE_BUILD_NUM=  CIRCLE_ENV=/tmp/.bash_env-localbuild-1506050141  CIRCLE_JOB=build  CIRCLE_NODE_INDEX=0  CIRCLE_NODE_TOTAL=1  CIRCLE_REPOSITORY_URL=  CIRCLE_SHA1=  CIRCLE_WORKING_DIRECTORY=~/repo====&gt;&gt; Checkout code  #!/bin/shmkdir -p /home/circleci/repo &amp;&amp; cp -r /tmp/_circleci_local_build_repo/. /home/circleci/repo====&gt;&gt; ./gradlew run  #!/bin/bash -eo pipefail./gradlew runDownloading https://services.gradle.org/distributions/gradle-4.1-bin.zip................................................................Unzipping /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vsSet executable permissions for: /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1/bin/gradleStarting a Gradle Daemon (subsequent builds will be faster):compileJavaDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:processResources NO-SOURCE:classes:runhelloBUILD SUCCESSFUL in 46s2 actionable tasks: 2 executedSuccess!無事、ビルドが成功しました。おわりにローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="CircleCI 2.0 + Javaのチュートリアル">
+  <meta name="twitter:description" content="単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。前提  Docker          Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。      $ docker version Version:      17.03.1-ce API version:  1.27 Go version:   go1.7.5 Git commit:   c6d412e Built:        Tue Mar 28 00:40:02 2017 OS/Arch:      windows/amd64Server: Version:      17.06.2-ce API version:  1.30 (minimum version 1.12) Go version:   go1.8.3 Git commit:   cec0b72 Built:        Tue Sep  5 19:59:19 2017 OS/Arch:      linux/amd64 Experimental: false  Gradle          未インストールでも、Gradleイメージを使用するので問題ありません。      $ gradle --version------------------------------------------------------------Gradle 4.1------------------------------------------------------------Build time:   2017-08-07 14:38:48 UTCRevision:     941559e020f6c357ebb08d5c67acdb858a3defc2Groovy:       2.4.11Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)OS:           Linux 4.4.86-boot2docker amd64手順CircleCI CLIをインストールUsing the CircleCI Command Line Interface (CLI) - CircleCIに、インストール手順が書いてあります。$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci/usr/local/bin/に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。$PATHを見ると$HOME/binが通っていることが分かりますので、$HOME/binを作成した上で、以下のように実行します。$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x $HOME/bin/circleci動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。$ circleci helpUnable to find image &#39;circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb&#39; locallysha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb: Pulling from circleci/picard90f4dba627d6: Pull complete91846fb0d5cc: Pull complete06d74f32ea0e: Pull complete52c8a4ef6260: Pull complete96859c268820: Pull completef3fce07f01bd: Pull completeDigest: sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbStatus: Downloaded newer image for circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbThe CLI tool to be used in CircleCI.Usage:  circleci [flags]  circleci [command]Available Commands:  build       run a full build locally  config      validate and update configuration files  help        Help about any command  step        execute steps  tests       collect and split files with tests  version     output version infoFlags:  -c, --config string   config file (default is .circleci/config.yml)  -h, --help            help for circleci      --taskId string   TaskID      --verbose         emit verbose logging outputUse &quot;circleci [command] --help&quot; for more information about a command.Javaアプリケーションを作成ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。まず、Gradleラッパーを作成します。$ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapperGradleプロジェクトを作成します。$ ./gradlew initsettings.gradleを変更します。$ cat settings.gradlerootProject.name = &#39;hello&#39;build.gradleを変更します。$ cat build.gradleapply plugin: &#39;java&#39;apply plugin: &#39;application&#39;repositories {    jcenter()}mainClassName = &#39;Hello&#39;dependencies {    compile &#39;org.slf4j:slf4j-api:1.7.25&#39;    testCompile &#39;junit:junit:4.12&#39;}Hello.javaを作成します。$ cat src/main/java/Hello.javapublic class Hello {    public static void main(String[] args) {        System.out.println(&quot;hello&quot;);    }}動作確認をします。helloという文字列が表示されます。$ ./gradlew run&gt; Task :runhelloBUILD SUCCESSFUL in 1s2 actionable tasks: 2 executedCircleCI設定ファイルを作成CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。$ cat .circleci/config.ymlversion: 2jobs:    build:        docker:            - image: circleci/openjdk:8-jdk        working_directory: ~/repo        steps:            - checkout            - run: ./gradlew runローカルPCでビルドローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。$ circleci build====&gt;&gt; Spin up EnvironmentBuild-agent version 0.0.4233-c9a1216 (2017-09-21T04:41:54+0000)Starting container circleci/openjdk:8-jdk  using image circleci/openjdk@sha256:4e3319daf38eb0464066e1e6413980b74e11a5253cd5038a6e2f415b07fee3faUsing build environment variables:  BASH_ENV=/tmp/.bash_env-localbuild-1506050141  CI=true  CIRCLECI=true  CIRCLE_BRANCH=  CIRCLE_BUILD_NUM=  CIRCLE_ENV=/tmp/.bash_env-localbuild-1506050141  CIRCLE_JOB=build  CIRCLE_NODE_INDEX=0  CIRCLE_NODE_TOTAL=1  CIRCLE_REPOSITORY_URL=  CIRCLE_SHA1=  CIRCLE_WORKING_DIRECTORY=~/repo====&gt;&gt; Checkout code  #!/bin/shmkdir -p /home/circleci/repo &amp;&amp; cp -r /tmp/_circleci_local_build_repo/. /home/circleci/repo====&gt;&gt; ./gradlew run  #!/bin/bash -eo pipefail./gradlew runDownloading https://services.gradle.org/distributions/gradle-4.1-bin.zip................................................................Unzipping /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vsSet executable permissions for: /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1/bin/gradleStarting a Gradle Daemon (subsequent builds will be faster):compileJavaDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:processResources NO-SOURCE:classes:runhelloBUILD SUCCESSFUL in 46s2 actionable tasks: 2 executedSuccess!無事、ビルドが成功しました。おわりにローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-09-23T07:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CircleCI 2.0 + Javaのチュートリアル">
+    <meta itemprop="description" content="単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。前提  Docker          Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。      $ docker version Version:      17.03.1-ce API version:  1.27 Go version:   go1.7.5 Git commit:   c6d412e Built:        Tue Mar 28 00:40:02 2017 OS/Arch:      windows/amd64Server: Version:      17.06.2-ce API version:  1.30 (minimum version 1.12) Go version:   go1.8.3 Git commit:   cec0b72 Built:        Tue Sep  5 19:59:19 2017 OS/Arch:      linux/amd64 Experimental: false  Gradle          未インストールでも、Gradleイメージを使用するので問題ありません。      $ gradle --version------------------------------------------------------------Gradle 4.1------------------------------------------------------------Build time:   2017-08-07 14:38:48 UTCRevision:     941559e020f6c357ebb08d5c67acdb858a3defc2Groovy:       2.4.11Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)OS:           Linux 4.4.86-boot2docker amd64手順CircleCI CLIをインストールUsing the CircleCI Command Line Interface (CLI) - CircleCIに、インストール手順が書いてあります。$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci/usr/local/bin/に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。$PATHを見ると$HOME/binが通っていることが分かりますので、$HOME/binを作成した上で、以下のように実行します。$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x $HOME/bin/circleci動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。$ circleci helpUnable to find image &#39;circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb&#39; locallysha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb: Pulling from circleci/picard90f4dba627d6: Pull complete91846fb0d5cc: Pull complete06d74f32ea0e: Pull complete52c8a4ef6260: Pull complete96859c268820: Pull completef3fce07f01bd: Pull completeDigest: sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbStatus: Downloaded newer image for circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbbThe CLI tool to be used in CircleCI.Usage:  circleci [flags]  circleci [command]Available Commands:  build       run a full build locally  config      validate and update configuration files  help        Help about any command  step        execute steps  tests       collect and split files with tests  version     output version infoFlags:  -c, --config string   config file (default is .circleci/config.yml)  -h, --help            help for circleci      --taskId string   TaskID      --verbose         emit verbose logging outputUse &quot;circleci [command] --help&quot; for more information about a command.Javaアプリケーションを作成ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。まず、Gradleラッパーを作成します。$ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapperGradleプロジェクトを作成します。$ ./gradlew initsettings.gradleを変更します。$ cat settings.gradlerootProject.name = &#39;hello&#39;build.gradleを変更します。$ cat build.gradleapply plugin: &#39;java&#39;apply plugin: &#39;application&#39;repositories {    jcenter()}mainClassName = &#39;Hello&#39;dependencies {    compile &#39;org.slf4j:slf4j-api:1.7.25&#39;    testCompile &#39;junit:junit:4.12&#39;}Hello.javaを作成します。$ cat src/main/java/Hello.javapublic class Hello {    public static void main(String[] args) {        System.out.println(&quot;hello&quot;);    }}動作確認をします。helloという文字列が表示されます。$ ./gradlew run&gt; Task :runhelloBUILD SUCCESSFUL in 1s2 actionable tasks: 2 executedCircleCI設定ファイルを作成CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。$ cat .circleci/config.ymlversion: 2jobs:    build:        docker:            - image: circleci/openjdk:8-jdk        working_directory: ~/repo        steps:            - checkout            - run: ./gradlew runローカルPCでビルドローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。$ circleci build====&gt;&gt; Spin up EnvironmentBuild-agent version 0.0.4233-c9a1216 (2017-09-21T04:41:54+0000)Starting container circleci/openjdk:8-jdk  using image circleci/openjdk@sha256:4e3319daf38eb0464066e1e6413980b74e11a5253cd5038a6e2f415b07fee3faUsing build environment variables:  BASH_ENV=/tmp/.bash_env-localbuild-1506050141  CI=true  CIRCLECI=true  CIRCLE_BRANCH=  CIRCLE_BUILD_NUM=  CIRCLE_ENV=/tmp/.bash_env-localbuild-1506050141  CIRCLE_JOB=build  CIRCLE_NODE_INDEX=0  CIRCLE_NODE_TOTAL=1  CIRCLE_REPOSITORY_URL=  CIRCLE_SHA1=  CIRCLE_WORKING_DIRECTORY=~/repo====&gt;&gt; Checkout code  #!/bin/shmkdir -p /home/circleci/repo &amp;&amp; cp -r /tmp/_circleci_local_build_repo/. /home/circleci/repo====&gt;&gt; ./gradlew run  #!/bin/bash -eo pipefail./gradlew runDownloading https://services.gradle.org/distributions/gradle-4.1-bin.zip................................................................Unzipping /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vsSet executable permissions for: /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1/bin/gradleStarting a Gradle Daemon (subsequent builds will be faster):compileJavaDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pomDownload https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:processResources NO-SOURCE:classes:runhelloBUILD SUCCESSFUL in 46s2 actionable tasks: 2 executedSuccess!無事、ビルドが成功しました。おわりにローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。">
+    <meta itemprop="datePublished" content="2017-09-23">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">CircleCI 2.0 + Javaのチュートリアル
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-09-23T07:00:00+09:00">2017-09-23</time></p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。</p>
+
+<h1 id="前提">前提</h1>
+
+<ul>
+  <li>Docker
+    <ul>
+      <li>Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker version
+ Version:      17.03.1-ce
+ API version:  1.27
+ Go version:   go1.7.5
+ Git commit:   c6d412e
+ Built:        Tue Mar 28 00:40:02 2017
+ OS/Arch:      windows/amd64
+
+Server:
+ Version:      17.06.2-ce
+ API version:  1.30 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   cec0b72
+ Built:        Tue Sep  5 19:59:19 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+</code></pre></div></div>
+
+<ul>
+  <li>Gradle
+    <ul>
+      <li>未インストールでも、Gradleイメージを使用するので問題ありません。</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gradle --version
+
+------------------------------------------------------------
+Gradle 4.1
+------------------------------------------------------------
+
+Build time:   2017-08-07 14:38:48 UTC
+Revision:     941559e020f6c357ebb08d5c67acdb858a3defc2
+
+Groovy:       2.4.11
+Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015
+JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)
+OS:           Linux 4.4.86-boot2docker amd64
+</code></pre></div></div>
+
+<h1 id="手順">手順</h1>
+
+<h2 id="circleci-cliをインストール">CircleCI CLIをインストール</h2>
+
+<p><a href="https://circleci.com/docs/2.0/local-jobs/#circleci-command-line-interface-cli-overview">Using the CircleCI Command Line Interface (CLI) - CircleCI</a>に、インストール手順が書いてあります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">/usr/local/bin/</code>に出力する説明ですが、Docker for Windowsではこのフォルダは存在しません。<code class="highlighter-rouge">$PATH</code>を見ると<code class="highlighter-rouge">$HOME/bin</code>が通っていることが分かりますので、<code class="highlighter-rouge">$HOME/bin</code>を作成した上で、以下のように実行します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -o $HOME/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x $HOME/bin/circleci
+</code></pre></div></div>
+
+<p>動作確認のため、ヘルプを表示してみます。初回のみ、DockerイメージのPullが実行されます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ circleci help
+Unable to find image 'circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb' locally
+sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb: Pulling from circleci/picard
+90f4dba627d6: Pull complete
+91846fb0d5cc: Pull complete
+06d74f32ea0e: Pull complete
+52c8a4ef6260: Pull complete
+96859c268820: Pull complete
+f3fce07f01bd: Pull complete
+Digest: sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb
+Status: Downloaded newer image for circleci/picard@sha256:678fed6cf44e2341ae1cc57966871b03031c2636c87198dbd067cce7afa8dcbb
+The CLI tool to be used in CircleCI.
+
+Usage:
+  circleci [flags]
+  circleci [command]
+
+Available Commands:
+  build       run a full build locally
+  config      validate and update configuration files
+  help        Help about any command
+  step        execute steps
+  tests       collect and split files with tests
+  version     output version info
+
+Flags:
+  -c, --config string   config file (default is .circleci/config.yml)
+  -h, --help            help for circleci
+      --taskId string   TaskID
+      --verbose         emit verbose logging output
+
+Use "circleci [command] --help" for more information about a command.
+</code></pre></div></div>
+
+<h2 id="javaアプリケーションを作成">Javaアプリケーションを作成</h2>
+
+<p>ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。</p>
+
+<p>まず、Gradleラッパーを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -it -v $(pwd):/var/my-app gradle gradle -p /var/my-app wrapper
+</code></pre></div></div>
+
+<p>Gradleプロジェクトを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./gradlew init
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">settings.gradle</code>を変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat settings.gradle
+rootProject.name = 'hello'
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">build.gradle</code>を変更します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat build.gradle
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'Hello'
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    testCompile 'junit:junit:4.12'
+}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Hello.java</code>を作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat src/main/java/Hello.java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("hello");
+    }
+}
+</code></pre></div></div>
+
+<p>動作確認をします。<code class="highlighter-rouge">hello</code>という文字列が表示されます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./gradlew run
+
+&gt; Task :run
+hello
+
+
+BUILD SUCCESSFUL in 1s
+2 actionable tasks: 2 executed
+</code></pre></div></div>
+
+<h2 id="circleci設定ファイルを作成">CircleCI設定ファイルを作成</h2>
+
+<p>CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat .circleci/config.yml
+version: 2
+jobs:
+    build:
+        docker:
+            - image: circleci/openjdk:8-jdk
+        working_directory: ~/repo
+        steps:
+            - checkout
+            - run: ./gradlew run
+</code></pre></div></div>
+
+<h2 id="ローカルpcでビルド">ローカルPCでビルド</h2>
+
+<p>ローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ circleci build
+
+====&gt;&gt; Spin up Environment
+Build-agent version 0.0.4233-c9a1216 (2017-09-21T04:41:54+0000)
+Starting container circleci/openjdk:8-jdk
+  using image circleci/openjdk@sha256:4e3319daf38eb0464066e1e6413980b74e11a5253cd5038a6e2f415b07fee3fa
+
+Using build environment variables:
+  BASH_ENV=/tmp/.bash_env-localbuild-1506050141
+  CI=true
+  CIRCLECI=true
+  CIRCLE_BRANCH=
+  CIRCLE_BUILD_NUM=
+  CIRCLE_ENV=/tmp/.bash_env-localbuild-1506050141
+  CIRCLE_JOB=build
+  CIRCLE_NODE_INDEX=0
+  CIRCLE_NODE_TOTAL=1
+  CIRCLE_REPOSITORY_URL=
+  CIRCLE_SHA1=
+  CIRCLE_WORKING_DIRECTORY=~/repo
+
+====&gt;&gt; Checkout code
+  #!/bin/sh
+mkdir -p /home/circleci/repo &amp;&amp; cp -r /tmp/_circleci_local_build_repo/. /home/circleci/repo
+====&gt;&gt; ./gradlew run
+  #!/bin/bash -eo pipefail
+./gradlew run
+Downloading https://services.gradle.org/distributions/gradle-4.1-bin.zip
+................................................................
+Unzipping /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs
+Set executable permissions for: /home/circleci/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1/bin/gradle
+Starting a Gradle Daemon (subsequent builds will be faster)
+:compileJava
+Download https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pom
+Download https://jcenter.bintray.com/org/slf4j/slf4j-parent/1.7.25/slf4j-parent-1.7.25.pom
+Download https://jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar
+:processResources NO-SOURCE
+:classes
+:run
+hello
+
+BUILD SUCCESSFUL in 46s
+2 actionable tasks: 2 executed
+Success!
+</code></pre></div></div>
+
+<p>無事、ビルドが成功しました。</p>
+
+<h1 id="おわりに">おわりに</h1>
+
+<p>ローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#circleci" class="page__taxonomy-item" rel="tag">CircleCI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gradle" class="page__taxonomy-item" rel="tag">Gradle</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-09-23T07:00:00+09:00">2017-09-23</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=CircleCI+2.0+%2B+Java%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20%2F2017%2F09%2F23%2Ftutorial-for-circleci-2.0-with-java.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F09%2F23%2Ftutorial-for-circleci-2.0-with-java.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2017%2F09%2F23%2Ftutorial-for-circleci-2.0-with-java.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2017%2F09%2F23%2Ftutorial-for-circleci-2.0-with-java.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/09/04/toc-of-hype-cycle-for-application-development-2017.html" class="pagination--pager" title="2017年アプリケーション開発におけるハイプ・サイクルの目次を翻訳してみました
+">Previous</a>
+    
+    
+      <a href="/2017/09/24/how-to-read-tech-documents.html" class="pagination--pager" title="技術書の読み方
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,13 +1,12 @@
-# u6k.Blog() _(blog)_
+# u6k.Blog _(blog)_
 
 [![Travis](https://img.shields.io/travis/u6k/blog.svg)](https://travis-ci.org/u6k/blog)
 [![GitHub tag](https://img.shields.io/github/tag/u6k/blog.svg)](https://github.com/u6k/blog)
 [![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
-[![Docker Pulls](https://img.shields.io/docker/stars/u6kapps/blog.svg)](https://hub.docker.com/r/u6kapps/blog/)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![u6k.blog()](https://img.shields.io/badge/u6k-blog-orange.svg)](https://blog.u6k.me/)
 
-> [u6k.Blog()](https://blog.u6k.me/) のソースコードを管理します。
+> [u6k.Blog](https://blog.u6k.me/) のソースコードを管理します
 
 __Table of Contents:__
 
@@ -15,11 +14,7 @@ __Table of Contents:__
 
 - [Background](#background)
 - [Install](#install)
-    - [Dependencies](#dependencies)
-- [Usage](#usage)
-- [Development](#development)
-    - [記事を執筆](#記事を執筆)
-    - [Webサイトを表示確認](#webサイトを表示確認)
+- [Dependencies](#dependencies)
 - [Maintainer](#maintainer)
 - [Contribute](#contribute)
 - [License](#license)
@@ -28,33 +23,44 @@ __Table of Contents:__
 
 ## Background
 
-u6k.Blog()は、以下のサービスが連携して配信されています。
+u6k.Blogは、以下のサービスが連携して配信されています。
 
 - GitHub
     - ソースコードを管理します。
 - Travis CI
-    - GitHubにpushすると起動され、GitHubからソースコードを取得して実行用Dockerイメージをビルドして、DockerHubにpushします。
-- DockerHub
-    - 実行用Dockerイメージを管理します。
+    - GitHubにpushすると起動され、GitHubからソースコードを取得して各種チェックを行います。
+- GitHub Pages
+    - u6k.Blogを配信します。
 - Slack
     - Travis CIのビルド結果を通知します。
 
-u6k.Blog()は、Jekyllをブログ・システムとして使用しており、Markdown形式で記事を執筆します。
+u6k.Blogは、Jekyllをブログ・システムとして使用しており、Markdown形式で記事を執筆します。
 
 ## Install
 
-`u6kapps/blog`イメージをDockerHubで配布しているため、これを起動します。
+開発用Dockerイメージをビルドします。
 
 ```
-$ docker run \
-    -p 80:80 \
-    u6kapps/blog
+$ docker-compose build
 ```
 
-### Dependencies
+Dockerコンテナを起動します。起動すると、blogコンテナにより`_site`フォルダにサイトの静的ファイルが生成され、nginxコンテナにより配信されます。サイト生成後、ブラウザからは http://localhost:8080/ でアクセスできます。
+
+```
+$ docker-compose up -d
+```
+
+外部から表示確認するには、`ngrok`を使用します。
+
+```
+$ ngrok http 8080
+```
+
+GitHub Pagesで配信するには、`gh-pages`ブランチをチェックアウトして、`_site`フォルダの内容を全て上書きします。
+
+## Dependencies
 
 - Docker
-    - multi stage buildが実行できるバージョンが必要です。
 
 ```
 $ docker version
@@ -79,46 +85,15 @@ Server:
 - Markdownエディタ
     - 記事をMarkdown形式で執筆するため、Markdownエディタであれば何でも良いです。
     - 筆者は、AtomやVisualStudioCodeを使用しています。
-
-## Usage
-
-`u6kapps/blog`コンテナが起動後、Webブラウザで[http://localhost](http://localhost)を開くとブログが表示されます。
-
-## Development
-
-u6k.Blog()の開発について説明します。
-
-### 記事を執筆
-
-好みのMarkdownエディタで記事を執筆すれば良いです。基本的には、Markdownエディタでプレビューした通りの見た目の記事になるでしょう。
-
-### Webサイトを表示確認
-
-記事を執筆後、ローカルDocker環境で表示確認を行います。
-
-実行用Dockerイメージをビルドします。
-
-```
-$ docker build -t blog .
-```
-
-blogコンテナを起動します。
-
-```
-$ docker run \
-    -p 80:80 \
-    blog
-```
-
-Webブラウザで[http://localhost](http://localhost)を開くとブログが表示されます。
-
-記事を修正した場合、実行用Dockerイメージを再ビルドする必要があります。
+- ngrok
+    - 外部から表示確認を行うときに必要です。
 
 ## Maintainer
 
-- [u6k - GitHub](https://github.com/u6k/)
-- [u6k.Blog()](https://blog.u6k.me/)
-- [u6k_yu1 | Twitter](https://twitter.com/u6k_yu1)
+- u6k
+    - [GitHub](https://github.com/u6k/)
+    - [Twitter](https://twitter.com/u6k_yu1)
+    - [u6k.Blog](https://blog.u6k.me/)
 
 ## Contribute
 

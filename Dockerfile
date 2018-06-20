@@ -1,8 +1,11 @@
-FROM ruby AS blog-dev
+FROM ruby:2.5
+LABEL maintainer="u6k.apps@gmail.com"
 
 # Import file
 COPY plantuml /usr/bin/plantuml
-COPY Gemfile /tmp/Gemfile
+COPY Gemfile /var/my-blog/Gemfile
+
+WORKDIR /var/my-blog/
 
 # Setup software
 RUN apt-get update && \
@@ -23,20 +26,11 @@ RUN apt-get update && \
     gem install \
         jekyll \
         bundler && \
-    cd /tmp && \
     bundle update
 
-# Setup run
+# Setup container config
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
-# Generate HTML files
-COPY . /var/my-blog
-WORKDIR /var/my-blog
-RUN jekyll build
-
-FROM nginx
-LABEL maintainer="u6k.apps@gmail.com"
-
-COPY --from=blog-dev /var/my-blog/_site/ /usr/share/nginx/html/
+CMD ["jekyll", "build", "--increment"]

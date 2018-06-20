@@ -3,5 +3,11 @@ version: '3'
 services:
   blog:
     build: .
+    volumes:
+      - "./:/var/my-blog/"
+  http:
+    image: nginx
+    volumes:
+      - "./_site/:/usr/share/nginx/html"
     ports:
-      - "10080:80"
+      - "8080:80"

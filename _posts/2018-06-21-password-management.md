@@ -50,14 +50,14 @@ date: 2018-06-21 00:00:00+09:00
 
 - Off The Grid
     - [紙だけでサイトごとに異なるパスワードを生成する暗号、米研究者が考案 -INTERNET Watch Watch](https://internet.watch.impress.co.jp/docs/news/473716.html)
-    - [GRC | Off The Grid](https://www.grc.com/offthegrid.htm)
+    - [GRC \| Off The Grid](https://www.grc.com/offthegrid.htm)
 - 別の手法
-    - [パスワードを記録し、暗号化するための、超アナログな方法 | ライフハッカー［日本版］](https://www.lifehacker.jp/2010/12/101222password_tabula_recta.html)
+    - [パスワードを記録し、暗号化するための、超アナログな方法 \| ライフハッカー［日本版］](https://www.lifehacker.jp/2010/12/101222password_tabula_recta.html)
 - IPAの勧告
     - [プレス発表　パスワードリスト攻撃による不正ログイン防止に向けた呼びかけ：IPA 独立行政法人 情報処理推進機構](https://www.ipa.go.jp/about/press/20140917.html)
         - パスワードの使いまわしは、絶対ダメ
 - 総務省の勧告
-    - [パスワード定期変更は逆に危険。その理由を総務省と内閣に聞いた | ホウドウキョク](https://www.houdoukyoku.jp/posts/28671)
+    - [パスワード定期変更は逆に危険。その理由を総務省と内閣に聞いた \| ホウドウキョク](https://www.houdoukyoku.jp/posts/28671)
         - パスワードの定期変更は不要(パスワードが十分に長く複雑な場合)
 - 六角暗号記帳
     - [デジタルエンディングノートにも。生成・変更もカンタン！パスワードノート。 - アマノコトワリ舎　自然と共に。パスワード管理ノート新発売！](https://www.amacoto.com/)

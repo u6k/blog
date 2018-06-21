@@ -1,4 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-20T12:28:26+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">work-reportの素案</title><link href="/2018/06/12/planning-work-report.html" rel="alternate" type="text/html" title="work-reportの素案" /><published>2018-06-12T00:00:00+09:00</published><updated>2018-06-12T00:00:00+09:00</updated><id>/2018/06/12/planning-work-report</id><content type="html" xml:base="/2018/06/12/planning-work-report.html">&lt;p&gt;個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-21T13:32:03+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">パスワード管理手順(デジタル + アナログ)</title><link href="/2018/06/21/password-management.html" rel="alternate" type="text/html" title="パスワード管理手順(デジタル + アナログ)" /><published>2018-06-21T00:00:00+09:00</published><updated>2018-06-21T00:00:00+09:00</updated><id>/2018/06/21/password-management</id><content type="html" xml:base="/2018/06/21/password-management.html">&lt;p&gt;利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。&lt;/p&gt;
+
+&lt;p&gt;この記事では、筆者が実践しているパスワード管理の手順を説明します。&lt;/p&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;パスワード管理サービスで管理する
+    &lt;ul&gt;
+      &lt;li&gt;パスワードの使いまわしや単純なパスワードはNG&lt;/li&gt;
+      &lt;li&gt;可能な限り、二要素認証を利用する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;マスターパスワードだけ、&lt;a href=&quot;https://www.grc.com/offthegrid.htm&quot;&gt;Off The Grid&lt;/a&gt;で生成する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;基本的なパスワードポリシー&quot;&gt;基本的なパスワード・ポリシー&lt;/h1&gt;
+
+&lt;p&gt;いうまでもありませんが、パスワードの使いまわしや単純なパスワードはNGです。パスワードごとに、可能な限り長く(100文字以上)、英数記号を含むランダムな文字列を生成します。ただし、やんごとなき事情により手入力する可能性があるパスワードについては、短いパスワードを生成することがあります。&lt;/p&gt;
+
+&lt;p&gt;また、可能な限り二要素認証を利用します。Google Authenticator、Authyなどのアプリケーションを利用しますが、サービスによってはSMSでトークンが送られてくることもあります。&lt;/p&gt;
+
+&lt;h1 id=&quot;パスワード管理サービス&quot;&gt;パスワード管理サービス&lt;/h1&gt;
+
+&lt;p&gt;上記のようなパスワードを人間の記憶力で覚えられるわけがありません。しかし、紙に書いて管理することも困難です。そこで、パスワード管理サービスを利用します。サービスは、次の要件を満たすものを利用します。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PC、スマートフォンの両方から利用できる&lt;/li&gt;
+  &lt;li&gt;強力なパスワード生成機能がある&lt;/li&gt;
+  &lt;li&gt;パスワード以外もメモできる&lt;/li&gt;
+  &lt;li&gt;サービス自体が二要素認証を利用できる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;筆者は&lt;a href=&quot;https://www.lastpass.com/&quot;&gt;LastPass&lt;/a&gt;を利用しています。&lt;/p&gt;
+
+&lt;p&gt;サービスには、パスワードの他に復旧手順なども一緒にメモしておきます。特に二要素認証を利用している場合は復旧手順が複雑になるため、忘れないようにメモしておきます。&lt;/p&gt;
+
+&lt;h1 id=&quot;マスターパスワードポリシー&quot;&gt;マスターパスワード・ポリシー&lt;/h1&gt;
+
+&lt;p&gt;パスワード管理サービスのマスターパスワードをパスワード管理サービスで管理することはさすがにできないので、これは何らかの手段で記憶する必要があります。&lt;a href=&quot;https://www.ipa.go.jp/about/press/20140917.html&quot;&gt;IPAは紙にメモすることも手段の一つとして推奨&lt;/a&gt;しており、この手法は単純なパスワードを使用するよりよほど効果的ではありますが、紙を紛失してしまえばすぐにばれてしまいます。&lt;/p&gt;
+
+&lt;p&gt;そこで、アナログなパスワード生成手段を利用することにします。アナログなパスワード生成手段はいくつかありますが、ここでは&lt;a href=&quot;https://www.grc.com/offthegrid.htm&quot;&gt;Off The Grid&lt;/a&gt;という手法を利用することにします。Off The Gridは要するに、暗号表を生成したうえで一定のルールでパスワードを生成する、という手法です。つまり、暗号表を見ただけではパスワードは分かりませんが、そのルールを知っていればパスワードを導き出すことができます。とはいえ、Off The Gridのルールそのままではわかる人にはわかってしまうので、筆者はさらに同くじルールを追加しています。&lt;/p&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;パスワード管理は面倒ですが重要なことなので、サービスを便利に使いつつリスクも低減しましょう。&lt;/p&gt;
+
+&lt;h1 id=&quot;参考リンク&quot;&gt;参考リンク&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Off The Grid
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://internet.watch.impress.co.jp/docs/news/473716.html&quot;&gt;紙だけでサイトごとに異なるパスワードを生成する暗号、米研究者が考案 -INTERNET Watch Watch&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.grc.com/offthegrid.htm&quot;&gt;GRC | Off The Grid&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;別の手法
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.lifehacker.jp/2010/12/101222password_tabula_recta.html&quot;&gt;パスワードを記録し、暗号化するための、超アナログな方法 | ライフハッカー［日本版］&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;IPAの勧告
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.ipa.go.jp/about/press/20140917.html&quot;&gt;プレス発表　パスワードリスト攻撃による不正ログイン防止に向けた呼びかけ：IPA 独立行政法人 情報処理推進機構&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;パスワードの使いまわしは、絶対ダメ&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;総務省の勧告
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.houdoukyoku.jp/posts/28671&quot;&gt;パスワード定期変更は逆に危険。その理由を総務省と内閣に聞いた | ホウドウキョク&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;パスワードの定期変更は不要(パスワードが十分に長く複雑な場合)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;六角暗号記帳
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.amacoto.com/&quot;&gt;デジタルエンディングノートにも。生成・変更もカンタン！パスワードノート。 - アマノコトワリ舎　自然と共に。パスワード管理ノート新発売！&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-21-password-management.md&quot;&gt;2018-06-21-password-management.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="機密情報管理" /><summary type="html">利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。</summary></entry><entry><title type="html">work-reportの素案</title><link href="/2018/06/12/planning-work-report.html" rel="alternate" type="text/html" title="work-reportの素案" /><published>2018-06-12T00:00:00+09:00</published><updated>2018-06-12T00:00:00+09:00</updated><id>/2018/06/12/planning-work-report</id><content type="html" xml:base="/2018/06/12/planning-work-report.html">&lt;p&gt;個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。&lt;/p&gt;
 
 &lt;h1 id=&quot;背景&quot;&gt;背景&lt;/h1&gt;
 
@@ -1053,47 +1154,6 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   &lt;li&gt;Source
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-01-28-this-week-i-learned.md&quot;&gt;2018-01-28-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-15 to 2018-01-21)</title><link href="/2018/01/21/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-15 to 2018-01-21)" /><published>2018-01-21T23:50:00+09:00</published><updated>2018-01-21T23:50:00+09:00</updated><id>/2018/01/21/this-week-i-learned</id><content type="html" xml:base="/2018/01/21/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
-
-&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://startyourownisp.com/&quot;&gt;Start Your Own ISP&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;独自のISPを構築する手順。日本ではあまり考えられないけど、海外ではこういった需要があるのだろうか？&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.infoq.com/jp/news/2018/01/blockchain-challenges&quot;&gt;ブロックチェーンの普及を妨げる課題&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;技術的課題がブロックチェーンの普及を妨げているように書かれているけど、そこじゃないと思うんだけどなぁ…&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://speakerdeck.com/shu223/ji-shu-shu-falsezirenmatopeaks-plus-shu-ping-buroguwoshu-kutips-number-ios11book&quot;&gt;技術書のジレンマとPEAKS + 書評ブログを書くTips #iOS11book // Speaker Deck&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;「読み始めるために書評を書く」というのは面白い。実際、自分も定例報告書のようなものは期間の初めに書いてしまい後で結果を反映する、というような運用をしているし。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
-
-&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
-
-&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-01-21-this-week-i-learned.md&quot;&gt;2018-01-21-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>

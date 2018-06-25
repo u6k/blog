@@ -41,6 +41,24 @@ Wi-Fiを従量課金接続として設定することで、次の効果が得ら
     - [Windows 10 での従量制課金接続](https://support.microsoft.com/ja-jp/help/4028458/windows-metered-connections-in-windows-10)
     - [Windows10でデータ通信量を確認する方法、データ節約設定方法、大容量格安sim比較！ - あんりふ！](https://ahiru8usagi.hatenablog.com/entry/Windows10_DataTraffic)
 
+# Windows Updateの自動更新を無効化する
+
+「データ使用状況」を確認すると、「システム」とやらがとんでもない勢いで通信していることがわかると思います。詳細の調査はしていませんが、Windows Updateの通信が大きいように感じます。そこで、Windows Updateの自動更新を無効化してしまいます。
+
+> __NOTE:__ 定期的にWindows Updateを手動更新すること。
+
+Windows 10 HomeとProで手順が異なるようですが、ここではProの場合の手順を説明します。
+
+- グループポリシーエディターを起動します
+- コンピューターの構成 → 管理用テンプレート → Windowsコンポーネント → Windows Update
+- 「自動更新を構成する」を無効に設定します
+
+こうすることで、Windows Updateを手動でチェックしないとダウンロードされないようになります。
+
+- 参考リンク
+    - [「Windows 10」の「Windows Update」の自動更新を無効にする方法](https://www.japan-secure.com/entry/how_to_disable_the_automatic_update_by_windows_update_of_windows_10.html)
+    [ASCII.jp：Windows 10 ProでWindows Updateの動作を制御する (1/2)｜Windows Info](http://ascii.jp/elem/000/001/118/1118658/)
+
 # Link
 
 - Author

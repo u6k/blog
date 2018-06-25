@@ -59,6 +59,22 @@ Windows 10 HomeとProで手順が異なるようですが、ここではProの�
     - [「Windows 10」の「Windows Update」の自動更新を無効にする方法](https://www.japan-secure.com/entry/how_to_disable_the_automatic_update_by_windows_update_of_windows_10.html)
     [ASCII.jp：Windows 10 ProでWindows Updateの動作を制御する (1/2)｜Windows Info](http://ascii.jp/elem/000/001/118/1118658/)
 
+# ファイル共有サービスを停止する
+
+筆者はDropboxを利用していますが、こやつは従量課金接続に設定しても容赦なくデータ通信を行います。そこで、これを停止します。
+
+注意として、単純にDropboxを終了しても"Dropbox Update"というプロセスがしつこく通信していたため、これも終了した方が良いようです。
+
+# アプリケーションの自動バージョンチェックを無効化する
+
+Docker、Visual Studio Code、SorceTreeなど、多くのアプリケーションが起動時に自動バージョンチェックを行います。これが大きな通信を行うことがあるので、無効化します。無効化の手順はアプリケーションごとに異なります。
+
+そもそも、筆者はChocolateyでアプリケーションを管理しているため、自動バージョンチェックは不必要です。この機会に無効化しておこう…
+
+# おわりに
+
+これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。
+
 # Link
 
 - Author

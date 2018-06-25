@@ -1,4 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-21T13:32:03+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">パスワード管理手順(デジタル + アナログ)</title><link href="/2018/06/21/password-management.html" rel="alternate" type="text/html" title="パスワード管理手順(デジタル + アナログ)" /><published>2018-06-21T00:00:00+09:00</published><updated>2018-06-21T00:00:00+09:00</updated><id>/2018/06/21/password-management</id><content type="html" xml:base="/2018/06/21/password-management.html">&lt;p&gt;利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-25T22:44:12+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Windows 10のデータ通信を抑制する</title><link href="/2018/06/25/suppress-network-access-of-windows-10.html" rel="alternate" type="text/html" title="Windows 10のデータ通信を抑制する" /><published>2018-06-25T00:00:00+09:00</published><updated>2018-06-25T00:00:00+09:00</updated><id>/2018/06/25/suppress-network-access-of-windows-10</id><content type="html" xml:base="/2018/06/25/suppress-network-access-of-windows-10.html">&lt;p&gt;自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。&lt;/p&gt;
+
+&lt;p&gt;ここでは、データ通信を抑制するためにやったことを整理します。&lt;/p&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Wi-Fiを従量課金接続に設定する&lt;/li&gt;
+  &lt;li&gt;Windows Updateの自動更新を無効化する&lt;/li&gt;
+  &lt;li&gt;Dropboxなどのファイル共有サービスを停止する&lt;/li&gt;
+  &lt;li&gt;アプリケーションの自動バージョンチェックを無効化する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;wi-fiを従量課金接続に設定する&quot;&gt;Wi-Fiを従量課金接続に設定する&lt;/h1&gt;
+
+&lt;p&gt;Wi-Fiを従量課金接続として設定することで、次の効果が得られるようです。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Windows Update で、優先度の高い更新プログラムだけが更新される&lt;/li&gt;
+  &lt;li&gt;Windows ストアからのアプリのダウンロードが一時停止される&lt;/li&gt;
+  &lt;li&gt;スタート画面のタイルで表示されていた情報の更新が停止する&lt;/li&gt;
+  &lt;li&gt;OneDriveで、オフラインファイルが自動で同期されない&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;従量課金接続として設定することで、Windowsはデータ通信がある程度抑制されますが、他のアプリケーションまで抑制されるとは限りませんし、Windows Updateについても優先度が高いプログラムは自動更新されてしまうので、この設定だけでは不十分です。とはいえ、効果はあるので設定しておきます。&lt;/p&gt;
+
+&lt;p&gt;設定は、次の手順で行います。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;スタート → 設定 → ネットワークとインターネット → Wi-Fi → 接続済みのWi-Fiをクリックします。&lt;/li&gt;
+  &lt;li&gt;「従量課金接続として設定する」をオンにします。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;設定からは、どのアプリケーションがどの程度の通信を行ったのかを参照する機能もあります。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ネットワークとインターネット → データ使用状況&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;参考リンク&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://support.microsoft.com/ja-jp/help/4028458/windows-metered-connections-in-windows-10&quot;&gt;Windows 10 での従量制課金接続&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://ahiru8usagi.hatenablog.com/entry/Windows10_DataTraffic&quot;&gt;Windows10でデータ通信量を確認する方法、データ節約設定方法、大容量格安sim比較！ - あんりふ！&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;windows-updateの自動更新を無効化する&quot;&gt;Windows Updateの自動更新を無効化する&lt;/h1&gt;
+
+&lt;p&gt;「データ使用状況」を確認すると、「システム」とやらがとんでもない勢いで通信していることがわかると思います。詳細の調査はしていませんが、Windows Updateの通信が大きいように感じます。そこで、Windows Updateの自動更新を無効化してしまいます。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; 定期的にWindows Updateを手動更新すること。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Windows 10 HomeとProで手順が異なるようですが、ここではProの場合の手順を説明します。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;グループポリシーエディターを起動します&lt;/li&gt;
+  &lt;li&gt;コンピューターの構成 → 管理用テンプレート → Windowsコンポーネント → Windows Update&lt;/li&gt;
+  &lt;li&gt;「自動更新を構成する」を無効に設定します&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;こうすることで、Windows Updateを手動でチェックしないとダウンロードされないようになります。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;参考リンク
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.japan-secure.com/entry/how_to_disable_the_automatic_update_by_windows_update_of_windows_10.html&quot;&gt;「Windows 10」の「Windows Update」の自動更新を無効にする方法&lt;/a&gt;
+  &lt;a href=&quot;http://ascii.jp/elem/000/001/118/1118658/&quot;&gt;ASCII.jp：Windows 10 ProでWindows Updateの動作を制御する (1/2)｜Windows Info&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;ファイル共有サービスを停止する&quot;&gt;ファイル共有サービスを停止する&lt;/h1&gt;
+
+&lt;p&gt;筆者はDropboxを利用していますが、こやつは従量課金接続に設定しても容赦なくデータ通信を行います。そこで、これを停止します。&lt;/p&gt;
+
+&lt;p&gt;注意として、単純にDropboxを終了しても”Dropbox Update”というプロセスがしつこく通信していたため、これも終了した方が良いようです。&lt;/p&gt;
+
+&lt;h1 id=&quot;アプリケーションの自動バージョンチェックを無効化する&quot;&gt;アプリケーションの自動バージョンチェックを無効化する&lt;/h1&gt;
+
+&lt;p&gt;Docker、Visual Studio Code、SorceTreeなど、多くのアプリケーションが起動時に自動バージョンチェックを行います。これが大きな通信を行うことがあるので、無効化します。無効化の手順はアプリケーションごとに異なります。&lt;/p&gt;
+
+&lt;p&gt;そもそも、筆者はChocolateyでアプリケーションを管理しているため、自動バージョンチェックは不必要です。この機会に無効化しておこう…&lt;/p&gt;
+
+&lt;h1 id=&quot;おわりに&quot;&gt;おわりに&lt;/h1&gt;
+
+&lt;p&gt;これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。&lt;/p&gt;
+
+&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-25-suppress-network-access-of-windows-10.md&quot;&gt;2018-06-25-suppress-network-access-of-windows-10.md&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Windows" /><summary type="html">自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。</summary></entry><entry><title type="html">パスワード管理手順(デジタル + アナログ)</title><link href="/2018/06/21/password-management.html" rel="alternate" type="text/html" title="パスワード管理手順(デジタル + アナログ)" /><published>2018-06-21T00:00:00+09:00</published><updated>2018-06-21T00:00:00+09:00</updated><id>/2018/06/21/password-management</id><content type="html" xml:base="/2018/06/21/password-management.html">&lt;p&gt;利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。&lt;/p&gt;
 
 &lt;p&gt;この記事では、筆者が実践しているパスワード管理の手順を説明します。&lt;/p&gt;
 
@@ -1122,38 +1228,6 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   &lt;li&gt;Source
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-04-this-week-i-learned.md&quot;&gt;2018-02-04-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-22 to 2018-01-28)</title><link href="/2018/01/28/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-22 to 2018-01-28)" /><published>2018-01-28T23:50:00+09:00</published><updated>2018-01-28T23:50:00+09:00</updated><id>/2018/01/28/this-week-i-learned</id><content type="html" xml:base="/2018/01/28/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
-
-&lt;h1 id=&quot;ニュース&quot;&gt;ニュース&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/sirootosan/items/f2f7c20bd604e4542db1&quot;&gt;Web Developer Roadmap 2018が出たので2017年版と比較してみる - Qiita&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/rdlabo/items/8686ffdf9a5e76a68983&quot;&gt;WebはHTML/CSSから学びはじめるべきか｜HTMLも知らない人にIonic本をさせた知見 - Qiita&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://jp.techcrunch.com/2018/01/19/engadget-neoplug/&quot;&gt;普通の眼鏡をスマートグラス化、スライド式着脱機構「neoplug」。鯖江ブランドを世界規格へ | TechCrunch Japan&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://gigazine.net/news/20180119-evo-planner/&quot;&gt;脳タイプに合わせて日々の生活を記録・評価し生活を豊かに改善できるシステム手帳「EVO Planner」 - GIGAZINE&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/shiki_tak/items/bf080787b9bb3343ae46&quot;&gt;Ethereumの学習フローを整理した - Qiita&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/iwason/items/bcd2485d11c88c5a058e&quot;&gt;いまどきJavascript　基本の「き」 - Qiita&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h1&gt;
-
-&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
-
-&lt;h1 id=&quot;link&quot;&gt;Link&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-01-28-this-week-i-learned.md&quot;&gt;2018-01-28-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>

@@ -8,6 +8,8 @@ redirect_from:
   - /2012/08/twitter-api.html
 ---
 
+## リンク
+
 - [Twitter API v1.1でのAPI利用ルールの変更について - Twitterブログ](http://blog.jp.twitter.com/2012/08/twitter-api-v11aip.html)
 - [Twitterの規約変更でクライアントアプリがオワタ - 拷問iPhoneアプリ開発](http://www.umekun.com/archives/1505)
 - [TweetBotのメッセージと新しいTwitterAPIルールの整理 - 拷問iPhoneアプリ開発](http://www.umekun.com/archives/1544)

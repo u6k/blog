@@ -12,9 +12,7 @@ redirect_from:
 
 既に同様の記事が多数公開されていますが、自分もサンプルを作成して動作確認しましたので、ここに公開します。
 
-<!-- more -->
-
-# 参照元
+## 参照
 
 GCMのコーディング方法は、[GCM: Getting Started](http://developer.android.com/guide/google/gcm/gs.html)を読めばだいたいわかります。当記事では、[GCM: Getting Started](http://developer.android.com/guide/google/gcm/gs.html)をなぞりながらサンプルを作成します。
 
@@ -24,7 +22,7 @@ GCMのコーディング方法は、[GCM: Getting Started](http://developer.andr
 
 > TODO: そもそものところから書いたほうが良いかな…
 
-# GCMを有効化
+## GCMを有効化
 
 実装を始める前に、API ConsoleでGCMを有効化する必要があります。API Consoleで行うことは次の通りです。
 
@@ -33,13 +31,13 @@ GCMのコーディング方法は、[GCM: Getting Started](http://developer.andr
 1. GCMサービスを有効化
 1. API Keyを作成
 
-## プロジェクトを作成
+### プロジェクトを作成
 
 [API Console](https://code.google.com/apis/console/#project:884497848039)にアクセスします。プロジェクトを作成していない場合は、「Create project...」をクリックして、プロジェクト名を入力してプロジェクトを作成します。
 
 ![](http://developer.android.com/images/gcm/gcm-create-api-proj.png)
 
-## プロジェクトIDを取得
+### プロジェクトIDを取得
 
 プロジェクトを作成すると、URLが以下のようになるはずです。
 
@@ -47,13 +45,13 @@ GCMのコーディング方法は、[GCM: Getting Started](http://developer.andr
 
 URLの「#project:xxx」のxxx部分がプロジェクトIDになります。これはアプリ側でSENDER_IDとして使用するので、控えておきます。
 
-## GCMサービスを有効化
+### GCMサービスを有効化
 
 API ConsoleのServicesからGoogle Cloud Messaging for AndroidをONに設定します。
 
 ![](/assets/img/2012-10-08-sample-for-google-cloud-messaging-for-android/001.png)
 
-## API Keyを作成
+### API Keyを作成
 
 API ConsoleのAPI AccessからAPI Keyを作成します。
 
@@ -71,7 +69,7 @@ Server appsのAPI Keyが作成されました。ちなみに、「Key for browse
 
 ちょっと面倒ですが、これでGCMを有効化できました。
 
-# アプリ側を作成
+## アプリ側を作成
 
 次に、アプリ側を作成します。アプリ側の作成で行うことは以下の通りです。
 
@@ -80,11 +78,11 @@ Server appsのAPI Keyが作成されました。ちなみに、「Key for browse
 1. GCMを登録/解除するActivityを作成
 1. AndroidManifestを修正
 
-## gcm.jarファイルをビルドパスに含める
+### gcm.jarファイルをビルドパスに含める
 
 GCMはGoogleがライブラリを提供しています。それが「gcm.jar」です。「gcm.jar」は「*$YOUR_SDK_ROOT*/extras/google/」以下に格納されているはずですので、libsフォルダにコピーしてビルドパスに含めます。格納されていない場合、SDK ManagerからGoogle Cloud Messaging for Android Libraryをインストールしてください。
 
-## GCMIntentServiceを作成
+### GCMIntentServiceを作成
 
 GCMの各種イベントを処理するGCMBaseIntentServiceクラスが提供されています。これを継承したGCMIntentServiceクラスを作成します。以下、GCMイベントに対応して通知を表示するサンプルです。
 
@@ -137,7 +135,7 @@ SENDER_IDには、API Consoleで取得したプロジェクトIDを設定しま�
 
 基本的に、各種イベントに対して通知などのアクションを行うことになります。受け取ったregistrationIDをSharedPreferenceに保存する、などの処理はGCMライブラリが良しなにやってくれます。楽だ。
 
-## GCMを登録/解除するActivityを作成
+### GCMを登録/解除するActivityを作成
 
 GCMの登録、解除を行うGCMRegistrarクラスが提供されています。これを使用し、以下のようなコードでRegistrationIDを取得します。
 
@@ -164,7 +162,7 @@ GCMの解除はもっと簡単で、単に`unregister()`を呼び出すだけで
 GCMRegistrar.unregister(MainActivity.this);
 ```
 
-## AndroidManifestを修正
+### AndroidManifestを修正
 
 `<permission>`、`<uses-permission>`を以下のように追加します。
 
@@ -202,14 +200,14 @@ GCMを受信できるように、`<receiver>`を追加します。
 
 以上で、アプリ側の作成は完了です。
 
-# サーバー側を作成
+## サーバー側を作成
 
 サーバー側、と言いますが、今回はとりあえず試したいだけなのでコンソールアプリを作成します。サーバー側の作成で行うことは以下の通りです。
 
 1. jarファイルをビルドパスに含める
 1. コードを作成
 
-## jarファイルをビルドパスに含める
+### jarファイルをビルドパスに含める
 
 アプリ側と同じように以下のjarファイルをビルドパスに含めます。
 
@@ -217,7 +215,7 @@ GCMを受信できるように、`<receiver>`を追加します。
 * json_simple-1.1.jar
 * mockito-all-1.8.5.jar
 
-## コードを作成
+### コードを作成
 
 1個のRegistrationIDに「てすと」という文字列を送信するアプリを作成します。
 
@@ -238,7 +236,7 @@ API KeyはAPI Consoleで作成したもの、RegistrationIDはアプリでGCM登
 
 以上で、サーバー側の作成は完了です。
 
-# 動作確認
+## 動作確認
 
 これで全部揃いましたので、動作確認を行います。以下のように動作したら成功です。
 

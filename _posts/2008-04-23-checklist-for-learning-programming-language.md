@@ -8,6 +8,8 @@ redirect_from:
   - /2008/04/blog-post.html
 ---
 
+## チェックリスト
+
 - 開発環境、コンパイル方法、動作方法
 - エントリーポイントの書き方、Hello, world!
 - APIリファレンス

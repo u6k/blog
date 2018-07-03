@@ -11,6 +11,8 @@ redirect_from:
 
 `java.util.logging`のログレベルと、GAE/jのログレベルの対応が分からなかったので、調べました。
 
+## ログレベル
+
 |java.util.logging|GAE/j|
 |---|---|
 |CONFIG|Debug|

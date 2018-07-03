@@ -15,9 +15,7 @@ redirect_from:
 
 ただその前に、もう一度Redmineのセットアップをおさらいすることで、セットアップ過程を再確認するとともに理解を深めたいと思います。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 * CentOS 6.3
 * Redmine 2.1.2
@@ -26,13 +24,13 @@ redirect_from:
 
 いずれも、2012/10/11時点の最新バージョンです。CentOSは、OSセットアップ直後に近い状態です(作業ユーザーの追加、ネットワーク設定などを行いました)。
 
-# 参考ページ
+## 参考リンク
 
 ほとんど[Redmine 2.1をCentOS 6.3にインストールする手順 | Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)を参考にしています。以下の手順も、参考ページに沿って進めます。
 
-# セットアップ手順
+## セットアップ手順
 
-## SELinuxを無効に設定
+### SELinuxを無効に設定
 
 `/etc/sysconfig/selinux`を開きます。
 
@@ -61,7 +59,7 @@ $ getenforce
 Disabled
 ```
 
-## iptablesでHTTPを許可
+### iptablesでHTTPを許可
 
 `/etc/sysconfig/iptables`を開きます。
 
@@ -95,7 +93,7 @@ COMMIT
 $ sudo service iptables restart
 ```
 
-## EPELリポジトリを登録
+### EPELリポジトリを登録
 
 以下のページで、最新のepel-releaseパッケージのURLを確認します。
 
@@ -107,39 +105,39 @@ URLを確認したら、以下のようにrpmコマンドを実行します。yu
 $ sudo rpm -Uvh <epel-releaseパッケージのURL>
 ```
 
-## 開発ツール類をインストール
+### 開発ツール類をインストール
 
 ```
 $ sudo yum groupinstall "Development Tools"
 ```
 
-## RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール
+### RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール
 
 ```
 $ sudo yum install openssl-devel readline-devel zlib-devel curl-devel libyaml-devel
 ```
 
-## MySQLとヘッダーファイルをインストール
+### MySQLとヘッダーファイルをインストール
 
 ```
 $ sudo yum install mysql-server mysql-devel
 ```
 
-## Apacheとヘッダーファイルをインストール
+### Apacheとヘッダーファイルをインストール
 
 ```
 $ sudo yum install httpd httpd-devel
 ```
 
-## ImageMagickとヘッダーファイルをインストール
+### ImageMagickとヘッダーファイルをインストール
 
 ```
 $ sudo yum install ImageMagick ImageMagick-devel
 ```
 
-## Rubyをインストール
+### Rubyをインストール
 
-### ソースコードをダウンロード
+#### ソースコードをダウンロード
 
 以下のページからRubyのソースコードをダウンロードします。
 
@@ -151,7 +149,7 @@ wgetを使用してダウンロードします。
 $ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.zip
 ```
 
-### ソースコードをビルド
+#### ソースコードをビルド
 
 ```
 $ unzip ruby-1.9.3-p194.zip
@@ -168,7 +166,7 @@ $ ruby -v
 ruby 1.9.3p194 (2012-04-20 revision 35410) [i686-linux]
 ```
 
-### bundlerをインストール
+#### bundlerをインストール
 
 Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。
 
@@ -176,9 +174,9 @@ Redmineが使用するGemを一括インストールするためのツール、b
 # gem install bundler --no-rdoc --no-ri
 ```
 
-## MySQLを設定
+### MySQLを設定
 
-### デフォルトキャラクターセットをutf8に設定
+#### デフォルトキャラクターセットをutf8に設定
 
 `/etc/my.cnf`を開きます。
 
@@ -236,7 +234,7 @@ mysql> show variables like 'character_set%';
 8 rows in set (0.00 sec)
 ```
 
-## rootユーザーのパスワードを変更
+### rootユーザーのパスワードを変更
 
 ```
 mysql> set password for root@localhost=password('新しいrootのパスワード');
@@ -252,14 +250,14 @@ $ mysql -u root -p
 Enter password:
 ```
 
-## 匿名ユーザーを削除
+### 匿名ユーザーを削除
 
 ```
 mysql> delete from mysql.user where user = '';
 mysql> flush privileges;
 ```
 
-### Redmine用のデータベース、ユーザーを作成
+#### Redmine用のデータベース、ユーザーを作成
 
 ```
 mysql> create database db_redmine default character set utf8;
@@ -267,9 +265,9 @@ mysql> grant all on db_redmine.* to user_redmine identified by 'user_redmineの�
 mysql> flush privileges;
 ```
 
-## Redmineをインストール
+### Redmineをインストール
 
-### Redmineをダウンロード
+#### Redmineをダウンロード
 
 [RubyForge: Redmine: ファイルリスト](http://rubyforge.org/frs/?group_id=1850)からRedmineをダウンロードします。
 
@@ -277,7 +275,7 @@ mysql> flush privileges;
 $ wget http://rubyforge.org/frs/download.php/76497/redmine-2.1.2.zip
 ```
 
-### Redmineを展開、配置
+#### Redmineを展開、配置
 
 ダウンロードしたアーカイブを展開します。
 
@@ -293,7 +291,7 @@ $ sudo mv redmine-2.1.2 /var/lib/redmine
 
 以降、Redmineの配置先ディレクトリを*$REDMINE_HOME*と表記します。
 
-### データベース接続を設定
+#### データベース接続を設定
 
 `$REDMINE_HOME/config/database.yml`を開きます。
 
@@ -313,7 +311,7 @@ production:
   encoding: utf8
 ```
 
-### メールサーバー接続を設定
+#### メールサーバー接続を設定
 
 `$REDMINE_HOME/config/configuration.yml`を開きます。
 
@@ -350,7 +348,7 @@ production:
 >       password: "your_password"
 > ```
 
-## Gemパッケージをインストール
+### Gemパッケージをインストール
 
 bundlerを使用して、Redmineで使用するGemを一括でインストールします。*$REDMINE_HOME* で以下のコマンドを実行します。
 
@@ -358,7 +356,7 @@ bundlerを使用して、Redmineで使用するGemを一括でインストール
 # bundle install --without development test postgresql sqlite
 ```
 
-## Redmineの初期設定とデータベースのテーブルを作成
+### Redmineの初期設定とデータベースのテーブルを作成
 
 セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。*$REDMINE_HOME* で以下のコマンドを実行します。
 
@@ -367,13 +365,13 @@ bundlerを使用して、Redmineで使用するGemを一括でインストール
 # RAILS_ENV=production rake db:migrate
 ```
 
-## Passengerをインストール
+### Passengerをインストール
 
 ```
 # gem install passenger --no-rdoc --no-ri
 ```
 
-## PassengerのApache用モジュールをインストール
+### PassengerのApache用モジュールをインストール
 
 ```
 # passenger-install-apache2-module
@@ -395,9 +393,9 @@ applications on Apache, without any further Ruby on Rails-specific
 configuration!
 ```
 
-## Apacheを設定
+### Apacheを設定
 
-### Passengerを設定
+#### Passengerを設定
 
 Passengerの設定をApacheに追加します。`httpd.conf`に直接追加すると紛らわしくなるので、別ファイルで設定します。`/etc/httpd/conf.d/passenger.conf`を先ほど表示された内容を使用して作成します。
 
@@ -417,7 +415,7 @@ $ chkconfig --list | grep httpd
 httpd           0:off   1:off   2:on    3:on    4:on    5:on    6:off
 ```
 
-### ファイルオーナーを変更
+#### ファイルオーナーを変更
 
 Redmineの配置先ディレクトリのファイルを、Apacheを実行するユーザー・グループ(CentOSの場合は`apache`)で読み書きできるよう、ファイルオーナーを変更します。
 
@@ -425,7 +423,7 @@ Redmineの配置先ディレクトリのファイルを、Apacheを実行する�
 $ sudo chown -R apache:apache /var/lib/redmine
 ```
 
-### Redmine公開設定(サブディレクトリで公開)
+#### Redmine公開設定(サブディレクトリで公開)
 
 ここでは、Redmineをサブディレクトリで公開する方法を説明します。
 

@@ -8,7 +8,7 @@ redirect_from:
   - /2012/09/android.html
 ---
 
-# 解像度ごとの設定
+## 解像度ごとの設定
 
 - WVGA
   - Built-in: Default (WVGA800)
@@ -21,7 +21,7 @@ redirect_from:
   - Resolution: 720x1280
   Abstracted LCD density: 320
 
-# キーボード無し端末
+## キーボード無し端末
 
 - Android 4.0以上
 - Hardware Back/Home keys: no

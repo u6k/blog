@@ -9,7 +9,7 @@ date: 2017-07-22
 
 普段、自宅macOSにssh接続して作業していますが、 `vagrant up` したらタイムアウトになってしまったことと、解決したことのメモ。
 
-# 現象
+## 現象
 
 以下のように、タイムアウトになってしまいました。
 
@@ -48,7 +48,7 @@ as well.
 If the box appears to be booting properly, you may want to increasethe timeout ("config.vm.boot_timeout") value.
 ```
 
-# 解決
+## 解決
 
 いろいろ調べて、タイムアウト時間を伸ばしたり、vb_guiをtrueにしたり、ipを固定化したりしてみましたが、最終的に、macOSにVNC接続してターミナルで `vagrant up` したら正常起動しました。
 

@@ -10,21 +10,19 @@ redirect_from:
 
 nativefierを使いやすくするため、Dockerコンテナー化します。
 
-# nativefierとは
+## nativefierとは
 
 WebページをElectronでラップしてデスクトップ・アプリケーション化するアプリです。
 
 [jiahaog/nativefier: Wrap any web page natively without even thinking, across Windows, OSX and Linux](https://github.com/jiahaog/nativefier)
 
-<!-- more -->
-
-# なぜDockerコンテナー化するのか？
+## なぜDockerコンテナー化するのか？
 
 nativefierはNode.js(npm)を必要としますが、Node.jsが無い環境でも使用したいため、Dockerコンテナー化します。
 
 (Dockerが入っているならNode.jsくらい入っているとは思いますが…)
 
-# 使い方
+## 使い方
 
 ビルドしたイメージをDocker Hubで公開しています。以下のように実行できます。
 
@@ -44,7 +42,7 @@ docker run -v {出力先}:/mnt/dest u6kapps/nativefier {nativefierオプショ�
 docker run -v /c/Users/xxx/Downloads:/mnt/dest u6kapps/nativefier -n "Google Calendar" -p win32 --honest "https://calendar.google.com" /mnt/dest
 ```
 
-# 備考
+## 備考
 
 * GitHubでコードを公開しています。
     * [u6k/nativefier-docker](https://github.com/u6k/nativefier-docker)

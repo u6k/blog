@@ -10,7 +10,7 @@ redirect_from:
 
 Dropwizardの練習として、"Hello, {name}!"を出力するだけのDropwizardアプリを作成します。
 
-# Dropwizardとは
+## Dropwizardとは
 
 ココらへんを参照。
 
@@ -22,9 +22,7 @@ Dropwizardの根底にあるThe Twelve-Factor Appについては以下を参照�
 
 - [The Twelve-Factor App（日本語訳）](http://twelve-factor-ja.herokuapp.com/)
 
-<!-- more -->
-
-# 前提
+## 前提
 
 - Java SDK 8
 	- Java SDK 7系でも問題無いはず。
@@ -58,7 +56,7 @@ OS name: "mac os x", version: "10.10.2", arch: "x86_64", family: "mac"
 - [Getting Started | Dropwizard](http://dropwizard.io/getting-started.html)に概ね沿って作業しますが、勉強のためところどころ自分用に変えています。
 - 作成したソースコードは、[u6k/sample-dropwizard at 0.1.0](https://github.com/u6k/sample-dropwizard/tree/0.1.0)で参照できます。
 
-# Mavenプロジェクトを作成
+## Mavenプロジェクトを作成
 
 シンプルなMavenプロジェクトを作成します。
 
@@ -90,7 +88,7 @@ Gitを使用している場合、プロジェクトフォルダに".gitignore"�
 .settings
 ```
 
-## Eclipseプロジェクトを作成
+### Eclipseプロジェクトを作成
 
 `mvn`コマンドで作成したけどEclipseで作業を行いたい場合、以下のコマンドを実行することでEclipseプロジェクトファイルを生成します。
 
@@ -98,7 +96,7 @@ Gitを使用している場合、プロジェクトフォルダに".gitignore"�
 $ mvn eclipse:eclipse
 ```
 
-# "pom.xml"を編集
+## "pom.xml"を編集
 
 Dropwizardのバージョンを定義します。
 
@@ -149,13 +147,13 @@ Dropwizardのバージョンを定義します。
 </project>
 ```
 
-## NOTE: "AppTest.java"がコンパイルエラー
+### NOTE: "AppTest.java"がコンパイルエラー
 
 `<dependencies>`にもともと定義されていたjunit 3.x系の記述を削除すると、"src/test/java/**/AppTest.java"のコンパイルがエラーになります。
 
 さっくり"AppTest.java"を削除するか、junit 4.x系を追加してコードを修正すると良いです。
 
-# Configurationクラス
+## Configurationクラス
 
 YAMLを読み込むConfigurationクラスを作成します。
 
@@ -213,7 +211,7 @@ logging:
 - 参考
 	- [YAML - Wikipedia](http://ja.wikipedia.org/wiki/YAML)
 
-# Resourceクラス
+## Resourceクラス
 
 URIにマッピングされるResourceクラスを作成します。
 
@@ -249,7 +247,7 @@ public class HelloResource {
 }
 ```
 
-# Representationクラス
+## Representationクラス
 
 Resourceクラスが返す処理結果であるRepresentationクラスを作成します。
 
@@ -277,7 +275,7 @@ public class Hello {
 }
 ```
 
-# HealthCheckクラス
+## HealthCheckクラス
 
 ヘルスチェックを行うHealthCheckクラスを作成します。ヘルスチェックは無くても問題ありませんので、スキップしても良いです(起動時に警告は出力されますが)。
 
@@ -296,7 +294,7 @@ public class AliveHealthCheck extends HealthCheck {
 }
 ```
 
-# Applicationクラス
+## Applicationクラス
 
 アプリのエントリーポイントであるApplicationクラスを作成します。
 
@@ -331,7 +329,7 @@ public class HelloApplication extends Application<HelloConfiguration> {
 }
 ```
 
-# 再び"pom.xml"を編集
+## 再び"pom.xml"を編集
 
 Fatjarを作成するため、"maven-shade-plugin"を追加します。
 
@@ -401,7 +399,7 @@ Fatjarを作成するため、"maven-shade-plugin"を追加します。
 - 参考
 	- [Apache Maven JAR Plugin - Plugin Documentation](http://maven.apache.org/plugins/maven-jar-plugin/plugin-info.html)
 
-## NOTE: Javaバージョン、ソースコードの文字エンコーディングを指定
+### NOTE: Javaバージョン、ソースコードの文字エンコーディングを指定
 
 省略しても(たぶん)問題ありませんが、明記したほうが環境差異を無くすことができます。
 
@@ -434,7 +432,7 @@ Fatjarを作成するため、"maven-shade-plugin"を追加します。
 	- [Maven Compiler plugin - Plugin Documentation](http://maven.apache.org/plugins/maven-compiler-plugin/plugin-info.html)
 	- [Maven – Frequently Asked Technical Questions](http://maven.apache.org/general.html#encoding-warning)
 
-## "pom.xml"全体
+### "pom.xml"全体
 
 最終的に、"pom.xml"全体では以下のようになります。
 
@@ -524,7 +522,7 @@ Fatjarを作成するため、"maven-shade-plugin"を追加します。
 </project>
 ```
 
-# ビルド
+## ビルド
 
 以下のコマンドでビルドします。
 
@@ -549,7 +547,7 @@ optional arguments:
 
 usageが表示されたら、成功です。
 
-# 実行
+## 実行
 
 パラメータとYAMLファイルを指定して実行します。
 
@@ -571,11 +569,11 @@ $ java -jar target/sample_dropwizard-0.0.1-SNAPSHOT.jar server hello.yml
 {"alive":{"healthy":true},"deadlocks":{"healthy":true}}
 ```
 
-# 停止
+## 停止
 
 停止するには、`Ctrl + C`を押します。
 
-# バージョン表示
+## バージョン表示
 
 usageにも表示されていますが、`-v`オプションを指定するとバージョンを表示することができます。
 
@@ -591,6 +589,6 @@ $ java -jar target/sample_dropwizard-0.0.1-SNAPSHOT.jar -v
 No application version detected. Add a Implementation-Version entry to your JAR's manifest to enable this.
 ```
 
-# おわりに
+## おわりに
 
 個人でツールを作成するときのフレームワークとして良いと思っています。今後、少しずつ機能を調べていきます。似たようなコンセプトを持つ[Spring Boot](http://projects.spring.io/spring-boot/)というフレームワークもあるので、いずれこちらも調べてみようかと。

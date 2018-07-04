@@ -10,13 +10,13 @@ date: 2017-04-30
 
 最近、Amazon S3に依存するアプリケーションの自動テストに、S3互換ストレージであるMinioを使うようにしています。ここで、Java(SpringBoot)からAWS SDK for Javaを使用してMinioにアクセスするサンプルコードを作成します。
 
-# Minioとは
+## Minioとは
 
 S3クローンの一つで、S3互換なのでAWS SDKなどでAmazon S3と同様にアクセスすることができます。手軽にS3互換ストレージを使用することができて便利。
 
 - [Minio](https://www.minio.io/)
 
-# 前提条件
+## 前提条件
 
 - Docker
     - 筆者は、Windows 10にDocker ToolboxをインストールしてDocker環境を構築しています。
@@ -67,11 +67,11 @@ OS name: "linux", version: "4.4.59-boot2docker", arch: "amd64", family: "unix"
     - いくつかの使用方法がありますが、ここではDockerコンテナとして動作させます。
     - Minio側のバグにより、latestではなくedgeを使用します。
 
-# 手順
+## 手順
 
 MinioをDockerコンテナとして動作させて、SpringBootアプリケーションからアクセスする手順を説明します。作成済みのサンプルコードは [u6k/sample-minio](https://github.com/u6k/sample-minio) にあります。
 
-## Minioコンテナを動作させてみる
+### Minioコンテナを動作させてみる
 
 [Minio Docs](https://docs.minio.io/)の「Docker Container」を参考に動作させてみます。
 
@@ -114,7 +114,7 @@ Minioは9000ポートで起動しますので、WebブラウザやAPIでは9000�
 
 ログにアクセスキーとシークレットキーが出力されるので、WebブラウザやAPIでアクセスするときはこれを使用します。自動テストなどでアクセスキーとシークレットキーを固定したい場合は、環境変数`MINIO_ACCESS_KEY`と`MINIO_SECRET_KEY`を指定することで、任意に設定できます。
 
-## SpringBootアプリケーションからMinioにアクセスしてみる
+### SpringBootアプリケーションからMinioにアクセスしてみる
 
 SpringBootプロジェクトの作成手順は割愛します。肝心のサンプルコードは、 `src/main/java/me/u6k/sample_minio/Main.java` をご覧ください。一部をここで解説します。
 
@@ -171,7 +171,7 @@ for (Bucket bucket : s3.listBuckets()) {
 
 バケットの一覧を取得して、バケット名をログ出力しています。
 
-## Dockerイメージをビルドして、Dockerコンテナからアクセスしてみる
+### Dockerイメージをビルドして、Dockerコンテナからアクセスしてみる
 
 まず、Dockerイメージをビルドします。
 
@@ -206,6 +206,6 @@ $ docker run \
 2017-04-30 09:14:57.357  INFO 1 --- [           main] me.u6k.sample_minio.Main                 : bucket=foo
 ```
 
-# おわりに
+## おわりに
 
 S3アクセスとクライアント初期化処理のみ異なりますが、他は同様にアクセスできることが確認できました。MinioはS3のローカル環境として利用できそうだと考えます。

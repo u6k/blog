@@ -11,30 +11,28 @@ redirect_from:
 なんだかんだと環境が汚れて、Windowsを再セットアップすることがあります(仮想環境を使えとは思いますが)。ここでは、再セットアップの手順を説明します。
 なお、この文章はあくまで自分向けなので、他の人には参考にならないと思います。たぶん。
 
-<!-- more -->
-
-# 前準備
+## 前準備
 
 - IMEの辞書をバックアップする。
 - 他にバックアップすべきファイルが無いか、全フォルダを確認する。特に、ユーザーフォルダ以下を確認する。
 - iPhoneUSB接続でテザリングする場合、iTunesインストールファイルをダウンロードしておいたほうが良い。
 
-# 用意するもの
+## 用意するもの
 
 - 外付けHDD。PC内にしかないファイルを退避するため。Dropboxなど外部ストレージに保存してあるなら、必要ない。
 - Windowsインストールメディア。Windows PCであれば、PC内に回復用パーティションがあるはず。
 - MS Officeインストールメディア。
 
-# 手順
+## 手順
 
-## Windowsインストール
+### Windowsインストール
 
 - インストールメディア、または回復用パーティションからWindowsをインストールする。
 - Microsoftアカウントでログオンする。
 - ログオン方式を変更する。
 	- Microsoftアカウントのパスワードをランダム文字列にしていて覚えていないため、ログオン方式を変更している。
 
-## 初期設定
+### 初期設定
 
 ※設定は、前使用していたアカウントから色々引き継がれる。
 
@@ -58,7 +56,7 @@ redirect_from:
 	- フォントサイズ
 	- 画面幅、バッファ
 
-## Chocolatey
+### Chocolatey
 
 - [Chocolatey Gallery](https://chocolatey.org)に記載されているコマンドをコマンドプロンプトで実行して、Chocolateyをインストールする。
 - よく使うソフトウェアを`choco`コマンドでインストールする。
@@ -67,7 +65,7 @@ redirect_from:
 > choco install TortoiseGit git.install tortoisesvn svn GoogleChrome thunderbird winscp jdk8 vcredis2013 directx ccleaner adobereader cygwin ruby python cygwin skype putty SourceTree virtualbox vagrant genymotion dropboxfiddler sandboxie truecrypt android-sdk
 ```
 
-## 手動でソフトウェアをセットアップ
+### 手動でソフトウェアをセットアップ
 
 - MS Office
 	- 自動修正を一通りオフに設定
@@ -120,7 +118,7 @@ redirect_from:
 - Android SDK
 	- 適当なモジュールをダウンロードする。
 
-# メモ
+## メモ
 
 - まだまだ、手動でインストール・設定することが多い…
 - Linuxのdotfile管理みたいなのは、Windowsだとレジストリかな。レジストリを保存しておいて、Chocolateyインストール→レジストリを復元、で設定を復元できないかなぁ。そんなに綺麗にはできないよなぁ…

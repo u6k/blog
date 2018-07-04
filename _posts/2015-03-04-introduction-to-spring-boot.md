@@ -12,9 +12,7 @@ redirect_from:
 
 というわけで、Spring Bootを使用してみようと、ハローワールド的アプリを作成してみます。
 
-<!-- more -->
-
-# Spring Bootとは
+## Spring Bootとは
 
 ココらへんを参照。
 
@@ -23,12 +21,12 @@ redirect_from:
 - [Spring BootによるWebアプリお手軽構築 - Taste of Tech Topics](http://acro-engineer.hatenablog.com/entry/2014/06/03/120128)
 - [Spring Boot Reference Guide](http://docs.spring.io/spring-boot/docs/1.2.2.RELEASE/reference/htmlsingle/)
 
-# 前提
+## 前提
 
 - Java 8系
 - Maven 3系
 
-# Mavenプロジェクトを作成
+## Mavenプロジェクトを作成
 
 `mvn`でプロジェクトを作成します。
 
@@ -91,7 +89,7 @@ $ mvn eclipse:eclipse
 </project>
 ```
 
-# 文字列を返すだけのアプリを作成
+## 文字列を返すだけのアプリを作成
 
 `App.java`を修正します。
 
@@ -118,7 +116,7 @@ public class App {
 }
 ```
 
-# ビルド
+## ビルド
 
 パッケージングします。
 
@@ -126,7 +124,7 @@ public class App {
 $ mvn clean package
 ```
 
-# 実行
+## 実行
 
 実行します。
 
@@ -146,14 +144,14 @@ Date: Wed, 04 Mar 2015 10:58:46 GMT
 Hello, sample-spring-boot!
 ```
 
-# 停止
+## 停止
 
 `Ctrl + C`で停止します。
 
-# おわりに
+## おわりに
 
 Dropwizardに比べて手順が少ない、Springの知識が生かせる、ということでDropwizardよりSpring Bootの方が良いかなー、と思っています。
 
-# ソースコード
+## ソースコード
 
 - [u6k/sample-spring-boot at 0.1.0](https://github.com/u6k/sample-spring-boot/tree/0.1.0)

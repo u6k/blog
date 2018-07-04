@@ -12,7 +12,7 @@ date: 2018-04-29 00:00:00+09:00
 
 この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。
 
-# はじめに
+## はじめに
 
 Rubyでジョブ管理を行おうと考えたとき、[Resque](https://github.com/resque/resque)、[Delayed::Job](https://github.com/collectiveidea/delayed_job)、[Sidekiq](https://github.com/mperham/sidekiq)などの仕組みがあります。さらに定期的にジョブを実行したいと思い方法を探していると、[Sidekiq-Cron](https://github.com/ondrejbartas/sidekiq-cron)や[sidekiq-scheduler](https://github.com/moove-it/sidekiq-scheduler)の解説が多く見られました。このため、Sidekiqを使うことにしました。
 
@@ -20,7 +20,7 @@ Rubyでジョブ管理を行おうと考えたとき、[Resque](https://github.c
 
 今回の手順で作成したプロジェクトは、 [u6k/sample-sidekiq](https://github.com/u6k/sample-sidekiq/) にあります。
 
-# 前提
+## 前提
 
 筆者はRails開発をvim + Dockerで行っており、ホストPCにRubyをインストールしてはいません。Dockerおよびdocker-composeを使用しますので、あらかじめインストールしておいてください。
 
@@ -60,11 +60,11 @@ docker-compose version 1.21.0, build 5920eb0
 
 RubyやRailsなど他のソフトウェアは、全てDockerコンテナ内でインストールするので、ホストPCにインストールする必要はありません。
 
-# セットアップ、実行手順
+## セットアップ、実行手順
 
 次に、Railsプロジェクトを作成してからジョブを実行するまでの手順を説明します。
 
-## Railsプロジェクトを作成
+### Railsプロジェクトを作成
 
 Railsプロジェクトを作成します。ホストPCにRubyがセットアップ済みであれば `rails new .` を実行すれば良いですが、ここではrubyコンテナの中でRailsプロジェクトを作成します。
 
@@ -90,7 +90,7 @@ Ruby on Railsをインストールします。
 
 作成したら、 `ls` でファイルを確認してみます。Railsプロジェクトのファイルが作成されていることを確認したら、 `Ctrl-d` でコンテナからログアウトします。
 
-## Gemfileに `sidekiq` を追加
+### Gemfileに `sidekiq` を追加
 
 Sidekiqはgemで提供されているので、 `Gemfile` ファイルに追加します。
 
@@ -138,7 +138,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
-## Dockerコンテナ化
+### Dockerコンテナ化
 
 `rails` コマンドを使用したり動作確認するため、早々にDockerコンテナ化します。
 
@@ -237,7 +237,7 @@ Webブラウザで http://localhost:3000 を開くか `curl` コマンドでGET�
 
 ![rails welcome page](/assets/img/2018-04-29-sample-sidekiq/rails-welcome-page.jpeg)
 
-## ダッシュボードへのルートを設定
+### ダッシュボードへのルートを設定
 
 Sidekiqはジョブがどのような状態かを確認するためのダッシュボードを提供しています。ダッシュボードにアクセスするには、 `config/routes.rb` ファイルにルートを設定します。
 
@@ -264,7 +264,7 @@ Rails.application.routes.draw do
 end
 ```
 
-## ワーカーを作成
+### ワーカーを作成
 
 Sidekiqで実行するワーカーを作成します。
 
@@ -287,7 +287,7 @@ class HelloWorker
 end
 ```
 
-## ワーカーを実行
+### ワーカーを実行
 
 いよいよ、作成したワーカーをSidekiqで実行してみます。
 
@@ -338,13 +338,13 @@ worker_1  | 2018-04-25T10:30:25.441Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e1
 
 ![sidekiq dashboard](/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard.jpeg)
 
-## SidekiqをCron化
+### SidekiqをCron化
 
 ここまでの作業で、Sidekiqを使ったジョブの実行ができるようになりました。単純にジョブを実行するだけであれば、ここまでで終わりです。
 
 ここからは、sidekiq-cronを使ってジョブを定期的に実行してみます。
 
-## `Gemfile` と `routes.rb` を修正
+### `Gemfile` と `routes.rb` を修正
 
 sidekiq-cronの設定は簡単で、2ファイルを修正するだけです。
 
@@ -370,7 +370,7 @@ require 'sidekiq/cron/web'
 
 これで、ジョブを定期実行する準備は完了です。ワーカーを変更する必要はありません。
 
-## ジョブを定期実行
+### ジョブを定期実行
 
 Dockerコンテナを停止して、起動して、Railsコンソールを起動します。
 
@@ -413,13 +413,13 @@ Cronページを見ると、登録したジョブが表示されます。
 
 ![sidekiq dashboard cron](/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-cron.jpeg)
 
-# おわりに
+## おわりに
 
 このように、Railsアプリケーションに簡単に定期実行ジョブを追加することができました。アプリケーション固有の、クリーンアップ処理や単純な集計バッチ処理などであれば、これで十分だと思います。
 
 一方、「ジョブ管理システム」として考えると、いろいろと機能が不足しています。ジョブネット、ジョブごとのワークスペース、ジョブ実行履歴、など。そういった機能が必要な場合は、やはりジョブ管理専用のサービスを使うことになると思います。
 
-# 参考リンク
+## 参考リンク
 
 - [mperham/sidekiq: Simple, efficient background processing for Ruby](https://github.com/mperham/sidekiq)
 - [sidekiqの使い方 - Qiita](https://qiita.com/nysalor/items/94ecd53c2141d1c27d1f)
@@ -427,7 +427,7 @@ Cronページを見ると、登録したジョブが表示されます。
 - [Sidekiq アンチパターン: 序 - SmartHR Tech Blog](http://tech.smarthr.jp/entry/2017/04/20/165555)
 - [ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs](https://github.com/ondrejbartas/sidekiq-cron)
 
-# Link
+## Link
 
 - Author
   - [u6k.Blog()](https://blog.u6k.me/)

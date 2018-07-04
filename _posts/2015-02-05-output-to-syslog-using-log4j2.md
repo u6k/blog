@@ -12,9 +12,7 @@ redirect_from:
 
 [Apache Log4j 2](http://logging.apache.org/log4j/2.x/)を使ってsyslogにログを出力する設定手順をメモします。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 - 作業環境はWindowsでEclipse+Maven 2です。Mavenが使えればOSやIDEは何でも良いです。
 - 動作環境はRaspbianです。他のLinuxでも同様のはずです。
@@ -31,7 +29,7 @@ Java(TM) SE Runtime Environment (build 1.8.0-b132)
 Java HotSpot(TM) Client VM (build 25.0-b70, mixed mode)
 ```
 
-# Log4j2を使えるように設定
+## Log4j2を使えるように設定
 
 プロジェクトを作成します。Eclipseで"Maven Project"を作成するか、`mvn archetype:create`を実行します。
 
@@ -84,7 +82,7 @@ public static void main(String[] args) {
 2015/02/05 12:32:40.179 INFO  - info
 ```
 
-# 514/udpでログを受信できるようにrsyslogを設定
+## 514/udpでログを受信できるようにrsyslogを設定
 
 Raspbianはrsyslogが動作していますが、udp・tcpともに受信できるように設定されていません。これを設定し、rsyslogを再起動します。
 
@@ -118,7 +116,7 @@ $ sudo service rsyslog restart
 
 "/var/log/syslog"を見て、エラーが出力されていなければ成功です。
 
-# Log4j2からsyslogに出力するように設定
+## Log4j2からsyslogに出力するように設定
 
 先ほどの"log4j2.xml"は標準出力にログを出力するように設定しました。ここに、syslogにも出力するように設定を追加します。
 

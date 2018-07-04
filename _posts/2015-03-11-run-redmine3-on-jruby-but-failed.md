@@ -10,22 +10,20 @@ redirect_from:
 
 昔に[Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす](http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html)なんてことをやりましたが、[Redmine 3.0.0がリリースされた](http://redmine.jp/redmine_today/2015/02/redmine-3_0_0-released/)ということで、この最新バージョンでRedmine on JRubyを試してみました。
 
-# 結論
+## 結論
 
 途中で詰まってしまいました…
 
 なので、この文書は「試したけどダメだったログ」になります。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 * Windows
 	* Macでも問題ないはず。
 * Vagrant
 	* chef/centos-7.0を使用
 
-# Vagrantを起動
+## Vagrantを起動
 
 `chef/centos-7.0`を使用するように、Vagrantを初期化・起動します。
 
@@ -37,7 +35,7 @@ redirect_from:
 
 `vagrant ssh`は、Windowsでは`ssh`コマンドがインストールされていないため失敗します。`Cygwin`などで`ssh`コマンドをインストールするか、任意のsshクライアント(TeraTermなど)を使用してください。
 
-# 各種パッケージを更新、インストール
+## 各種パッケージを更新、インストール
 
 インストール済みソフトウェアを最新化します。
 
@@ -57,7 +55,7 @@ Java SDKをインストールします。
 $ sudo yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 ```
 
-# JRubyをインストール
+## JRubyをインストール
 
 JRubyをインストールします。パッケージインストールではなく手動インストールします。
 
@@ -82,7 +80,7 @@ $ jruby -v
 $ sudo jruby -S gem install bundler --no-rdoc --no-ri
 ```
 
-# Redmineをダウンロード、展開
+## Redmineをダウンロード、展開
 
 Redmineをダウンロード、展開します。
 
@@ -92,7 +90,7 @@ $ unzip redmine-3.0.0.zip
 $ cd redmine-3.0.0
 ```
 
-# Redmine設定を作成
+## Redmine設定を作成
 
 データベース設定を作成します。
 
@@ -120,7 +118,7 @@ $ vi config/configuration.yml
 production:
 ```
 
-# Gemパッケージをインストール
+## Gemパッケージをインストール
 
 Redmineが使用するGemパッケージをインストールします。
 
@@ -128,7 +126,7 @@ Redmineが使用するGemパッケージをインストールします。
 $ jruby -S bundle install --without development test postgresql mysql
 ```
 
-# データベース初期化
+## データベース初期化
 
 セッションデータ暗号化用鍵の生成を行います。
 
@@ -142,7 +140,7 @@ $ jruby -S rake generate_secret_token
 NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC, please help us finish 4.2 support - check http://bit.ly/jruby-42 for starters
 ```
 
-# NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC
+## NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC
 
 [http://bit.ly/jruby-42](http://bit.ly/jruby-42)にアクセスしましたが、正直良く分かりません…
 
@@ -154,6 +152,6 @@ NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC, please help us f
 "core AR-JDBC does not support"と言われてしまっているので、とりあえずここまででギブアップします。
 
 
-# おわりに
+## おわりに
 
 これが成功したら、次は1jarでRedmineを使用できるようにしたいなぁ。Dropwizardとかで。

@@ -11,11 +11,9 @@ redirect_from:
 
 Open JTalkを簡単に使用できるDockerfileを構築したので、内容を説明します。
 
-<!-- more -->
-
 [Open JTalkで音声合成したい](http://blog.u6k.me/2016/03/open-jtalk-docker.html)の続きです。
 
-# 使い方
+## 使い方
 
 発声させる文字列を標準入力から受け取り、生成した音声wavデータを標準出力に出力します。Docker Hubで公開しているため、以下のように実行できます。
 
@@ -25,11 +23,11 @@ echo こんにちは | docker run -i --rm u6kapps/open_jtalk > hello.wav
 
 詳細な使い方については、[open_jtalk-docker/docker/open_jtalk](https://github.com/u6k/open_jtalk-docker/tree/master/docker/open_jtalk)をご覧ください。
 
-# 構築スクリプトの説明
+## 構築スクリプトの説明
 
 使い方、ライセンスなど使用者のための情報は、[open_jtalk-docker/docker/open_jtalk](https://github.com/u6k/open_jtalk-docker/tree/master/docker/open_jtalk)で説明しています。この記事では、面倒くさいOpen JTalkの構築を自動化したスクリプトの内容について説明します。
 
-## Dockerfile
+### Dockerfile
 
 [Dockerfile](https://github.com/u6k/open_jtalk-docker/blob/master/docker/open_jtalk/Dockerfile)の内容について説明します。
 
@@ -112,7 +110,7 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 スクリプトを取り込み、実行権限を付与して、Docker起動時に実行するように指定します。少し躓いた点として、WindowsのDocker Machineでは`chmod`を実行しなくてもスクリプトが実行できましたが、Docker HubやLinuxホストでDockerビルドした場合はPermission deniedになってしまいました。
 
-## entrypoint.sh
+### entrypoint.sh
 
 [entrypoint.sh](https://github.com/u6k/open_jtalk-docker/blob/0.6.1/5116/update-version/docker/open_jtalk/entrypoint.sh)について説明します。
 
@@ -157,11 +155,11 @@ cat $OUTPUT_FILE
 
 `open_jtalk`が出力した音声ファイルを標準出力に出力しています。結果、`docker`の実行結果として標準出力に音声ファイルの内容が出力されます。
 
-# おわりに
+## おわりに
 
 とりあえず、簡単にOpen JTalkを使用できるDockerイメージを構築しました。他に、MMDAgentの音響ファイルを入れたり、WebAPIとしてOpen JTalkを使用したかったり、やりたいことはいくつかあるので作業を続行します。
 
-# リンク
+## リンク
 
 * GitHub
     * [u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。](https://github.com/u6k/open_jtalk-docker)

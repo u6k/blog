@@ -10,14 +10,12 @@ redirect_from:
 
 自分のタスク管理用に稼働させているRedmineでCSVやPDFを出力すると文字化けが発生します。これを解消したので、手順を説明します。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 * Redmineは[openshift/openshift-redmine-quickstart · GitHub](https://github.com/openshift/openshift-redmine-quickstart)で構築。
 * OpenShift上で稼働。
 
-# 手順
+## 手順
 
 [PDFおよびCSVの文字化けを回避する — Redmine.JP](http://redmine.jp/faq/general/pdfcsv/)によれば、`config/locales/ja.yml`を開き、`general_csv_encoding: CP932`にすれば良いとのこと。
 

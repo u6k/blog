@@ -10,7 +10,7 @@ redirect_from:
 
 ブログ記事はDropboxで管理していますが、どうせならGitHubで管理することでcommitを稼ぎたいなぁ、とふと思い、ブログ引っ越しを再考したくなりました。以前にブログ引っ越しした時のメモは[ブログ引っ越し検討、およびブログサービスに求める要件 | u6k.log()](http://blog.u6k.me/2015/05/blog-post.html)です。
 
-<!-- more -->
+## Jekyll? Octopress?
 
 GitHub中心と考えると、ブログ・システムはJekyll、Jekyll Bootstrap、Octopress辺りが有名らしいです。
 

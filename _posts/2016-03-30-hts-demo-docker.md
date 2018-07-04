@@ -11,7 +11,7 @@ redirect_from:
 
 以前から、人の音声を簡単にサンプリングして音声合成できないかな？　とは考えていました。例えば、声優のたまごのような人の音声を合成して、広く知ってもらえるようなサービスを作ったりできないかな、と考えていました。ただ、音声合成の元データの作り方が分かりませんでした。が、ふとそれっぽい記事を見かけたのでメモします。
 
-<!-- more -->
+## 参考リンク
 
 * [音響モデルの作成 - MMDAgent & Project-NAIP wiki](http://cube370.wiki.fc2.com/wiki/%E9%9F%B3%E9%9F%BF%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90)
 * [HTSの学習用データの作成 - MMDAgent & Project-NAIP wiki](http://cube370.wiki.fc2.com/wiki/HTS%E3%81%AE%E5%AD%A6%E7%BF%92%E7%94%A8%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E4%BD%9C%E6%88%90)
@@ -22,7 +22,7 @@ redirect_from:
 
 HTS-demoというソフトウェアを使うと、Open JTalkで音声合成する元データである音響モデルというものを作成できるようです。ただ、HTS-demoを動作させることが非常に難しいように見えます。これを簡単に使用できるようにするため、Dockerイメージとアプリケーションを作成してみたいと考えています。
 
-# リンク
+## リンク
 
 * GitHub
     * [u6k/hts-demo-docker: 音響モデル作成ソフトウェアをDockerイメージで提供します。](https://github.com/u6k/hts-demo-docker)

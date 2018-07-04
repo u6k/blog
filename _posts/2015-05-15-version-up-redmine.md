@@ -11,9 +11,7 @@ redirect_from:
 OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。
 この記事では、バージョンアップ手順を説明します。
 
-<!-- more -->
-
-# 構築手順
+## 構築手順
 
 前回は[openshift/openshift-redmine-quickstart](https://github.com/openshift/openshift-redmine-quickstart)でRedmineを構築しました。改めて良い構築手順はないかと探したら、[Redmine 2.4](https://hub.openshift.com/quickstarts/5-redmine-2-4)を見つけました。
 
@@ -27,11 +25,11 @@ OpenShift上でRedmineを構築・運用していますが、スケーリング�
 * 新Redmineにデータをインポートする。
 * しばらく使った後、問題無いと判断したら、旧Redmineを削除する。
 
-# 旧Redmineのデータをダンプ
+## 旧Redmineのデータをダンプ
 
 MySQLデータをダンプし、添付ファイルを取得します。MySQLへの接続、ssh接続の方法はOpenShiftコンソールに表示されているので、接続・ダンプします。
 
-# 新Redmineを構築
+## 新Redmineを構築
 
 [Redmine 2.4](https://hub.openshift.com/quickstarts/5-redmine-2-4)の手順で構築しました。必要情報を入力してボタンをクリックするだけなので、特に迷うことはありません。
 
@@ -108,7 +106,7 @@ mysql> show databases;
 
 とりあえず、デプロイした新Redmineで動作確認を行います。
 
-# 新Redmineにデータをインポート
+## 新Redmineにデータをインポート
 
 `myredmine`データベースを事前ダンプしたデータと入れ替えます。
 
@@ -267,7 +265,7 @@ To /var/lib/openshift/5507c99dfcf933bc9c000162//git/myredmine.git/
 
 DBマイグレーション、シークレットトークンの生成が実行されました。
 
-# 設定の移行
+## 設定の移行
 
 既存Redmineの新Redmineに移行します。
 
@@ -313,15 +311,15 @@ default:
 > git push
 ```
 
-# テーマの移行
+## テーマの移行
 
 以前はgitmikeを使っていました。面倒なので後で適用しよう。
 
-# おわりに
+## おわりに
 
 以上で、新Redmineの構築とデータ・マイグレーションは完了です。1ヶ月程度使いましたが特に問題はないようなので、旧Redmineは削除しました。
 
-# (おまけ)Jenkinsジョブ設定 - 定期バックアップ
+## (おまけ)Jenkinsジョブ設定 - 定期バックアップ
 
 JenkinsでRedmineのMySQLデータダンプを定期的に取得しているので、そのジョブを作成しました。
 

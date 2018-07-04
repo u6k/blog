@@ -8,7 +8,7 @@ date: 2017-12-10 23:50:00+09:00
 
 今週、気になったニュースや自ソフトウェアのリリース情報を整理します。
 
-# ニュース
+## ニュース
 
 - [翻訳：知能爆発の不可能性 - シンギュラリティ教徒への論駁の書](http://skeptics.hatenadiary.jp/entry/2017/12/01/001753)
     - 『我々の知能は脳の中には存在せず、我々の文明として外部化されている』
@@ -32,14 +32,14 @@ date: 2017-12-10 23:50:00+09:00
 - [個人開発における開発プロセスを公開してみる - Qiita](https://qiita.com/kappy0322/items/3b8301da2e889e962e5e)
     - モノ作りまでが長く見えるけど、個人向けツールを作っていると実際こういった思考回路になっていく。
 
-# リリース情報
+## リリース情報
 
 - [u6k/sample-http-session: ServletのHttpSessionを使うサンプル](https://github.com/u6k/sample-http-session)
 - [u6k/sample-spring-session-with-servlet: Spring Sessionの挙動検証を行うサンプル](https://github.com/u6k/sample-spring-session-with-servlet)
 
 今更ながらにセッション管理を振り返るためにサンプルを書いてみました。
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

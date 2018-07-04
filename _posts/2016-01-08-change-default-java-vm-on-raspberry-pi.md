@@ -11,7 +11,7 @@ redirect_from:
 
 Raspberry Piに複数のJavaをインストールした場合に、JavaVMを切り替える手順を説明します。簡単に言うと、`update-alternatives`コマンドで切り替えることが出来ます。
 
-<!-- more -->
+## update-alternatives
 
 以下のように`update-alternatives`コマンドを実行することで、対話的にJavaVMを切り替えることが出来ます。
 
@@ -29,6 +29,6 @@ alternative java (/usr/bin/java を提供) には 2 個の選択肢がありま�
 update-alternatives: /usr/bin/java (java) を提供するために 手動モード で /usr/lib/jvm/jdk-8-oracle-arm-vfp-hflt/jre/bin/java を使います
 ```
 
-# 参考
+## 参考
 
 * [Raspberry Pi - Change Default Java Virtual Machine (JVM)](http://www.savagehomeautomation.com/projects/raspberry-pi-change-default-java-virtual-machine-jvm.html)

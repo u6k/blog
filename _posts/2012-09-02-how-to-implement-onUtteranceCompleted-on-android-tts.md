@@ -7,11 +7,10 @@ tags:
 date: 2012-09-02 00:00:00+09:00
 redirect_from:
   - /2012/09/android-ttsonutterancecompleted.html
+toc: false
 ---
 
 `onUtteranceCompleted()`内でToast表示しようとしたけれど、発声が終わってもToastが表示されないので調べたら、以下が原因でした。
-
-## 原因
 
 - `setOnUtteranceCompletedListener()`は初期化後に呼び出さなくてはならない。`onInit()`中に呼び出すと良い。
 - `speak()`呼出し時に、`TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID`キーを設定したパラメータを渡す。渡さないと`onUtteranceCompleted()`は呼び出されない。

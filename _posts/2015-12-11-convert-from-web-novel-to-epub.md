@@ -12,13 +12,11 @@ redirect_from:
 
 テキストメインのWeb小説を電子書籍(epub)として読むための、自分向けの手順です。
 
-<!-- more -->
-
-# Webページを取得
+## Webページを取得
 
 小説のWebページ(html)をダウンロードする。
 
-# 青空文庫テキスト形式に整形
+## 青空文庫テキスト形式に整形
 
 htmlを青空文庫テキスト形式に整形する。複数htmlの場合は、単一txtに統合する。青空文庫テキスト形式は以下を参照すること。
 
@@ -30,7 +28,7 @@ htmlを青空文庫テキスト形式に整形する。複数htmlの場合は、
 * 著者名…2行目に著者名を記載
 * 中見出し、改ページ…見出しに`［＃改ページ］`と`［＃大見出し］○○［＃大見出し終わり］`を記載
 
-# AozoraEpubでepubに変換
+## AozoraEpubでepubに変換
 
 AozoraEpub3をダウンロードして、jarを使用可能にする。
 
@@ -42,11 +40,11 @@ AozoraEpub3をダウンロードして、jarを使用可能にする。
 java -cp AozoraEpub3.jar AozoraEpub3 -enc UTF-8 -of file.txt
 ```
 
-## AozoraEpubでWebページを直接epubに変換
+### AozoraEpubでWebページを直接epubに変換
 
 [小説家になろう](http://syosetu.com/)や[Arcadia](http://www.mai-net.net/)などのサイトは、AozoraEpub3で直接epubに変換ができます。詳細は[hmdev/AozoraEpub3](https://github.com/hmdev/AozoraEpub3)を参照。
 
-# 生成したepubが妥当か検証
+## 生成したepubが妥当か検証
 
 epubcheckをダウンロードして、jarを使用可能にする。
 

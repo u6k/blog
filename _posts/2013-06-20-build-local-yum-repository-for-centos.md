@@ -13,9 +13,7 @@ redirect_from:
 
 そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。
 
-<!-- more -->
-
-# 概要
+## 概要
 
 例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。
 
@@ -40,7 +38,7 @@ redirect_from:
     * 5.CentOS-Base.repoを修正する。
     * 6.サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。
 
-# 1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。
+## 1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。
 
 以下のコマンドを実行します。
 
@@ -50,7 +48,7 @@ redirect_from:
 
 yum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。
 
-# 2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。
+## 2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。
 
 `/var/www/html/yum-repo/`にローカルyumリポジトリを作る場合、`/usr/local/bin/yum-repo-sync.sh`を以下のように作成します。
 
@@ -97,7 +95,7 @@ reposyncで、指定したリポジトリ名のファイルをPackagesディレ�
 
 なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。
 
-# 3. cronで定期更新するように設定する。
+## 3. cronで定期更新するように設定する。
 
 `yum-repo-sync.sh`を、例えば1日ごとに実行するように、cronで設定します。
 
@@ -113,7 +111,7 @@ reposyncで、指定したリポジトリ名のファイルをPackagesディレ�
 
 以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。
 
-# 4. ローカルyumリポジトリを置くディレクトリを作成する。
+## 4. ローカルyumリポジトリを置くディレクトリを作成する。
 
 次に、サーバーB側の作業を行います。
 
@@ -123,7 +121,7 @@ reposyncで、指定したリポジトリ名のファイルをPackagesディレ�
 # mkdir /var/www/html/yum-repo
 ```
 
-# 5. CentOS-Base.repoを修正する。
+## 5. CentOS-Base.repoを修正する。
 
 yumが参照するリポジトリの場所は、`/etc/yum.repos.d/CentOS-Base.repo`に設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。
 
@@ -168,7 +166,7 @@ enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 ```
 
-# 6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。
+## 6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。
 
 媒体は何を使っても良いですが、サーバーAの`/var/www/html/yum-repo/`以下の全てのファイルを、サーバーBの`/var/www/html/yum-repo/`にコピーします。外付けHDDをmountして、
 
@@ -180,7 +178,7 @@ rsync -av --delete /var/www/html/yum-repo/ /mnt/hdd/yum-repo/
 
 サーバーBへのコピーが完了したら、試しに`yum update`してみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。
 
-# 備考
+## 備考
 
 * 作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。
 * EPELなど外部リポジトリを参照している場合でも、reposyncとcreaterepoを同様に行うことで、ローカルepelリポジトリを作ることが出来ます。

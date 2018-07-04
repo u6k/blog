@@ -12,19 +12,17 @@ redirect_from:
 
 [Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki](https://github.com/dhruvvyas90/qemu-rpi-kernel/wiki/Emulating-Jessie-image-with-4.1.x-kernel)
 
-<!-- more -->
-
-# 動作させる目的
+## 動作させる目的
 
 自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。
 
 ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。
 
-# ダウンロード
+## ダウンロード
 
 この作業で作成したパッケージは、[GitHubで公開](https://github.com/u6k/raspbian-on-qemu/releases/tag/20160307-raspbian-jessie-on-qemu)しています。
 
-# 作業環境
+## 作業環境
 
 * Surface Pro 4 + Windows 10
     * `qemu-system-arm`が動作すれば、この環境でなくても問題無いはずです。
@@ -33,9 +31,9 @@ redirect_from:
 * QEMU 2.4.1 on Windows
 * Raspbian Jessie 2016/2/26版
 
-# 作業手順
+## 作業手順
 
-## Qemu、Raspbian、カーネルイメージをダウンロード
+### Qemu、Raspbian、カーネルイメージをダウンロード
 
 QEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点では`Qemu-2.4.1-windows.7z`が最新です。
 
@@ -53,7 +51,7 @@ RaspbianをQEMUで動作させるために必要なカーネルイメージを�
 
 ダウンロードしたファイルは、全て`C:\raspbian-jessie-on-qemu\`に置きます。
 
-## ダウンロードしたファイルを展開
+### ダウンロードしたファイルを展開
 
 ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。
 
@@ -75,7 +73,7 @@ C:\
         +---kernel-qemu-4.1.13-jessie
 ```
 
-## Raspbianイメージを変更
+### Raspbianイメージを変更
 
 Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。
 
@@ -134,7 +132,7 @@ rmdir /S /Q .vagrant
 
 これで、Raspbianイメージの変更は完了です。
 
-## Raspbianを起動
+### Raspbianを起動
 
 QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。`C:\raspbian-jessie-on-qemu\run.bat`を以下のように作成します。
 
@@ -150,13 +148,13 @@ qemu\qemu-system-arm.exe -kernel raspbian\kernel-qemu-4.1.13-jessie -cpu arm1176
 
 上記のバッチ・ファイルに`-redir tcp:50022::22`というオプションが指定されているため、50022番ポートでssh接続ができます。
 
-## Raspbian Liteの場合
+### Raspbian Liteの場合
 
 以上の作業をRaspbian Liteで行うと、以下のように起動します。
 
 ![raspbian-lite-startup](/assets/img/2016-03-08-raspbian-jessie-on-qemu/002.png)
 
-# おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ
+## おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ
 
 ```
 $ apt-cache show docker.io
@@ -207,7 +205,7 @@ $ sudo docker run ubuntu /bin/echo 'Hello world'
 
 そもそもインストールされたバージョンが古いですし、別の手段を探すこととします。
 
-# ライセンス
+## ライセンス
 
 [RaspbianはDFSGで提供](https://www.debian.org/legal/licenses/)されています。
 

@@ -9,18 +9,9 @@ redirect_from:
   - /2014/01/windowsjava-sdk.html
 ---
 
-たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、
+たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。
 
-1. インストーラーをダウンロードする。
-2. インストールする。
-3. `JAVA_HOME`環境変数、`PATH`環境変数を設定する。
-4. 簡単に動作確認を行う。
-
-です。
-
-<!-- more -->
-
-# 1. インストーラーをダウンロードする。
+## 1. インストーラーをダウンロードする。
 
 [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)を開きます。
 
@@ -34,7 +25,7 @@ redirect_from:
 
 チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。
 
-# 2. インストールする。
+## 2. インストールする。
 
 ダウンロードした`jdk-xxx-windows-yyy.exe`を実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。
 
@@ -50,7 +41,7 @@ redirect_from:
 
 ![](/assets/img/2014-01-07-setup-java-sdk-for-windows/008.png)
 
-# 3. `JAVA_HOME`環境変数、`PATH`環境変数を設定する。
+## 3. `JAVA_HOME`環境変数、`PATH`環境変数を設定する。
 
 通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。
 
@@ -86,7 +77,7 @@ redirect_from:
 
 セットアップはこれで終わりです。
 
-# 4. 簡単に動作確認を行う。
+## 4. 簡単に動作確認を行う。
 
 正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、`java -version`、`javac -version`コマンドを実行します。
 

@@ -7,6 +7,7 @@ tags:
 date: 2009-02-14 00:00:00+09:00
 redirect_from:
   - /2009/02/gui.html
+toc: false
 ---
 
 - コンポーネントの種類

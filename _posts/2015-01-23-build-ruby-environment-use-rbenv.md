@@ -11,13 +11,11 @@ redirect_from:
 
 Raspberry Pi(Raspbian)にrbenvを使用してRuby環境を構築したので、手順メモを残します。と言っても、[Ruby - rbenv のインストール (Linux Mint) - Qiita](http://qiita.com/tsubu-mustard/items/3f818bf9831a4a934c5a)に従っただけですが。
 
-<!-- more -->
-
-# 完了状態
+## 完了状態
 
 * Ruby 2.2.0が使用可能。
 
-# 作業手順
+## 作業手順
 
 `rbenv`を`git clone`します。
 
@@ -76,7 +74,7 @@ $ ruby -v
 
 `ruby -v`で設定したバージョンが表示されるはずです。
 
-# 参考
+## 参考
 
 * [sstephenson/rbenv](https://github.com/sstephenson/rbenv)
 * [Home ・ sstephenson/ruby-build Wiki](https://github.com/sstephenson/ruby-build/wiki)

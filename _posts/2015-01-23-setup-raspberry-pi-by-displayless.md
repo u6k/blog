@@ -10,15 +10,13 @@ redirect_from:
 
 安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。
 
-<!-- more -->
-
-# 作業前提
+## 作業前提
 
 * MacBookProで作業しました。Windowsでも適宜読み替えてもらえば、作業可能なはずです。
 * Raspberry Pi側のセットアップは、ssh接続でセットアップしました。ディスプレイ、キーボード、マウスは使用していません。
 	* 正直、何かあってssh接続できない時に状況を確認できないので、ディスプレイ、キーボードくらいは用意したほうが良いと思います。
 
-# 使った機材
+## 使った機材
 
 * Rasberry Pi Model B+
 	* RSコンポーネンツでケースと一緒に購入しました。
@@ -34,7 +32,7 @@ redirect_from:
 * MacBookPro
 	* セットアップ作業のために必要です。ここではMacBookProを使いましたが、Windowsでも可能なはずです。
 
-# セットアップ後の状態
+## セットアップ後の状態
 
 * ネットワーク接続…Wi-Fi
 	* iptables(というかufw)で制限。
@@ -48,9 +46,9 @@ redirect_from:
 * CPU…1000MHzにオーバークロック。
 * メモリ…GPU割り当てを最小(16MB)。
 
-# 作業手順
+## 作業手順
 
-## microSDにRaspbianをインストール
+### microSDにRaspbianをインストール
 
 MacBookProで作業します。
 
@@ -69,7 +67,7 @@ $ sudo e2fsck -f /dev/disk2s1
 
 `df`でデバイス名を確認、`diskutil`でmicroSDをアンマウント、`dd`でmicroSDにイメージを書き込み、`e2fsck`でファイル破損チェックを行っています。
 
-## Raspberry Piを起動
+### Raspberry Piを起動
 
 microSDをRaspberry Piに挿入し、LANケーブルを接続し、電源を接続して起動します。Raspberry Piには電源スイッチが無く、通電すると自動的に起動するので注意してください。この時点では、外付けHDD、USB無線LANアダプターは接続しません。
 
@@ -87,7 +85,7 @@ ssh接続できたことを確認したら、シャットダウンします。
 $ sudo halt
 ```
 
-## 外付けHDDにファイルを移行
+### 外付けHDDにファイルを移行
 
 ※microSDのみで運用する場合、この手順は不要です。
 **※筆者はこの手順をRaspberry Piで作業を行いましたが、Linux PCを用意して作業したほうが良いです。**
@@ -165,7 +163,7 @@ $ sudo reboot
 $ df -h
 ```
 
-## 初期設定作業
+### 初期設定作業
 
 `raspi-config`で初期設定を行います。
 
@@ -220,7 +218,7 @@ u6k ALL=(ALL) NOPASSWD: ALL
 
 > NOTE: piユーザーを削除・リネームするなどして使えなくしたほうがセキュリティ的に良いかもしれません。
 
-## 無線LANを設定
+### 無線LANを設定
 
 ※有線で運用する場合、この手順は不要です。
 
@@ -273,7 +271,7 @@ $ ssh u6k@192.168.10.123
 
 以降、LANケーブルを外してWi-Fiで作業します。
 
-## スピードテストを実施
+### スピードテストを実施
 
 ※この作業は必要ではありません。気になる場合に実施します。
 
@@ -285,7 +283,7 @@ $ sudo pip install speedtest-cli
 $ speedtest-cli
 ```
 
-## sshを鍵認証方式に設定
+### sshを鍵認証方式に設定
 
 パスワード認証方式を無効にして、鍵認証方式のみを有効にします。
 
@@ -348,7 +346,7 @@ ssh接続を、以下のように確認します。
 * piユーザーのログインが、パスワード認証、公開鍵認証の両方ともに失敗すること。
 * 作業ユーザーのログインが、パスワード認証に失敗し、公開鍵認証に成功すること。
 
-## iptablesを設定
+### iptablesを設定
 
 ufwを使用して、iptablesの設定を行います。
 
@@ -389,7 +387,7 @@ $ sudo ufw status
 > ```$ sudo ufw delete $1 $2```
 > 例: ```$ sudo ufw delete allow 22```
 
-## 外部から接続
+### 外部から接続
 
 ※LAN内でのみ運用する場合、この手順は不要です。
 
@@ -428,7 +426,7 @@ $ sudo crontab -e
 
 LAN、WANから、ドメイン名指定でssh接続できることを確認します。
 
-## USBポートに1.2Aの電力供給を設定
+### USBポートに1.2Aの電力供給を設定
 
 初期状態では0.6Aまでに制限されており、1.2Aまで電力供給するように設定します。電力供給が少ないと、USBポートから電力を確保しているUSB HDDやWi-Fiアダプターなどの動作が不安定になるようです。
 
@@ -448,7 +446,7 @@ $ sudo reboot
 * 参考
 	* [Raspberry Pi Model B+のUSBポートに1.2Aの電力を供給する](http://akkiesoft.hatenablog.jp/entry/20140727/1406443999)
 
-# 参考
+## 参考
 
 * [RaspberryPi - Raspberry Pi Model B+セットアップ - Qiita](http://qiita.com/jh3rox/items/684ba1e746a6a3763b5c)
 * [speedtest-cliでターミナルから回線速度を計測する - sheeplogh :: memo](http://sheeplogh.hatenablog.com/entry/2013/12/03/124241)

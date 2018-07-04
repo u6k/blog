@@ -6,6 +6,7 @@ tags:
 date: 2012-08-15 00:00:00+09:00
 redirect_from:
   - /2012/08/git-pusherror-rpc-failed-result55-http.html
+toc: false
 ---
 
 `git push`したら、件名のエラーが発生してpushできませんでした。ググったところ、以下のページに記載されている対応で治りました。

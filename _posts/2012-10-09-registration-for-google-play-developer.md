@@ -11,14 +11,12 @@ redirect_from:
 
 Google Play開発者登録を行ったので、手順をメモとして作成します。
 
-<!-- more -->
-
-# 前提条件・注意点
+## 前提条件・注意点
 
 * 以下の手順はGoogleアカウント取得済みの想定です。
 * 登録にクレジットカード、および$25が必要になります。
 
-# 手順
+## 手順
 
 [Google Play Android Developer Console](https://play.google.com/apps/publish/)にアクセスします。
 

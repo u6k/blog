@@ -131,6 +131,9 @@ defaults:
       read_time: false
       share: true
       related: false
+      toc: true
+      toc_label: "目次"
+      toc_sticky: true
 
 # Analytics
 analytics:

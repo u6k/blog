@@ -10,13 +10,11 @@ redirect_from:
 
 PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。
 
-<!-- more -->
-
-# 確認したいこと
+## 確認したいこと
 
 * DockerコンテナにPostgreSQLをインストールして、最低限の動作確認としてpsqlで接続すること。
 
-# 前提条件
+## 前提条件
 
 * Windowsを前提に説明しますが、Docker Machineが使えるならどのOSでも大差ないはずです。
 * VirtualBox
@@ -28,7 +26,7 @@ PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のた�
 * Docker Client
     * Linuxの場合。
 
-# Dockerホストを構築。
+## Dockerホストを構築。
 
 Dockerホストを構築して、sshログインします。
 
@@ -37,7 +35,7 @@ $ docker-machine create --driver virtualbox test
 $ docker-machine ssh test
 ```
 
-# PostgreSQLサーバー・コンテナーを構築、起動
+## PostgreSQLサーバー・コンテナーを構築、起動
 
 PostgreSQLサーバーをインストールしたコンテナーを構築、起動します。このコンテナーは、5432番ポートを開放し、外部ホストからの接続を許可し、`docker`というユーザーとデータベースを構築済み、という状態にします。
 
@@ -62,7 +60,7 @@ $ docker run --name postgresql-server -d u6k/postgresql-server
 
 `--name`引数で、コンテナに名前を付けます。`-d`引数で、デーモンとして起動します。`-d`を付けないと、コンテナ起動後にプロンプトが戻ってこなくなります(`Ctrl+c`でコンテナを終了させる必要あり)。
 
-# PostgreSQLクライアント・コンテナーを構築、起動
+## PostgreSQLクライアント・コンテナーを構築、起動
 
 上記でサーバーを起動できましたが、このままでは接続確認ができません。接続確認用に、PostgreSQLクライアントをインストールしたコンテナーを構築、起動します。
 
@@ -109,7 +107,7 @@ docker=#
 
 接続が成功しました。
 
-# 再度、起動する場合
+## 再度、起動する場合
 
 PostgreSQLサーバー・コンテナを上記の手順で再度起動しようとすると、以下のようにエラーとなります。
 
@@ -126,6 +124,6 @@ Error response from daemon: Conflict. The name "postgresql-server" is already in
 $ docker rm $(docker ps -aq)
 ```
 
-# 参照
+## 参照
 
 * [u6k/ubuntu-postgresql](https://github.com/u6k/ubuntu-postgresql)

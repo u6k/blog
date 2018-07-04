@@ -16,7 +16,7 @@ date: 2018-06-09 00:00:00+09:00
 
 この記事では、開発基盤として利用しているサービス、およびデプロイ・フローの概要を説明します。
 
-# 前提
+## 前提
 
 インターネット上のサービスを利用しています。が、オンプレミスでも類似の基盤を構築することは可能です。具体的には、GitLabでいけるはず。
 
@@ -24,7 +24,7 @@ date: 2018-06-09 00:00:00+09:00
 
 この記事では、開発基盤を「開発してからリリースするまでの作業を効率化するために利用しているサービス群」のことを言います。
 
-# 開発基盤の構造
+## 開発基盤の構造
 
 次のサービス群と流れで、開発からリリースまでの作業を行っています。
 
@@ -58,11 +58,11 @@ rundeck --> slack : ジョブ結果通知
 user -u-> docker_pro : サービス利用
 {% endplantuml %}
 
-# サービスの役割
+## サービスの役割
 
 サービスごとの役割を説明します。
 
-## 開発PC
+### 開発PC
 
 開発PCには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っています。開発するアプリケーションによって言語処理系が混在するのでOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいためです。
 
@@ -79,7 +79,7 @@ user -u-> docker_pro : サービス利用
 - [jonas/tig: Text-mode interface for git](https://github.com/jonas/tig)
 - [tmux/tmux: tmux source code](https://github.com/tmux/tmux)
 
-## GitHub
+### GitHub
 
 言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービスです。主にソースコードの管理をしています。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していません。
 
@@ -87,7 +87,7 @@ GitHubにプッシュすると、Travis CIに通知され、ビルドが開始�
 
 - [The world’s leading software development platform · GitHub](https://github.com/)
 
-## Travis CI
+### Travis CI
 
 CIサービスです。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行います。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行います(一部のサービスのみ)。
 
@@ -99,7 +99,7 @@ GitHubのプルリクエストは、原則としてTravis CIのビルドがパ�
 
 - [Travis CI - Test and Deploy Your Code with Confidence](https://travis-ci.org/)
 
-## Slack
+### Slack
 
 開発者向けのチャット・サービスです。個人開発では、自分だけのSlackワークスペースに`#build`チャンネルを作成して、Travis CIのビルド結果が通知されるようにしています。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い状況にしています。
 
@@ -107,7 +107,7 @@ Slackには他にも、サービス監視によるアラート、バッチ処理
 
 - [よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ \| Slack](https://slack.com/)
 
-## Docker Hub
+### Docker Hub
 
 Dockerイメージのホスティング・サービスです。Gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュします。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ないと考えています。
 
@@ -118,7 +118,7 @@ Dockerイメージのホスティング・サービスです。Gitタグがプ�
 - [Docker Hub](https://hub.docker.com/)
 - [GitLab Container Registry \| GitLab](https://docs.gitlab.com/ce/user/project/container_registry.html)
 
-## Rundeck
+### Rundeck
 
 ジョブ・スケジューラーです。バッチ処理を管理、実行していますが、一部のDockerコンテナの制御もジョブとして実行できるようにしています。
 
@@ -126,7 +126,7 @@ Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出し
 
 - [Rundeck Pro \| Modern IT Operations Management Platform](https://www.rundeck.com/)
 
-## 本番サーバー
+### 本番サーバー
 
 ほとんどのサービスはDockerコンテナで動作(TODO: ソフトウェア設計にリンクを張る)しています。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされています。このため、以前は[CoreOSで運用していた時期](/2017/04/28/my-server-specification-for-hardware.html)もありました。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用しています。
 
@@ -137,13 +137,13 @@ Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出し
 - [Open source, containers, and Kubernetes \| CoreOS](https://coreos.com/)
 - [Debian -- ユニバーサルオペレーティングシステム](https://www.debian.org/)
 
-# おわりに
+## おわりに
 
 いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。
 
 この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。
 
-# Link
+## Link
 
 - Author
   - [u6k.Blog()](https://blog.u6k.me/)

@@ -7,6 +7,7 @@ tags:
 date: 2009-12-18 00:00:00+09:00
 redirect_from:
   - /2009/12/gaej.html
+toc: false
 ---
 
 `java.util.logging`のログレベルと、GAE/jのログレベルの対応が分からなかったので、調べました。

@@ -10,13 +10,11 @@ redirect_from:
 
 前回は今年3月に情報整理方法を書きましたが、短期間でいろいろ変えたので、再整理します。細かい点でいろいろ変えてみましたが、ポイントはほぼ変わっていません。
 
-# 経路図
+## 経路図
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/001.png)
 
-<!-- more -->
-
-# ポイント
+## ポイント
 
 1. **読みたいと思ったページは、まずPocketに流し込んで集約する。**
     * 朝・夕にチェックします。
@@ -33,7 +31,7 @@ redirect_from:
 
 以下に、手順や考え方を説明します。
 
-# RSS→Pocket
+## RSS→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/002.png)
 
@@ -41,11 +39,11 @@ redirect_from:
 
 1日に100～200タイトルに目を通し、そのうちの1割程度をPocketに流し込みます。
 
-## キュレーションサービス
+### キュレーションサービス
 
 RSSは「自分が興味を持ったサイト」を登録していますが、「SoGap」「あとで新聞」は「自分の興味外」のページが引っかかることがあり、便利です。自分の興味がある情報だけだと、視野が狭くなってしまいますしね。
 
-## 他に試したサービス
+### 他に試したサービス
 
 livedoor Readerに落ち着く前に試したサービスは、主に以下の2つです。
 
@@ -55,13 +53,13 @@ livedoor Readerに落ち着く前に試したサービスは、主に以下の2�
     * iftttでGmailに流し込んで、メーラーでさっと確認したらPocketに流し込む、という方法を試しました。メーラーは普段から使い慣れたツールですし、さっと読んで流し込むという動作はメーラーの得意とするところです。
     * しかし、フィードの大掃除でハマりました。私は数カ月に一度、フィードの発行状況やその時の興味を考慮してフィードの大掃除(大量購読解除)を行いますが、iftttで連携した場合、サイトごとの過去フィードを一覧で見ることが出来ません。このため、iftttは使用を止めました。
 
-# Twitter→Pocket
+## Twitter→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/003.png)
 
 やり方は変わってなく、iPhone版Echofonでチェックしています。1日に約200ツイートほど目を通し、興味センサーに引っかかったURLをPocketに流し込みます。RSSと同じく、Twitterもたまにフォローを整理します。
 
-# Gmail→Pocket
+## Gmail→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/004.png)
 
@@ -69,25 +67,25 @@ livedoor Readerに落ち着く前に試したサービスは、主に以下の2�
 
 なお、以前はGunosyをメールで受信していましたが、アプリに変えました。
 
-# Gunosy→Pocket
+## Gunosy→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/005.png)
 
 数日前からアプリを使っています。今のところ、順調です。流れてくる情報の精度にもそれほど不満はありません。Gunosyは、朝だけチェックしています。
 
-# オトラテ→Pocket
+## オトラテ→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/007.png)
 
 こういうアプリを待っていた！　ていうか自分でも細々と作っていたら出てきたのでビックリ。はじめは合成音声に違和感がありましたが、数日で慣れました。通勤の歩行中などに聞いています。こちらは、気になった記事があったら、一度道の端に立ち止り、それからPocketに流し込んでいます。正直、この手順はもう少し何とかしたいです。
 
-# SmartNews→Pocket
+## SmartNews→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/008.png)
 
 Gunosyと同じキュレーションサービスであるSmartNewsを使っています。流れてくる内容は他サービスと重複する部分が多いですが、UIが気に入っています。
 
-# Webページなど→Pocket
+## Webページなど→Pocket
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/009.png)
 
@@ -95,13 +93,13 @@ Gunosyと同じキュレーションサービスであるSmartNewsを使って�
 
 ここまでの作業で、様々な情報がPocketに集約されます。今度は、それを読んだ後の作業です。
 
-# Pocket→Evernote
+## Pocket→Evernote
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/010.png)
 
 とは言っても、読んだ後も「集約する」ことを念頭に置いているため、ほとんどの情報はEvernoteに保存します。Evernoteでは厳しい、Excelチェックリスト、スライド資料、簡単なスクリプト、などは、DropboxやGoogle Driveに保存します。
 
-# Pocket→Twitter
+## Pocket→Twitter
 
 ![](/assets/img/2013-06-25-how-to-devour-knowledge-version-201306/011.png)
 

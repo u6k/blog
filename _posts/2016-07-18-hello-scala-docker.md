@@ -11,9 +11,7 @@ redirect_from:
 
 長い間、主にJavaを使ってきましたが、もっと軽く簡単にコードを書けないかなと思い、重い腰を上げて新しい言語を学ぼうと考えました。以前に少し調べたPlayFrameworkがScalaを扱えることを思い出し、他言語も合わせて考えてみましたが、Scalaを学習対象にしました。学習するために動作確認環境が必要となるため、動作確認環境を構築しました。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 Scalaについては、以下のページを参照してください。
 
@@ -26,11 +24,11 @@ Scalaアプリケーションの実行には、通常はsbtを使うと思いま
 
 作業はCoreOS環境で行いましたが、Dockerが動作すればホストOSは問わないはずです。
 
-# Scala環境構築手順
+## Scala環境構築手順
 
 Scala環境を構築する手順を説明します。
 
-## Dockerfileを作成
+### Dockerfileを作成
 
 [Dockerfile](https://github.com/u6k/scala-docker/blob/v1.0.0/Dockerfile)を作成します。
 
@@ -111,7 +109,7 @@ RUN activator new my-app minimal-scala && \
 CMD ["/bin/bash"]
 ```
 
-## docker-compose.ymlを作成
+### docker-compose.ymlを作成
 
 単純に`docker build`->`dockdr run`しても良いのですが、後を考えて[docker-compose.yml](https://github.com/u6k/scala-docker/blob/v1.0.0/docker-compose.yml)を作成します。
 
@@ -130,7 +128,7 @@ services:
       - .:/root/work/
 ```
 
-## Dockerイメージ構築
+### Dockerイメージ構築
 
 ビルドします。
 
@@ -138,7 +136,7 @@ services:
 docker-compose build
 ```
 
-# 使い方 - ScalaでHello, world!
+## 使い方 - ScalaでHello, world!
 
 Dockerコンテナを起動して、コンテナ内に入ります。
 
@@ -179,11 +177,11 @@ activator run
 
 `hello`が表示され、正常終了するはずです。
 
-# おわりに
+## おわりに
 
 まずは単純に"Hello, world!"したかっただけなので、簡素な環境を構築しました。開発ツールが不足しているので充実させつつ、RDBと連携できるように育てます。
 
-# リンク
+## リンク
 
 * GitHub
     * [記事データ](https://github.com/u6k/blog/blob/master/page/20160715-hello-scala-docker.md)

@@ -9,7 +9,7 @@ redirect_from:
   - /2015/02/zabbix.html
 ---
 
-# ちょっと長めの前置き
+## ちょっと長めの前置き
 
 自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認に[AlertMe](http://www.securestar.jp/alertme/)を利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。
 
@@ -19,9 +19,7 @@ AlertMeは簡単に設定できて非常に便利に使っていますが、CPU�
 
 そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 Zabbixのインストールは、[4 ソースからのインストール [Zabbix Documentation 2.2]](https://www.zabbix.com/documentation/2.2/jp/manual/installation/install)の手順で行います。
 
@@ -29,7 +27,7 @@ Vagrantを使用するので、あらかじめ使用可能にしてください�
 
 PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。
 
-## NOTE: vagrant-vbox-snapshot
+### NOTE: vagrant-vbox-snapshot
 
 Vagrantで作業する時は、`vagrant-vbox-snapshot`を使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。
 
@@ -37,7 +35,7 @@ Vagrantで作業する時は、`vagrant-vbox-snapshot`を使うと便利。各�
 - [vagrantの便利に使えるプラグイン6選 - Qiita](http://qiita.com/succi0303/items/e06bca7db5a0c3de96af)
 - [Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - Qiita](http://qiita.com/takuan_osho/items/682b776b41989f0b016f)
 
-# VagrantでCentOSを使用する
+## VagrantでCentOSを使用する
 
 ここでは`chef/centos-6.5`を使用しますが、好きなOSを使用すれば良いです。
 
@@ -65,7 +63,7 @@ $ vagrant ssh
 
 *NOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。*
 
-# 前提パッケージのインストール
+## 前提パッケージのインストール
 
 インストール済みのパッケージを最新化します。
 
@@ -93,7 +91,7 @@ Zabbixが必要とするソフトウェアをインストールします。こ�
 $ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-devel
 ```
 
-# Zabbixソースコードのダウンロード
+## Zabbixソースコードのダウンロード
 
 インストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。
 
@@ -109,7 +107,7 @@ $ wget http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/
 $ tar zxvf zabbix-2.2.8.tar.gz
 ```
 
-# Zabbix用ユーザーを作成する
+## Zabbix用ユーザーを作成する
 
 Zabbixが使用するユーザーを作成します。とりあえずここでは`zabbix`というユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。
 
@@ -118,7 +116,7 @@ $ sudo groupadd zabbix
 $ sudo useradd -g zabbix zabbix
 ```
 
-# DBを作成する
+## DBを作成する
 
 DBを作成し、zabbixに用意されているSQLスクリプトを実行します。
 
@@ -136,7 +134,7 @@ $ mysql -u root -p zabbix < database/mysql/images.sql
 $ mysql -u root -p zabbix < database/mysql/data.sql
 ```
 
-# ソースを設定し、インストールする
+## ソースを設定し、インストールする
 
 `./configure`を実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。
 
@@ -163,7 +161,7 @@ $ sudo make install
 
 インストールが完了しました。
 
-## NOTE: 関連ソフトウェアがインストールされていない場合
+### NOTE: 関連ソフトウェアがインストールされていない場合
 
 関連ソフトウェアがインストールされていないと、エラーになります。
 
@@ -214,7 +212,7 @@ $ sudo yum -y install curl libcurl libcurl-devel
 
 設定が成功しました。
 
-# 設定ファイルの編集
+## 設定ファイルの編集
 
 Zabbix Serverの設定ファイルは`/usr/local/etc/zabbix_server.conf`にあります。
 
@@ -224,7 +222,7 @@ Zabbix Agentの設定ファイルは`/usr/local/etc/zabbix_agentd.conf`にあり
 
 *NOTE: `zabbix_agent.conf`というファイルもありますが、こちらは使用しないようです。*
 
-# Zabbix ServerとZabbix Agentを起動
+## Zabbix ServerとZabbix Agentを起動
 
 Zabbix Serverを起動します。
 
@@ -240,7 +238,7 @@ $ zabbix_agentd
 
 コンソールには何も出力されないですが、これで起動します。`ps aux | grep zabbix`で起動していることが確認できます。
 
-# Webインターフェイスをインストール
+## Webインターフェイスをインストール
 
 Zabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。
 
@@ -342,7 +340,7 @@ Zabbix Serverの設定を入力します。ここでは何も変更しません�
 
 設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。
 
-# Zabbixにログインし、Zabbix Server自体の監視を開始
+## Zabbixにログインし、Zabbix Server自体の監視を開始
 
 ![Login](/assets/img/2015-02-22-install-zabbix-and-verify/010.png)
 
@@ -370,11 +368,11 @@ Zabbix Server自体の監視を有効にするため、メニューの「Configu
 
 ![Graph](/assets/img/2015-02-22-install-zabbix-and-verify/015.png)
 
-# おわりに
+## おわりに
 
 これでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。
 
-## NOTE: Zabbix Server on OpenShiftを諦めたわけ
+### NOTE: Zabbix Server on OpenShiftを諦めたわけ
 
 OpenShiftではポートを開けられないっぽい。`rhc port-forward`はローカル→OpenShiftのsshフォワーディングであり用途が違うし…
 

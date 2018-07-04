@@ -312,18 +312,30 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-05T14:46:00+09:00">2015-02-05</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-05T14:46:00+09:00">2015-02-05</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#log4j2を使えるように設定">Log4j2を使えるように設定</a></li>
+  <li><a href="#514udpでログを受信できるようにrsyslogを設定">514/udpでログを受信できるようにrsyslogを設定</a></li>
+  <li><a href="#log4j2からsyslogに出力するように設定">Log4j2からsyslogに出力するように設定</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p><a href="http://logging.apache.org/log4j/2.x/">Apache Log4j 2</a>を使ってsyslogにログを出力する設定手順をメモします。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>作業環境はWindowsでEclipse+Maven 2です。Mavenが使えればOSやIDEは何でも良いです。</li>
@@ -340,7 +352,7 @@ Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <s
 Java HotSpot<span class="o">(</span>TM<span class="o">)</span> Client VM <span class="o">(</span>build 25.0-b70, mixed mode<span class="o">)</span>
 </code></pre></div></div>
 
-<h1 id="log4j2を使えるように設定">Log4j2を使えるように設定</h1>
+<h2 id="log4j2を使えるように設定">Log4j2を使えるように設定</h2>
 
 <p>プロジェクトを作成します。Eclipseで”Maven Project”を作成するか、<code class="highlighter-rouge">mvn archetype:create</code>を実行します。</p>
 
@@ -389,7 +401,7 @@ Java HotSpot<span class="o">(</span>TM<span class="o">)</span> Client VM <span c
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2015/02/05 12:32:40.179 INFO  - info
 </code></pre></div></div>
 
-<h1 id="514udpでログを受信できるようにrsyslogを設定">514/udpでログを受信できるようにrsyslogを設定</h1>
+<h2 id="514udpでログを受信できるようにrsyslogを設定">514/udpでログを受信できるようにrsyslogを設定</h2>
 
 <p>Raspbianはrsyslogが動作していますが、udp・tcpともに受信できるように設定されていません。これを設定し、rsyslogを再起動します。</p>
 
@@ -420,7 +432,7 @@ $InputTCPServerRun 514
 
 <p>“/var/log/syslog”を見て、エラーが出力されていなければ成功です。</p>
 
-<h1 id="log4j2からsyslogに出力するように設定">Log4j2からsyslogに出力するように設定</h1>
+<h2 id="log4j2からsyslogに出力するように設定">Log4j2からsyslogに出力するように設定</h2>
 
 <p>先ほどの”log4j2.xml”は標準出力にログを出力するように設定しました。ここに、syslogにも出力するように設定を追加します。</p>
 

@@ -312,18 +312,37 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-07-18T07:00:00+09:00">2016-07-18</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-07-18T07:00:00+09:00">2016-07-18</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#scala環境構築手順">Scala環境構築手順</a>
+    <ul>
+      <li><a href="#dockerfileを作成">Dockerfileを作成</a></li>
+      <li><a href="#docker-composeymlを作成">docker-compose.ymlを作成</a></li>
+      <li><a href="#dockerイメージ構築">Dockerイメージ構築</a></li>
+    </ul>
+  </li>
+  <li><a href="#使い方---scalaでhello-world">使い方 - ScalaでHello, world!</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#リンク">リンク</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>長い間、主にJavaを使ってきましたが、もっと軽く簡単にコードを書けないかなと思い、重い腰を上げて新しい言語を学ぼうと考えました。以前に少し調べたPlayFrameworkがScalaを扱えることを思い出し、他言語も合わせて考えてみましたが、Scalaを学習対象にしました。学習するために動作確認環境が必要となるため、動作確認環境を構築しました。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>Scalaについては、以下のページを参照してください。</p>
 
@@ -338,11 +357,11 @@
 
 <p>作業はCoreOS環境で行いましたが、Dockerが動作すればホストOSは問わないはずです。</p>
 
-<h1 id="scala環境構築手順">Scala環境構築手順</h1>
+<h2 id="scala環境構築手順">Scala環境構築手順</h2>
 
 <p>Scala環境を構築する手順を説明します。</p>
 
-<h2 id="dockerfileを作成">Dockerfileを作成</h2>
+<h3 id="dockerfileを作成">Dockerfileを作成</h3>
 
 <p><a href="https://github.com/u6k/scala-docker/blob/v1.0.0/Dockerfile">Dockerfile</a>を作成します。</p>
 
@@ -416,7 +435,7 @@ WORKDIR /usr/local/src/
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CMD ["/bin/bash"]
 </code></pre></div></div>
 
-<h2 id="docker-composeymlを作成">docker-compose.ymlを作成</h2>
+<h3 id="docker-composeymlを作成">docker-compose.ymlを作成</h3>
 
 <p>単純に<code class="highlighter-rouge">docker build</code>-&gt;<code class="highlighter-rouge">dockdr run</code>しても良いのですが、後を考えて<a href="https://github.com/u6k/scala-docker/blob/v1.0.0/docker-compose.yml">docker-compose.yml</a>を作成します。</p>
 
@@ -433,14 +452,14 @@ services:
       - .:/root/work/
 </code></pre></div></div>
 
-<h2 id="dockerイメージ構築">Dockerイメージ構築</h2>
+<h3 id="dockerイメージ構築">Dockerイメージ構築</h3>
 
 <p>ビルドします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose build
 </code></pre></div></div>
 
-<h1 id="使い方---scalaでhello-world">使い方 - ScalaでHello, world!</h1>
+<h2 id="使い方---scalaでhello-world">使い方 - ScalaでHello, world!</h2>
 
 <p>Dockerコンテナを起動して、コンテナ内に入ります。</p>
 
@@ -476,11 +495,11 @@ activator run
 
 <p><code class="highlighter-rouge">hello</code>が表示され、正常終了するはずです。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>まずは単純に”Hello, world!”したかっただけなので、簡素な環境を構築しました。開発ツールが不足しているので充実させつつ、RDBと連携できるように育てます。</p>
 
-<h1 id="リンク">リンク</h1>
+<h2 id="リンク">リンク</h2>
 
 <ul>
   <li>GitHub

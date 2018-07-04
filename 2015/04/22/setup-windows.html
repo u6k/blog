@@ -312,12 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-04-22T22:00:00+09:00">2015-04-22</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-04-22T22:00:00+09:00">2015-04-22</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#目的">目的</a></li>
+  <li><a href="#前準備">前準備</a></li>
+  <li><a href="#用意するもの">用意するもの</a></li>
+  <li><a href="#手順">手順</a>
+    <ul>
+      <li><a href="#windowsインストール">Windowsインストール</a></li>
+      <li><a href="#初期設定">初期設定</a></li>
+      <li><a href="#chocolatey">Chocolatey</a></li>
+      <li><a href="#手動でソフトウェアをセットアップ">手動でソフトウェアをセットアップ</a></li>
+      <li><a href="#ソフトウェアの更新ときどき">ソフトウェアの更新(ときどき)</a></li>
+    </ul>
+  </li>
+  <li><a href="#メモ">メモ</a></li>
+</ul>
+
+            </nav>
+          </aside>
         
         <p><a href="http://u6k-apps.blogspot.jp/2015/02/windows.html">前回のセットアップ</a>から変わった手順があるため、再投稿します。</p>
 
@@ -329,14 +352,12 @@
   </li>
 </ul>
 
-<h1 id="目的">目的</h1>
+<h2 id="目的">目的</h2>
 
 <p>なんだかんだと環境が汚れて、Windowsを再セットアップすることがあります(仮想環境を使えとは思いますが)。ここでは、再セットアップの手順を説明します。
 なお、この文章はあくまで自分向けなので、他の人には参考にならないと思います。たぶん。</p>
 
-<!-- more -->
-
-<h1 id="前準備">前準備</h1>
+<h2 id="前準備">前準備</h2>
 
 <ul>
   <li>IMEの辞書をバックアップする。</li>
@@ -348,7 +369,7 @@
   </li>
 </ul>
 
-<h1 id="用意するもの">用意するもの</h1>
+<h2 id="用意するもの">用意するもの</h2>
 
 <ul>
   <li>外付けHDD。PC内にしかないファイルを退避するため。Dropboxなど外部ストレージに保存してあるなら、必要ない。</li>
@@ -356,9 +377,9 @@
   <li>MS Officeインストールメディア。</li>
 </ul>
 
-<h1 id="手順">手順</h1>
+<h2 id="手順">手順</h2>
 
-<h2 id="windowsインストール">Windowsインストール</h2>
+<h3 id="windowsインストール">Windowsインストール</h3>
 
 <ul>
   <li>インストールメディア、または回復用パーティションからWindowsをインストールする。</li>
@@ -370,7 +391,7 @@
   </li>
 </ul>
 
-<h2 id="初期設定">初期設定</h2>
+<h3 id="初期設定">初期設定</h3>
 
 <p>※設定は、前使用していたアカウントから色々引き継がれる。</p>
 
@@ -408,7 +429,7 @@
   </li>
 </ul>
 
-<h2 id="chocolatey">Chocolatey</h2>
+<h3 id="chocolatey">Chocolatey</h3>
 
 <ul>
   <li><a href="https://chocolatey.org">Chocolatey Gallery</a>に記載されているコマンドをコマンドプロンプトで実行して、Chocolateyをインストールする。</li>
@@ -470,7 +491,7 @@ TODO os-setupプロジェクトをGitHubに移動する。</li>
 &lt;/packages&gt;
 </code></pre>
 
-<h2 id="手動でソフトウェアをセットアップ">手動でソフトウェアをセットアップ</h2>
+<h3 id="手動でソフトウェアをセットアップ">手動でソフトウェアをセットアップ</h3>
 
 <ul>
   <li>MS Office
@@ -545,7 +566,7 @@ TODO os-setupプロジェクトをGitHubに移動する。</li>
   </li>
 </ul>
 
-<h2 id="ソフトウェアの更新ときどき">ソフトウェアの更新(ときどき)</h2>
+<h3 id="ソフトウェアの更新ときどき">ソフトウェアの更新(ときどき)</h3>
 
 <p>Chocolateyにはソフトウェアの一括バージョンアップ機能があります。ソフトウェア側が持っている自動バージョンアップ機能はオフにしておいて、Chocolateyに任せる運用をしています。
 Chocolateyでソフトウェアをバージョンアップさせるには、以下のコマンドを実行します。</p>
@@ -555,13 +576,13 @@ Chocolateyでソフトウェアをバージョンアップさせるには、以�
 
 <p>これを定期的に実行するようにすればよいでしょう。</p>
 
-<h3 id="ちなみにonegetの話">ちなみに、OneGetの話</h3>
+<h4 id="ちなみにonegetの話">ちなみに、OneGetの話</h4>
 
 <p>Windows 10からはOneGetというChocolateyに似た仕組みが標準実装されるらしいです。OneGetはChocolateyリポジトリもサポートされるらしく、将来的には乗り換えるかも。</p>
 
 <p><a href="http://blogs.msdn.com/b/garretts/archive/2014/04/01/my-little-secret-windows-powershell-oneget.aspx">My little secret : Windows PowerShell OneGet - Garrett Serack: Senior Open Source Engineer - Site Home - MSDN Blogs</a></p>
 
-<h1 id="メモ">メモ</h1>
+<h2 id="メモ">メモ</h2>
 
 <ul>
   <li>まだまだ、手動でインストール・設定することが多い…</li>

@@ -312,19 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-15T23:00:00+09:00">2015-05-15</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-15T23:00:00+09:00">2015-05-15</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#構築手順">構築手順</a></li>
+  <li><a href="#旧redmineのデータをダンプ">旧Redmineのデータをダンプ</a></li>
+  <li><a href="#新redmineを構築">新Redmineを構築</a></li>
+  <li><a href="#新redmineにデータをインポート">新Redmineにデータをインポート</a></li>
+  <li><a href="#設定の移行">設定の移行</a></li>
+  <li><a href="#テーマの移行">テーマの移行</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#おまけjenkinsジョブ設定---定期バックアップ">(おまけ)Jenkinsジョブ設定 - 定期バックアップ</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>OpenShift上でRedmineを構築・運用していますが、スケーリングができる設定ではありませんでした。また、バージョンも古かったです。そこで、Redmineのバージョンアップを行いました。
 この記事では、バージョンアップ手順を説明します。</p>
 
-<!-- more -->
-
-<h1 id="構築手順">構築手順</h1>
+<h2 id="構築手順">構築手順</h2>
 
 <p>前回は<a href="https://github.com/openshift/openshift-redmine-quickstart">openshift/openshift-redmine-quickstart</a>でRedmineを構築しました。改めて良い構築手順はないかと探したら、<a href="https://hub.openshift.com/quickstarts/5-redmine-2-4">Redmine 2.4</a>を見つけました。</p>
 
@@ -343,11 +359,11 @@
   <li>しばらく使った後、問題無いと判断したら、旧Redmineを削除する。</li>
 </ul>
 
-<h1 id="旧redmineのデータをダンプ">旧Redmineのデータをダンプ</h1>
+<h2 id="旧redmineのデータをダンプ">旧Redmineのデータをダンプ</h2>
 
 <p>MySQLデータをダンプし、添付ファイルを取得します。MySQLへの接続、ssh接続の方法はOpenShiftコンソールに表示されているので、接続・ダンプします。</p>
 
-<h1 id="新redmineを構築">新Redmineを構築</h1>
+<h2 id="新redmineを構築">新Redmineを構築</h2>
 
 <p><a href="https://hub.openshift.com/quickstarts/5-redmine-2-4">Redmine 2.4</a>の手順で構築しました。必要情報を入力してボタンをクリックするだけなので、特に迷うことはありません。</p>
 
@@ -421,7 +437,7 @@ mysql&gt;
 
 <p>とりあえず、デプロイした新Redmineで動作確認を行います。</p>
 
-<h1 id="新redmineにデータをインポート">新Redmineにデータをインポート</h1>
+<h2 id="新redmineにデータをインポート">新Redmineにデータをインポート</h2>
 
 <p><code class="highlighter-rouge">myredmine</code>データベースを事前ダンプしたデータと入れ替えます。</p>
 
@@ -576,7 +592,7 @@ To /var/lib/openshift/5507c99dfcf933bc9c000162//git/myredmine.git/
 
 <p>DBマイグレーション、シークレットトークンの生成が実行されました。</p>
 
-<h1 id="設定の移行">設定の移行</h1>
+<h2 id="設定の移行">設定の移行</h2>
 
 <p>既存Redmineの新Redmineに移行します。</p>
 
@@ -618,15 +634,15 @@ To /var/lib/openshift/5507c99dfcf933bc9c000162//git/myredmine.git/
 &gt; git push
 </code></pre></div></div>
 
-<h1 id="テーマの移行">テーマの移行</h1>
+<h2 id="テーマの移行">テーマの移行</h2>
 
 <p>以前はgitmikeを使っていました。面倒なので後で適用しよう。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>以上で、新Redmineの構築とデータ・マイグレーションは完了です。1ヶ月程度使いましたが特に問題はないようなので、旧Redmineは削除しました。</p>
 
-<h1 id="おまけjenkinsジョブ設定---定期バックアップ">(おまけ)Jenkinsジョブ設定 - 定期バックアップ</h1>
+<h2 id="おまけjenkinsジョブ設定---定期バックアップ">(おまけ)Jenkinsジョブ設定 - 定期バックアップ</h2>
 
 <p>JenkinsでRedmineのMySQLデータダンプを定期的に取得しているので、そのジョブを作成しました。</p>
 

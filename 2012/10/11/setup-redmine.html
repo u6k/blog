@@ -312,12 +312,46 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-11T23:37:00+09:00">2012-10-11</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-11T23:37:00+09:00">2012-10-11</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 6 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#参考リンク">参考リンク</a></li>
+  <li><a href="#セットアップ手順">セットアップ手順</a>
+    <ul>
+      <li><a href="#selinuxを無効に設定">SELinuxを無効に設定</a></li>
+      <li><a href="#iptablesでhttpを許可">iptablesでHTTPを許可</a></li>
+      <li><a href="#epelリポジトリを登録">EPELリポジトリを登録</a></li>
+      <li><a href="#開発ツール類をインストール">開発ツール類をインストール</a></li>
+      <li><a href="#rubyとpassengerのビルドに必要なヘッダーファイルなどをインストール">RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール</a></li>
+      <li><a href="#mysqlとヘッダーファイルをインストール">MySQLとヘッダーファイルをインストール</a></li>
+      <li><a href="#apacheとヘッダーファイルをインストール">Apacheとヘッダーファイルをインストール</a></li>
+      <li><a href="#imagemagickとヘッダーファイルをインストール">ImageMagickとヘッダーファイルをインストール</a></li>
+      <li><a href="#rubyをインストール">Rubyをインストール</a></li>
+      <li><a href="#mysqlを設定">MySQLを設定</a></li>
+      <li><a href="#rootユーザーのパスワードを変更">rootユーザーのパスワードを変更</a></li>
+      <li><a href="#匿名ユーザーを削除">匿名ユーザーを削除</a></li>
+      <li><a href="#redmineをインストール">Redmineをインストール</a></li>
+      <li><a href="#gemパッケージをインストール">Gemパッケージをインストール</a></li>
+      <li><a href="#redmineの初期設定とデータベースのテーブルを作成">Redmineの初期設定とデータベースのテーブルを作成</a></li>
+      <li><a href="#passengerをインストール">Passengerをインストール</a></li>
+      <li><a href="#passengerのapache用モジュールをインストール">PassengerのApache用モジュールをインストール</a></li>
+      <li><a href="#apacheを設定">Apacheを設定</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
         
         <p>何故か、何度かRedmineをセットアップしたことがありますが、はっきり言って面倒くさい！　なんか色々依存関係はあるし、少しバージョンが異なるとすぐに動かなくなるし…</p>
 
@@ -325,9 +359,7 @@
 
 <p>ただその前に、もう一度Redmineのセットアップをおさらいすることで、セットアップ過程を再確認するとともに理解を深めたいと思います。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>CentOS 6.3</li>
@@ -338,7 +370,7 @@
 
 <p>いずれも、2012/10/11時点の最新バージョンです。CentOSは、OSセットアップ直後に近い状態です(作業ユーザーの追加、ネットワーク設定などを行いました)。</p>
 
-<h1 id="参考ページ">参考ページ</h1>
+<h2 id="参考リンク">参考リンク</h2>
 
 <table>
   <tbody>
@@ -349,9 +381,9 @@
   </tbody>
 </table>
 
-<h1 id="セットアップ手順">セットアップ手順</h1>
+<h2 id="セットアップ手順">セットアップ手順</h2>
 
-<h2 id="selinuxを無効に設定">SELinuxを無効に設定</h2>
+<h3 id="selinuxを無効に設定">SELinuxを無効に設定</h3>
 
 <p><code class="highlighter-rouge">/etc/sysconfig/selinux</code>を開きます。</p>
 
@@ -376,7 +408,7 @@ SELINUX=disabled
 Disabled
 </code></pre></div></div>
 
-<h2 id="iptablesでhttpを許可">iptablesでHTTPを許可</h2>
+<h3 id="iptablesでhttpを許可">iptablesでHTTPを許可</h3>
 
 <p><code class="highlighter-rouge">/etc/sysconfig/iptables</code>を開きます。</p>
 
@@ -407,7 +439,7 @@ COMMIT
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service iptables restart
 </code></pre></div></div>
 
-<h2 id="epelリポジトリを登録">EPELリポジトリを登録</h2>
+<h3 id="epelリポジトリを登録">EPELリポジトリを登録</h3>
 
 <p>以下のページで、最新のepel-releaseパッケージのURLを確認します。</p>
 
@@ -420,34 +452,34 @@ COMMIT
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rpm -Uvh &lt;epel-releaseパッケージのURL&gt;
 </code></pre></div></div>
 
-<h2 id="開発ツール類をインストール">開発ツール類をインストール</h2>
+<h3 id="開発ツール類をインストール">開発ツール類をインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum groupinstall "Development Tools"
 </code></pre></div></div>
 
-<h2 id="rubyとpassengerのビルドに必要なヘッダーファイルなどをインストール">RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール</h2>
+<h3 id="rubyとpassengerのビルドに必要なヘッダーファイルなどをインストール">RubyとPassengerのビルドに必要なヘッダーファイルなどをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install openssl-devel readline-devel zlib-devel curl-devel libyaml-devel
 </code></pre></div></div>
 
-<h2 id="mysqlとヘッダーファイルをインストール">MySQLとヘッダーファイルをインストール</h2>
+<h3 id="mysqlとヘッダーファイルをインストール">MySQLとヘッダーファイルをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install mysql-server mysql-devel
 </code></pre></div></div>
 
-<h2 id="apacheとヘッダーファイルをインストール">Apacheとヘッダーファイルをインストール</h2>
+<h3 id="apacheとヘッダーファイルをインストール">Apacheとヘッダーファイルをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install httpd httpd-devel
 </code></pre></div></div>
 
-<h2 id="imagemagickとヘッダーファイルをインストール">ImageMagickとヘッダーファイルをインストール</h2>
+<h3 id="imagemagickとヘッダーファイルをインストール">ImageMagickとヘッダーファイルをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install ImageMagick ImageMagick-devel
 </code></pre></div></div>
 
-<h2 id="rubyをインストール">Rubyをインストール</h2>
+<h3 id="rubyをインストール">Rubyをインストール</h3>
 
-<h3 id="ソースコードをダウンロード">ソースコードをダウンロード</h3>
+<h4 id="ソースコードをダウンロード">ソースコードをダウンロード</h4>
 
 <p>以下のページからRubyのソースコードをダウンロードします。</p>
 
@@ -460,7 +492,7 @@ COMMIT
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.zip
 </code></pre></div></div>
 
-<h3 id="ソースコードをビルド">ソースコードをビルド</h3>
+<h4 id="ソースコードをビルド">ソースコードをビルド</h4>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ unzip ruby-1.9.3-p194.zip
 $ cd ruby-1.9.3-p194
@@ -475,16 +507,16 @@ $ make clean
 ruby 1.9.3p194 (2012-04-20 revision 35410) [i686-linux]
 </code></pre></div></div>
 
-<h3 id="bundlerをインストール">bundlerをインストール</h3>
+<h4 id="bundlerをインストール">bundlerをインストール</h4>
 
 <p>Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># gem install bundler --no-rdoc --no-ri
 </code></pre></div></div>
 
-<h2 id="mysqlを設定">MySQLを設定</h2>
+<h3 id="mysqlを設定">MySQLを設定</h3>
 
-<h3 id="デフォルトキャラクターセットをutf8に設定">デフォルトキャラクターセットをutf8に設定</h3>
+<h4 id="デフォルトキャラクターセットをutf8に設定">デフォルトキャラクターセットをutf8に設定</h4>
 
 <p><code class="highlighter-rouge">/etc/my.cnf</code>を開きます。</p>
 
@@ -538,7 +570,7 @@ mysql&gt; show variables like 'character_set%';
 8 rows in set (0.00 sec)
 </code></pre></div></div>
 
-<h2 id="rootユーザーのパスワードを変更">rootユーザーのパスワードを変更</h2>
+<h3 id="rootユーザーのパスワードを変更">rootユーザーのパスワードを変更</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; set password for root@localhost=password('新しいrootのパスワード');
 </code></pre></div></div>
@@ -552,29 +584,29 @@ $ mysql -u root -p
 Enter password:
 </code></pre></div></div>
 
-<h2 id="匿名ユーザーを削除">匿名ユーザーを削除</h2>
+<h3 id="匿名ユーザーを削除">匿名ユーザーを削除</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; delete from mysql.user where user = '';
 mysql&gt; flush privileges;
 </code></pre></div></div>
 
-<h3 id="redmine用のデータベースユーザーを作成">Redmine用のデータベース、ユーザーを作成</h3>
+<h4 id="redmine用のデータベースユーザーを作成">Redmine用のデータベース、ユーザーを作成</h4>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; create database db_redmine default character set utf8;
 mysql&gt; grant all on db_redmine.* to user_redmine identified by 'user_redmineのパスワード';
 mysql&gt; flush privileges;
 </code></pre></div></div>
 
-<h2 id="redmineをインストール">Redmineをインストール</h2>
+<h3 id="redmineをインストール">Redmineをインストール</h3>
 
-<h3 id="redmineをダウンロード">Redmineをダウンロード</h3>
+<h4 id="redmineをダウンロード">Redmineをダウンロード</h4>
 
 <p><a href="http://rubyforge.org/frs/?group_id=1850">RubyForge: Redmine: ファイルリスト</a>からRedmineをダウンロードします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget http://rubyforge.org/frs/download.php/76497/redmine-2.1.2.zip
 </code></pre></div></div>
 
-<h3 id="redmineを展開配置">Redmineを展開、配置</h3>
+<h4 id="redmineを展開配置">Redmineを展開、配置</h4>
 
 <p>ダウンロードしたアーカイブを展開します。</p>
 
@@ -588,7 +620,7 @@ mysql&gt; flush privileges;
 
 <p>以降、Redmineの配置先ディレクトリを<em>$REDMINE_HOME</em>と表記します。</p>
 
-<h3 id="データベース接続を設定">データベース接続を設定</h3>
+<h4 id="データベース接続を設定">データベース接続を設定</h4>
 
 <p><code class="highlighter-rouge">$REDMINE_HOME/config/database.yml</code>を開きます。</p>
 
@@ -606,7 +638,7 @@ mysql&gt; flush privileges;
   encoding: utf8
 </code></pre></div></div>
 
-<h3 id="メールサーバー接続を設定">メールサーバー接続を設定</h3>
+<h4 id="メールサーバー接続を設定">メールサーバー接続を設定</h4>
 
 <p><code class="highlighter-rouge">$REDMINE_HOME/config/configuration.yml</code>を開きます。</p>
 
@@ -642,14 +674,14 @@ mysql&gt; flush privileges;
 </code></pre></div>  </div>
 </blockquote>
 
-<h2 id="gemパッケージをインストール">Gemパッケージをインストール</h2>
+<h3 id="gemパッケージをインストール">Gemパッケージをインストール</h3>
 
 <p>bundlerを使用して、Redmineで使用するGemを一括でインストールします。<em>$REDMINE_HOME</em> で以下のコマンドを実行します。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># bundle install --without development test postgresql sqlite
 </code></pre></div></div>
 
-<h2 id="redmineの初期設定とデータベースのテーブルを作成">Redmineの初期設定とデータベースのテーブルを作成</h2>
+<h3 id="redmineの初期設定とデータベースのテーブルを作成">Redmineの初期設定とデータベースのテーブルを作成</h3>
 
 <p>セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。<em>$REDMINE_HOME</em> で以下のコマンドを実行します。</p>
 
@@ -657,12 +689,12 @@ mysql&gt; flush privileges;
 # RAILS_ENV=production rake db:migrate
 </code></pre></div></div>
 
-<h2 id="passengerをインストール">Passengerをインストール</h2>
+<h3 id="passengerをインストール">Passengerをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># gem install passenger --no-rdoc --no-ri
 </code></pre></div></div>
 
-<h2 id="passengerのapache用モジュールをインストール">PassengerのApache用モジュールをインストール</h2>
+<h3 id="passengerのapache用モジュールをインストール">PassengerのApache用モジュールをインストール</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># passenger-install-apache2-module
 </code></pre></div></div>
@@ -682,9 +714,9 @@ applications on Apache, without any further Ruby on Rails-specific
 configuration!
 </code></pre></div></div>
 
-<h2 id="apacheを設定">Apacheを設定</h2>
+<h3 id="apacheを設定">Apacheを設定</h3>
 
-<h3 id="passengerを設定">Passengerを設定</h3>
+<h4 id="passengerを設定">Passengerを設定</h4>
 
 <p>Passengerの設定をApacheに追加します。<code class="highlighter-rouge">httpd.conf</code>に直接追加すると紛らわしくなるので、別ファイルで設定します。<code class="highlighter-rouge">/etc/httpd/conf.d/passenger.conf</code>を先ほど表示された内容を使用して作成します。</p>
 
@@ -702,14 +734,14 @@ $ chkconfig --list | grep httpd
 httpd           0:off   1:off   2:on    3:on    4:on    5:on    6:off
 </code></pre></div></div>
 
-<h3 id="ファイルオーナーを変更">ファイルオーナーを変更</h3>
+<h4 id="ファイルオーナーを変更">ファイルオーナーを変更</h4>
 
 <p>Redmineの配置先ディレクトリのファイルを、Apacheを実行するユーザー・グループ(CentOSの場合は<code class="highlighter-rouge">apache</code>)で読み書きできるよう、ファイルオーナーを変更します。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chown -R apache:apache /var/lib/redmine
 </code></pre></div></div>
 
-<h3 id="redmine公開設定サブディレクトリで公開">Redmine公開設定(サブディレクトリで公開)</h3>
+<h4 id="redmine公開設定サブディレクトリで公開">Redmine公開設定(サブディレクトリで公開)</h4>
 
 <p>ここでは、Redmineをサブディレクトリで公開する方法を説明します。</p>
 

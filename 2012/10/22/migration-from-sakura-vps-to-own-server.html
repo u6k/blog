@@ -312,20 +312,30 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-22T18:00:00+09:00">2012-10-22</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-22T18:00:00+09:00">2012-10-22</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#vpsのセットアップ">VPSのセットアップ</a></li>
+  <li><a href="#redmineの移行">Redmineの移行</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>今まで、Redmine-warなどのチケットを管理していたRedmineは、実は自宅PCで動作していました。しかしこのPC、数年前のPCで、メモリが389MBしか積んでいないという超低スペックマシン。すっごく遅かったのでイラッとしながら使っていたわけです。</p>
 
 <p>それで、以前から気になっていたさくらVPSを借りて、そこにRedmineを移行しました！　さくらのVPS 1Gと一番安価なプランを使用していますが、それでもかなり快適になりました。</p>
 
-<!-- more -->
-
-<h1 id="vpsのセットアップ">VPSのセットアップ</h1>
+<h2 id="vpsのセットアップ">VPSのセットアップ</h2>
 
 <p>以下の記事を参考にしてセットアップを行いました。感謝！</p>
 
@@ -334,7 +344,7 @@
   <li><a href="http://plusblog.jp/6093/">さくらVPSでスタートダッシュ決めた後はこーすりゃいいの？</a></li>
 </ul>
 
-<h1 id="redmineの移行">Redmineの移行</h1>
+<h2 id="redmineの移行">Redmineの移行</h2>
 
 <p>自宅RedmineはMySQLで動作していましたが、ドッグフーディングという意味で、SQLite3に移行してRedmine-warに配置しました。自分がRubyについて無知なだけですが、結構苦労しました…</p>
 

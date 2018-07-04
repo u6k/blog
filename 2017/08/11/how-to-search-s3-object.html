@@ -312,18 +312,29 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-11T07:00:00+09:00">2017-08-11</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-11T07:00:00+09:00">2017-08-11</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#何をしたいのか">何をしたいのか</a></li>
+  <li><a href="#how-do-you-search-an-amazon-s3-bucket">How do you search an amazon s3 bucket?</a></li>
+  <li><a href="#どうしようか">どうしようか…</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>S3オブジェクトのメタデータ管理、および検索手段のメモ。</p>
 
-<!-- more -->
-
-<h1 id="何をしたいのか">何をしたいのか</h1>
+<h2 id="何をしたいのか">何をしたいのか</h2>
 
 <p>S3には様々なデータを格納できますが、<a href="http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/UsingMetadata.html">その構造は基本的にフラット</a>です。また、メタデータにいろいろ設定することはできますが、変更はできません。</p>
 
@@ -331,7 +342,7 @@
 
 <p>こういう場合、どのような手段があるかを考えていたところ、以下の記事を見つけました。</p>
 
-<h1 id="how-do-you-search-an-amazon-s3-bucket">How do you search an amazon s3 bucket?</h1>
+<h2 id="how-do-you-search-an-amazon-s3-bucket">How do you search an amazon s3 bucket?</h2>
 
 <p><a href="https://stackoverflow.com/questions/4979218/how-do-you-search-an-amazon-s3-bucket">How do you search an amazon s3 bucket? - Stack Overflow</a></p>
 
@@ -346,7 +357,7 @@
 
 <p>私がやりたいことは、「メタデータ検索」または「メタデータをSimpleDBに格納」に近いと思います。</p>
 
-<h1 id="どうしようか">どうしようか…</h1>
+<h2 id="どうしようか">どうしようか…</h2>
 
 <p>実はS3ではなく、自宅サーバーのMinioを使っているので、少々、状況が異なります。個人ツールで既にこのような状況があり、現時点では、コンテンツ(<code class="highlighter-rouge">xxx.data</code>)とメタデータ(<code class="highlighter-rouge">xxx.meta</code>)を別のオブジェクトで格納しており、検索するときは全メタデータを検索しています。が、上記のQAを参照して、メタデータはDBMSに格納しようと思いました。やはりデータ管理はデータ構造に合わせて選択すべきですね。コンテンツとメタデータの管理システムが異なることに懸念がありますが…</p>
 

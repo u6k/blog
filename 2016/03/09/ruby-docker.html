@@ -312,24 +312,41 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-09T07:00:00+09:00">2016-03-09</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-09T07:00:00+09:00">2016-03-09</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#確認したいこと">確認したいこと</a></li>
+  <li><a href="#前提条件">前提条件</a></li>
+  <li><a href="#確認手順">確認手順</a>
+    <ul>
+      <li><a href="#dockerホストを構築">Dockerホストを構築</a></li>
+      <li><a href="#rubyコンテナーを構築起動">Rubyコンテナーを構築、起動</a></li>
+    </ul>
+  </li>
+  <li><a href="#github">GitHub</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>DockerコンテナにRubyをインストールしてみます。</p>
 
-<!-- more -->
-
-<h1 id="確認したいこと">確認したいこと</h1>
+<h2 id="確認したいこと">確認したいこと</h2>
 
 <ul>
   <li>DockerコンテナにRubyをインストールして、最低限の動作確認としてコンソールに文字列を表示すること。</li>
 </ul>
 
-<h1 id="前提条件">前提条件</h1>
+<h2 id="前提条件">前提条件</h2>
 
 <ul>
   <li>VirtualBox
@@ -351,11 +368,11 @@
   </li>
 </ul>
 
-<h1 id="確認手順">確認手順</h1>
+<h2 id="確認手順">確認手順</h2>
 
 <p>Windowsを前提に説明しますが、Docker Machineが使えるならどのOSでも大差ないはずです。</p>
 
-<h2 id="dockerホストを構築">Dockerホストを構築</h2>
+<h3 id="dockerホストを構築">Dockerホストを構築</h3>
 
 <p>Dockerホストを構築して、sshログインします。</p>
 
@@ -363,7 +380,7 @@
 $ docker-machine ssh
 </code></pre></div></div>
 
-<h2 id="rubyコンテナーを構築起動">Rubyコンテナーを構築、起動</h2>
+<h3 id="rubyコンテナーを構築起動">Rubyコンテナーを構築、起動</h3>
 
 <p>Rubyをインストールしたコンテナーを構築、起動します。このコンテナーは、Ruby 2.3をインストールし、Rubyバージョン情報を表示します。</p>
 
@@ -383,7 +400,7 @@ $ docker build -t u6k/ruby-docker .
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run u6k/ruby-docker
 </code></pre></div></div>
 
-<h1 id="github">GitHub</h1>
+<h2 id="github">GitHub</h2>
 
 <p><a href="https://github.com/u6k/ruby-docker">u6k/ruby-docker</a></p>
 

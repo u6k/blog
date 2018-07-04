@@ -312,20 +312,32 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T21:46:00+09:00">2015-01-09</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T21:46:00+09:00">2015-01-09</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#作業手順">作業手順</a></li>
+  <li><a href="#備考">備考</a></li>
+  <li><a href="#qiita">Qiita</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>個人的なタスク管理ツールについて、Google Tasks、Wunderlist、Toodledo、Remember the milk、付箋紙などなどいろいろ乗り換えてきましたが、ここ2年ほどはRedmineで運用しています(Redmineがタスク管理ツールかどうかは置いておいて)。当初はさくらVPS、次に(短期間だけど)Digital Oceanで稼働させていましたが、今はOpenShiftで稼働させています。</p>
 
 <p>OpenShiftのメリットはいろいろありますがそれは別記事で述べるとして、ここではOpenShiftにRedmineをインストールする手順を説明します。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>あらかじめ、OpenShiftに会員登録しておきます。</li>
@@ -333,11 +345,11 @@
   <li><code class="highlighter-rouge">rhc</code>というgemをインストールしておきます。</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
 <p>手順というほどのことはなく、<a href="https://github.com/openshift/openshift-redmine-quickstart">openshift/openshift-redmine-quickstart</a>の手順に従って作業を行うだけです。特につまづくこともなく、非常に簡単にインストールできます。</p>
 
-<h1 id="備考">備考</h1>
+<h2 id="備考">備考</h2>
 
 <p>当時はこの手順が一番簡単だと思いましたが、今はもっと簡単な手順があるようです。</p>
 
@@ -345,7 +357,7 @@
   <li><a href="http://qiita.com/koh-taka@github/items/efd5fd52b475a8863436">Ruby読めない僕が紹介する、Redmineを基本無料で構築する方法(初級編) - Qiita</a></li>
 </ul>
 
-<h1 id="qiita">Qiita</h1>
+<h2 id="qiita">Qiita</h2>
 
 <ul>
   <li><a href="http://qiita.com/u6k/items/60513a930a2450642852">Redmine@OpenShiftインストール手順(openshift-redmine-quickstart) - Qiita</a></li>

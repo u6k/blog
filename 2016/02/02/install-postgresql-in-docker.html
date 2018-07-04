@@ -312,24 +312,39 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-02T07:00:00+09:00">2016-02-02</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-02T07:00:00+09:00">2016-02-02</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#確認したいこと">確認したいこと</a></li>
+  <li><a href="#前提条件">前提条件</a></li>
+  <li><a href="#dockerホストを構築">Dockerホストを構築。</a></li>
+  <li><a href="#postgresqlサーバーコンテナーを構築起動">PostgreSQLサーバー・コンテナーを構築、起動</a></li>
+  <li><a href="#postgresqlクライアントコンテナーを構築起動">PostgreSQLクライアント・コンテナーを構築、起動</a></li>
+  <li><a href="#再度起動する場合">再度、起動する場合</a></li>
+  <li><a href="#参照">参照</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>PostgreSQLが動作するDockerコンテナー(ubuntu:latest)を、勉強のために自作してみます。</p>
 
-<!-- more -->
-
-<h1 id="確認したいこと">確認したいこと</h1>
+<h2 id="確認したいこと">確認したいこと</h2>
 
 <ul>
   <li>DockerコンテナにPostgreSQLをインストールして、最低限の動作確認としてpsqlで接続すること。</li>
 </ul>
 
-<h1 id="前提条件">前提条件</h1>
+<h2 id="前提条件">前提条件</h2>
 
 <ul>
   <li>Windowsを前提に説明しますが、Docker Machineが使えるならどのOSでも大差ないはずです。</li>
@@ -352,7 +367,7 @@
   </li>
 </ul>
 
-<h1 id="dockerホストを構築">Dockerホストを構築。</h1>
+<h2 id="dockerホストを構築">Dockerホストを構築。</h2>
 
 <p>Dockerホストを構築して、sshログインします。</p>
 
@@ -360,7 +375,7 @@
 $ docker-machine ssh test
 </code></pre></div></div>
 
-<h1 id="postgresqlサーバーコンテナーを構築起動">PostgreSQLサーバー・コンテナーを構築、起動</h1>
+<h2 id="postgresqlサーバーコンテナーを構築起動">PostgreSQLサーバー・コンテナーを構築、起動</h2>
 
 <p>PostgreSQLサーバーをインストールしたコンテナーを構築、起動します。このコンテナーは、5432番ポートを開放し、外部ホストからの接続を許可し、<code class="highlighter-rouge">docker</code>というユーザーとデータベースを構築済み、という状態にします。</p>
 
@@ -382,7 +397,7 @@ $ docker build -t u6k/postgresql-server .
 
 <p><code class="highlighter-rouge">--name</code>引数で、コンテナに名前を付けます。<code class="highlighter-rouge">-d</code>引数で、デーモンとして起動します。<code class="highlighter-rouge">-d</code>を付けないと、コンテナ起動後にプロンプトが戻ってこなくなります(<code class="highlighter-rouge">Ctrl+c</code>でコンテナを終了させる必要あり)。</p>
 
-<h1 id="postgresqlクライアントコンテナーを構築起動">PostgreSQLクライアント・コンテナーを構築、起動</h1>
+<h2 id="postgresqlクライアントコンテナーを構築起動">PostgreSQLクライアント・コンテナーを構築、起動</h2>
 
 <p>上記でサーバーを起動できましたが、このままでは接続確認ができません。接続確認用に、PostgreSQLクライアントをインストールしたコンテナーを構築、起動します。</p>
 
@@ -425,7 +440,7 @@ docker=#
 
 <p>接続が成功しました。</p>
 
-<h1 id="再度起動する場合">再度、起動する場合</h1>
+<h2 id="再度起動する場合">再度、起動する場合</h2>
 
 <p>PostgreSQLサーバー・コンテナを上記の手順で再度起動しようとすると、以下のようにエラーとなります。</p>
 
@@ -440,7 +455,7 @@ Error response from daemon: Conflict. The name "postgresql-server" is already in
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker rm $(docker ps -aq)
 </code></pre></div></div>
 
-<h1 id="参照">参照</h1>
+<h2 id="参照">参照</h2>
 
 <ul>
   <li><a href="https://github.com/u6k/ubuntu-postgresql">u6k/ubuntu-postgresql</a></li>

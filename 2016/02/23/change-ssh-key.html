@@ -312,20 +312,43 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-23T07:00:00+09:00">2016-02-23</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-02-23T07:00:00+09:00">2016-02-23</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#方針">方針</a>
+    <ul>
+      <li><a href="#鍵を変更するサービス">鍵を変更するサービス</a></li>
+      <li><a href="#鍵を保有する端末">鍵を保有する端末</a></li>
+      <li><a href="#鍵の保管方法">鍵の保管方法</a></li>
+      <li><a href="#鍵の作成方針">鍵の作成方針</a></li>
+    </ul>
+  </li>
+  <li><a href="#作業">作業</a>
+    <ul>
+      <li><a href="#鍵を作成">鍵を作成</a></li>
+      <li><a href="#公開鍵をサービスに登録">公開鍵をサービスに登録</a></li>
+      <li><a href="#ssh接続確認">ssh接続確認</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自宅サーバーや各種サービスで使用しているSSH鍵を変更して回ったので、その作業内容をメモします。</p>
 
-<!-- more -->
+<h2 id="方針">方針</h2>
 
-<h1 id="方針">方針</h1>
-
-<h2 id="鍵を変更するサービス">鍵を変更するサービス</h2>
+<h3 id="鍵を変更するサービス">鍵を変更するサービス</h3>
 
 <p>まず、鍵を変更するサービスを調べて回りました。</p>
 
@@ -366,7 +389,7 @@
   <p><strong>NOTE:</strong> 個人用鍵と仕事用鍵で分けるのが面倒だったので1ファイルで管理しようとしましたが、同じ鍵を別アカウントで登録することができなかったので、それぞれ鍵を作成しました。例えば、GitHubの個人用アカウントに鍵を登録して、次に仕事用アカウントに同じ鍵を登録しようとするとエラーになります。</p>
 </blockquote>
 
-<h2 id="鍵を保有する端末">鍵を保有する端末</h2>
+<h3 id="鍵を保有する端末">鍵を保有する端末</h3>
 
 <p>次に、鍵を保有する端末を列挙します。</p>
 
@@ -378,7 +401,7 @@
 
 <p>これらが保有する秘密鍵を更新します。iPhoneは、serveraudiatorというアプリでssh接続をするために、秘密鍵を持っています。</p>
 
-<h2 id="鍵の保管方法">鍵の保管方法</h2>
+<h3 id="鍵の保管方法">鍵の保管方法</h3>
 
 <p>各サービスには公開鍵を登録して、端末には秘密鍵を保有しますが、複数端末で鍵を共有するためにLastPassに秘密鍵(文字列で)とそのパスワードを保管することとします。以前はDropboxに鍵ファイルを格納して、それを各端末で共有していましたが、操作ミスを考えてやめました。</p>
 
@@ -386,13 +409,13 @@
   <p><strong>NOTE:</strong> LastPassに秘密鍵をファイル添付しようとしましたが、WindowsとOS Xの両方で試しても動作が不安定だったため、やめました。</p>
 </blockquote>
 
-<h2 id="鍵の作成方針">鍵の作成方針</h2>
+<h3 id="鍵の作成方針">鍵の作成方針</h3>
 
 <p>ビット数は多いほうが良いと考え、8192bitで作成します。やり過ぎだとは思いますが。パスワードは必ず設定として、英数記号の50桁以上とします。どうせ手入力する機会なんてそう多くはありませんので。</p>
 
-<h1 id="作業">作業</h1>
+<h2 id="作業">作業</h2>
 
-<h2 id="鍵を作成">鍵を作成</h2>
+<h3 id="鍵を作成">鍵を作成</h3>
 
 <p>鍵は、 <strong>必ず端末側で作成</strong> します。端末側で作成して各サービスに公開鍵を登録する、という手順になります。</p>
 
@@ -400,7 +423,7 @@
 
 <p>作成後、秘密鍵・公開鍵・パスワード・秘密鍵(ppk形式)をLastPassのセキュアノートに保管します。</p>
 
-<h2 id="公開鍵をサービスに登録">公開鍵をサービスに登録</h2>
+<h3 id="公開鍵をサービスに登録">公開鍵をサービスに登録</h3>
 
 <p>自宅サーバー以外の各サービスに、 <strong>公開鍵を登録</strong> します。間違えて秘密鍵を登録しようとしてもエラーになるだけですが、せっかく秘匿している秘密鍵をネットワークに流すべきではありません。登録手順は、だいたいサービス設定あたりから鍵登録ページに行けます。</p>
 
@@ -422,7 +445,7 @@
   <p><strong>NOTE:</strong> サービスに登録した公開鍵とローカルの鍵が本当に同じであることを確認するには、鍵指紋を比較すると目視確認しやすいです。サービス側の鍵指紋は、公開鍵を登録すると表示されます。ローカルでは、<code class="highlighter-rouge">ssh-keygen -l -E md5 -f id_rsa.pub</code>で鍵指紋を表示することができます。</p>
 </blockquote>
 
-<h2 id="ssh接続確認">ssh接続確認</h2>
+<h3 id="ssh接続確認">ssh接続確認</h3>
 
 <p>GitHub、BitBucketは、<code class="highlighter-rouge">git clone</code>と<code class="highlighter-rouge">git push</code>が出来ることを確認します。アクセス確認用リポジトリを作成して、適当にファイルを編集、プッシュしました。</p>
 

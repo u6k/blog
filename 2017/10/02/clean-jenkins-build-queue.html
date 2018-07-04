@@ -312,16 +312,27 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-02T07:00:00+09:00">2017-10-02</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-02T07:00:00+09:00">2017-10-02</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#jenkinsでスクリプトを実行">Jenkinsでスクリプトを実行</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>先日、Jenkinsのあるジョブが終了せず、繰り返し設定していたためにジョブ・キューにも溜まり続けてしまい、ジョブ・キューが400件近くになってしまう状況が発生しました。その溜まってしまったジョブ・キューを一気に終了させる手順を説明します。</p>
 
-<h1 id="jenkinsでスクリプトを実行">Jenkinsでスクリプトを実行</h1>
+<h2 id="jenkinsでスクリプトを実行">Jenkinsでスクリプトを実行</h2>
 
 <p><code class="highlighter-rouge">Jenkinsの管理</code>→<code class="highlighter-rouge">スクリプトコンソール</code>を開き、以下のスクリプトを実行します。</p>
 

@@ -312,24 +312,43 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-11T22:00:00+09:00">2015-03-11</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-11T22:00:00+09:00">2015-03-11</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#結論">結論</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#vagrantを起動">Vagrantを起動</a></li>
+  <li><a href="#各種パッケージを更新インストール">各種パッケージを更新、インストール</a></li>
+  <li><a href="#jrubyをインストール">JRubyをインストール</a></li>
+  <li><a href="#redmineをダウンロード展開">Redmineをダウンロード、展開</a></li>
+  <li><a href="#redmine設定を作成">Redmine設定を作成</a></li>
+  <li><a href="#gemパッケージをインストール">Gemパッケージをインストール</a></li>
+  <li><a href="#データベース初期化">データベース初期化</a></li>
+  <li><a href="#note-activerecord-42-is-not-yet-fully-supported-by-ar-jdbc">NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>昔に<a href="http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html">Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす</a>なんてことをやりましたが、<a href="http://redmine.jp/redmine_today/2015/02/redmine-3_0_0-released/">Redmine 3.0.0がリリースされた</a>ということで、この最新バージョンでRedmine on JRubyを試してみました。</p>
 
-<h1 id="結論">結論</h1>
+<h2 id="結論">結論</h2>
 
 <p>途中で詰まってしまいました…</p>
 
 <p>なので、この文書は「試したけどダメだったログ」になります。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>Windows
@@ -344,7 +363,7 @@
   </li>
 </ul>
 
-<h1 id="vagrantを起動">Vagrantを起動</h1>
+<h2 id="vagrantを起動">Vagrantを起動</h2>
 
 <p><code class="highlighter-rouge">chef/centos-7.0</code>を使用するように、Vagrantを初期化・起動します。</p>
 
@@ -355,7 +374,7 @@
 
 <p><code class="highlighter-rouge">vagrant ssh</code>は、Windowsでは<code class="highlighter-rouge">ssh</code>コマンドがインストールされていないため失敗します。<code class="highlighter-rouge">Cygwin</code>などで<code class="highlighter-rouge">ssh</code>コマンドをインストールするか、任意のsshクライアント(TeraTermなど)を使用してください。</p>
 
-<h1 id="各種パッケージを更新インストール">各種パッケージを更新、インストール</h1>
+<h2 id="各種パッケージを更新インストール">各種パッケージを更新、インストール</h2>
 
 <p>インストール済みソフトウェアを最新化します。</p>
 
@@ -372,7 +391,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 </code></pre></div></div>
 
-<h1 id="jrubyをインストール">JRubyをインストール</h1>
+<h2 id="jrubyをインストール">JRubyをインストール</h2>
 
 <p>JRubyをインストールします。パッケージインストールではなく手動インストールします。</p>
 
@@ -394,7 +413,7 @@ $ cd
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo jruby -S gem install bundler --no-rdoc --no-ri
 </code></pre></div></div>
 
-<h1 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h1>
+<h2 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h2>
 
 <p>Redmineをダウンロード、展開します。</p>
 
@@ -403,7 +422,7 @@ $ unzip redmine-3.0.0.zip
 $ cd redmine-3.0.0
 </code></pre></div></div>
 
-<h1 id="redmine設定を作成">Redmine設定を作成</h1>
+<h2 id="redmine設定を作成">Redmine設定を作成</h2>
 
 <p>データベース設定を作成します。</p>
 
@@ -427,14 +446,14 @@ $ cd redmine-3.0.0
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production:
 </code></pre></div></div>
 
-<h1 id="gemパッケージをインストール">Gemパッケージをインストール</h1>
+<h2 id="gemパッケージをインストール">Gemパッケージをインストール</h2>
 
 <p>Redmineが使用するGemパッケージをインストールします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jruby -S bundle install --without development test postgresql mysql
 </code></pre></div></div>
 
-<h1 id="データベース初期化">データベース初期化</h1>
+<h2 id="データベース初期化">データベース初期化</h2>
 
 <p>セッションデータ暗号化用鍵の生成を行います。</p>
 
@@ -446,7 +465,7 @@ $ cd redmine-3.0.0
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC, please help us finish 4.2 support - check http://bit.ly/jruby-42 for starters
 </code></pre></div></div>
 
-<h1 id="note-activerecord-42-is-not-yet-fully-supported-by-ar-jdbc">NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC</h1>
+<h2 id="note-activerecord-42-is-not-yet-fully-supported-by-ar-jdbc">NOTE: ActiveRecord 4.2 is not (yet) fully supported by AR-JDBC</h2>
 
 <p><a href="http://bit.ly/jruby-42">http://bit.ly/jruby-42</a>にアクセスしましたが、正直良く分かりません…</p>
 
@@ -459,7 +478,7 @@ You can create your own extension to AR-JDBC for a JDBC-based database that core
 
 <p>“core AR-JDBC does not support”と言われてしまっているので、とりあえずここまででギブアップします。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>これが成功したら、次は1jarでRedmineを使用できるようにしたいなぁ。Dropwizardとかで。</p>
 

@@ -312,30 +312,42 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-02T07:00:00+09:00">2016-03-02</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-02T07:00:00+09:00">2016-03-02</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#nativefierとは">nativefierとは</a></li>
+  <li><a href="#なぜdockerコンテナー化するのか">なぜDockerコンテナー化するのか？</a></li>
+  <li><a href="#使い方">使い方</a></li>
+  <li><a href="#備考">備考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>nativefierを使いやすくするため、Dockerコンテナー化します。</p>
 
-<h1 id="nativefierとは">nativefierとは</h1>
+<h2 id="nativefierとは">nativefierとは</h2>
 
 <p>WebページをElectronでラップしてデスクトップ・アプリケーション化するアプリです。</p>
 
 <p><a href="https://github.com/jiahaog/nativefier">jiahaog/nativefier: Wrap any web page natively without even thinking, across Windows, OSX and Linux</a></p>
 
-<!-- more -->
-
-<h1 id="なぜdockerコンテナー化するのか">なぜDockerコンテナー化するのか？</h1>
+<h2 id="なぜdockerコンテナー化するのか">なぜDockerコンテナー化するのか？</h2>
 
 <p>nativefierはNode.js(npm)を必要としますが、Node.jsが無い環境でも使用したいため、Dockerコンテナー化します。</p>
 
 <p>(Dockerが入っているならNode.jsくらい入っているとは思いますが…)</p>
 
-<h1 id="使い方">使い方</h1>
+<h2 id="使い方">使い方</h2>
 
 <p>ビルドしたイメージをDocker Hubで公開しています。以下のように実行できます。</p>
 
@@ -361,7 +373,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v /c/Users/xxx/Downloads:/mnt/dest u6kapps/nativefier -n "Google Calendar" -p win32 --honest "https://calendar.google.com" /mnt/dest
 </code></pre></div></div>
 
-<h1 id="備考">備考</h1>
+<h2 id="備考">備考</h2>
 
 <ul>
   <li>GitHubでコードを公開しています。

@@ -312,18 +312,36 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-07-23T07:00:00+09:00">2016-07-23</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-07-23T07:00:00+09:00">2016-07-23</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#試したツール">試したツール</a></li>
+  <li><a href="#pandocの使い方">pandocの使い方</a>
+    <ul>
+      <li><a href="#インストール">インストール</a></li>
+      <li><a href="#使い方">使い方</a></li>
+      <li><a href="#出力されたword文書の所感">出力されたWord文書の所感</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>ブログ記事やソフトウェア文書を作成するために、よくAtomでMarkdown文書を作成しています。手軽に書けて便利ですが、残念ながら印刷にはむいていません。なんとかMarkdown文書を社内文書として配布できるレベルの、印刷前提の文書ファイルに変換できないかと足掻いてみました。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>Markdownとは、テキスト形式で書ける軽量マークアップ言語です。手軽に人間にも読みやすい修飾された文書を書くことができます。</p>
 
@@ -333,7 +351,7 @@
 
 <p>Markdownは書く分には手軽で良いのですが、残念ながら印刷に適した形式ではありません。PCは各人に行き届いていますが、一覧性という観点では圧倒的に印刷物の方が便利です。なので、印刷体裁を容易に編集できるという点が(私にとっては)重要になります。</p>
 
-<h1 id="試したツール">試したツール</h1>
+<h2 id="試したツール">試したツール</h2>
 
 <p>Markdown文書を入力とするツールとして、以下を試しました。</p>
 
@@ -357,9 +375,9 @@
 
 <p>Word文書に変換可能で、変換後に自由に編集できるので、pandocを試しました。</p>
 
-<h1 id="pandocの使い方">pandocの使い方</h1>
+<h2 id="pandocの使い方">pandocの使い方</h2>
 
-<h2 id="インストール">インストール</h2>
+<h3 id="インストール">インストール</h3>
 
 <p>Windowsの場合、Chocolateyでインストールできます。(もちろん、インストーラーでも可)</p>
 
@@ -371,7 +389,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew cask install pandoc
 </code></pre></div></div>
 
-<h2 id="使い方">使い方</h2>
+<h3 id="使い方">使い方</h3>
 
 <p>コマンドプロンプトで以下のように<code class="highlighter-rouge">pandoc</code>コマンドを実行します。</p>
 
@@ -380,7 +398,7 @@
 
 <p><code class="highlighter-rouge">-o</code>で出力先ファイル名を指定します。拡張子を判定して出力形式が切り替わります。</p>
 
-<h2 id="出力されたword文書の所感">出力されたWord文書の所感</h2>
+<h3 id="出力されたword文書の所感">出力されたWord文書の所感</h3>
 
 <ul>
   <li>確かに、Markdownの構造がWord形式で出力されます。</li>
@@ -390,7 +408,7 @@
   <li>ヘッダー、フッターを設定できません。</li>
 </ul>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>素のpandocが生成するWord文書は正直残念な出来ですが、出力後の手直しで、なんとか印刷体裁を整えることができます。まだ試していないテンプレートの適用で、もうちょいマシになる可能性があるなら、しばらく使ってみても良いかなと思います。Markdown文書から印刷前提文書を生成できるのは、やはり便利ですし。</p>
 

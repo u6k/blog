@@ -312,28 +312,41 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-07-20T00:00:00+09:00">2017-07-20</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-07-20T00:00:00+09:00">2017-07-20</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#何がしたかった">何がしたかった？</a></li>
+  <li><a href="#どうしたか">どうしたか？</a></li>
+  <li><a href="#というわけで">というわけで</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>ようやくできました。Android端末でブログを書いています。簡単に説明。</p>
 
-<h1 id="何がしたかった">何がしたかった？</h1>
+<h2 id="何がしたかった">何がしたかった？</h2>
 
 <p>昨年まで、Bloggerでブログを公開していましたが、GitHubでMarkdown書式の記事ファイルを管理しているのに、いちいちBloggerに投稿しないといけなかったことが不便でした。なので、Jekyllに移行してDockerコンテナ化して動作させています。この経緯や構成やビルド手順は、別の記事で説明します。</p>
 
 <p>ただ、これでもまだPCで記事ファイルを作成する必要がありました。もっとお手軽に記事を書きたい！</p>
 
-<h1 id="どうしたか">どうしたか？</h1>
+<h2 id="どうしたか">どうしたか？</h2>
 
 <p>Android端末にMGitとMarkdownエディターをインストールしました。エディターはいくつか入れましたが、この記事はとりあえずJotterPadで書いています。</p>
 
 <p>記事ファイルを作成して <code class="highlighter-rouge">git push</code> すると、CircleCIでDockerイメージがビルドされて、Docker HubにPushされて、Dockerコンテナが再起動されることで記事が公開されます。</p>
 
-<h1 id="というわけで">というわけで</h1>
+<h2 id="というわけで">というわけで</h2>
 
 <p>思い付きやTILやらを手軽に書いてみようと思います。</p>
 

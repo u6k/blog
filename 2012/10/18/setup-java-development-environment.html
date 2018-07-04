@@ -312,18 +312,37 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-18T04:32:00+09:00">2012-10-18</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-18T04:32:00+09:00">2012-10-18</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 6 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#開発環境の目的">開発環境の目的</a></li>
+  <li><a href="#構築手順">構築手順</a>
+    <ul>
+      <li><a href="#java-sdkをセットアップ">Java SDKをセットアップ</a></li>
+      <li><a href="#jadをセットアップ">Jadをセットアップ</a></li>
+      <li><a href="#sqlitestudioをセットアップ">SQLiteStudioをセットアップ</a></li>
+      <li><a href="#eclipseをセットアップ">Eclipseをセットアップ</a></li>
+      <li><a href="#設定">設定</a></li>
+      <li><a href="#動作確認">動作確認</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>個人的なJava開発環境の構築手順をメモします。普段は、構築後のフォルダをzipアーカイブして持ち歩き、Java開発環境を構築するときはアーカイブを展開するだけで簡単に構築できるようにしています(一部、インストールが必要ですが)。</p>
 
-<!-- more -->
-
-<h1 id="開発環境の目的">開発環境の目的</h1>
+<h2 id="開発環境の目的">開発環境の目的</h2>
 
 <p>以下を行うための環境を構築します。</p>
 
@@ -339,27 +358,27 @@
   <li>SVN、Gitなどのバージョン管理ツールのEclipseからの利用。gitコマンドやTortoiseGitを使用するため。</li>
 </ul>
 
-<h1 id="構築手順">構築手順</h1>
+<h2 id="構築手順">構築手順</h2>
 
 <p>構築手順を説明します。なお、<code class="highlighter-rouge">C:\eclipse\</code>にもろもろ展開していきますが、別の場所に展開する場合は、適宜読み替えてください。</p>
 
-<h2 id="java-sdkをセットアップ">Java SDKをセットアップ</h2>
+<h3 id="java-sdkをセットアップ">Java SDKをセットアップ</h3>
 
 <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE Downloads</a>からJava SDKのインストールファイルをダウンロードしてインストールします。</p>
 
-<h2 id="jadをセットアップ">Jadをセットアップ</h2>
+<h3 id="jadをセットアップ">Jadをセットアップ</h3>
 
 <p><a href="http://works.dgic.co.jp/djwiki/Viewpage.do?pid=@4A6164436C69707365">JadClipseの設定方法</a>からJadのzipファイルをダウンロードして、<code class="highlighter-rouge">C:\eclipse\</code>に展開します。<code class="highlighter-rouge">C:\eclipse\Jad\</code>が作成されます。ついでに、JadClipseのzipファイルもダウンロードしておきます。</p>
 
-<h2 id="sqlitestudioをセットアップ">SQLiteStudioをセットアップ</h2>
+<h3 id="sqlitestudioをセットアップ">SQLiteStudioをセットアップ</h3>
 
 <p><a href="http://sqlitestudio.one.pl/index.rvt">SQLiteStudio</a>から実行ファイルをダウンロードして、<code class="highlighter-rouge">C:\eclipse\sqlitestudio\</code>にコピーします。</p>
 
-<h2 id="eclipseをセットアップ">Eclipseをセットアップ</h2>
+<h3 id="eclipseをセットアップ">Eclipseをセットアップ</h3>
 
 <p><a href="http://eclipse.org/">Eclipse</a>から<code class="highlighter-rouge">Eclipse IDE for Java EE Developers</code>のzipアーカイブをダウンロードして、<code class="highlighter-rouge">C:\eclipse\eclipse\</code>に展開します。</p>
 
-<h3 id="eclipseiniを修正"><code class="highlighter-rouge">eclipse.ini</code>を修正</h3>
+<h4 id="eclipseiniを修正"><code class="highlighter-rouge">eclipse.ini</code>を修正</h4>
 
 <p><code class="highlighter-rouge">eclipse.ini</code>の以下の点を修正します。</p>
 
@@ -371,7 +390,7 @@
 -Xmx512m
 </code></pre></div></div>
 
-<h3 id="起動ワークスペースを作成">起動、ワークスペースを作成</h3>
+<h4 id="起動ワークスペースを作成">起動、ワークスペースを作成</h4>
 
 <p>Eclipseを起動します。ワークスペースを<code class="highlighter-rouge">C:\eclipse\workspace\</code>に作成します。</p>
 
@@ -379,7 +398,7 @@
   <p>**tips: ** 起動に失敗する場合、<code class="highlighter-rouge">eclipse.ini</code>の<code class="highlighter-rouge">-Xms</code>、<code class="highlighter-rouge">-Xmx</code>の値が影響している可能性があります。詳細はググってください。</p>
 </blockquote>
 
-<h3 id="eclipseプラグインをインストール">Eclipseプラグインをインストール</h3>
+<h4 id="eclipseプラグインをインストール">Eclipseプラグインをインストール</h4>
 
 <p>以下のEclipseプラグインをインストールします。</p>
 
@@ -398,30 +417,30 @@
   </li>
 </ul>
 
-<h2 id="設定">設定</h2>
+<h3 id="設定">設定</h3>
 
 <p>[Window]→[Preference]をクリックして設定を開き、以下のように設定します。</p>
 
-<h3 id="general">General</h3>
+<h4 id="general">General</h4>
 
 <ul>
   <li>Always run in background = チェック</li>
   <li>Show heap status = チェック</li>
 </ul>
 
-<h3 id="general--appearance">General / Appearance</h3>
+<h4 id="general--appearance">General / Appearance</h4>
 
 <ul>
   <li>Theme = Classic</li>
 </ul>
 
-<h3 id="general--appearance--colors-and-fonts">General / Appearance / Colors and Fonts</h3>
+<h4 id="general--appearance--colors-and-fonts">General / Appearance / Colors and Fonts</h4>
 
 <ul>
   <li>Basic / Text Font = Use System Fontをクリック</li>
 </ul>
 
-<h3 id="general--editors--text-editors">General / Editors / Text Editors</h3>
+<h4 id="general--editors--text-editors">General / Editors / Text Editors</h4>
 
 <ul>
   <li>Undo history size = 9999</li>
@@ -429,20 +448,20 @@
   <li>Show line numbers = チェック</li>
 </ul>
 
-<h3 id="general--editors--text-editors--spelling">General / Editors / Text Editors / Spelling</h3>
+<h4 id="general--editors--text-editors--spelling">General / Editors / Text Editors / Spelling</h4>
 
 <ul>
   <li>Enable spell checking = アンチェック</li>
 </ul>
 
-<h3 id="general--workspace">General / Workspace</h3>
+<h4 id="general--workspace">General / Workspace</h4>
 
 <ul>
   <li>Text file encoding = Other: UTF-8</li>
   <li>New text file line delimiter = Other Windows</li>
 </ul>
 
-<h3 id="java--code-style--formatter">Java / Code Style / Formatter</h3>
+<h4 id="java--code-style--formatter">Java / Code Style / Formatter</h4>
 
 <p>“Eclipse [build-in]”を元に作成します。</p>
 
@@ -477,7 +496,7 @@
   </li>
 </ul>
 
-<h3 id="java--compiler">Java / Compiler</h3>
+<h4 id="java--compiler">Java / Compiler</h4>
 
 <ul>
   <li>Compiler compilance level = 1.6
@@ -487,7 +506,7 @@
   </li>
 </ul>
 
-<h3 id="java--editor--content-assist">Java / Editor / Content Assist</h3>
+<h4 id="java--editor--content-assist">Java / Editor / Content Assist</h4>
 
 <ul>
   <li>Auto Activation
@@ -497,7 +516,7 @@
   </li>
 </ul>
 
-<h3 id="javascript--code-style--formatter">JavaScript / Code Style / Formatter</h3>
+<h4 id="javascript--code-style--formatter">JavaScript / Code Style / Formatter</h4>
 
 <ul>
   <li>
@@ -526,7 +545,7 @@
   </li>
 </ul>
 
-<h3 id="team--cvs--label-decorations">Team / CVS / Label Decorations</h3>
+<h4 id="team--cvs--label-decorations">Team / CVS / Label Decorations</h4>
 
 <ul>
   <li>Text Decorations
@@ -537,17 +556,17 @@
   </li>
 </ul>
 
-<h3 id="validation">Validation</h3>
+<h4 id="validation">Validation</h4>
 
 <p>“Disable All”をクリックします。</p>
 
-<h3 id="web--css-files">Web / CSS Files</h3>
+<h4 id="web--css-files">Web / CSS Files</h4>
 
 <ul>
   <li>Encoding = ISO 10646/Unicode(UTF-8)</li>
 </ul>
 
-<h3 id="web--css-files--editor">Web / CSS Files / Editor</h3>
+<h4 id="web--css-files--editor">Web / CSS Files / Editor</h4>
 
 <ul>
   <li>Line width = 999</li>
@@ -555,13 +574,13 @@
   <li>Indentation size = 4</li>
 </ul>
 
-<h3 id="web--html-files">Web / HTML Files</h3>
+<h4 id="web--html-files">Web / HTML Files</h4>
 
 <ul>
   <li>Encoding = ISO 10646/Unicode(UTF-8)</li>
 </ul>
 
-<h3 id="web--html-files--editor">Web / HTML Files / Editor</h3>
+<h4 id="web--html-files--editor">Web / HTML Files / Editor</h4>
 
 <ul>
   <li>Line width = 999</li>
@@ -569,13 +588,13 @@
   <li>Indentation size = 4</li>
 </ul>
 
-<h3 id="web--jsp-files">Web / JSP Files</h3>
+<h4 id="web--jsp-files">Web / JSP Files</h4>
 
 <ul>
   <li>Encoding = ISO 10646/Unicode(UTF-8)</li>
 </ul>
 
-<h3 id="xml--xml-files--editor">XML / XML Files / Editor</h3>
+<h4 id="xml--xml-files--editor">XML / XML Files / Editor</h4>
 
 <ul>
   <li>Line width = 999</li>
@@ -585,7 +604,7 @@
   <li>Indentation size = 4</li>
 </ul>
 
-<h2 id="動作確認">動作確認</h2>
+<h3 id="動作確認">動作確認</h3>
 
 <p>動作確認として、以下を行います。</p>
 

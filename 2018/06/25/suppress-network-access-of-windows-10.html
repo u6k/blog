@@ -312,27 +312,34 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-25T00:00:00+09:00">2018-06-25</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-25T00:00:00+09:00">2018-06-25</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#wi-fiを従量課金接続に設定する">Wi-Fiを従量課金接続に設定する</a></li>
+  <li><a href="#windows-updateの自動更新を無効化する">Windows Updateの自動更新を無効化する</a></li>
+  <li><a href="#ファイル共有サービスを停止する">ファイル共有サービスを停止する</a></li>
+  <li><a href="#アプリケーションの自動バージョンチェックを無効化する">アプリケーションの自動バージョンチェックを無効化する</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。</p>
 
 <p>ここでは、データ通信を抑制するためにやったことを整理します。</p>
 
-<h1 id="tldr">TL;DR</h1>
-
-<ul>
-  <li>Wi-Fiを従量課金接続に設定する</li>
-  <li>Windows Updateの自動更新を無効化する</li>
-  <li>Dropboxなどのファイル共有サービスを停止する</li>
-  <li>アプリケーションの自動バージョンチェックを無効化する</li>
-</ul>
-
-<h1 id="wi-fiを従量課金接続に設定する">Wi-Fiを従量課金接続に設定する</h1>
+<h2 id="wi-fiを従量課金接続に設定する">Wi-Fiを従量課金接続に設定する</h2>
 
 <p>Wi-Fiを従量課金接続として設定することで、次の効果が得られるようです。</p>
 
@@ -367,7 +374,7 @@
   </li>
 </ul>
 
-<h1 id="windows-updateの自動更新を無効化する">Windows Updateの自動更新を無効化する</h1>
+<h2 id="windows-updateの自動更新を無効化する">Windows Updateの自動更新を無効化する</h2>
 
 <p>「データ使用状況」を確認すると、「システム」とやらがとんでもない勢いで通信していることがわかると思います。詳細の調査はしていませんが、Windows Updateの通信が大きいように感じます。そこで、Windows Updateの自動更新を無効化してしまいます。</p>
 
@@ -394,23 +401,23 @@
   </li>
 </ul>
 
-<h1 id="ファイル共有サービスを停止する">ファイル共有サービスを停止する</h1>
+<h2 id="ファイル共有サービスを停止する">ファイル共有サービスを停止する</h2>
 
 <p>筆者はDropboxを利用していますが、こやつは従量課金接続に設定しても容赦なくデータ通信を行います。そこで、これを停止します。</p>
 
 <p>注意として、単純にDropboxを終了しても”Dropbox Update”というプロセスがしつこく通信していたため、これも終了した方が良いようです。</p>
 
-<h1 id="アプリケーションの自動バージョンチェックを無効化する">アプリケーションの自動バージョンチェックを無効化する</h1>
+<h2 id="アプリケーションの自動バージョンチェックを無効化する">アプリケーションの自動バージョンチェックを無効化する</h2>
 
 <p>Docker、Visual Studio Code、SorceTreeなど、多くのアプリケーションが起動時に自動バージョンチェックを行います。これが大きな通信を行うことがあるので、無効化します。無効化の手順はアプリケーションごとに異なります。</p>
 
 <p>そもそも、筆者はChocolateyでアプリケーションを管理しているため、自動バージョンチェックは不必要です。この機会に無効化しておこう…</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

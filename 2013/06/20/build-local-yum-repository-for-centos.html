@@ -312,20 +312,36 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2013-06-20T19:34:00+09:00">2013-06-20</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2013-06-20T19:34:00+09:00">2013-06-20</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#概要">概要</a></li>
+  <li><a href="#1-必要なソフトウェアyum-utilscreaterepoをインストールする">1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。</a></li>
+  <li><a href="#2-reposyncとcreaterepoでローカルyumリポジトリを作る">2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。</a></li>
+  <li><a href="#3-cronで定期更新するように設定する">3. cronで定期更新するように設定する。</a></li>
+  <li><a href="#4-ローカルyumリポジトリを置くディレクトリを作成する">4. ローカルyumリポジトリを置くディレクトリを作成する。</a></li>
+  <li><a href="#5-centos-baserepoを修正する">5. CentOS-Base.repoを修正する。</a></li>
+  <li><a href="#6-サーバーaに作ったローカルyumリポジトリを外付けhddなどでサーバーbにコピーする">6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。</a></li>
+  <li><a href="#備考">備考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>セキュリティに厳しい組織でCentOSサーバーを管理していると、インターネットから切り離されたCentOSサーバーを管理することがあります。この場合、インターネットにアクセスできないため、yumは使えません。</p>
 
 <p>そこで、ローカルにyumリポジトリを作ることで、非インターネット環境でもyumを使えるようにします。</p>
 
-<!-- more -->
-
-<h1 id="概要">概要</h1>
+<h2 id="概要">概要</h2>
 
 <p>例えば、組織内にインターネット環境と、セキュリティレベルの高い非インターネット環境があるとします。この、非インターネット環境では、オンラインのyumリポジトリにアクセスすることはできません。</p>
 
@@ -358,7 +374,7 @@
   </li>
 </ul>
 
-<h1 id="1-必要なソフトウェアyum-utilscreaterepoをインストールする">1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。</h1>
+<h2 id="1-必要なソフトウェアyum-utilscreaterepoをインストールする">1. 必要なソフトウェア(yum-utils、createrepo)をインストールする。</h2>
 
 <p>以下のコマンドを実行します。</p>
 
@@ -367,7 +383,7 @@
 
 <p>yum-utilsに含まれるreposyncでyumリポジトリのファイルをコピーして、createrepoでyumリポジトリのリポジトリデータを作成します。</p>
 
-<h1 id="2-reposyncとcreaterepoでローカルyumリポジトリを作る">2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。</h1>
+<h2 id="2-reposyncとcreaterepoでローカルyumリポジトリを作る">2. reposyncとcreaterepoで、ローカルyumリポジトリを作る。</h2>
 
 <p><code class="highlighter-rouge">/var/www/html/yum-repo/</code>にローカルyumリポジトリを作る場合、<code class="highlighter-rouge">/usr/local/bin/yum-repo-sync.sh</code>を以下のように作成します。</p>
 
@@ -426,7 +442,7 @@ createrepo contrib/
 
 <p>なお、baseリポジトリは更新されることが無いので、初回のコピーが完了したらコメントアウトしたほうが良いです。また、CentOSのDVDを持っている場合は、DVD中のosディレクトリがbaseに相当するので、直接コピーしたほうが早いです。</p>
 
-<h1 id="3-cronで定期更新するように設定する">3. cronで定期更新するように設定する。</h1>
+<h2 id="3-cronで定期更新するように設定する">3. cronで定期更新するように設定する。</h2>
 
 <p><code class="highlighter-rouge">yum-repo-sync.sh</code>を、例えば1日ごとに実行するように、cronで設定します。</p>
 
@@ -440,7 +456,7 @@ createrepo contrib/
 
 <p>以上で、サーバーA側の作業は終わりです。この作業は、1度だけ行えば、後は放っておいて良いです(正常に動作していれば)。</p>
 
-<h1 id="4-ローカルyumリポジトリを置くディレクトリを作成する">4. ローカルyumリポジトリを置くディレクトリを作成する。</h1>
+<h2 id="4-ローカルyumリポジトリを置くディレクトリを作成する">4. ローカルyumリポジトリを置くディレクトリを作成する。</h2>
 
 <p>次に、サーバーB側の作業を行います。</p>
 
@@ -449,7 +465,7 @@ createrepo contrib/
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mkdir /var/www/html/yum-repo
 </code></pre></div></div>
 
-<h1 id="5-centos-baserepoを修正する">5. CentOS-Base.repoを修正する。</h1>
+<h2 id="5-centos-baserepoを修正する">5. CentOS-Base.repoを修正する。</h2>
 
 <p>yumが参照するリポジトリの場所は、<code class="highlighter-rouge">/etc/yum.repos.d/CentOS-Base.repo</code>に設定されています。通常はインターネットのミラーサイトが設定されていますが、ローカルyumリポジトリを参照するように修正します(mirrorlistをコメントアウトして、baseurlをローカルyumリポジトリに設定しています)。</p>
 
@@ -493,7 +509,7 @@ enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 </code></pre></div></div>
 
-<h1 id="6-サーバーaに作ったローカルyumリポジトリを外付けhddなどでサーバーbにコピーする">6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。</h1>
+<h2 id="6-サーバーaに作ったローカルyumリポジトリを外付けhddなどでサーバーbにコピーする">6. サーバーAに作ったローカルyumリポジトリを、外付けHDDなどでサーバーBにコピーする。</h2>
 
 <p>媒体は何を使っても良いですが、サーバーAの<code class="highlighter-rouge">/var/www/html/yum-repo/</code>以下の全てのファイルを、サーバーBの<code class="highlighter-rouge">/var/www/html/yum-repo/</code>にコピーします。外付けHDDをmountして、</p>
 
@@ -504,7 +520,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 <p>サーバーBへのコピーが完了したら、試しに<code class="highlighter-rouge">yum update</code>してみます。ローカルyumリポジトリを参照してアップデートできたら、成功です。</p>
 
-<h1 id="備考">備考</h1>
+<h2 id="備考">備考</h2>
 
 <ul>
   <li>作成したローカルyumリポジトリをhttpdなどで公開して、LAN内の多数のCentOSサーバーのCentOS-Base.repoをそこを参照するように修正すれば、回線負荷と処理時間を低減することが出来ます。</li>

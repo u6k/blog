@@ -312,54 +312,30 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-12-05T00:00:00+09:00">2017-12-05</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-12-05T00:00:00+09:00">2017-12-05</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 12 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <p>あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？</p>
-
-<p>GitHubスタイルの運用方針があるのであれば、大変結構です。しかし、SIerの現場ではSubversion(以降、SVN)による運用がまだまだ多いように思います。更に、コミット・ルールはあるけどブランチ運用はされておらず、みんなでtrunkに格納しているとか。</p>
-
-<p>ここでは、SVNを使った場合の運用方針を定義したいと思います。これをベースとして、現場ごとにカスタマイズして運用方針を定義すると良いと思います。</p>
-
-<p><strong>Table of Contents:</strong></p>
-
-<!-- TOC -->
-
-<ul>
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
   <li><a href="#結論">結論</a></li>
   <li><a href="#注意">注意</a></li>
   <li><a href="#よくある状況と問題点">よくある状況と問題点</a></li>
   <li><a href="#svnブランチ運用方針">SVNブランチ運用方針</a>
     <ul>
-      <li><a href="#最初期">最初期</a>
-        <ul>
-          <li><a href="#フォルダを作成">フォルダを作成</a></li>
-          <li><a href="#ユーザーを作成">ユーザーを作成</a></li>
-          <li><a href="#権限を設定">権限を設定</a></li>
-          <li><a href="#運用方針を定義">運用方針を定義</a></li>
-        </ul>
-      </li>
+      <li><a href="#最初期">最初期</a></li>
       <li><a href="#作業開始">作業開始</a></li>
       <li><a href="#開発テスト">開発、テスト</a></li>
-      <li><a href="#レビュー">レビュー</a>
-        <ul>
-          <li><a href="#自動化できることはciサーバーに任せる">自動化できることはCIサーバーに任せる</a></li>
-          <li><a href="#ソースコードの内容確認">ソースコードの内容確認</a></li>
-          <li><a href="#マージの事前確認">マージの事前確認</a></li>
-        </ul>
-      </li>
+      <li><a href="#レビュー">レビュー</a></li>
       <li><a href="#マージ">マージ</a></li>
       <li><a href="#リリース">リリース</a></li>
-      <li><a href="#緊急バグ対応">緊急バグ対応</a>
-        <ul>
-          <li><a href="#バグ対応開始">バグ対応開始</a></li>
-          <li><a href="#リリース-1">リリース</a></li>
-        </ul>
-      </li>
+      <li><a href="#緊急バグ対応">緊急バグ対応</a></li>
     </ul>
   </li>
   <li><a href="#faq">FAQ</a>
@@ -379,9 +355,16 @@
   <li><a href="#link">Link</a></li>
 </ul>
 
-<!-- /TOC -->
+            </nav>
+          </aside>
+        
+        <p>あなたの現場では、バージョン管理システムは何を使っていますか？Git？Subversion？VSS？まさかCVS？</p>
 
-<h1 id="結論">結論</h1>
+<p>GitHubスタイルの運用方針があるのであれば、大変結構です。しかし、SIerの現場ではSubversion(以降、SVN)による運用がまだまだ多いように思います。更に、コミット・ルールはあるけどブランチ運用はされておらず、みんなでtrunkに格納しているとか。</p>
+
+<p>ここでは、SVNを使った場合の運用方針を定義したいと思います。これをベースとして、現場ごとにカスタマイズして運用方針を定義すると良いと思います。</p>
+
+<h2 id="結論">結論</h2>
 
 <p>git-flowを参考にブランチ運用方針を定義します。SVN標準フォルダ構成(<code class="highlighter-rouge">trunk</code>、<code class="highlighter-rouge">branches</code>、<code class="highlighter-rouge">tags</code>フォルダ)の上に定義するため、git-flowと次の相違点があります。</p>
 
@@ -416,14 +399,14 @@
   </tbody>
 </table>
 
-<h1 id="注意">注意</h1>
+<h2 id="注意">注意</h2>
 
 <ul>
   <li>この文書では、SVNサーバーの構築方法やSVNコマンドの解説は行いません。</li>
   <li>SVNコマンドで説明を行いますが、TortoiseSVNを使った方が楽です。TortoiseSVNユーザーは、SVNコマンドをTortoiseSVNの該当する操作に読み替えてください。</li>
 </ul>
 
-<h1 id="よくある状況と問題点">よくある状況と問題点</h1>
+<h2 id="よくある状況と問題点">よくある状況と問題点</h2>
 
 <p>git以前の現場では、次のような状況が見られます。</p>
 
@@ -445,7 +428,7 @@
 
 <p>このような問題を解消するため、ブランチ運用方針を定義します。</p>
 
-<h1 id="svnブランチ運用方針">SVNブランチ運用方針</h1>
+<h2 id="svnブランチ運用方針">SVNブランチ運用方針</h2>
 
 <p>git-flowを基に、次のようなブランチ運用方針を定義します。</p>
 
@@ -512,11 +495,11 @@
 
 <p>次に、これらのフォルダの運用手順を説明します。</p>
 
-<h2 id="最初期">最初期</h2>
+<h3 id="最初期">最初期</h3>
 
 <p>プロジェクト開始時、当ブランチ運用開始時に実施することを説明します。</p>
 
-<h3 id="フォルダを作成">フォルダを作成</h3>
+<h4 id="フォルダを作成">フォルダを作成</h4>
 
 <p>SVNリポジトリを作成直後は、基本フォルダ構成が作成されていると思います。作成されていなければ、手動で作成してください。さらに、<code class="highlighter-rouge">trunk</code>から分岐して<code class="highlighter-rouge">branches/develop</code>を作成します。<code class="highlighter-rouge">branches/releases</code>は直接作成します。結果、次のようなフォルダ構成になります。</p>
 
@@ -531,15 +514,15 @@
   <li>tags</li>
 </ul>
 
-<h3 id="ユーザーを作成">ユーザーを作成</h3>
+<h4 id="ユーザーを作成">ユーザーを作成</h4>
 
 <p>フォルダ作成後、SVNリポジトリにアクセスするユーザーを作成します。Apache HTTP Serverであればhtpasswd管理、Visual SVNであればGUIからユーザーを作成するなど、プロダクトごとに対応してください。</p>
 
-<h3 id="権限を設定">権限を設定</h3>
+<h4 id="権限を設定">権限を設定</h4>
 
 <p>ユーザー作成後、フォルダに読み書きできるユーザーを限定するため、権限を設定します。これは、<code class="highlighter-rouge">trunk</code>や<code class="highlighter-rouge">branches/develop</code>に不用意にコミットしてしまわないようにする処置です。なので、権限設定がメンドウであれば、運用で気を付ければよいと思います。</p>
 
-<h3 id="運用方針を定義">運用方針を定義</h3>
+<h4 id="運用方針を定義">運用方針を定義</h4>
 
 <p>最後に、一番重要ですが <strong>バージョン管理運用方針を策定し、文書化</strong> します。現場ごとの書式で文書化すれば良いと思いますが、おおむね次の構成になると考えます。</p>
 
@@ -598,7 +581,7 @@
   </li>
 </ul>
 
-<h2 id="作業開始">作業開始</h2>
+<h3 id="作業開始">作業開始</h3>
 
 <p>作業ごとにブランチを作成します。基本的に<code class="highlighter-rouge">branches/develop</code>を<code class="highlighter-rouge">branches/xxx</code>にコピーすることで、ブランチを作成します。<code class="highlighter-rouge">xxx</code>の命名規則は現場ごとに決めれば良いですが、作業はWBSやチケットやバグ票で定義されるはずなので、WBS番号やチケットIDやバグ番号でブランチを作成すると良いでしょう。こうすることで、そのブランチが何のためのブランチなのかが分かりやすくなります。</p>
 
@@ -607,11 +590,11 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2-3-5-8 発注画面の製造を開始" https://svn.example.com/branches/develop/ https://svn.example.com/branches/2-3-5-8/
 </code></pre></div></div>
 
-<h2 id="開発テスト">開発、テスト</h2>
+<h3 id="開発テスト">開発、テスト</h3>
 
 <p>先ほど作成したブランチで作業を行います。このブランチは作業専用のブランチであり他作業者に影響はないので、作業中のコードをコミットしても良いですし、なんなら一時的にビルドが壊れてしまっても良いです。作業が少しでも進捗したら、気軽にコミットしましょう。</p>
 
-<h2 id="レビュー">レビュー</h2>
+<h3 id="レビュー">レビュー</h3>
 
 <p>開発者が作業を終えたら<code class="highlighter-rouge">branches/develop</code>にマージしますが、その前にもちろんレビューを行います。プロジェクトごとに品質基準があるでしょうし、チームごとにもあるかもしれません。それらの品質確認をパスしたコードのみ、<code class="highlighter-rouge">branches/develop</code>にマージして良いです。次のような基準が良くあるのではないでしょうか。</p>
 
@@ -632,11 +615,11 @@
   <li>マージが失敗しないこと</li>
 </ul>
 
-<h3 id="自動化できることはciサーバーに任せる">自動化できることはCIサーバーに任せる</h3>
+<h4 id="自動化できることはciサーバーに任せる">自動化できることはCIサーバーに任せる</h4>
 
 <p>自動化できることは自動化してしまいましょう。CIサーバーで、静的チェックを実行、コード設計の問題報告、テストまでは実行してしまいたいです。</p>
 
-<h3 id="ソースコードの内容確認">ソースコードの内容確認</h3>
+<h4 id="ソースコードの内容確認">ソースコードの内容確認</h4>
 
 <p>ソースコードの内容確認は、ブランチの最初から最新までの差分を表示することで行います。まずは、ブランチがどのリビジョンから派生したのかを確認します。<code class="highlighter-rouge">--stop-on-copy</code>オプションを指定してログを表示することで、派生したリビジョンから最新までのログが表示されます。</p>
 
@@ -648,7 +631,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn diff -r 35813:HEAD https://svn.example.com/branches/2-3-5-8/
 </code></pre></div></div>
 
-<h3 id="マージの事前確認">マージの事前確認</h3>
+<h4 id="マージの事前確認">マージの事前確認</h4>
 
 <p>「マージが失敗しないこと」は、<code class="highlighter-rouge">--dry-run</code>オプションを指定してマージすることで確認します。例えば、先ほどの<code class="highlighter-rouge">2-3-5-8</code>ブランチがマージに失敗しないことを確認するには、次のように実行します。</p>
 
@@ -698,7 +681,7 @@
 
 <p>コンフリクトするとマージに失敗するので、解消する必要があります。解消するには、コンフリクトしているファイルを修正したり、<code class="highlighter-rouge">branches/develop</code>から逆マージを行います。マージ時に<code class="highlighter-rouge">postpone</code>(競合を後で解決)を選択してから修正して<code class="highlighter-rouge">resolved</code>(競合を解決)しても良いです。</p>
 
-<h2 id="マージ">マージ</h2>
+<h3 id="マージ">マージ</h3>
 
 <p>開発して、テストして、レビューしたら、いよいよ<code class="highlighter-rouge">branches/develop</code>にマージします。マージ作業は、<code class="highlighter-rouge">--dry-run</code>オプションを指定せずにマージを実行します。</p>
 
@@ -707,7 +690,7 @@
 
 <p>マージ後のブランチを削除するか放置するかは、どちらでも良いです。<code class="highlighter-rouge">branches</code>の下が見づらいと思えば削除すれば良いし、メンドウであれば放置してもさほど問題はないはずです。ただ、後で作業ログを確認するかもということであれば、放置したほうが良いでしょう。</p>
 
-<h2 id="リリース">リリース</h2>
+<h3 id="リリース">リリース</h3>
 
 <p>開発が進み、いよいよテスト環境や本番環境にリリースする時が来ました。リリース作業にどの程度の時間がかかるかはプロダクトによって異なりますが、リリース作業中も開発作業は進むでしょう。そのため、リリース作業は<code class="highlighter-rouge">branches/releases</code>で行います。</p>
 
@@ -742,18 +725,18 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "2017/12/5 1回目のリリース" https://svn.example.com/trunk/ https://svn.example.com/tags/20171205-1/
 </code></pre></div></div>
 
-<h2 id="緊急バグ対応">緊急バグ対応</h2>
+<h3 id="緊急バグ対応">緊急バグ対応</h3>
 
 <p>リリースを繰り返すと、きっと、「<code class="highlighter-rouge">xxx</code>バージョンのアプリに致命的バグがあるので緊急で対応してほしい！」という状況が来るでしょう。この時、通常の作業と同様に<code class="highlighter-rouge">branches/develop</code>から分岐すると、<code class="highlighter-rouge">xxx</code>バージョン以降のソースコードも入ってしまいます。なので、特定バージョンに関連する緊急バグ対応は手順が少し異なります。</p>
 
-<h3 id="バグ対応開始">バグ対応開始</h3>
+<h4 id="バグ対応開始">バグ対応開始</h4>
 
 <p>緊急バグ対応の場合、<code class="highlighter-rouge">tags/xxx</code>から<code class="highlighter-rouge">branches/xxx</code>に分岐します。例えば、「バグ管理番号 1123 受注画面の確定ボタンをクリックするとクラッシュする」に対応する場合、次のようにブランチを作成します。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn copy -m "バグ 1123 対応を開始" https://svn.example.com/tags/20171205-1/ https://svn.example.com/branches/1123/
 </code></pre></div></div>
 
-<h3 id="リリース-1">リリース</h3>
+<h4 id="リリース-1">リリース</h4>
 
 <p>通常の開発と同様に、開発、テスト、レビューを行い、問題がなければリリースを行います。緊急バグ対応のリリースの場合、<code class="highlighter-rouge">branches/xxx</code>から<code class="highlighter-rouge">branches/releases/xxx</code>に分岐します。</p>
 
@@ -778,35 +761,35 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ svn merge -m "バグ 1123 の対応をマージ" https://svn.example.com/branches/1123/ https://svn.example.com/branches/develop/
 </code></pre></div></div>
 
-<h1 id="faq">FAQ</h1>
+<h2 id="faq">FAQ</h2>
 
 <p>よくあるケースに対する対応を説明します。</p>
 
-<h2 id="プロジェクト途中から導入するには">プロジェクト途中から導入するには？</h2>
+<h3 id="プロジェクト途中から導入するには">プロジェクト途中から導入するには？</h3>
 
 <p>もし<code class="highlighter-rouge">trunk</code>のみで運用しているのであれば、ブランチ運用方針を文書化して周知したのちに、運用手順を最初から実行すると良いでしょう。ぜひ、導入してください！</p>
 
 <p>一つ注意としては、SVNユーザーは(私の観測範囲では)ブランチの扱いに慣れていないことが多いです。ですので、ある程度の学習コストは必要となるでしょう。また、ここではSVNコマンドで説明しましたが、WindowsにはTortoiseSVNとWinMergeという最強コンボがありますので、それらを使うべきです。</p>
 
-<h2 id="作業ごとにブランチを作成するの">作業ごとにブランチを作成するの？</h2>
+<h3 id="作業ごとにブランチを作成するの">作業ごとにブランチを作成するの？</h3>
 
 <p>運用手順でも説明しましたが、作業ごとにブランチを作成します。安全な作業のためですので、多少のメンドウは受け入れましょう。この時、1作業の作業量が多くなりすぎないように注意してください。生存期間が長いブランチは、マージでコンフリクトする危険性が高まります。ここら辺は、マネージメント技術やアーキテクトの分野ですが。</p>
 
-<h2 id="ブランチをたくさん作成したら容量が">ブランチをたくさん作成したら容量が…</h2>
+<h3 id="ブランチをたくさん作成したら容量が">ブランチをたくさん作成したら容量が…</h3>
 
 <p>VSSではもろにコピーするので容量をバカ食いしますが、SVNのコピーはSVN内部で「コピーした」と記録されるだけですので、容量は(ほとんど)消費しません。気にせずどんどんブランチを作成しましょう。</p>
 
 <p>ただ、SVNリポジトリ全体をチェックアウトしている人はブランチやタグを全てチェックアウトしてしまうため、自PCの容量を消費してしまいます。必要なブランチのみをチェックアウトして、他ブランチを見たい場合は<code class="highlighter-rouge">switch</code>で切り替えましょう。</p>
 
-<h2 id="間違ったブランチにコミットしないか">間違ったブランチにコミットしないか？</h2>
+<h3 id="間違ったブランチにコミットしないか">間違ったブランチにコミットしないか？</h3>
 
 <p>例えば、自分の作業ブランチは<code class="highlighter-rouge">branches/1123</code>なのに間違えて<code class="highlighter-rouge">branches/1124</code>をチェックアウトして作業してしまった！というケースですが、これはさすがにチェックアウトするときに気を付けてくださいとしか言えないです。気を付けてください。</p>
 
-<h2 id="レビューのためにブランチ切り替えがメンドウ">レビューのためにブランチ切り替えがメンドウ</h2>
+<h3 id="レビューのためにブランチ切り替えがメンドウ">レビューのためにブランチ切り替えがメンドウ</h3>
 
 <p>はい、メンドウです。正直、GitHubやGitLabが使えたら、SVNコマンドで説明していることのほとんどがWebブラウザでポチポチして終わる話です。GitHubやGitLabを導入できるよう、がんばりましょう。</p>
 
-<h2 id="横展開対応はどのように対応するか">横展開対応はどのように対応するか？</h2>
+<h3 id="横展開対応はどのように対応するか">横展開対応はどのように対応するか？</h3>
 
 <p>ある程度開発が進んでから、「xxxの場所にトレース・ログ出力処理を追加すること」のようなポリシーができた、「xxx共通部品を作成したので、yyyという処理は全体的に修正」のようなケースです。プロジェクトによって、「1人が全て対応する」「作業者それぞれが対応する」に分かれると思います。</p>
 
@@ -814,28 +797,28 @@
 
 <p>「作業者それぞれが対応する」場合は、作業ごとに<code class="highlighter-rouge">branches/xxx</code>を作成して対応を行い、<code class="highlighter-rouge">branches/develop</code>にマージします。この方法はコンフリクトの危険性が非常に低い代わりに、ブランチを複数作成しなければならないメンドウさがあります。</p>
 
-<h2 id="現在リリースされているアプリケーションのソースコードは">現在、リリースされているアプリケーションのソースコードは？</h2>
+<h3 id="現在リリースされているアプリケーションのソースコードは">現在、リリースされているアプリケーションのソースコードは？</h3>
 
 <p>CIサーバーでデプロイを行っているのであれば、CIサーバーのログを確認することで特定できるでしょう。そうでなくても、何らかの手段でバージョンを特定することができるはずです。実行ファイルのファイル名、ファイルのプロパティ、APIが返すバージョン、など。特定さえできれば、バージョンに対応するタグをチェックアウトすることで、ソースコードを確認することができます。</p>
 
-<h2 id="リリース後に些細なミスを見つけたら">リリース後に些細なミスを見つけたら？</h2>
+<h3 id="リリース後に些細なミスを見つけたら">リリース後に些細なミスを見つけたら？</h3>
 
 <p>リリース後に、画面文言のスペルミスを見つけてしまった！修正したいけどブランチ運用は面倒だから<code class="highlighter-rouge">trunk</code>を直接修正したい！といったケースです。</p>
 
 <p>気持ちは分かりますが、ブランチを作成して対応しましょう。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>慣れるまでは少々メンドウかもしれませんが、引き換えに気軽にコミットできる環境ができます。このメリットは想像するよりはるかに大きいでしょう。ぜひ、あなたの現場にも導入してください。</p>
 
-<h1 id="関連ページ">関連ページ</h1>
+<h2 id="関連ページ">関連ページ</h2>
 
 <ul>
   <li><a href="https://www.slideshare.net/KatokichiSoft/git-flow-16616440">Git flowの活用事例</a></li>
   <li><a href="https://qiita.com/homhom44/items/9f13c646fa2619ae63d0">[日本語訳]A successful Git branching model - Qiita</a></li>
 </ul>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

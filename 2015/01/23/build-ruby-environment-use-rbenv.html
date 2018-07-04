@@ -312,24 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T20:00:00+09:00">2015-01-23</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T20:00:00+09:00">2015-01-23</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#完了状態">完了状態</a></li>
+  <li><a href="#作業手順">作業手順</a></li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Raspberry Pi(Raspbian)にrbenvを使用してRuby環境を構築したので、手順メモを残します。と言っても、<a href="http://qiita.com/tsubu-mustard/items/3f818bf9831a4a934c5a">Ruby - rbenv のインストール (Linux Mint) - Qiita</a>に従っただけですが。</p>
 
-<!-- more -->
-
-<h1 id="完了状態">完了状態</h1>
+<h2 id="完了状態">完了状態</h2>
 
 <ul>
   <li>Ruby 2.2.0が使用可能。</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
 <p><code class="highlighter-rouge">rbenv</code>を<code class="highlighter-rouge">git clone</code>します。</p>
 
@@ -380,7 +391,7 @@ $ ruby -v
 
 <p><code class="highlighter-rouge">ruby -v</code>で設定したバージョンが表示されるはずです。</p>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="https://github.com/sstephenson/rbenv">sstephenson/rbenv</a></li>

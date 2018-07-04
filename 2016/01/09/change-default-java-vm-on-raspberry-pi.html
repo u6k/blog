@@ -312,16 +312,28 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-01-09T07:00:00+09:00">2016-01-09</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-01-09T07:00:00+09:00">2016-01-09</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#update-alternatives">update-alternatives</a></li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Raspberry Piに複数のJavaをインストールした場合に、JavaVMを切り替える手順を説明します。簡単に言うと、<code class="highlighter-rouge">update-alternatives</code>コマンドで切り替えることが出来ます。</p>
 
-<!-- more -->
+<h2 id="update-alternatives">update-alternatives</h2>
 
 <p>以下のように<code class="highlighter-rouge">update-alternatives</code>コマンドを実行することで、対話的にJavaVMを切り替えることが出来ます。</p>
 
@@ -338,7 +350,7 @@ alternative java (/usr/bin/java を提供) には 2 個の選択肢がありま�
 update-alternatives: /usr/bin/java (java) を提供するために 手動モード で /usr/lib/jvm/jdk-8-oracle-arm-vfp-hflt/jre/bin/java を使います
 </code></pre></div></div>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="http://www.savagehomeautomation.com/projects/raspberry-pi-change-default-java-virtual-machine-jvm.html">Raspberry Pi - Change Default Java Virtual Machine (JVM)</a></li>

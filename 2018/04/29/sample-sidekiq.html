@@ -312,16 +312,44 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-04-29T00:00:00+09:00">2018-04-29</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-04-29T00:00:00+09:00">2018-04-29</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 7 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#はじめに">はじめに</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#セットアップ実行手順">セットアップ、実行手順</a>
+    <ul>
+      <li><a href="#railsプロジェクトを作成">Railsプロジェクトを作成</a></li>
+      <li><a href="#gemfileに-sidekiq-を追加">Gemfileに sidekiq を追加</a></li>
+      <li><a href="#dockerコンテナ化">Dockerコンテナ化</a></li>
+      <li><a href="#ダッシュボードへのルートを設定">ダッシュボードへのルートを設定</a></li>
+      <li><a href="#ワーカーを作成">ワーカーを作成</a></li>
+      <li><a href="#ワーカーを実行">ワーカーを実行</a></li>
+      <li><a href="#sidekiqをcron化">SidekiqをCron化</a></li>
+      <li><a href="#gemfile-と-routesrb-を修正">Gemfile と routes.rb を修正</a></li>
+      <li><a href="#ジョブを定期実行">ジョブを定期実行</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#参考リンク">参考リンク</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</p>
 
-<h1 id="はじめに">はじめに</h1>
+<h2 id="はじめに">はじめに</h2>
 
 <p>Rubyでジョブ管理を行おうと考えたとき、<a href="https://github.com/resque/resque">Resque</a>、<a href="https://github.com/collectiveidea/delayed_job">Delayed::Job</a>、<a href="https://github.com/mperham/sidekiq">Sidekiq</a>などの仕組みがあります。さらに定期的にジョブを実行したいと思い方法を探していると、<a href="https://github.com/ondrejbartas/sidekiq-cron">Sidekiq-Cron</a>や<a href="https://github.com/moove-it/sidekiq-scheduler">sidekiq-scheduler</a>の解説が多く見られました。このため、Sidekiqを使うことにしました。</p>
 
@@ -329,7 +357,7 @@
 
 <p>今回の手順で作成したプロジェクトは、 <a href="https://github.com/u6k/sample-sidekiq/">u6k/sample-sidekiq</a> にあります。</p>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>筆者はRails開発をvim + Dockerで行っており、ホストPCにRubyをインストールしてはいません。Dockerおよびdocker-composeを使用しますので、あらかじめインストールしておいてください。</p>
 
@@ -367,11 +395,11 @@ docker-compose version 1.21.0, build 5920eb0
 
 <p>RubyやRailsなど他のソフトウェアは、全てDockerコンテナ内でインストールするので、ホストPCにインストールする必要はありません。</p>
 
-<h1 id="セットアップ実行手順">セットアップ、実行手順</h1>
+<h2 id="セットアップ実行手順">セットアップ、実行手順</h2>
 
 <p>次に、Railsプロジェクトを作成してからジョブを実行するまでの手順を説明します。</p>
 
-<h2 id="railsプロジェクトを作成">Railsプロジェクトを作成</h2>
+<h3 id="railsプロジェクトを作成">Railsプロジェクトを作成</h3>
 
 <p>Railsプロジェクトを作成します。ホストPCにRubyがセットアップ済みであれば <code class="highlighter-rouge">rails new .</code> を実行すれば良いですが、ここではrubyコンテナの中でRailsプロジェクトを作成します。</p>
 
@@ -394,7 +422,7 @@ docker-compose version 1.21.0, build 5920eb0
 
 <p>作成したら、 <code class="highlighter-rouge">ls</code> でファイルを確認してみます。Railsプロジェクトのファイルが作成されていることを確認したら、 <code class="highlighter-rouge">Ctrl-d</code> でコンテナからログアウトします。</p>
 
-<h2 id="gemfileに-sidekiq-を追加">Gemfileに <code class="highlighter-rouge">sidekiq</code> を追加</h2>
+<h3 id="gemfileに-sidekiq-を追加">Gemfileに <code class="highlighter-rouge">sidekiq</code> を追加</h3>
 
 <p>Sidekiqはgemで提供されているので、 <code class="highlighter-rouge">Gemfile</code> ファイルに追加します。</p>
 
@@ -440,7 +468,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 </code></pre></div></div>
 
-<h2 id="dockerコンテナ化">Dockerコンテナ化</h2>
+<h3 id="dockerコンテナ化">Dockerコンテナ化</h3>
 
 <p><code class="highlighter-rouge">rails</code> コマンドを使用したり動作確認するため、早々にDockerコンテナ化します。</p>
 
@@ -525,7 +553,7 @@ volumes:
 
 <p><img src="/assets/img/2018-04-29-sample-sidekiq/rails-welcome-page.jpeg" alt="rails welcome page" /></p>
 
-<h2 id="ダッシュボードへのルートを設定">ダッシュボードへのルートを設定</h2>
+<h3 id="ダッシュボードへのルートを設定">ダッシュボードへのルートを設定</h3>
 
 <p>Sidekiqはジョブがどのような状態かを確認するためのダッシュボードを提供しています。ダッシュボードにアクセスするには、 <code class="highlighter-rouge">config/routes.rb</code> ファイルにルートを設定します。</p>
 
@@ -549,7 +577,7 @@ Rails.application.routes.draw do
 end
 </code></pre></div></div>
 
-<h2 id="ワーカーを作成">ワーカーを作成</h2>
+<h3 id="ワーカーを作成">ワーカーを作成</h3>
 
 <p>Sidekiqで実行するワーカーを作成します。</p>
 
@@ -570,7 +598,7 @@ class HelloWorker
 end
 </code></pre></div></div>
 
-<h2 id="ワーカーを実行">ワーカーを実行</h2>
+<h3 id="ワーカーを実行">ワーカーを実行</h3>
 
 <p>いよいよ、作成したワーカーをSidekiqで実行してみます。</p>
 
@@ -616,13 +644,13 @@ worker_1  | 2018-04-25T10:30:25.441Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e1
 
 <p><img src="/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard.jpeg" alt="sidekiq dashboard" /></p>
 
-<h2 id="sidekiqをcron化">SidekiqをCron化</h2>
+<h3 id="sidekiqをcron化">SidekiqをCron化</h3>
 
 <p>ここまでの作業で、Sidekiqを使ったジョブの実行ができるようになりました。単純にジョブを実行するだけであれば、ここまでで終わりです。</p>
 
 <p>ここからは、sidekiq-cronを使ってジョブを定期的に実行してみます。</p>
 
-<h2 id="gemfile-と-routesrb-を修正"><code class="highlighter-rouge">Gemfile</code> と <code class="highlighter-rouge">routes.rb</code> を修正</h2>
+<h3 id="gemfile-と-routesrb-を修正"><code class="highlighter-rouge">Gemfile</code> と <code class="highlighter-rouge">routes.rb</code> を修正</h3>
 
 <p>sidekiq-cronの設定は簡単で、2ファイルを修正するだけです。</p>
 
@@ -646,7 +674,7 @@ require 'sidekiq/cron/web'
 
 <p>これで、ジョブを定期実行する準備は完了です。ワーカーを変更する必要はありません。</p>
 
-<h2 id="ジョブを定期実行">ジョブを定期実行</h2>
+<h3 id="ジョブを定期実行">ジョブを定期実行</h3>
 
 <p>Dockerコンテナを停止して、起動して、Railsコンソールを起動します。</p>
 
@@ -686,13 +714,13 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
 
 <p><img src="/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-cron.jpeg" alt="sidekiq dashboard cron" /></p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>このように、Railsアプリケーションに簡単に定期実行ジョブを追加することができました。アプリケーション固有の、クリーンアップ処理や単純な集計バッチ処理などであれば、これで十分だと思います。</p>
 
 <p>一方、「ジョブ管理システム」として考えると、いろいろと機能が不足しています。ジョブネット、ジョブごとのワークスペース、ジョブ実行履歴、など。そういった機能が必要な場合は、やはりジョブ管理専用のサービスを使うことになると思います。</p>
 
-<h1 id="参考リンク">参考リンク</h1>
+<h2 id="参考リンク">参考リンク</h2>
 
 <ul>
   <li><a href="https://github.com/mperham/sidekiq">mperham/sidekiq: Simple, efficient background processing for Ruby</a></li>
@@ -702,7 +730,7 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   <li><a href="https://github.com/ondrejbartas/sidekiq-cron">ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs</a></li>
 </ul>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

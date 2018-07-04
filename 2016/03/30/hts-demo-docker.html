@@ -312,16 +312,28 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-30T07:00:00+09:00">2016-03-30</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-30T07:00:00+09:00">2016-03-30</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#参考リンク">参考リンク</a></li>
+  <li><a href="#リンク">リンク</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>以前から、人の音声を簡単にサンプリングして音声合成できないかな？　とは考えていました。例えば、声優のたまごのような人の音声を合成して、広く知ってもらえるようなサービスを作ったりできないかな、と考えていました。ただ、音声合成の元データの作り方が分かりませんでした。が、ふとそれっぽい記事を見かけたのでメモします。</p>
 
-<!-- more -->
+<h2 id="参考リンク">参考リンク</h2>
 
 <ul>
   <li><a href="http://cube370.wiki.fc2.com/wiki/%E9%9F%B3%E9%9F%BF%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90">音響モデルの作成 - MMDAgent &amp; Project-NAIP wiki</a></li>
@@ -334,7 +346,7 @@
 
 <p>HTS-demoというソフトウェアを使うと、Open JTalkで音声合成する元データである音響モデルというものを作成できるようです。ただ、HTS-demoを動作させることが非常に難しいように見えます。これを簡単に使用できるようにするため、Dockerイメージとアプリケーションを作成してみたいと考えています。</p>
 
-<h1 id="リンク">リンク</h1>
+<h2 id="リンク">リンク</h2>
 
 <ul>
   <li>GitHub

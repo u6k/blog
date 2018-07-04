@@ -312,18 +312,37 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-30T23:00:00+09:00">2015-11-30</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-30T23:00:00+09:00">2015-11-30</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#作業環境">作業環境</a></li>
+  <li><a href="#作業手順">作業手順</a>
+    <ul>
+      <li><a href="#qemuをインストール">QEMUをインストール</a></li>
+      <li><a href="#raspbianおよびkernelをダウンロード">Raspbianおよびkernelをダウンロード</a></li>
+      <li><a href="#raspbian使用準備">Raspbian使用準備</a></li>
+      <li><a href="#raspbianを起動2回目">Raspbianを起動(2回目)</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p><a href="http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html">Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順</a>ではWindows上のQEMUでRaspbianを動作させましたが、現在使用しているのはMacBookなので、OS X上のQEMUでRaspbianを動作させる手順をまとめます。内容はほぼ同じです。</p>
 
-<!-- more -->
-
-<h1 id="注意">注意</h1>
+<h2 id="注意">注意</h2>
 
 <ul>
   <li>Raspbian Jessieを動作させようとしましたが、Kernel Panicで起動しませんでした。よって、当記事では前回と同じRaspbian wheezyを動作させます。</li>
@@ -331,16 +350,16 @@
   <li>CentOS、Ubuntuでは<code class="highlighter-rouge">qemu-system-arm</code>をインストールする方法が分かりませんでした。あまりまじめに探していませんが。</li>
 </ul>
 
-<h1 id="作業環境">作業環境</h1>
+<h2 id="作業環境">作業環境</h2>
 
 <ul>
   <li>OS X Yosemite</li>
   <li>qemu 2.4.0.1</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
-<h2 id="qemuをインストール">QEMUをインストール</h2>
+<h3 id="qemuをインストール">QEMUをインストール</h3>
 
 <p>Homebrewでqemuをインストールします。</p>
 
@@ -352,31 +371,31 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ qemu-system-arm -M versatilepb -cpu '?' | grep arm1176
 </code></pre></div></div>
 
-<h2 id="raspbianおよびkernelをダウンロード">Raspbianおよびkernelをダウンロード</h2>
+<h3 id="raspbianおよびkernelをダウンロード">Raspbianおよびkernelをダウンロード</h3>
 
 <p><a href="https://www.raspberrypi.org/downloads">Raspberry Pi Downloads - Software for the Raspberry Pi</a>から、<code class="highlighter-rouge">RASPBIAN WHEEZY</code>をダウンロードします。ファイルサイズが大きいので注意。ダウンロードしたら展開して、<code class="highlighter-rouge">raspbian.img</code>にリネームします。</p>
 
 <p>次に、<a href="https://github.com/dhruvvyas90/qemu-rpi-kernel">dhruvvyas90/qemu-rpi-kernel</a>から<code class="highlighter-rouge">kernel-qemu-3.10.25-wheezy</code>をダウンロードします。ダウンロードしたら、<code class="highlighter-rouge">kernel-qemu</code>にリネームします。</p>
 
-<h2 id="raspbian使用準備">Raspbian使用準備</h2>
+<h3 id="raspbian使用準備">Raspbian使用準備</h3>
 
 <p>RaspbianをQEMUで使用するためには、いくつかの調整を行う必要があります。なお、この作業の一部でキーボードが英語配列になることがあるので注意。</p>
 
-<h3 id="raspbianを起動1回目">Raspbianを起動(1回目)</h3>
+<h4 id="raspbianを起動1回目">Raspbianを起動(1回目)</h4>
 
 <p>調整のため、1回目の起動を行います。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw init=/bin/bash" -hda raspbian.img
 </code></pre></div></div>
 
-<h3 id="ldsopreloadを修正"><code class="highlighter-rouge">ld.so.preload</code>を修正</h3>
+<h4 id="ldsopreloadを修正"><code class="highlighter-rouge">ld.so.preload</code>を修正</h4>
 
 <p><code class="highlighter-rouge">/etc/ld.so.preload</code>を修正します。1行目先頭に<code class="highlighter-rouge">#</code>を追加して、コメントアウトします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># sed -i -e 's/^/#/' /etc/ld.so.preload
 </code></pre></div></div>
 
-<h3 id="90-qemurulesを作成"><code class="highlighter-rouge">90-qemu.rules</code>を作成</h3>
+<h4 id="90-qemurulesを作成"><code class="highlighter-rouge">90-qemu.rules</code>を作成</h4>
 
 <p><code class="highlighter-rouge">/etc/udev/rules.d/90-qemu.rules</code>を作成します。</p>
 
@@ -386,14 +405,14 @@
 # echo 'KERNEL=="sda2", SYMLINK+="root"' &gt;&gt; /etc/udev/rules.d/90-qemu.rules
 </code></pre></div></div>
 
-<h3 id="raspbianを終了">Raspbianを終了</h3>
+<h4 id="raspbianを終了">Raspbianを終了</h4>
 
 <p>これで使用準備ができました。いったん、終了します。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># exit
 </code></pre></div></div>
 
-<h2 id="raspbianを起動2回目">Raspbianを起動(2回目)</h2>
+<h3 id="raspbianを起動2回目">Raspbianを起動(2回目)</h3>
 
 <p>Raspbianを起動します。以降、以下のコマンドでRaspbianを起動します。1回目の起動とはコマンド内容が少し異なるので注意。</p>
 
@@ -407,7 +426,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -p 5022 pi@localhost
 </code></pre></div></div>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="https://blog.ymyzk.com/2013/12/raspberry-pi-qemu/">Raspberry Pi を QEMU でエミュレートする方法 (2015年7月更新)</a></li>

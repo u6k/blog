@@ -312,12 +312,32 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-30T23:00:00+09:00">2017-11-30</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-30T23:00:00+09:00">2017-11-30</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#検証するwebアプリケーション">検証するWebアプリケーション</a></li>
+  <li><a href="#検証">検証</a>
+    <ul>
+      <li><a href="#spring-sessionを組み込んだだけで何も設定しない場合">Spring Sessionを組み込んだだけで、何も設定しない場合</a></li>
+      <li><a href="#セッションタイムアウトを設定した場合">セッション・タイムアウトを設定した場合</a></li>
+      <li><a href="#cookie寿命を設定した場合">Cookie寿命を設定した場合</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
         
         <p><a href="https://blog.u6k.me/2017/11/26/servlet-http-session.html">先日は</a>Servlet APIにおけるセッション管理の挙動を検証しました。今回は、Servlet APIにSpring Sessionを組み込んだ時の挙動を検証します。</p>
 
@@ -582,7 +602,7 @@ public class Config {
 
 <p>Redisと連携した時のセッション管理がどのように行われるのかが整理できました。次はSpring Securityを食い込んだ時のセッション管理か、Spring Securityによるサインアップかな。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

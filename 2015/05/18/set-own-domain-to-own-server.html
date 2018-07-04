@@ -312,18 +312,32 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-18T20:00:00+09:00">2015-05-18</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-05-18T20:00:00+09:00">2015-05-18</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#概要">概要</a></li>
+  <li><a href="#ムームードメインmydnsjpの基本的な設定">ムームードメイン、MyDNS.jpの基本的な設定</a></li>
+  <li><a href="#スクリプトでipアドレスを更新">スクリプトでIPアドレスを更新</a></li>
+  <li><a href="#スクリプトを試験実行">スクリプトを試験実行</a></li>
+  <li><a href="#cronで定期実行">cronで定期実行</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>独自ドメインを取得し、Bloggerへの設定は完了しました。次は、自宅サーバーに独自ドメインを設定します。</p>
 
-<!-- more -->
-
-<h1 id="概要">概要</h1>
+<h2 id="概要">概要</h2>
 
 <p>自宅サーバーのIPアドレスは変化する可能性があるため、固定IPアドレスとしてドメイン名と紐付けすることができません。そこで、DDNSの仕組みを使って、動的にIPアドレスを設定することとします。以下のページを参考に設定を行いました。</p>
 
@@ -334,11 +348,11 @@
 
 <p>ムームードメインで独自ドメインを購入し、MyDNS.jpを利用してドメイン名とIPアドレスを紐付けます。MyDNS.jpにはスクリプトでIPアドレスを設定する機能があるので、それを利用します。</p>
 
-<h1 id="ムームードメインmydnsjpの基本的な設定">ムームードメイン、MyDNS.jpの基本的な設定</h1>
+<h2 id="ムームードメインmydnsjpの基本的な設定">ムームードメイン、MyDNS.jpの基本的な設定</h2>
 
 <p>MyDNS.jpのアカウントを取得して、ドメイン名を設定し、ムームードメインのDNS向き先をMyDNS.jpに向ける手順は、上記ページに書いてあるので省略します。</p>
 
-<h1 id="スクリプトでipアドレスを更新">スクリプトでIPアドレスを更新</h1>
+<h2 id="スクリプトでipアドレスを更新">スクリプトでIPアドレスを更新</h2>
 
 <p>MyDNS.jpのHOW TO USEを見ると、スクリプトでIPアドレスを設定する方法は数種類あるようです。ここでは、HTTP-BASICという方法で行います。これは、指定されたURLにアクセスするだけでIPアドレスを更新する方法です。</p>
 
@@ -351,17 +365,17 @@ wget <span class="nt">--http-user</span><span class="o">=</span><span class="nv"
 
 <p>指定URLはBasic認証がかかっているので、MyDNS.jpのアカウント情報を設定してアクセスします。ここでは、環境変数から取得することとします。スクリプトを作成したら、<code class="highlighter-rouge">sudo chmod +x</code>で実行権限を与えます。</p>
 
-<h1 id="スクリプトを試験実行">スクリプトを試験実行</h1>
+<h2 id="スクリプトを試験実行">スクリプトを試験実行</h2>
 
 <p>スクリプトでIPアドレスが更新されることを確認するため、MyDNS.jp側のIPアドレスを<code class="highlighter-rouge">0.0.0.0</code>に設定しておきます(IP ADDR DIRECTから設定)。</p>
 
 <p>次に、スクリプトを実行してみます。コンソールにHTMLが表示されたら成功です。また、MyDNS.jpでIPアドレスを確認して、更新されていれば成功です。</p>
 
-<h1 id="cronで定期実行">cronで定期実行</h1>
+<h2 id="cronで定期実行">cronで定期実行</h2>
 
 <p>cronやJenkinsなどで定期実行するように設定します。環境変数を使用している場合は、正しく設定されるか確認したほうが良いです。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>以上で、自宅サーバーに独自ドメインを設定できました。</p>
 

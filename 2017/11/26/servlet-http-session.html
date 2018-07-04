@@ -312,12 +312,32 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-26T16:00:00+09:00">2017-11-26</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-26T16:00:00+09:00">2017-11-26</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#検証するwebアプリケーション">検証するWebアプリケーション</a></li>
+  <li><a href="#検証">検証</a>
+    <ul>
+      <li><a href="#セッションタイムアウトを何も設定しない場合">セッション・タイムアウトを何も設定しない場合</a></li>
+      <li><a href="#セッションタイムアウトを設定した場合">セッション・タイムアウトを設定した場合</a></li>
+      <li><a href="#cookie寿命を設定した場合">Cookie寿命を設定した場合</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
         
         <p>Javaでよくあるセッション管理の仕組みについて他人に説明している時に、どうも自分の認識があいまいになっていることに気付いたので、挙動を検証してみます。よくあるセッション管理ということで、Servlet APIにおけるHttpSessionの挙動を検証します。</p>
 
@@ -416,7 +436,7 @@
 
 <p>どのようにタイムアウトするのか、通信がどのように行われるのか認識があいまいでしたが、整理できました。次はSpring SessionやSpring Securityにおけるセッション管理を検証してみたいと思います。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

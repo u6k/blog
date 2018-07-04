@@ -24,7 +24,7 @@
 
 
 
-<meta name="description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、  インストーラーをダウンロードする。  インストールする。  JAVA_HOME環境変数、PATH環境変数を設定する。  簡単に動作確認を行う。です。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
+<meta name="description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-  <meta property="og:description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、  インストーラーをダウンロードする。  インストールする。  JAVA_HOME環境変数、PATH環境変数を設定する。  簡単に動作確認を行う。です。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
+  <meta property="og:description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
 
 
 
@@ -56,7 +56,7 @@
 
   <meta name="twitter:site" content="@u6k_yu1">
   <meta name="twitter:title" content="WindowsにJava SDKをセットアップする">
-  <meta name="twitter:description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、  インストーラーをダウンロードする。  インストールする。  JAVA_HOME環境変数、PATH環境変数を設定する。  簡単に動作確認を行う。です。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
+  <meta name="twitter:description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
   <meta name="twitter:url" content="">
 
   
@@ -301,7 +301,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="WindowsにJava SDKをセットアップする">
-    <meta itemprop="description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、  インストーラーをダウンロードする。  インストールする。  JAVA_HOME環境変数、PATH環境変数を設定する。  簡単に動作確認を行う。です。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
+    <meta itemprop="description" content="たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。1. インストーラーをダウンロードする。http://www.oracle.com/technetwork/java/javase/downloads/index.htmlを開きます。ページ中程の「JDK」という文字の近くにあるDOWNLOADボタンをクリックします。「Java SE Development Kit」というボックスがあり、ライセンスを許諾するか選択するチェックボックスがあります。問題無ければ「Accept License Agreement」をチェックします。チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。2. インストールする。ダウンロードしたjdk-xxx-windows-yyy.exeを実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。3. JAVA_HOME環境変数、PATH環境変数を設定する。通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。環境変数を設定するには、まず「コントロールパネル」→「システム」を開きます。「システムの詳細設定」をクリックして、「システムのプロパティ」を開きます。「詳細設定」タブの「環境変数」ボタンをクリックします。ユーザー環境変数側の「新規」ボタンをクリックします。「変数名」にJAVA_HOME、「変数値」にJava SDKをインストールしたフォルダのパスを設定します。通常、Java SDKはC:\Program Files\Java\jdkxxxのようなフォルダにインストールされますので、エクスプローラで開いて確認します。設定したら「OK」をクリックします。もう一度「新規」ボタンをクリックして、次は変数名PATHと変数値%JAVA_HOME%\bin;を設定します。既にPATH環境変数が存在する場合は「編集」ボタンをクリックして、変数値の先頭に%JAVA_HOME%\bin;を追加します。セットアップはこれで終わりです。4. 簡単に動作確認を行う。正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、java -version、javac -versionコマンドを実行します。C:\Users\xxx&gt;java -versionjava version &quot;1.7.0_45&quot;Java(TM) SE Runtime Environment (build 1.7.0_45-b18)Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)C:\Users\xxx&gt;javac -versionjavac 1.7.0_45セットアップしたバージョンが表示されればOKです。異なるバージョンが表示されたり、javacコマンドがエラーとなった場合、別バージョンのJavaがインストールされていたり、環境変数の設定が失敗している可能性が高いです。">
     <meta itemprop="datePublished" content="2014-01-07">
     
 
@@ -312,27 +312,30 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-01-07T19:00:00+09:00">2014-01-07</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-01-07T19:00:00+09:00">2014-01-07</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <p>たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。やることは難しくなく、</p>
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#1-インストーラーをダウンロードする">1. インストーラーをダウンロードする。</a></li>
+  <li><a href="#2-インストールする">2. インストールする。</a></li>
+  <li><a href="#3-java_home環境変数path環境変数を設定する">3. JAVA_HOME環境変数、PATH環境変数を設定する。</a></li>
+  <li><a href="#4-簡単に動作確認を行う">4. 簡単に動作確認を行う。</a></li>
+</ul>
 
-<ol>
-  <li>インストーラーをダウンロードする。</li>
-  <li>インストールする。</li>
-  <li><code class="highlighter-rouge">JAVA_HOME</code>環境変数、<code class="highlighter-rouge">PATH</code>環境変数を設定する。</li>
-  <li>簡単に動作確認を行う。</li>
-</ol>
+            </nav>
+          </aside>
+        
+        <p>たまにJava SDKのセットアップ手順を説明する機会があるので、せっかくなので記しておきます。</p>
 
-<p>です。</p>
-
-<!-- more -->
-
-<h1 id="1-インストーラーをダウンロードする">1. インストーラーをダウンロードする。</h1>
+<h2 id="1-インストーラーをダウンロードする">1. インストーラーをダウンロードする。</h2>
 
 <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>を開きます。</p>
 
@@ -346,7 +349,7 @@
 
 <p>チェックすると、その下の各OSごとのダウンロードリンクが有効になります。Windowsへのインストールなので、「Windows x86」(32bitの場合)または「Windows x64」(64bitの場合)の右側のリンクをクリックします。インストーラーのダウンロードが始まります。</p>
 
-<h1 id="2-インストールする">2. インストールする。</h1>
+<h2 id="2-インストールする">2. インストールする。</h2>
 
 <p>ダウンロードした<code class="highlighter-rouge">jdk-xxx-windows-yyy.exe</code>を実行すると、インストールが始まります。インストールは、JDKとJREの2個が実行されます。通常は設定を変更する必要はないので、「次へ」「閉じる」をクリックしていきます。</p>
 
@@ -362,7 +365,7 @@
 
 <p><img src="/assets/img/2014-01-07-setup-java-sdk-for-windows/008.png" alt="" /></p>
 
-<h1 id="3-java_home環境変数path環境変数を設定する">3. <code class="highlighter-rouge">JAVA_HOME</code>環境変数、<code class="highlighter-rouge">PATH</code>環境変数を設定する。</h1>
+<h2 id="3-java_home環境変数path環境変数を設定する">3. <code class="highlighter-rouge">JAVA_HOME</code>環境変数、<code class="highlighter-rouge">PATH</code>環境変数を設定する。</h2>
 
 <p>通常のソフトウェアとは違いこれだけでは終わらず、環境変数を設定する必要があります(設定しなくてもだいたい動作しますが)。</p>
 
@@ -398,7 +401,7 @@
 
 <p>セットアップはこれで終わりです。</p>
 
-<h1 id="4-簡単に動作確認を行う">4. 簡単に動作確認を行う。</h1>
+<h2 id="4-簡単に動作確認を行う">4. 簡単に動作確認を行う。</h2>
 
 <p>正常にセットアップできたことを簡単に確認します。コマンドプロンプトを開いて、<code class="highlighter-rouge">java -version</code>、<code class="highlighter-rouge">javac -version</code>コマンドを実行します。</p>
 

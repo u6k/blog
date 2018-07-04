@@ -312,22 +312,38 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-03T07:00:00+09:00">2017-10-03</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-10-03T07:00:00+09:00">2017-10-03</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#結論">結論</a></li>
+  <li><a href="#gitタグジョブ実行の関連スレッド">Gitタグ・ジョブ実行の関連スレッド</a></li>
+  <li><a href="#configymlの説明">config.ymlの説明</a></li>
+  <li><a href="#実際の動作">実際の動作</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>CircleCI 1.0では正常動作したGitタグ・ジョブ実行が、CircleCI 2.0ではうまく動きませんでした。どうにかしようと四苦八苦したログをここに残します。</p>
 
-<h1 id="結論">結論</h1>
+<h2 id="結論">結論</h2>
 
 <p>GitタグをpushしてもCircleCIジョブが起動しませんでした。なので、masterブランチにpushされたときに最後のGitタグを取得してデプロイ処理を実行するようにしました。</p>
 
 <p>動作確認用に<a href="https://github.com/u6k/sample-circleci-2.0">u6k/sample-circleci-2.0</a>リポジトリを作成しましたので、こちらの<code class="highlighter-rouge">.circleci/config.yml</code>をご覧ください。</p>
 
-<h1 id="gitタグジョブ実行の関連スレッド">Gitタグ・ジョブ実行の関連スレッド</h1>
+<h2 id="gitタグジョブ実行の関連スレッド">Gitタグ・ジョブ実行の関連スレッド</h2>
 
 <p>CircleCIコミュニティや公式ドキュメントの関連スレッドを挙げます。</p>
 
@@ -343,7 +359,7 @@
 
 <p>「Git Tag Job Execution」にジョブ(というかワークフロー)の設定方法が説明されていますが、この通りに設定してもそもそもGitタグのpushでCircleCIジョブが起動しませんでした。</p>
 
-<h1 id="configymlの説明"><code class="highlighter-rouge">config.yml</code>の説明</h1>
+<h2 id="configymlの説明"><code class="highlighter-rouge">config.yml</code>の説明</h2>
 
 <p>GitタグのpushでCircleCIジョブが起動しないので、しかたないのでmasterブランチのpushで必要な処理を実行するようにしました。以下の<code class="highlighter-rouge">config.yml</code>が設定例です。</p>
 
@@ -469,7 +485,7 @@ workflows:
 
 <p>pushジョブをmasterブランチの時のみ実行するように設定しています。CircleCI 1.0の時はGitタグがpushされた時のみ、という設定ができましたが。</p>
 
-<h1 id="実際の動作">実際の動作</h1>
+<h2 id="実際の動作">実際の動作</h2>
 
 <p>developブランチとmasterブランチでファイルを修正してGit pushしたところ、CircleCIでは以下のように実行されました。</p>
 
@@ -481,11 +497,11 @@ workflows:
 
 <p>pushジョブでは最後のGitタグを取得して<code class="highlighter-rouge">docker push</code>が成功していることが分かります。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>CircleCI 2.0にするだけでビルドが早くなった！という記事をよく見ますが、まだ落とし穴が多く、移行はもう少し様子を見てからにします。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

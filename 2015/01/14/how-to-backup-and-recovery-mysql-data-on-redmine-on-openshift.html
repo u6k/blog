@@ -312,18 +312,31 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-14T20:00:00+09:00">2015-01-14</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-14T20:00:00+09:00">2015-01-14</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#バックアップ手順">バックアップ手順</a></li>
+  <li><a href="#リカバリー手順">リカバリー手順</a></li>
+  <li><a href="#備考">備考</a></li>
+  <li><a href="#qiita">Qiita</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自分用のRedmineをOpenShiftで稼働させていますが、何らかの理由でデータが消えてもらっては困るので、定期的にバックアップを取っています。この記事では、そのバックアップ手順と、バックアップデータをOpenShift上にリカバリーする手順を説明します。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>MySQLデータ、Redmineソースコードをバックアップします。添付ファイルは考慮しません(私が添付ファイルを使用していないだけ)。</li>
@@ -331,7 +344,7 @@
   <li>バックアップしたMySQLデータ、Redmineソースコードを使用して、OpenShift上にリカバリーします。</li>
 </ul>
 
-<h1 id="バックアップ手順">バックアップ手順</h1>
+<h2 id="バックアップ手順">バックアップ手順</h2>
 
 <p><code class="highlighter-rouge">ssh</code>でOpenShiftにログインして、そこから<code class="highlighter-rouge">mysqldump</code>を使用します。しかし、いちいちログインするのは面倒なので、以下のように<code class="highlighter-rouge">ssh</code>を使用して、ローカルにダンプします。</p>
 
@@ -353,7 +366,7 @@
   </li>
 </ul>
 
-<h1 id="リカバリー手順">リカバリー手順</h1>
+<h2 id="リカバリー手順">リカバリー手順</h2>
 
 <ul>
   <li>バックアップしたMySQLデータ、Redmineソースコードを使用して、OpenShift上にリカバリーします。</li>
@@ -363,14 +376,14 @@
   <li>該当アプリケーションのページで、アプリケーションを再起動します。</li>
 </ul>
 
-<h1 id="備考">備考</h1>
+<h2 id="備考">備考</h2>
 
 <ul>
   <li>Redmineをバージョンアップしたいときはどうすれば良い？</li>
   <li>OpenShift以外の環境(例えばローカル)に復旧する方法を考えておいたほうが良い。万が一、OpenShiftが使えなくなってしまうことを考慮して。</li>
 </ul>
 
-<h1 id="qiita">Qiita</h1>
+<h2 id="qiita">Qiita</h2>
 
 <ul>
   <li><a href="http://qiita.com/u6k/items/9d9cd6ec06b7523168bf">Redmine@OpenShiftのMySQLデータをバックアップ&amp;リカバリー - Qiita</a></li>

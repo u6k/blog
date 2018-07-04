@@ -312,25 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-07T00:00:00+09:00">2015-11-07</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-07T00:00:00+09:00">2015-11-07</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#手順">手順</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自分のタスク管理用に稼働させているRedmineでCSVやPDFを出力すると文字化けが発生します。これを解消したので、手順を説明します。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>Redmineは<a href="https://github.com/openshift/openshift-redmine-quickstart">openshift/openshift-redmine-quickstart · GitHub</a>で構築。</li>
   <li>OpenShift上で稼働。</li>
 </ul>
 
-<h1 id="手順">手順</h1>
+<h2 id="手順">手順</h2>
 
 <p><a href="http://redmine.jp/faq/general/pdfcsv/">PDFおよびCSVの文字化けを回避する — Redmine.JP</a>によれば、<code class="highlighter-rouge">config/locales/ja.yml</code>を開き、<code class="highlighter-rouge">general_csv_encoding: CP932</code>にすれば良いとのこと。</p>
 

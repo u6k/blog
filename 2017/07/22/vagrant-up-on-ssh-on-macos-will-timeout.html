@@ -312,16 +312,28 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-07-22T00:00:00+09:00">2017-07-22</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-07-22T00:00:00+09:00">2017-07-22</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#現象">現象</a></li>
+  <li><a href="#解決">解決</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>普段、自宅macOSにssh接続して作業していますが、 <code class="highlighter-rouge">vagrant up</code> したらタイムアウトになってしまったことと、解決したことのメモ。</p>
 
-<h1 id="現象">現象</h1>
+<h2 id="現象">現象</h2>
 
 <p>以下のように、タイムアウトになってしまいました。</p>
 
@@ -359,7 +371,7 @@ as well.
 If the box appears to be booting properly, you may want to increasethe timeout ("config.vm.boot_timeout") value.
 </code></pre></div></div>
 
-<h1 id="解決">解決</h1>
+<h2 id="解決">解決</h2>
 
 <p>いろいろ調べて、タイムアウト時間を伸ばしたり、vb_guiをtrueにしたり、ipを固定化したりしてみましたが、最終的に、macOSにVNC接続してターミナルで <code class="highlighter-rouge">vagrant up</code> したら正常起動しました。</p>
 

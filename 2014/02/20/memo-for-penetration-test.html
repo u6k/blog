@@ -312,14 +312,40 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-02-20T21:55:00+09:00">2014-02-20</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-02-20T21:55:00+09:00">2014-02-20</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="ペネトレーションテストとは">ペネトレーションテストとは</h1>
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#ペネトレーションテストとは">ペネトレーションテストとは</a>
+    <ul>
+      <li><a href="#参考サイト">参考サイト</a></li>
+    </ul>
+  </li>
+  <li><a href="#実施時期">実施時期</a></li>
+  <li><a href="#脆弱性が発見された場合">脆弱性が発見された場合</a>
+    <ul>
+      <li><a href="#参考サイト-1">参考サイト</a></li>
+    </ul>
+  </li>
+  <li><a href="#業者">業者</a></li>
+  <li><a href="#ツール">ツール</a></li>
+  <li><a href="#その他参考サイト">その他、参考サイト</a></li>
+  <li><a href="#備考-不正侵入の手順">備考: 不正侵入の手順</a></li>
+  <li><a href="#備考-疑問点課題">備考: 疑問点、課題</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="ペネトレーションテストとは">ペネトレーションテストとは</h2>
 
 <p>システムやネットワークの脆弱性を検証するテストのこと。対象に実際に攻撃を行い侵入を試みる。</p>
 
@@ -327,9 +353,7 @@
 
 <p>ペネトレーションテストは実際にシステムを攻撃するため、セキュリティについて専門的な知識が必要になる。このため、テストサービスを提供する専門業者に依頼することもある。</p>
 
-<!-- more -->
-
-<h2 id="参考サイト">参考サイト</h2>
+<h3 id="参考サイト">参考サイト</h3>
 
 <ul>
   <li><a href="http://securityblog.jp/words/4661.html">ペネトレーションテストとは | 日立ソリューションズの情報セキュリティブログ</a></li>
@@ -338,7 +362,7 @@
   <li><a href="http://itpro.nikkeibp.co.jp/word/page/10006229/">「ペネトレーション・テスト」とは：ITpro</a></li>
 </ul>
 
-<h1 id="実施時期">実施時期</h1>
+<h2 id="実施時期">実施時期</h2>
 
 <p>以下のタイミングでテストを実施する。</p>
 
@@ -356,7 +380,7 @@
   </li>
 </ul>
 
-<h1 id="脆弱性が発見された場合">脆弱性が発見された場合</h1>
+<h2 id="脆弱性が発見された場合">脆弱性が発見された場合</h2>
 
 <p>脆弱性が発見された場合にどうするかは、テストを行う前に検討するべき。脆弱性の発見は基本的にリスク管理項目であるため、以下のリスク対応を行う。</p>
 
@@ -386,13 +410,13 @@
   </li>
 </ul>
 
-<h2 id="参考サイト-1">参考サイト</h2>
+<h3 id="参考サイト-1">参考サイト</h3>
 
 <ul>
   <li><a href="http://www.ipa.go.jp/security/manager/protect/pdca/risk.html">IPA 独立行政法人 情報処理推進機構：情報セキュリティマネジメントとPDCAサイクル</a></li>
 </ul>
 
-<h1 id="業者">業者</h1>
+<h2 id="業者">業者</h2>
 
 <p>Google先生に聞いたところ、以下のサービスが見つかった。</p>
 
@@ -408,7 +432,7 @@
   <li><a href="http://www.lac.co.jp/service/evaluation/">セキュリティ診断 | サービス | 株式会社ラック</a></li>
 </ul>
 
-<h1 id="ツール">ツール</h1>
+<h2 id="ツール">ツール</h2>
 
 <p>もちろん、自分でペネトレーションテストを行うこともできる。個別の攻撃ツールを使っても良いが、総合的にテストを支援するツールが提供されている。</p>
 
@@ -443,7 +467,7 @@
   </li>
 </ul>
 
-<h1 id="その他参考サイト">その他、参考サイト</h1>
+<h2 id="その他参考サイト">その他、参考サイト</h2>
 
 <ul>
   <li><a href="http://www.sstokkun.net/archives/2005/06/top_1.html">侵入テスト（ペネトレーションテスト）の有効性：情報セキュリティアドミニストレータ試験対策</a></li>
@@ -451,7 +475,7 @@
   <li><a href="http://d.hatena.ne.jp/takalognet/20071017/1192586326">セキュリティの弱点を発見するペネトレーションテストとは？ - takalognet</a></li>
 </ul>
 
-<h1 id="備考-不正侵入の手順">備考: 不正侵入の手順</h1>
+<h2 id="備考-不正侵入の手順">備考: 不正侵入の手順</h2>
 
 <p>不正侵入は以下の手順で行われる。</p>
 
@@ -478,7 +502,7 @@
   </li>
 </ul>
 
-<h1 id="備考-疑問点課題">備考: 疑問点、課題</h1>
+<h2 id="備考-疑問点課題">備考: 疑問点、課題</h2>
 
 <ul>
   <li>実施するタイミングによって実施内容は変わるか？</li>

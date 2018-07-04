@@ -312,12 +312,39 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-08T00:00:00+09:00">2015-11-08</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-11-08T00:00:00+09:00">2015-11-08</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#yoxosとは">yoxosとは</a>
+    <ul>
+      <li><a href="#yoxos利用手順">yoxos利用手順</a></li>
+    </ul>
+  </li>
+  <li><a href="#yoxosの利点">yoxosの利点</a></li>
+  <li><a href="#yoxosの欠点">yoxosの欠点</a></li>
+  <li><a href="#そもそも開発環境に求める要件を考えてみる">そもそも、開発環境に求める要件を考えてみる</a>
+    <ul>
+      <li><a href="#テキストエディター機能要件">テキストエディター機能要件</a></li>
+      <li><a href="#ビルド機能要件">ビルド機能要件</a></li>
+      <li><a href="#デバッグ機能要件">デバッグ機能要件</a></li>
+      <li><a href="#プロビジョニング機能要件">プロビジョニング機能要件</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
         
         <p>仕事で複数のPCを使ったり、たまにOS再セットアップを行ったり、Eclipse環境自体に残ったゴミファイルやゴミ設定をクリーンするなどで、Eclipse環境を再セットアップすることがあります。</p>
 
@@ -325,13 +352,11 @@
 
 <p>この記事では、yoxosとは何かを簡単に説明し、もう少し踏み込んで開発環境に何を求めているかを整理してみます。</p>
 
-<!-- more -->
-
-<h1 id="yoxosとは">yoxosとは</h1>
+<h2 id="yoxosとは">yoxosとは</h2>
 
 <p><a href="https://yoxos.eclipsesource.com/">yoxos</a>は、プロファイルにプラグインセットを事前設定することで、Windows・Macなどどの環境でもEclipse環境(プラグインインストール済み)を1発で構築することができるサービスです。</p>
 
-<h2 id="yoxos利用手順">yoxos利用手順</h2>
+<h3 id="yoxos利用手順">yoxos利用手順</h3>
 
 <ul>
   <li>yoxosでアカウントを作成する。</li>
@@ -346,7 +371,7 @@
 
 <p>別の環境でEclipse環境を構築する場合は、Yoxos Launcherをインストールしてプロファイルにログインすることで、Eclipse環境を一気に構築することができます。</p>
 
-<h1 id="yoxosの利点">yoxosの利点</h1>
+<h2 id="yoxosの利点">yoxosの利点</h2>
 
 <ul>
   <li>プロファイルから同じ環境を手軽にいくつも作れる。OS、CPUが異なっていても、yoxosがよろしく調整してくれる。</li>
@@ -355,7 +380,7 @@
   <li>プラグインにバージョンアップがあった場合、yoxosがチェック、インストールしてくれる。</li>
 </ul>
 
-<h1 id="yoxosの欠点">yoxosの欠点</h1>
+<h2 id="yoxosの欠点">yoxosの欠点</h2>
 
 <ul>
   <li>yoxosの無償利用ができなくなるかも？</li>
@@ -367,11 +392,11 @@
   </li>
 </ul>
 
-<h1 id="そもそも開発環境に求める要件を考えてみる">そもそも、開発環境に求める要件を考えてみる</h1>
+<h2 id="そもそも開発環境に求める要件を考えてみる">そもそも、開発環境に求める要件を考えてみる</h2>
 
 <p>開発環境については、いろいろなツールやプラグインを使ってきて、なんだか頭がごちゃごちゃになってしまっているので、ここらで一度、自分は開発環境に何を求めているのか？ という観点を整理してみます。</p>
 
-<h2 id="テキストエディター機能要件">テキストエディター機能要件</h2>
+<h3 id="テキストエディター機能要件">テキストエディター機能要件</h3>
 
 <ul>
   <li>ソースコードをシンタックスハイライトできる。</li>
@@ -419,7 +444,7 @@
   <li>リファクタリングできることが望ましい。</li>
 </ul>
 
-<h2 id="ビルド機能要件">ビルド機能要件</h2>
+<h3 id="ビルド機能要件">ビルド機能要件</h3>
 
 <ul>
   <li>ファイルを変更すると、バックグラウンドでビルドが実行される。
@@ -440,7 +465,7 @@
   <li>プロジェクト全体の、複雑度などメトリクスを表示する。</li>
 </ul>
 
-<h2 id="デバッグ機能要件">デバッグ機能要件</h2>
+<h3 id="デバッグ機能要件">デバッグ機能要件</h3>
 
 <ul>
   <li>開発中アプリを起動できる。
@@ -459,7 +484,7 @@
   </li>
 </ul>
 
-<h2 id="プロビジョニング機能要件">プロビジョニング機能要件</h2>
+<h3 id="プロビジョニング機能要件">プロビジョニング機能要件</h3>
 
 <ul>
   <li>どのプラットフォームでも開発環境をプロビジョニングできる。
@@ -484,11 +509,11 @@
   <li>コンソール環境のみで利用できることが望ましい。</li>
 </ul>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>Eclipse抜きに「開発環境とは」を考えると、いわゆるIDEがよくできていることが改めてわかります。とは言えもっと簡単にセットアップしたいとも思います。もうちょっと色々と追求してみます。</p>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="http://moznion.hatenadiary.com/entry/20130103/1357234061">Vim でJava を書く環境を整えましたが、IDE で良い気がします</a></li>

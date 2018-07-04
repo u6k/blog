@@ -312,16 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-12T00:00:00+09:00">2018-06-12</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-12T00:00:00+09:00">2018-06-12</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#背景">背景</a></li>
+  <li><a href="#要件">要件</a></li>
+  <li><a href="#サンプル">サンプル</a>
+    <ul>
+      <li><a href="#weekly-report-from-2018-06-04-to-2018-06-10">Weekly Report (from 2018-06-04 to 2018-06-10)</a></li>
+    </ul>
+  </li>
+  <li><a href="#リポジトリ">リポジトリ</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。</p>
 
-<h1 id="背景">背景</h1>
+<h2 id="背景">背景</h2>
 
 <p>過去に週次レビュー(u6k.RedmineのWiki、u6k.BlogのThis Week I Learnedなど)をしていましたが、現在は滞っています。活動の集計やコメントする作業が非常に手間がかかるためです。</p>
 
@@ -329,7 +348,7 @@
 
 <p>なので、上記のことを集計して、「あとはコメントを書くだけ」という状態にしたブログ原稿を生成するツールがほしいです。</p>
 
-<h1 id="要件">要件</h1>
+<h2 id="要件">要件</h2>
 
 <ul>
   <li>各種の活動をレポートとして生成してほしい
@@ -362,15 +381,15 @@
   </li>
 </ul>
 
-<h1 id="サンプル">サンプル</h1>
+<h2 id="サンプル">サンプル</h2>
 
 <p>こんな感じの記事を生成したいです。</p>
 
-<h2 id="weekly-report-from-2018-06-04-to-2018-06-10">Weekly Report (from 2018-06-04 to 2018-06-10)</h2>
+<h3 id="weekly-report-from-2018-06-04-to-2018-06-10">Weekly Report (from 2018-06-04 to 2018-06-10)</h3>
 
 <p>2018-06-04から2018-06-10の活動のレポートです。</p>
 
-<h3 id="リリース">リリース</h3>
+<h4 id="リリース">リリース</h4>
 
 <ul>
   <li>公開した記事
@@ -385,7 +404,7 @@
   </li>
 </ul>
 
-<h3 id="主なツイートとコメント">主なツイートとコメント</h3>
+<h4 id="主なツイートとコメント">主なツイートとコメント</h4>
 
 <ul>
   <li>ツイート
@@ -395,7 +414,7 @@
   </li>
 </ul>
 
-<h3 id="github">GitHub</h3>
+<h4 id="github">GitHub</h4>
 
 <ul>
   <li>12 コミットしました。</li>
@@ -404,7 +423,7 @@
 
 <p><strong>GitHub Contribution画像を表示</strong></p>
 
-<h3 id="redmine">Redmine</h3>
+<h4 id="redmine">Redmine</h4>
 
 <ul>
   <li>チケットを xx 回更新しました。
@@ -418,7 +437,7 @@
 
 <p><strong>Redmine活動グラフを表示</strong></p>
 
-<h3 id="twitter">Twitter</h3>
+<h4 id="twitter">Twitter</h4>
 
 <ul>
   <li>xx 回ツイートしました。
@@ -430,7 +449,7 @@
 
 <p><strong>Twitter活動グラフを表示</strong></p>
 
-<h3 id="pocket">Pocket</h3>
+<h4 id="pocket">Pocket</h4>
 
 <ul>
   <li>xxxxx ページが未読です。</li>
@@ -440,18 +459,18 @@
 
 <p><strong>Pocket活動グラフを表示</strong></p>
 
-<h3 id="author">Author</h3>
+<h4 id="author">Author</h4>
 
 <p>authorを表示</p>
 
-<h1 id="リポジトリ">リポジトリ</h1>
+<h2 id="リポジトリ">リポジトリ</h2>
 
 <ul>
   <li><a href="https://github.com/u6k/work-report">u6k/work-report: 個人的な活動ログをレポートする - GitHub</a></li>
   <li><a href="https://redmine.u6k.me/projects/work-report">概要 - work-report - u6k.Redmine</a></li>
 </ul>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

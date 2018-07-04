@@ -312,16 +312,39 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-28T00:00:00+09:00">2017-04-28</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-28T00:00:00+09:00">2017-04-28</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#構成図">構成図</a></li>
+  <li><a href="#構成の説明">構成の説明</a>
+    <ul>
+      <li><a href="#coreos-on-virtualbox-on-macos">CoreOS on VirtualBox on macOS</a></li>
+      <li><a href="#外部からアクセスする場合はsshまたはvnc">外部からアクセスする場合は、sshまたはVNC</a></li>
+      <li><a href="#u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</a></li>
+      <li><a href="#hddはlvmでボリュームを統合">HDDはLVMでボリュームを統合</a></li>
+      <li><a href="#バックアップはamazonclouddrive">バックアップはAmazonCloudDrive</a></li>
+      <li><a href="#macbookpro">MacBookPro</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自分用のRedmineやownCloudを運用するために、さくらVPSやDigitalOceanやOpenShiftなどをうろうろしていましたが、落ち着いてきたので現状を整理したいと思います。まずは、ハードウェア構成を整理します。</p>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>昔使っていたMacBookがあるので、これをDockerホストにしたい。</li>
@@ -330,15 +353,15 @@
   <li>バックアップは、自宅とは別サイトにしたい。</li>
 </ul>
 
-<h1 id="構成図">構成図</h1>
+<h2 id="構成図">構成図</h2>
 
 <p>紆余曲折あり、現在は以下のような構成になっています。</p>
 
 <p><img src="/uml/c8dd8be8fca2df8ff3ff49da869d8789.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
 
-<h1 id="構成の説明">構成の説明</h1>
+<h2 id="構成の説明">構成の説明</h2>
 
-<h2 id="coreos-on-virtualbox-on-macos">CoreOS on VirtualBox on macOS</h2>
+<h3 id="coreos-on-virtualbox-on-macos">CoreOS on VirtualBox on macOS</h3>
 
 <p>Docker for macも使っていましたが、以下のような不安定さがあり、結局、CoreOSに戻しました。</p>
 
@@ -347,27 +370,27 @@
   <li>ネットワーク通信が頻発すると、接続確立できなくなる？</li>
 </ul>
 
-<h2 id="外部からアクセスする場合はsshまたはvnc">外部からアクセスする場合は、sshまたはVNC</h2>
+<h3 id="外部からアクセスする場合はsshまたはvnc">外部からアクセスする場合は、sshまたはVNC</h3>
 
 <p>普段はCoreOSで作業を行うため、sshで接続します。CoreOSの調子がおかしい、macOSをアップデートする、などの場合はVNCでアクセスします。</p>
 
-<h2 id="u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</h2>
+<h3 id="u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</h3>
 
 <p>ムームードメインで年間契約して、MyDNSでドメイン名とIPアドレスを管理しています。IPアドレスが変わっても良いように、Jenkinsコンテナで定期的にIPアドレスを通知しています。</p>
 
-<h2 id="hddはlvmでボリュームを統合">HDDはLVMでボリュームを統合</h2>
+<h3 id="hddはlvmでボリュームを統合">HDDはLVMでボリュームを統合</h3>
 
 <p>ボリュームを1個に統合して、ext4ストレージとして使っています。これは今でもちょっと迷っていて、個別ボリュームで扱った方が良いかな？故障したときどこまで被害が広がるかな？と悩んでいます。</p>
 
-<h2 id="バックアップはamazonclouddrive">バックアップはAmazonCloudDrive</h2>
+<h3 id="バックアップはamazonclouddrive">バックアップはAmazonCloudDrive</h3>
 
 <p>まだ全部をバックアップはできていなくて、少しずつ進めています。</p>
 
-<h2 id="macbookpro">MacBookPro</h2>
+<h3 id="macbookpro">MacBookPro</h3>
 
 <p>排熱の観点から、風通しの良い場所において、まな板立てに立て掛けています。温度を監視していますが、変な高温になることは今のところありません。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>ストレージさえ解決すれば、全てAWSかDigitalOceanに持っていきたいのですけど、今のところ自宅で運用しています。また、旅行などで長期間自宅を離れる場合は、Redmineなど必須サービスのみをDigitalOceanで一時的運用するようにしています。</p>
 

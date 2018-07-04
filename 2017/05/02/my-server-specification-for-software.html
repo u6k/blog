@@ -312,16 +312,41 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-02T00:00:00+09:00">2017-05-02</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-02T00:00:00+09:00">2017-05-02</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#構成図">構成図</a></li>
+  <li><a href="#構成の説明">構成の説明</a>
+    <ul>
+      <li><a href="#nginx-proxyとletsencrypt-nginx-proxy-companion">nginx-proxyとletsencrypt-nginx-proxy-companion</a></li>
+      <li><a href="#redmine">redmine</a></li>
+      <li><a href="#owncloud">owncloud</a></li>
+      <li><a href="#blog">blog</a></li>
+      <li><a href="#bookmark">bookmark</a></li>
+      <li><a href="#jenkins">jenkins</a></li>
+      <li><a href="#minio">minio</a></li>
+    </ul>
+  </li>
+  <li><a href="#コンテナの起動再起動更新">コンテナの起動、再起動、更新</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>ハードウェア編で、MacBookProをDockerホストの構成を説明しました。Dockerコンテナがどのように動作しているかを整理します。</p>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>サービスを楽に構築するため、Dockerコンテナで(ほぼ)全てを構成したい。</li>
@@ -334,13 +359,13 @@
   </li>
 </ul>
 
-<h1 id="構成図">構成図</h1>
+<h2 id="構成図">構成図</h2>
 
 <p><img src="/uml/bd1137401ae80a72960bb08f97d80bcf.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
 
-<h1 id="構成の説明">構成の説明</h1>
+<h2 id="構成の説明">構成の説明</h2>
 
-<h2 id="nginx-proxyとletsencrypt-nginx-proxy-companion">nginx-proxyとletsencrypt-nginx-proxy-companion</h2>
+<h3 id="nginx-proxyとletsencrypt-nginx-proxy-companion">nginx-proxyとletsencrypt-nginx-proxy-companion</h3>
 
 <p>nginx-proxyコンテナが外部からのHTTP(S)接続を受け入れ、ホスト名に応じて各コンテナに振り分けます。しばしば<code class="highlighter-rouge">jwilder/nginx-proxy</code>が使用されますが、1コンテナに複数のドメイン名をマッピングしたかったので、<code class="highlighter-rouge">dbendelman/nginx-proxy</code>を使用しています。</p>
 
@@ -348,7 +373,7 @@
 
 <p>nginx-proxyコンテナとletsencrypt-nginx-proxy-companionコンテナの組み合わせは、Dockerコンテナにおける複数サービス提供の鉄板構成だと思っていて、サービスが増減しても動的に管理してくれるので、すごく便利です。</p>
 
-<h2 id="redmine">redmine</h2>
+<h3 id="redmine">redmine</h3>
 
 <p>redmineコンテナで、自分用のRedmineを運用しています。プラグイン、テーマなどをビルド時に追加しています。</p>
 
@@ -356,7 +381,7 @@
 
 <p>Redmineは趣味開発や仕事だけではなく私生活のタスクも管理しているため、頻繁にバックアップを取り、長期旅行では一時的にDigitalOceanで運用するなどしています。</p>
 
-<h2 id="owncloud">owncloud</h2>
+<h3 id="owncloud">owncloud</h3>
 
 <p>owncloudコンテナで、自分用のownCloudを運用しています。スマホの写真や動画、PC内ファイルの管理などで使っています。</p>
 
@@ -364,13 +389,13 @@
 
 <p>ownCloudにはS3と連携するプラグインがあるため、minioコンテナにファイル管理を集約できるはずですが、エラーになってしまい、今のところ実現できていません。</p>
 
-<h2 id="blog">blog</h2>
+<h3 id="blog">blog</h3>
 
 <p>blogコンテナで、blogを公開しています。以前はBloggerを使っていましたが、Markdownの扱いが不便だったため、jekyllに乗り換えました。なので、記事を書いたらCircleCIでDockerイメージをビルドして、blogコンテナを再起動することで記事を更新しています。</p>
 
 <p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">blog.u6k.me</code>でアクセスできるようにしています。</p>
 
-<h2 id="bookmark">bookmark</h2>
+<h3 id="bookmark">bookmark</h3>
 
 <p>自作のブックマーク管理サービスを運用しています。一般的なブックマーク管理サービスのようにタグ管理や検索ができる他、REST APIでアクセスでき、ブックマークすることでWebページをキャッシュすることができます。</p>
 
@@ -378,7 +403,7 @@
 
 <p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">bookmark.u6k.me</code>でアクセスできるようにしています。</p>
 
-<h2 id="jenkins">jenkins</h2>
+<h3 id="jenkins">jenkins</h3>
 
 <p>jenkinsコンテナで自分用のJenkinsを運用しています。ただ、ビルドのためではなく、なんちゃってジョブ管理システムとして使っています。具体的には、以下のようなことをしています。</p>
 
@@ -399,13 +424,13 @@
 
 <p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">jenkins.u6k.me</code>でアクセスできるようにしています。</p>
 
-<h2 id="minio">minio</h2>
+<h3 id="minio">minio</h3>
 
 <p>コンテナのファイル管理を一手に引き受ける、S3互換ストレージであるMinioを運用しています。全てのファイルはここに集約されるため、minioコンテナが管理するファイルをバックアップすれば、万が一システムが壊れてもリストアできる…はず。</p>
 
 <p>コンテナ実行時に<code class="highlighter-rouge">VIRTUAL_HOST</code>環境変数を設定することで、<code class="highlighter-rouge">s3.u6k.me</code>でアクセスできるようにしています。</p>
 
-<h1 id="コンテナの起動再起動更新">コンテナの起動、再起動、更新</h1>
+<h2 id="コンテナの起動再起動更新">コンテナの起動、再起動、更新</h2>
 
 <p>swarmやshipyardなどで管理するべきかなとは思いますが、サービスごとにシェルで管理しています。このシェルは、コンテナ停止→イメージ更新→コンテナ起動、を行います。</p>
 
@@ -413,7 +438,7 @@
 
 <p>CIビルド後のコンテナ自動再起動を仕込もうと考えたことはありますが、ビルドと再起動が必ずしも同時ではないと考えて、仕込んでいません。実際、仕組みを大きく変えるためにコンテナ再起動前後で手作業が発生することがあります。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>若干煩雑ではありますが、今のところこのように運用しています。リソースに余裕があれば、CoreOS起動→全コンテナが最新化されて起動、とかやってみたいです。</p>
 

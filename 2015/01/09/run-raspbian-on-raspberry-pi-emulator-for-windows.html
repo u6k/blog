@@ -312,24 +312,36 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T18:00:00+09:00">2015-01-09</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-09T18:00:00+09:00">2015-01-09</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#作業環境">作業環境</a></li>
+  <li><a href="#作業手順">作業手順</a></li>
+  <li><a href="#備考">備考</a></li>
+  <li><a href="#qiita">Qiita</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。</p>
 
-<!-- more -->
-
-<h1 id="作業環境">作業環境</h1>
+<h2 id="作業環境">作業環境</h2>
 
 <ul>
   <li>OS…Windows 7 (32bit)</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
 <ul>
   <li>Raspberry Pi emulation for Windows(以降、qemu)、および最新版のRaspbianをダウンロードします。
@@ -404,13 +416,13 @@ KERNEL=="sda2", SYMLINK+="root"
   <li>完了です。<code class="highlighter-rouge">C:\qemu\qemu\run.bat</code>を実行して、Raspbianが起動すること、(22番ポートを開放している場合)ssh接続できることを確認します。</li>
 </ul>
 
-<h1 id="備考">備考</h1>
+<h2 id="備考">備考</h2>
 
 <ul>
   <li>当手順はWindowsでの作業手順ですが、qemuとカーネルイメージの入手手順を読み替えれば、MacやLinuxでも同様にできるはずです。</li>
 </ul>
 
-<h1 id="qiita">Qiita</h1>
+<h2 id="qiita">Qiita</h2>
 
 <ul>
   <li><a href="http://qiita.com/u6k/items/1301cc75d19066150701">RaspberryPi - Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順 - Qiita</a></li>

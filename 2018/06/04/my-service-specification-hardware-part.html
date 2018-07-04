@@ -312,18 +312,43 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-04T00:00:00+09:00">2018-06-04</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-04T00:00:00+09:00">2018-06-04</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#構成図">構成図</a></li>
+  <li><a href="#構成の説明">構成の説明</a>
+    <ul>
+      <li><a href="#docker-on-debian">Docker on Debian</a></li>
+      <li><a href="#運用作業のためにアクセスする場合はsshまたはvnc">運用作業のためにアクセスする場合は、sshまたはVNC</a></li>
+      <li><a href="#u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</a></li>
+      <li><a href="#ブログはgithub-pagesで独自ドメイン--https">ブログはGitHub Pagesで独自ドメイン + HTTPS</a></li>
+      <li><a href="#hddはlvmで統合">HDDはLVMで統合</a></li>
+      <li><a href="#バックアップはdigitalocean-spacesとクラウドストレージ">バックアップはDigitalOcean Spacesとクラウドストレージ</a></li>
+      <li><a href="#macbookpro">MacBookPro</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自分用のRedmineやminioを運用するためにDockerホストを運用していますが、<a href="https://blog.u6k.me/2017/04/28/my-server-specification-for-hardware.html">前回</a>から約1年が経過して、少し構成が変わったので整理します。</p>
 
 <p>この記事では、自分用のサービス群を運用するために利用しているサービスやハードウェアの構成を説明します。</p>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>昔使っていたMacBookがあるので、これをDockerホストにしたい。</li>
@@ -333,17 +358,17 @@
   <li>ダウンタイムをなくしたいサービスは外部サービスで動作させる。</li>
 </ul>
 
-<h1 id="構成図">構成図</h1>
+<h2 id="構成図">構成図</h2>
 
 <p>現在は以下のような構成になっています。</p>
 
 <p><img src="/uml/ff261bc14980fe296b507c8afdb5fb31.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
 
-<h1 id="構成の説明">構成の説明</h1>
+<h2 id="構成の説明">構成の説明</h2>
 
 <p>前回からの変更点とあわせて、構成を説明します。</p>
 
-<h2 id="docker-on-debian">Docker on Debian</h2>
+<h3 id="docker-on-debian">Docker on Debian</h3>
 
 <p>サービスはほぼDockerコンテナとして動作させています。当初はDocker for macで動作させていましたが、qcow2ファイルが肥大化する、ネットワークが不安定、などの問題があるため、Bootcampで確保したパーティションにDebianをセットアップして運用しています。</p>
 
@@ -355,19 +380,19 @@
 
 <p>運用しているDockerサービス群は、別記事で説明します。</p>
 
-<h2 id="運用作業のためにアクセスする場合はsshまたはvnc">運用作業のためにアクセスする場合は、sshまたはVNC</h2>
+<h3 id="運用作業のためにアクセスする場合はsshまたはvnc">運用作業のためにアクセスする場合は、sshまたはVNC</h3>
 
 <p>普段の運用作業はsshで接続します。macOSの調子がおかしい、macOSをアップデートする、などGUIで作業を行う場合はVNCでアクセスします。</p>
 
 <p>この方式は、前回から変わりありません。</p>
 
-<h2 id="u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</h2>
+<h3 id="u6kmeでアクセスできるようにムームードメインで契約">“u6k.me”でアクセスできるように、ムームードメインで契約</h3>
 
 <p>ムームードメインで年間契約して、MyDNSでドメイン名とIPアドレスを管理しています。IPアドレスが変わっても良いように、Rundeckコンテナで定期的にIPアドレスを通知しています。</p>
 
 <p>前回までは、ジョブをJenkinsで実行していましたが(いわゆる闇のJenkinsおじさん)、現在はRundeckでジョブを実行しています。ただ、Rundeckへの移行は、正直、あまり意味がなかったかなと思っています。</p>
 
-<h2 id="ブログはgithub-pagesで独自ドメイン--https">ブログはGitHub Pagesで独自ドメイン + HTTPS</h2>
+<h3 id="ブログはgithub-pagesで独自ドメイン--https">ブログはGitHub Pagesで独自ドメイン + HTTPS</h3>
 
 <p>ブログはダウンタイムをゼロにしたく、DockerではなくGitHub Pagesに移行しました。これにより、Dockerホストが不安定になったときやmacOSをアップデートしたいときに、ブログも巻き込まれてダウンしていましたが、現在ではそれはなくなりました。</p>
 
@@ -375,7 +400,7 @@
   <p><strong>TODO:</strong> ブログのGitHub Pagesへの移行は、この記事執筆時点では検証中です。</p>
 </blockquote>
 
-<h2 id="hddはlvmで統合">HDDはLVMで統合</h2>
+<h3 id="hddはlvmで統合">HDDはLVMで統合</h3>
 
 <p>HDDは、LVM RAID logical volumeで統合しています。この構成の場合、LVMの機能でミラーリングするので、HDDが1個故障する程度なら復旧が可能のはずです。</p>
 
@@ -385,23 +410,23 @@
   <p><strong>TODO:</strong> この記事を執筆している現在は、まだLVM on macOSからデータを移行している途中です。ある程度の検証ができたら、別記事でセットアップ、復旧手順などを整理したいと思います。</p>
 </blockquote>
 
-<h2 id="バックアップはdigitalocean-spacesとクラウドストレージ">バックアップはDigitalOcean Spacesとクラウドストレージ</h2>
+<h3 id="バックアップはdigitalocean-spacesとクラウドストレージ">バックアップはDigitalOcean Spacesとクラウドストレージ</h3>
 
 <p>Redmineのように絶対に失いたくないデータや、失うと再収集に時間がかかりすぎるクローリング・データなどは、minioサービスの他にDigitalOcean Spacesに保存しています。他のデータはクラウドストレージに保存しようとしていますが、まだ全ては保存できておらず、少しずつ進めています。</p>
 
-<h2 id="macbookpro">MacBookPro</h2>
+<h3 id="macbookpro">MacBookPro</h3>
 
 <p>排熱の観点から、風通しの良い場所において、まな板立てに立て掛けています。温度を監視していますが、変な高温になることは今のところありません。</p>
 
 <p>この運用方法は、前回から変わりありません。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>前回も書きましたが、できればAWSなりDigitalOceanなりに全て移行してしまいたいのですが、どーにもストレージの料金や性能を考えると、自宅ハードウエアがあるならそれで運用したい、という結論になっています。データのサイズがなぁ…</p>
 
 <p>ちなみに、旅行などで長期間自宅を離れる場合に、一時的にDigitalOceanに切り替える運用は、前回から変わらずです。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

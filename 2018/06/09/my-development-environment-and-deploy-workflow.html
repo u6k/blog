@@ -312,18 +312,43 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-09T00:00:00+09:00">2018-06-09</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-09T00:00:00+09:00">2018-06-09</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 7 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#開発基盤の構造">開発基盤の構造</a></li>
+  <li><a href="#サービスの役割">サービスの役割</a>
+    <ul>
+      <li><a href="#開発pc">開発PC</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#travis-ci">Travis CI</a></li>
+      <li><a href="#slack">Slack</a></li>
+      <li><a href="#docker-hub">Docker Hub</a></li>
+      <li><a href="#rundeck">Rundeck</a></li>
+      <li><a href="#本番サーバー">本番サーバー</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#link">Link</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。</p>
 
 <p>この記事では、開発基盤として利用しているサービス、およびデプロイ・フローの概要を説明します。</p>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>インターネット上のサービスを利用しています。が、オンプレミスでも類似の基盤を構築することは可能です。具体的には、GitLabでいけるはず。</p>
 
@@ -331,17 +356,17 @@
 
 <p>この記事では、開発基盤を「開発してからリリースするまでの作業を効率化するために利用しているサービス群」のことを言います。</p>
 
-<h1 id="開発基盤の構造">開発基盤の構造</h1>
+<h2 id="開発基盤の構造">開発基盤の構造</h2>
 
 <p>次のサービス群と流れで、開発からリリースまでの作業を行っています。</p>
 
 <p><img src="/uml/2b2995e13b71ef2839abfa915ff790f4.svg" alt="PlantUML SVG diagram" class="plantuml" /></p>
 
-<h1 id="サービスの役割">サービスの役割</h1>
+<h2 id="サービスの役割">サービスの役割</h2>
 
 <p>サービスごとの役割を説明します。</p>
 
-<h2 id="開発pc">開発PC</h2>
+<h3 id="開発pc">開発PC</h3>
 
 <p>開発PCには基本的に、エディター、Docker、gitがインストールされており、開発作業はDockerで行っています。開発するアプリケーションによって言語処理系が混在するのでOSを汚したくないのと、なるべく本番Dockerコンテナ構造に近い構成で開発をしたいためです。</p>
 
@@ -360,7 +385,7 @@
   <li><a href="https://github.com/tmux/tmux">tmux/tmux: tmux source code</a></li>
 </ul>
 
-<h2 id="github">GitHub</h2>
+<h3 id="github">GitHub</h3>
 
 <p>言わずと知れている、ソフトウェア開発プロジェクトのホスティング・サービスです。主にソースコードの管理をしています。課題やWikiなどはu6k.Redmineで管理しているため、GitHubでは管理していません。</p>
 
@@ -370,7 +395,7 @@
   <li><a href="https://github.com/">The world’s leading software development platform · GitHub</a></li>
 </ul>
 
-<h2 id="travis-ci">Travis CI</h2>
+<h3 id="travis-ci">Travis CI</h3>
 
 <p>CIサービスです。Travis CIでは、コンパイル、テスト、ドキュメント生成、プロジェクト静的解析、実行可能イメージを生成、などのビルド作業を行います。特にGitタグがプッシュされたとき(つまりリリースしたとき)は、実行可能イメージをDocker Hubにアップロードして、u6k.Rundeckに通知してデプロイを行います(一部のサービスのみ)。</p>
 
@@ -384,7 +409,7 @@
   <li><a href="https://travis-ci.org/">Travis CI - Test and Deploy Your Code with Confidence</a></li>
 </ul>
 
-<h2 id="slack">Slack</h2>
+<h3 id="slack">Slack</h3>
 
 <p>開発者向けのチャット・サービスです。個人開発では、自分だけのSlackワークスペースに<code class="highlighter-rouge">#build</code>チャンネルを作成して、Travis CIのビルド結果が通知されるようにしています。Travis CIのコンソールを眺めていなくても、通知を待っていれば良い状況にしています。</p>
 
@@ -394,7 +419,7 @@
   <li><a href="https://slack.com/">よりシームレスなチームワークを実現する、ビジネスコラボレーションハブ | Slack</a></li>
 </ul>
 
-<h2 id="docker-hub">Docker Hub</h2>
+<h3 id="docker-hub">Docker Hub</h3>
 
 <p>Dockerイメージのホスティング・サービスです。Gitタグがプッシュされた場合、Travis CIでビルドしたDockerイメージをDocker Hubにプッシュします。個人開発は基本的にオープンソースとしているので、Dockerイメージの管理もDocker Hubのようなオープンな場でも問題ないと考えています。</p>
 
@@ -407,7 +432,7 @@
   <li><a href="https://docs.gitlab.com/ce/user/project/container_registry.html">GitLab Container Registry | GitLab</a></li>
 </ul>
 
-<h2 id="rundeck">Rundeck</h2>
+<h3 id="rundeck">Rundeck</h3>
 
 <p>ジョブ・スケジューラーです。バッチ処理を管理、実行していますが、一部のDockerコンテナの制御もジョブとして実行できるようにしています。</p>
 
@@ -417,7 +442,7 @@
   <li><a href="https://www.rundeck.com/">Rundeck Pro | Modern IT Operations Management Platform</a></li>
 </ul>
 
-<h2 id="本番サーバー">本番サーバー</h2>
+<h3 id="本番サーバー">本番サーバー</h3>
 
 <p>ほとんどのサービスはDockerコンテナで動作(TODO: ソフトウェア設計にリンクを張る)しています。よって、本番サーバーにはDockerと最小限のソフトウェアのみがインストールされています。このため、以前は<a href="/2017/04/28/my-server-specification-for-hardware.html">CoreOSで運用していた時期</a>もありました。現在は、もう少しソフトウェアをインストールしたくて、Debianで運用しています。</p>
 
@@ -430,13 +455,13 @@
   <li><a href="https://www.debian.org/">Debian – ユニバーサルオペレーティングシステム</a></li>
 </ul>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。</p>
 
 <p>この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。</p>
 
-<h1 id="link">Link</h1>
+<h2 id="link">Link</h2>
 
 <ul>
   <li>Author

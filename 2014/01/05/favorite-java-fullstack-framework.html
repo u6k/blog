@@ -312,18 +312,32 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-01-05T18:35:00+09:00">2014-01-05</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-01-05T18:35:00+09:00">2014-01-05</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#今注目されているフレームワークは">今注目されているフレームワークは？</a></li>
+  <li><a href="#javaee-6-jboss-seam">JavaEE 6 (JBoss Seam)</a></li>
+  <li><a href="#spring-framework">Spring Framework</a></li>
+  <li><a href="#grails">Grails</a></li>
+  <li><a href="#play-framework">Play Framework</a></li>
+  <li><a href="#結局">結局…</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>個人的に軽く何か作りたいなぁ、今はどんなフレームワークがあるのかな？と思って調べてみました。調べただけでまだ使ってはいません。</p>
 
-<!-- more -->
-
-<h1 id="今注目されているフレームワークは">今注目されているフレームワークは？</h1>
+<h2 id="今注目されているフレームワークは">今注目されているフレームワークは？</h2>
 
 <p>EJB 2.xに嫌気が差して各レイヤー毎のフレームワークが生まれて、それらの特徴を取り込んでEJB 3.1などが出てきたみたいですが、現在のデファクトスタンダードなJavaフレームワーク、またはフレームワークの組み合わせというものが無いように思います。その中でも、自分の心にヒットしたプロダクトを以下に並べてみます。</p>
 
@@ -351,25 +365,25 @@
   </li>
 </ul>
 
-<h1 id="javaee-6-jboss-seam">JavaEE 6 (JBoss Seam)</h1>
+<h2 id="javaee-6-jboss-seam">JavaEE 6 (JBoss Seam)</h2>
 
 <p>J2EE、特にEJB 2.xは様々な設定ファイルやインターフェイス・ファイルで苦しい思いをしましたが、進化してかなり軽量化された模様です。とは言えなんだか微妙に痒いところに手が届かない模様。そういう隙間を埋めるためにJBoss Seamがある模様です。</p>
 
 <p>なお、JavaEE 7がリリースされている模様。</p>
 
-<h1 id="spring-framework">Spring Framework</h1>
+<h2 id="spring-framework">Spring Framework</h2>
 
 <p>Spring自体はDIコンテナーですが、コンポーネントを組み合わせることでフルスタックフレームワークといえる状態に構築できるみたいです。</p>
 
-<h1 id="grails">Grails</h1>
+<h2 id="grails">Grails</h2>
 
 <p>JavaそのものではなくGroovyをベースとした、Ruby on Railsライクなフレームワークのようです。warファイルに出力できるので、Servletコンテナーで動作できる模様。</p>
 
-<h1 id="play-framework">Play Framework</h1>
+<h2 id="play-framework">Play Framework</h2>
 
 <p>JavaまたはScalaで書くフレームワーク。Ruby on Railsライクではないですが影響を強く受けている模様です。</p>
 
-<h1 id="結局">結局…</h1>
+<h2 id="結局">結局…</h2>
 
 <p>とりあえずここまで絞りました。あくまで「個人的に」なので、ここからは好き嫌いで使ってみたいと思います。とりあえずPlayかGrailsかなぁ…</p>
 

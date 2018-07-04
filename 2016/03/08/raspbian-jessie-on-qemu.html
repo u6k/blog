@@ -312,30 +312,52 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-08T07:00:00+09:00">2016-03-08</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-08T07:00:00+09:00">2016-03-08</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#動作させる目的">動作させる目的</a></li>
+  <li><a href="#ダウンロード">ダウンロード</a></li>
+  <li><a href="#作業環境">作業環境</a></li>
+  <li><a href="#作業手順">作業手順</a>
+    <ul>
+      <li><a href="#qemuraspbianカーネルイメージをダウンロード">Qemu、Raspbian、カーネルイメージをダウンロード</a></li>
+      <li><a href="#ダウンロードしたファイルを展開">ダウンロードしたファイルを展開</a></li>
+      <li><a href="#raspbianイメージを変更">Raspbianイメージを変更</a></li>
+      <li><a href="#raspbianを起動">Raspbianを起動</a></li>
+      <li><a href="#raspbian-liteの場合">Raspbian Liteの場合</a></li>
+    </ul>
+  </li>
+  <li><a href="#おまけraspbian-jessie-on-qemuでdockerを動作させようとして失敗したメモ">おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ</a></li>
+  <li><a href="#ライセンス">ライセンス</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p><a href="http://blog.u6k.me/2015/01/raspberry-pi-emulator-for.html">以前、QEMUでRaspbian Wheezyを動作させました</a>が、Raspbian Jessieはできませんでした。いろいろ試行錯誤していましたが、以下のページの手順で動作させることができたので、作業手順をまとめます。</p>
 
 <p><a href="https://github.com/dhruvvyas90/qemu-rpi-kernel/wiki/Emulating-Jessie-image-with-4.1.x-kernel">Emulating Jessie image with 4.1.x kernel · dhruvvyas90/qemu-rpi-kernel Wiki</a></p>
 
-<!-- more -->
-
-<h1 id="動作させる目的">動作させる目的</h1>
+<h2 id="動作させる目的">動作させる目的</h2>
 
 <p>自宅でRaspberry Pi Model B+が元気に動作していますが、これに変更を加える前に動作確認する環境が欲しいです。一般的なOSであれば、普通にVagrant+VirtualBoxやDockerを使用しますが、ARMプロセッサが前提のRaspbianでは簡単にはできません。当記事は、その環境を作るための作業手順です。</p>
 
 <p>ちなみに、元々はRaspbian+Dockerの動作確認環境が欲しかったための作業でしたが、後述しますがDockerは動作できませんでした。</p>
 
-<h1 id="ダウンロード">ダウンロード</h1>
+<h2 id="ダウンロード">ダウンロード</h2>
 
 <p>この作業で作成したパッケージは、<a href="https://github.com/u6k/raspbian-on-qemu/releases/tag/20160307-raspbian-jessie-on-qemu">GitHubで公開</a>しています。</p>
 
-<h1 id="作業環境">作業環境</h1>
+<h2 id="作業環境">作業環境</h2>
 
 <ul>
   <li>Surface Pro 4 + Windows 10
@@ -352,9 +374,9 @@
   <li>Raspbian Jessie 2016/2/26版</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
-<h2 id="qemuraspbianカーネルイメージをダウンロード">Qemu、Raspbian、カーネルイメージをダウンロード</h2>
+<h3 id="qemuraspbianカーネルイメージをダウンロード">Qemu、Raspbian、カーネルイメージをダウンロード</h3>
 
 <p>QEMUは、Windows用にビルドされたアプリをダウンロードします。記事執筆時点では<code class="highlighter-rouge">Qemu-2.4.1-windows.7z</code>が最新です。</p>
 
@@ -374,7 +396,7 @@
 
 <p>ダウンロードしたファイルは、全て<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\</code>に置きます。</p>
 
-<h2 id="ダウンロードしたファイルを展開">ダウンロードしたファイルを展開</h2>
+<h3 id="ダウンロードしたファイルを展開">ダウンロードしたファイルを展開</h3>
 
 <p>ダウンロードしたファイルを展開します。フォルダ・パスを決め打ちにしていますが、別フォルダでも問題ありません。</p>
 
@@ -395,7 +417,7 @@
         +---kernel-qemu-4.1.13-jessie
 </code></pre></div></div>
 
-<h2 id="raspbianイメージを変更">Raspbianイメージを変更</h2>
+<h3 id="raspbianイメージを変更">Raspbianイメージを変更</h3>
 
 <p>Raspbianはこのままでは起動できません。起動できるように内部を編集します。この作業でVagrant+VirtualBoxを使用します。Raspbianイメージをマウントできて内部を編集できるのであれば、別の手段で問題ありません。</p>
 
@@ -447,7 +469,7 @@ rmdir /S /Q .vagrant
 
 <p>これで、Raspbianイメージの変更は完了です。</p>
 
-<h2 id="raspbianを起動">Raspbianを起動</h2>
+<h3 id="raspbianを起動">Raspbianを起動</h3>
 
 <p>QEMUでRaspbianを起動します。コマンドが長いので、起動バッチ・ファイルを作成します。<code class="highlighter-rouge">C:\raspbian-jessie-on-qemu\run.bat</code>を以下のように作成します。</p>
 
@@ -462,13 +484,13 @@ rmdir /S /Q .vagrant
 
 <p>上記のバッチ・ファイルに<code class="highlighter-rouge">-redir tcp:50022::22</code>というオプションが指定されているため、50022番ポートでssh接続ができます。</p>
 
-<h2 id="raspbian-liteの場合">Raspbian Liteの場合</h2>
+<h3 id="raspbian-liteの場合">Raspbian Liteの場合</h3>
 
 <p>以上の作業をRaspbian Liteで行うと、以下のように起動します。</p>
 
 <p><img src="/assets/img/2016-03-08-raspbian-jessie-on-qemu/002.png" alt="raspbian-lite-startup" /></p>
 
-<h1 id="おまけraspbian-jessie-on-qemuでdockerを動作させようとして失敗したメモ">おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ</h1>
+<h2 id="おまけraspbian-jessie-on-qemuでdockerを動作させようとして失敗したメモ">おまけ：Raspbian Jessie on qemuでDockerを動作させようとして失敗したメモ</h2>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ apt-cache show docker.io
 Package: docker.io
@@ -517,7 +539,7 @@ Description-md5: 05dc9eba68f3bf418e6a0cf29d555878
 
 <p>そもそもインストールされたバージョンが古いですし、別の手段を探すこととします。</p>
 
-<h1 id="ライセンス">ライセンス</h1>
+<h2 id="ライセンス">ライセンス</h2>
 
 <p><a href="https://www.debian.org/legal/licenses/">RaspbianはDFSGで提供</a>されています。</p>
 

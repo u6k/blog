@@ -24,7 +24,7 @@
 
 
 
-<meta name="description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。実験入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。まず、文字列を入力して保存。次にそれを読み込んでみます。当然、保存した文字列が読み込まれて表示されます。次に、adbコマンドでv1.1のapkをインストールしました。D:¥doc¥sample-apk-install¥apk&gt;adb install -r sample-apk-install-1.1.apk1824 KB/s (171890 bytes in 0.092s)    pkg: /data/local/tmp/sample-apk-install-1.1.apkSuccessv1.1を起動して、保存した文字列を表示してみました。v1.0で保存した「テスト」という文字列が表示されました。結論adbコマンドでバージョンアップしても、SharedPreferenceは引き継がれました。…まぁ、なんというか、当たり前の事実を再確認しただけでした。作成したソースコード、アプリは以下で公開しています。  sample-apk-install">
+<meta name="description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。">
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-  <meta property="og:description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。実験入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。まず、文字列を入力して保存。次にそれを読み込んでみます。当然、保存した文字列が読み込まれて表示されます。次に、adbコマンドでv1.1のapkをインストールしました。D:¥doc¥sample-apk-install¥apk&gt;adb install -r sample-apk-install-1.1.apk1824 KB/s (171890 bytes in 0.092s)    pkg: /data/local/tmp/sample-apk-install-1.1.apkSuccessv1.1を起動して、保存した文字列を表示してみました。v1.0で保存した「テスト」という文字列が表示されました。結論adbコマンドでバージョンアップしても、SharedPreferenceは引き継がれました。…まぁ、なんというか、当たり前の事実を再確認しただけでした。作成したソースコード、アプリは以下で公開しています。  sample-apk-install">
+  <meta property="og:description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。">
 
 
 
@@ -56,7 +56,7 @@
 
   <meta name="twitter:site" content="@u6k_yu1">
   <meta name="twitter:title" content="apkインストール方法の実験 - “adb install -r”">
-  <meta name="twitter:description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。実験入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。まず、文字列を入力して保存。次にそれを読み込んでみます。当然、保存した文字列が読み込まれて表示されます。次に、adbコマンドでv1.1のapkをインストールしました。D:¥doc¥sample-apk-install¥apk&gt;adb install -r sample-apk-install-1.1.apk1824 KB/s (171890 bytes in 0.092s)    pkg: /data/local/tmp/sample-apk-install-1.1.apkSuccessv1.1を起動して、保存した文字列を表示してみました。v1.0で保存した「テスト」という文字列が表示されました。結論adbコマンドでバージョンアップしても、SharedPreferenceは引き継がれました。…まぁ、なんというか、当たり前の事実を再確認しただけでした。作成したソースコード、アプリは以下で公開しています。  sample-apk-install">
+  <meta name="twitter:description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。">
   <meta name="twitter:url" content="">
 
   
@@ -301,7 +301,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="apkインストール方法の実験 - “adb install -r”">
-    <meta itemprop="description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。実験入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。まず、文字列を入力して保存。次にそれを読み込んでみます。当然、保存した文字列が読み込まれて表示されます。次に、adbコマンドでv1.1のapkをインストールしました。D:¥doc¥sample-apk-install¥apk&gt;adb install -r sample-apk-install-1.1.apk1824 KB/s (171890 bytes in 0.092s)    pkg: /data/local/tmp/sample-apk-install-1.1.apkSuccessv1.1を起動して、保存した文字列を表示してみました。v1.0で保存した「テスト」という文字列が表示されました。結論adbコマンドでバージョンアップしても、SharedPreferenceは引き継がれました。…まぁ、なんというか、当たり前の事実を再確認しただけでした。作成したソースコード、アプリは以下で公開しています。  sample-apk-install">
+    <meta itemprop="description" content="Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。">
     <meta itemprop="datePublished" content="2012-10-08">
     
 
@@ -312,18 +312,28 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-08T21:12:00+09:00">2012-10-08</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-08T21:12:00+09:00">2012-10-08</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 1 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#実験">実験</a></li>
+  <li><a href="#結論">結論</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Androidアプリは、SharedPreferenceという領域に設定情報などを保存できます。アプリをバージョンアップする時、Google Playからアップデートした場合は当然設定情報は引き継がれますが、adbコマンドでapkを上書きした時にどうなるか確認してみました。</p>
 
-<!--more-->
-
-<h1 id="実験">実験</h1>
+<h2 id="実験">実験</h2>
 
 <p>入力した文字列をSharedPreferenceに保存し、またSharedPreferenceから読み込んで表示する、簡単なアプリを作成しました。アップデートして確認するため、v1.0とv1.1を作成しました。内容は全く同じです。</p>
 
@@ -345,7 +355,7 @@ Success
 
 <p><img src="/assets/img/2012-10-08-verifying-how-to-install-apk/003.png" alt="" /></p>
 
-<h1 id="結論">結論</h1>
+<h2 id="結論">結論</h2>
 
 <p>adbコマンドでバージョンアップしても、SharedPreferenceは引き継がれました。…まぁ、なんというか、当たり前の事実を再確認しただけでした。</p>
 

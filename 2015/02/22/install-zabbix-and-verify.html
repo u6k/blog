@@ -312,14 +312,49 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-22T05:34:00+09:00">2015-02-22</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-22T05:34:00+09:00">2015-02-22</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 8 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="ちょっと長めの前置き">ちょっと長めの前置き</h1>
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#ちょっと長めの前置き">ちょっと長めの前置き</a></li>
+  <li><a href="#前提">前提</a>
+    <ul>
+      <li><a href="#note-vagrant-vbox-snapshot">NOTE: vagrant-vbox-snapshot</a></li>
+    </ul>
+  </li>
+  <li><a href="#vagrantでcentosを使用する">VagrantでCentOSを使用する</a></li>
+  <li><a href="#前提パッケージのインストール">前提パッケージのインストール</a></li>
+  <li><a href="#zabbixソースコードのダウンロード">Zabbixソースコードのダウンロード</a></li>
+  <li><a href="#zabbix用ユーザーを作成する">Zabbix用ユーザーを作成する</a></li>
+  <li><a href="#dbを作成する">DBを作成する</a></li>
+  <li><a href="#ソースを設定しインストールする">ソースを設定し、インストールする</a>
+    <ul>
+      <li><a href="#note-関連ソフトウェアがインストールされていない場合">NOTE: 関連ソフトウェアがインストールされていない場合</a></li>
+    </ul>
+  </li>
+  <li><a href="#設定ファイルの編集">設定ファイルの編集</a></li>
+  <li><a href="#zabbix-serverとzabbix-agentを起動">Zabbix ServerとZabbix Agentを起動</a></li>
+  <li><a href="#webインターフェイスをインストール">Webインターフェイスをインストール</a></li>
+  <li><a href="#zabbixにログインしzabbix-server自体の監視を開始">Zabbixにログインし、Zabbix Server自体の監視を開始</a></li>
+  <li><a href="#おわりに">おわりに</a>
+    <ul>
+      <li><a href="#note-zabbix-server-on-openshiftを諦めたわけ">NOTE: Zabbix Server on OpenShiftを諦めたわけ</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="ちょっと長めの前置き">ちょっと長めの前置き</h2>
 
 <p>自分用のWebアプリケーションをいくつか動作させていて、それらが正常動作しているかの確認に<a href="http://www.securestar.jp/alertme/">AlertMe</a>を利用しています。定期的にアプリにHTTPアクセスを行い、時間がかかりすぎると障害としてメールが飛んできます。</p>
 
@@ -329,9 +364,7 @@
 
 <p>そこで、とりあえず普通にインストールした場合にZabbixをどのように設定すればよいのかを試すため、VagrantにZabbix ServerとZabbix Agentをセットアップして動作を確認したいと思います。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>Zabbixのインストールは、<a href="https://www.zabbix.com/documentation/2.2/jp/manual/installation/install">4 ソースからのインストール [Zabbix Documentation 2.2]</a>の手順で行います。</p>
 
@@ -339,7 +372,7 @@
 
 <p>PCはMacBookProを使用していますが、Windowsでも適宜読み替えれば問題無いはずです。</p>
 
-<h2 id="note-vagrant-vbox-snapshot">NOTE: vagrant-vbox-snapshot</h2>
+<h3 id="note-vagrant-vbox-snapshot">NOTE: vagrant-vbox-snapshot</h3>
 
 <p>Vagrantで作業する時は、<code class="highlighter-rouge">vagrant-vbox-snapshot</code>を使うと便利。各ステップごとにスナップショットを取得しておくと、手順を間違えたりした時にすぐに戻せます。</p>
 
@@ -349,7 +382,7 @@
   <li><a href="http://qiita.com/takuan_osho/items/682b776b41989f0b016f">Vagrantにスナップショット機能を加えるplugin、vagrant-vbox-snapshotの紹介 - Qiita</a></li>
 </ul>
 
-<h1 id="vagrantでcentosを使用する">VagrantでCentOSを使用する</h1>
+<h2 id="vagrantでcentosを使用する">VagrantでCentOSを使用する</h2>
 
 <p>ここでは<code class="highlighter-rouge">chef/centos-6.5</code>を使用しますが、好きなOSを使用すれば良いです。</p>
 
@@ -373,7 +406,7 @@
 
 <p><em>NOTE: Windowsの場合、sshコマンドが無いため失敗するはずです。Cygwinを入れるとか、TeraTermで接続するとかしてください。</em></p>
 
-<h1 id="前提パッケージのインストール">前提パッケージのインストール</h1>
+<h2 id="前提パッケージのインストール">前提パッケージのインストール</h2>
 
 <p>インストール済みのパッケージを最新化します。</p>
 
@@ -397,7 +430,7 @@ $ sudo service mysqld start
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install libxml2 libxml2-devel net-snmp net-snmp-devel curl libcurl libcurl-devel
 </code></pre></div></div>
 
-<h1 id="zabbixソースコードのダウンロード">Zabbixソースコードのダウンロード</h1>
+<h2 id="zabbixソースコードのダウンロード">Zabbixソースコードのダウンロード</h2>
 
 <p>インストールパッケージが提供されていますが、今回はソースコードからインストールすることにします。ソースコードはSourceForge.netで提供されているので、そこからダウンロードリンクを取得して、wgetなどでダウンロードします。</p>
 
@@ -411,7 +444,7 @@ $ sudo service mysqld start
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tar zxvf zabbix-2.2.8.tar.gz
 </code></pre></div></div>
 
-<h1 id="zabbix用ユーザーを作成する">Zabbix用ユーザーを作成する</h1>
+<h2 id="zabbix用ユーザーを作成する">Zabbix用ユーザーを作成する</h2>
 
 <p>Zabbixが使用するユーザーを作成します。とりあえずここでは<code class="highlighter-rouge">zabbix</code>というユーザーを作成しますが、セットアップ手順に注意事項が書いてあるので、それを熟読したほうが良いです。</p>
 
@@ -419,7 +452,7 @@ $ sudo service mysqld start
 $ sudo useradd -g zabbix zabbix
 </code></pre></div></div>
 
-<h1 id="dbを作成する">DBを作成する</h1>
+<h2 id="dbを作成する">DBを作成する</h2>
 
 <p>DBを作成し、zabbixに用意されているSQLスクリプトを実行します。</p>
 
@@ -435,7 +468,7 @@ $ mysql -u root -p zabbix &lt; database/mysql/images.sql
 $ mysql -u root -p zabbix &lt; database/mysql/data.sql
 </code></pre></div></div>
 
-<h1 id="ソースを設定しインストールする">ソースを設定し、インストールする</h1>
+<h2 id="ソースを設定しインストールする">ソースを設定し、インストールする</h2>
 
 <p><code class="highlighter-rouge">./configure</code>を実行し、ソースを設定します。インストールするソフトウェアや使用するDBエンジンによって設定方法が異なりますが、ここではZabbix ServerとZabbix AgentをインストールしてMySQLを使用するよう設定します。</p>
 
@@ -459,7 +492,7 @@ $ mysql -u root -p zabbix &lt; database/mysql/data.sql
 
 <p>インストールが完了しました。</p>
 
-<h2 id="note-関連ソフトウェアがインストールされていない場合">NOTE: 関連ソフトウェアがインストールされていない場合</h2>
+<h3 id="note-関連ソフトウェアがインストールされていない場合">NOTE: 関連ソフトウェアがインストールされていない場合</h3>
 
 <p>関連ソフトウェアがインストールされていないと、エラーになります。</p>
 
@@ -503,7 +536,7 @@ $ mysql -u root -p zabbix &lt; database/mysql/data.sql
 
 <p>設定が成功しました。</p>
 
-<h1 id="設定ファイルの編集">設定ファイルの編集</h1>
+<h2 id="設定ファイルの編集">設定ファイルの編集</h2>
 
 <p>Zabbix Serverの設定ファイルは<code class="highlighter-rouge">/usr/local/etc/zabbix_server.conf</code>にあります。</p>
 
@@ -513,7 +546,7 @@ $ mysql -u root -p zabbix &lt; database/mysql/data.sql
 
 <p><em>NOTE: <code class="highlighter-rouge">zabbix_agent.conf</code>というファイルもありますが、こちらは使用しないようです。</em></p>
 
-<h1 id="zabbix-serverとzabbix-agentを起動">Zabbix ServerとZabbix Agentを起動</h1>
+<h2 id="zabbix-serverとzabbix-agentを起動">Zabbix ServerとZabbix Agentを起動</h2>
 
 <p>Zabbix Serverを起動します。</p>
 
@@ -527,7 +560,7 @@ $ mysql -u root -p zabbix &lt; database/mysql/data.sql
 
 <p>コンソールには何も出力されないですが、これで起動します。<code class="highlighter-rouge">ps aux | grep zabbix</code>で起動していることが確認できます。</p>
 
-<h1 id="webインターフェイスをインストール">Webインターフェイスをインストール</h1>
+<h2 id="webインターフェイスをインストール">Webインターフェイスをインストール</h2>
 
 <p>Zabbix ServerはWebインターフェイスを持ちますが、これは何らかのWebサーバーでPHPアプリケーションとして動作します。なので、まずApache HTTP ServerとPHPをインストールします。</p>
 
@@ -625,7 +658,7 @@ php_value date.timezone Asia/Tokyo
 
 <p>設定ファイルが作成され、問題無ければ「OK」が表示されます。「Finish」をクリックすることで、インストールが完了します。</p>
 
-<h1 id="zabbixにログインしzabbix-server自体の監視を開始">Zabbixにログインし、Zabbix Server自体の監視を開始</h1>
+<h2 id="zabbixにログインしzabbix-server自体の監視を開始">Zabbixにログインし、Zabbix Server自体の監視を開始</h2>
 
 <p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/010.png" alt="Login" /></p>
 
@@ -653,11 +686,11 @@ php_value date.timezone Asia/Tokyo
 
 <p><img src="/assets/img/2015-02-22-install-zabbix-and-verify/015.png" alt="Graph" /></p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>これでZabbixの簡単な動作が確認できたので、次はOpenShiftにZabbix Server、RPiにZabbix Agentをセットアップして監視をしたいと思います。</p>
 
-<h2 id="note-zabbix-server-on-openshiftを諦めたわけ">NOTE: Zabbix Server on OpenShiftを諦めたわけ</h2>
+<h3 id="note-zabbix-server-on-openshiftを諦めたわけ">NOTE: Zabbix Server on OpenShiftを諦めたわけ</h3>
 
 <p>OpenShiftではポートを開けられないっぽい。<code class="highlighter-rouge">rhc port-forward</code>はローカル→OpenShiftのsshフォワーディングであり用途が違うし…</p>
 

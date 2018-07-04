@@ -312,16 +312,36 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-30T00:00:00+09:00">2017-04-30</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-30T00:00:00+09:00">2017-04-30</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#minioとは">Minioとは</a></li>
+  <li><a href="#前提条件">前提条件</a></li>
+  <li><a href="#手順">手順</a>
+    <ul>
+      <li><a href="#minioコンテナを動作させてみる">Minioコンテナを動作させてみる</a></li>
+      <li><a href="#springbootアプリケーションからminioにアクセスしてみる">SpringBootアプリケーションからMinioにアクセスしてみる</a></li>
+      <li><a href="#dockerイメージをビルドしてdockerコンテナからアクセスしてみる">Dockerイメージをビルドして、Dockerコンテナからアクセスしてみる</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>最近、Amazon S3に依存するアプリケーションの自動テストに、S3互換ストレージであるMinioを使うようにしています。ここで、Java(SpringBoot)からAWS SDK for Javaを使用してMinioにアクセスするサンプルコードを作成します。</p>
 
-<h1 id="minioとは">Minioとは</h1>
+<h2 id="minioとは">Minioとは</h2>
 
 <p>S3クローンの一つで、S3互換なのでAWS SDKなどでAmazon S3と同様にアクセスすることができます。手軽にS3互換ストレージを使用することができて便利。</p>
 
@@ -329,7 +349,7 @@
   <li><a href="https://www.minio.io/">Minio</a></li>
 </ul>
 
-<h1 id="前提条件">前提条件</h1>
+<h2 id="前提条件">前提条件</h2>
 
 <ul>
   <li>Docker
@@ -391,11 +411,11 @@ OS name: "linux", version: "4.4.59-boot2docker", arch: "amd64", family: "unix"
   </li>
 </ul>
 
-<h1 id="手順">手順</h1>
+<h2 id="手順">手順</h2>
 
 <p>MinioをDockerコンテナとして動作させて、SpringBootアプリケーションからアクセスする手順を説明します。作成済みのサンプルコードは <a href="https://github.com/u6k/sample-minio">u6k/sample-minio</a> にあります。</p>
 
-<h2 id="minioコンテナを動作させてみる">Minioコンテナを動作させてみる</h2>
+<h3 id="minioコンテナを動作させてみる">Minioコンテナを動作させてみる</h3>
 
 <p><a href="https://docs.minio.io/">Minio Docs</a>の「Docker Container」を参考に動作させてみます。</p>
 
@@ -436,7 +456,7 @@ Drive Capacity: 17 GiB Free, 18 GiB Total
 
 <p>ログにアクセスキーとシークレットキーが出力されるので、WebブラウザやAPIでアクセスするときはこれを使用します。自動テストなどでアクセスキーとシークレットキーを固定したい場合は、環境変数<code class="highlighter-rouge">MINIO_ACCESS_KEY</code>と<code class="highlighter-rouge">MINIO_SECRET_KEY</code>を指定することで、任意に設定できます。</p>
 
-<h2 id="springbootアプリケーションからminioにアクセスしてみる">SpringBootアプリケーションからMinioにアクセスしてみる</h2>
+<h3 id="springbootアプリケーションからminioにアクセスしてみる">SpringBootアプリケーションからMinioにアクセスしてみる</h3>
 
 <p>SpringBootプロジェクトの作成手順は割愛します。肝心のサンプルコードは、 <code class="highlighter-rouge">src/main/java/me/u6k/sample_minio/Main.java</code> をご覧ください。一部をここで解説します。</p>
 
@@ -488,7 +508,7 @@ configuration.setSignerOverride("AWSS3V4SignerType");
 
 <p>バケットの一覧を取得して、バケット名をログ出力しています。</p>
 
-<h2 id="dockerイメージをビルドしてdockerコンテナからアクセスしてみる">Dockerイメージをビルドして、Dockerコンテナからアクセスしてみる</h2>
+<h3 id="dockerイメージをビルドしてdockerコンテナからアクセスしてみる">Dockerイメージをビルドして、Dockerコンテナからアクセスしてみる</h3>
 
 <p>まず、Dockerイメージをビルドします。</p>
 
@@ -520,7 +540,7 @@ configuration.setSignerOverride("AWSS3V4SignerType");
 2017-04-30 09:14:57.357  INFO 1 --- [           main] me.u6k.sample_minio.Main                 : bucket=foo
 </code></pre></div></div>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>S3アクセスとクライアント初期化処理のみ異なりますが、他は同様にアクセスできることが確認できました。MinioはS3のローカル環境として利用できそうだと考えます。</p>
 

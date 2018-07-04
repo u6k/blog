@@ -312,18 +312,37 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-11T07:00:00+09:00">2016-03-11</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-11T07:00:00+09:00">2016-03-11</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#確認したいこと">確認したいこと</a></li>
+  <li><a href="#前提条件">前提条件</a></li>
+  <li><a href="#確認手順">確認手順</a>
+    <ul>
+      <li><a href="#snappy-ubuntu-coreを起動する">Snappy Ubuntu Coreを起動する</a></li>
+      <li><a href="#dockerをインストールする">Dockerをインストールする</a></li>
+      <li><a href="#dockerイメージをビルドする">Dockerイメージをビルドする</a></li>
+      <li><a href="#dockerコンテナーを実行する">Dockerコンテナーを実行する</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Raspberry PiでDockerを動かしたい、となるとOSはSnappy Ubuntu Coreになります(<a href="http://blog.hypriot.com/">Docker Pirates ARMed with explosive stuff</a>というのもありますが)。Snappy Ubuntu Coreは触ったことがないので、お試しとしてVirtualBox(Vagrant)上のSnappy Ubuntu CoreでDockerを動かしてみます。</p>
 
-<!-- more -->
-
-<h1 id="確認したいこと">確認したいこと</h1>
+<h2 id="確認したいこと">確認したいこと</h2>
 
 <ul>
   <li>VagrantでSnappy Ubuntu Coreを動作させます。</li>
@@ -333,7 +352,7 @@
 
 <p>今回は簡単な動作確認なので、GitHubリポジトリは作成していません。</p>
 
-<h1 id="前提条件">前提条件</h1>
+<h2 id="前提条件">前提条件</h2>
 
 <ul>
   <li>Surface Pro 4 + Windows 10
@@ -348,9 +367,9 @@
   </li>
 </ul>
 
-<h1 id="確認手順">確認手順</h1>
+<h2 id="確認手順">確認手順</h2>
 
-<h2 id="snappy-ubuntu-coreを起動する">Snappy Ubuntu Coreを起動する</h2>
+<h3 id="snappy-ubuntu-coreを起動する">Snappy Ubuntu Coreを起動する</h3>
 
 <p><code class="highlighter-rouge">ubuntu/ubuntu-15.04-snappy-core-stable</code>というVagrant boxが使えますので、これを起動します。</p>
 
@@ -361,7 +380,7 @@ vagrant ssh
 
 <p>今回はWebDMを使わないので、ポート・フォワード設定は行いません。WebDMを使う場合は、4200番ポートをフォワードすれば、ホストOSのWebブラウザからWebDMを使うことができます。</p>
 
-<h2 id="dockerをインストールする">Dockerをインストールする</h2>
+<h3 id="dockerをインストールする">Dockerをインストールする</h3>
 
 <p>Snappy Ubuntu Coreは<code class="highlighter-rouge">snappy</code>コマンドでパッケージを操作します。</p>
 
@@ -381,7 +400,7 @@ $ docker -v
 Docker version 1.6.2, build 8f2d6e5
 </code></pre></div></div>
 
-<h2 id="dockerイメージをビルドする">Dockerイメージをビルドする</h2>
+<h3 id="dockerイメージをビルドする">Dockerイメージをビルドする</h3>
 
 <p>Dockerイメージの元となるDockerfileを以下のように作成します(<a href="https://github.com/u6k/ruby-docker">u6k/ruby-docker</a>から)。</p>
 
@@ -419,7 +438,7 @@ ubuntu                latest              56063ad57855        6 days ago        
 
 <p>イメージがビルドされました。</p>
 
-<h2 id="dockerコンテナーを実行する">Dockerコンテナーを実行する</h2>
+<h3 id="dockerコンテナーを実行する">Dockerコンテナーを実行する</h3>
 
 <p>ビルドしたイメージを実行してみます。</p>
 
@@ -429,7 +448,7 @@ ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-linux]
 
 <p>普通に実行できました。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>というわけで、自宅RaspberryPiでSnappy Ubuntu Coreを動作させるようになったら、</p>
 

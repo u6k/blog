@@ -24,7 +24,7 @@
 
 
 
-<meta name="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+<meta name="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。">
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-  <meta property="og:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+  <meta property="og:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。">
 
 
 
@@ -56,7 +56,7 @@
 
   <meta name="twitter:site" content="@u6k_yu1">
   <meta name="twitter:title" content="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす">
-  <meta name="twitter:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+  <meta name="twitter:description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。">
   <meta name="twitter:url" content="">
 
   
@@ -301,7 +301,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Redmineをwar化 (1) とりあえずRedmine+JRubyを動かす">
-    <meta itemprop="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。前提以下の環境で作業しました。  Windows 7 64bit  Java SDK 1.6.0_34          SDKじゃなくてもいいはず。        JRuby 1.7.0 RC 2作業手順            基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順      Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。      bundlerをインストールRedmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。&gt;jgem install bundler --no-rdoc --no-riRedmineをダウンロード、展開RedmineをRubyForge: Redmine: ファイルリストからダウンロードします。ダウンロードしたredmine-2.1.2.zipを展開します。以降、Redmineを展開したフォルダを%REDMINE_HOME%と表記します。Redmineを設定データベース接続を設定今回は簡単セットアップを意識して、データベースはSQLite3を使用します。%REDMINE_HOME%\config\database.ymlを以下のように作成します。production:  adapter: sqlite3  database: db/production.sqlite3メールサーバー接続を設定とりあえずメールサーバーを使用しない設定とします。%REDMINE_HOME%\config\configuration.ymlを以下のように作成します。production:添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。Gemパッケージをインストールbundlerを使用してGemパッケージをインストールします。%REDMINE_HOME%で以下のコマンドを実行します。&gt;bundle install --without development test postgresql mysql今回はデータベースにSQLiteを使用するため、--withoutにmysqlを指定しています。Redmineの初期設定、およびデータベースのテーブルを作成セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。%REDMINE_HOME%で以下のコマンドを実行します。&gt;rake generate_secret_token&gt;SET RAILS_ENV=production&gt;rake db:migrate以上で設定は完了です。いよいよRedmineを起動%REDMINE_HOME%で以下のコマンドを実行します。&gt;jruby script/rails server webrick -e production正しく起動できたら、以下のように表示されます。&gt;jruby script/rails server webrick -e production=&gt; Booting WEBrick=&gt; Rails 3.2.8 application starting in production on http://0.0.0.0:3000=&gt; Call with -d to detach=&gt; Ctrl-C to shutdown serverD:/temp/redmine/lib/redmine.rb:26 warning: already initialized constant FCSV[2012-10-11 18:46:17] INFO  WEBrick 1.3.1[2012-10-11 18:46:17] INFO  ruby 1.9.3 (2012-10-09) [java][2012-10-11 18:46:17] INFO  WEBrick::HTTPServer#start: pid=27448 port=3000Webブラウザでにアクセスします。ちゃんと表示されました！　この後、ユーザー作成、チケット作成、ファイルアップロードを行いましたが、ちゃんと動作しました！　Yeah!今回はとりあえずここまで。">
+    <meta itemprop="description" content="Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。">
     <meta itemprop="datePublished" content="2012-10-12">
     
 
@@ -312,18 +312,35 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-12T21:34:00+09:00">2012-10-12</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-12T21:34:00+09:00">2012-10-12</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#作業手順">作業手順</a>
+    <ul>
+      <li><a href="#bundlerをインストール">bundlerをインストール</a></li>
+      <li><a href="#redmineをダウンロード展開">Redmineをダウンロード、展開</a></li>
+      <li><a href="#redmineを設定">Redmineを設定</a></li>
+      <li><a href="#いよいよredmineを起動">いよいよRedmineを起動</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。</p>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <p>以下の環境で作業しました。</p>
 
@@ -337,7 +354,7 @@
   <li>JRuby 1.7.0 RC 2</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
 <table>
   <tbody>
@@ -348,22 +365,22 @@
   </tbody>
 </table>
 
-<h2 id="bundlerをインストール">bundlerをインストール</h2>
+<h3 id="bundlerをインストール">bundlerをインストール</h3>
 
 <p>Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;jgem install bundler --no-rdoc --no-ri
 </code></pre></div></div>
 
-<h2 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h2>
+<h3 id="redmineをダウンロード展開">Redmineをダウンロード、展開</h3>
 
 <p>Redmineを<a href="http://rubyforge.org/frs/?group_id=1850">RubyForge: Redmine: ファイルリスト</a>からダウンロードします。</p>
 
 <p>ダウンロードした<code class="highlighter-rouge">redmine-2.1.2.zip</code>を展開します。以降、Redmineを展開したフォルダを<code class="highlighter-rouge">%REDMINE_HOME%</code>と表記します。</p>
 
-<h2 id="redmineを設定">Redmineを設定</h2>
+<h3 id="redmineを設定">Redmineを設定</h3>
 
-<h3 id="データベース接続を設定">データベース接続を設定</h3>
+<h4 id="データベース接続を設定">データベース接続を設定</h4>
 
 <p>今回は簡単セットアップを意識して、データベースはSQLite3を使用します。<code class="highlighter-rouge">%REDMINE_HOME%\config\database.yml</code>を以下のように作成します。</p>
 
@@ -372,7 +389,7 @@
   database: db/production.sqlite3
 </code></pre></div></div>
 
-<h3 id="メールサーバー接続を設定">メールサーバー接続を設定</h3>
+<h4 id="メールサーバー接続を設定">メールサーバー接続を設定</h4>
 
 <p>とりあえずメールサーバーを使用しない設定とします。<code class="highlighter-rouge">%REDMINE_HOME%\config\configuration.yml</code>を以下のように作成します。</p>
 
@@ -381,7 +398,7 @@
 
 <p>添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。</p>
 
-<h3 id="gemパッケージをインストール">Gemパッケージをインストール</h3>
+<h4 id="gemパッケージをインストール">Gemパッケージをインストール</h4>
 
 <p>bundlerを使用してGemパッケージをインストールします。<code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
 
@@ -390,7 +407,7 @@
 
 <p>今回はデータベースにSQLiteを使用するため、<code class="highlighter-rouge">--without</code>に<code class="highlighter-rouge">mysql</code>を指定しています。</p>
 
-<h3 id="redmineの初期設定およびデータベースのテーブルを作成">Redmineの初期設定、およびデータベースのテーブルを作成</h3>
+<h4 id="redmineの初期設定およびデータベースのテーブルを作成">Redmineの初期設定、およびデータベースのテーブルを作成</h4>
 
 <p>セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。<code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
 
@@ -401,7 +418,7 @@
 
 <p>以上で設定は完了です。</p>
 
-<h2 id="いよいよredmineを起動">いよいよRedmineを起動</h2>
+<h3 id="いよいよredmineを起動">いよいよRedmineを起動</h3>
 
 <p><code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行します。</p>
 

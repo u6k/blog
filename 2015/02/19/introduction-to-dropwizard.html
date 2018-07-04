@@ -312,16 +312,54 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-19T20:00:00+09:00">2015-02-19</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-02-19T20:00:00+09:00">2015-02-19</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 6 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#dropwizardとは">Dropwizardとは</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#mavenプロジェクトを作成">Mavenプロジェクトを作成</a>
+    <ul>
+      <li><a href="#eclipseプロジェクトを作成">Eclipseプロジェクトを作成</a></li>
+    </ul>
+  </li>
+  <li><a href="#pomxmlを編集">“pom.xml”を編集</a>
+    <ul>
+      <li><a href="#note-apptestjavaがコンパイルエラー">NOTE: “AppTest.java”がコンパイルエラー</a></li>
+    </ul>
+  </li>
+  <li><a href="#configurationクラス">Configurationクラス</a></li>
+  <li><a href="#resourceクラス">Resourceクラス</a></li>
+  <li><a href="#representationクラス">Representationクラス</a></li>
+  <li><a href="#healthcheckクラス">HealthCheckクラス</a></li>
+  <li><a href="#applicationクラス">Applicationクラス</a></li>
+  <li><a href="#再びpomxmlを編集">再び”pom.xml”を編集</a>
+    <ul>
+      <li><a href="#note-javaバージョンソースコードの文字エンコーディングを指定">NOTE: Javaバージョン、ソースコードの文字エンコーディングを指定</a></li>
+      <li><a href="#pomxml全体">“pom.xml”全体</a></li>
+    </ul>
+  </li>
+  <li><a href="#ビルド">ビルド</a></li>
+  <li><a href="#実行">実行</a></li>
+  <li><a href="#停止">停止</a></li>
+  <li><a href="#バージョン表示">バージョン表示</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>Dropwizardの練習として、”Hello, {name}!”を出力するだけのDropwizardアプリを作成します。</p>
 
-<h1 id="dropwizardとは">Dropwizardとは</h1>
+<h2 id="dropwizardとは">Dropwizardとは</h2>
 
 <p>ココらへんを参照。</p>
 
@@ -346,9 +384,7 @@
   <li><a href="http://twelve-factor-ja.herokuapp.com/">The Twelve-Factor App（日本語訳）</a></li>
 </ul>
 
-<!-- more -->
-
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>Java SDK 8
@@ -400,7 +436,7 @@ OS name: "mac os x", version: "10.10.2", arch: "x86_64", family: "mac"
   <li>作成したソースコードは、<a href="https://github.com/u6k/sample-dropwizard/tree/0.1.0">u6k/sample-dropwizard at 0.1.0</a>で参照できます。</li>
 </ul>
 
-<h1 id="mavenプロジェクトを作成">Mavenプロジェクトを作成</h1>
+<h2 id="mavenプロジェクトを作成">Mavenプロジェクトを作成</h2>
 
 <p>シンプルなMavenプロジェクトを作成します。</p>
 
@@ -434,14 +470,14 @@ OS name: "mac os x", version: "10.10.2", arch: "x86_64", family: "mac"
 .settings
 </code></pre>
 
-<h2 id="eclipseプロジェクトを作成">Eclipseプロジェクトを作成</h2>
+<h3 id="eclipseプロジェクトを作成">Eclipseプロジェクトを作成</h3>
 
 <p><code class="highlighter-rouge">mvn</code>コマンドで作成したけどEclipseで作業を行いたい場合、以下のコマンドを実行することでEclipseプロジェクトファイルを生成します。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn eclipse:eclipse
 </code></pre></div></div>
 
-<h1 id="pomxmlを編集">“pom.xml”を編集</h1>
+<h2 id="pomxmlを編集">“pom.xml”を編集</h2>
 
 <p>Dropwizardのバージョンを定義します。</p>
 
@@ -489,13 +525,13 @@ OS name: "mac os x", version: "10.10.2", arch: "x86_64", family: "mac"
 &lt;/project&gt;
 </code></pre>
 
-<h2 id="note-apptestjavaがコンパイルエラー">NOTE: “AppTest.java”がコンパイルエラー</h2>
+<h3 id="note-apptestjavaがコンパイルエラー">NOTE: “AppTest.java”がコンパイルエラー</h3>
 
 <p><code class="highlighter-rouge">&lt;dependencies&gt;</code>にもともと定義されていたjunit 3.x系の記述を削除すると、”src/test/java/**/AppTest.java”のコンパイルがエラーになります。</p>
 
 <p>さっくり”AppTest.java”を削除するか、junit 4.x系を追加してコードを修正すると良いです。</p>
 
-<h1 id="configurationクラス">Configurationクラス</h1>
+<h2 id="configurationクラス">Configurationクラス</h2>
 
 <p>YAMLを読み込むConfigurationクラスを作成します。</p>
 
@@ -556,7 +592,7 @@ logging:
   </li>
 </ul>
 
-<h1 id="resourceクラス">Resourceクラス</h1>
+<h2 id="resourceクラス">Resourceクラス</h2>
 
 <p>URIにマッピングされるResourceクラスを作成します。</p>
 
@@ -591,7 +627,7 @@ public class HelloResource {
 }
 </code></pre>
 
-<h1 id="representationクラス">Representationクラス</h1>
+<h2 id="representationクラス">Representationクラス</h2>
 
 <p>Resourceクラスが返す処理結果であるRepresentationクラスを作成します。</p>
 
@@ -618,7 +654,7 @@ public class Hello {
 }
 </code></pre>
 
-<h1 id="healthcheckクラス">HealthCheckクラス</h1>
+<h2 id="healthcheckクラス">HealthCheckクラス</h2>
 
 <p>ヘルスチェックを行うHealthCheckクラスを作成します。ヘルスチェックは無くても問題ありませんので、スキップしても良いです(起動時に警告は出力されますが)。</p>
 
@@ -636,7 +672,7 @@ public class AliveHealthCheck extends HealthCheck {
 }
 </code></pre>
 
-<h1 id="applicationクラス">Applicationクラス</h1>
+<h2 id="applicationクラス">Applicationクラス</h2>
 
 <p>アプリのエントリーポイントであるApplicationクラスを作成します。</p>
 
@@ -670,7 +706,7 @@ public class HelloApplication extends Application&lt;HelloConfiguration&gt; {
 }
 </code></pre>
 
-<h1 id="再びpomxmlを編集">再び”pom.xml”を編集</h1>
+<h2 id="再びpomxmlを編集">再び”pom.xml”を編集</h2>
 
 <p>Fatjarを作成するため、”maven-shade-plugin”を追加します。</p>
 
@@ -748,7 +784,7 @@ public class HelloApplication extends Application&lt;HelloConfiguration&gt; {
   </li>
 </ul>
 
-<h2 id="note-javaバージョンソースコードの文字エンコーディングを指定">NOTE: Javaバージョン、ソースコードの文字エンコーディングを指定</h2>
+<h3 id="note-javaバージョンソースコードの文字エンコーディングを指定">NOTE: Javaバージョン、ソースコードの文字エンコーディングを指定</h3>
 
 <p>省略しても(たぶん)問題ありませんが、明記したほうが環境差異を無くすことができます。</p>
 
@@ -784,7 +820,7 @@ public class HelloApplication extends Application&lt;HelloConfiguration&gt; {
   </li>
 </ul>
 
-<h2 id="pomxml全体">“pom.xml”全体</h2>
+<h3 id="pomxml全体">“pom.xml”全体</h3>
 
 <p>最終的に、”pom.xml”全体では以下のようになります。</p>
 
@@ -873,7 +909,7 @@ public class HelloApplication extends Application&lt;HelloConfiguration&gt; {
 &lt;/project&gt;
 </code></pre>
 
-<h1 id="ビルド">ビルド</h1>
+<h2 id="ビルド">ビルド</h2>
 
 <p>以下のコマンドでビルドします。</p>
 
@@ -896,7 +932,7 @@ optional arguments:
 
 <p>usageが表示されたら、成功です。</p>
 
-<h1 id="実行">実行</h1>
+<h2 id="実行">実行</h2>
 
 <p>パラメータとYAMLファイルを指定して実行します。</p>
 
@@ -915,11 +951,11 @@ optional arguments:
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"alive":{"healthy":true},"deadlocks":{"healthy":true}}
 </code></pre></div></div>
 
-<h1 id="停止">停止</h1>
+<h2 id="停止">停止</h2>
 
 <p>停止するには、<code class="highlighter-rouge">Ctrl + C</code>を押します。</p>
 
-<h1 id="バージョン表示">バージョン表示</h1>
+<h2 id="バージョン表示">バージョン表示</h2>
 
 <p>usageにも表示されていますが、<code class="highlighter-rouge">-v</code>オプションを指定するとバージョンを表示することができます。</p>
 
@@ -933,7 +969,7 @@ optional arguments:
 No application version detected. Add a Implementation-Version entry to your JAR's manifest to enable this.
 </code></pre></div></div>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>個人でツールを作成するときのフレームワークとして良いと思っています。今後、少しずつ機能を調べていきます。似たようなコンセプトを持つ<a href="http://projects.spring.io/spring-boot/">Spring Boot</a>というフレームワークもあるので、いずれこちらも調べてみようかと。</p>
 

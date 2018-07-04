@@ -312,20 +312,37 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-06T20:00:00+09:00">2015-03-06</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-06T20:00:00+09:00">2015-03-06</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 2 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#spring-bootとは">Spring Bootとは</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#mavenプロジェクトを作成">Mavenプロジェクトを作成</a></li>
+  <li><a href="#文字列を返すだけのアプリを作成">文字列を返すだけのアプリを作成</a></li>
+  <li><a href="#ビルド">ビルド</a></li>
+  <li><a href="#実行">実行</a></li>
+  <li><a href="#停止">停止</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+  <li><a href="#ソースコード">ソースコード</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p><a href="http://u6k-apps.blogspot.jp/2015/02/dropwizard.html">以前</a>、Dropwizard入門を書きましたが、Dropwizardの関連情報がちょっと少なすぎて、Spring Bootの方が良いんじゃないかなと思い始めました。</p>
 
 <p>というわけで、Spring Bootを使用してみようと、ハローワールド的アプリを作成してみます。</p>
 
-<!-- more -->
-
-<h1 id="spring-bootとは">Spring Bootとは</h1>
+<h2 id="spring-bootとは">Spring Bootとは</h2>
 
 <p>ココらへんを参照。</p>
 
@@ -336,14 +353,14 @@
   <li><a href="http://docs.spring.io/spring-boot/docs/1.2.2.RELEASE/reference/htmlsingle/">Spring Boot Reference Guide</a></li>
 </ul>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>Java 8系</li>
   <li>Maven 3系</li>
 </ul>
 
-<h1 id="mavenプロジェクトを作成">Mavenプロジェクトを作成</h1>
+<h2 id="mavenプロジェクトを作成">Mavenプロジェクトを作成</h2>
 
 <p><code class="highlighter-rouge">mvn</code>でプロジェクトを作成します。</p>
 
@@ -402,7 +419,7 @@ $ mvn eclipse:eclipse
 <span class="nt">&lt;/project&gt;</span>
 </code></pre></div></div>
 
-<h1 id="文字列を返すだけのアプリを作成">文字列を返すだけのアプリを作成</h1>
+<h2 id="文字列を返すだけのアプリを作成">文字列を返すだけのアプリを作成</h2>
 
 <p><code class="highlighter-rouge">App.java</code>を修正します。</p>
 
@@ -428,14 +445,14 @@ public class App {
 }
 </code></pre></div></div>
 
-<h1 id="ビルド">ビルド</h1>
+<h2 id="ビルド">ビルド</h2>
 
 <p>パッケージングします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn clean package
 </code></pre></div></div>
 
-<h1 id="実行">実行</h1>
+<h2 id="実行">実行</h2>
 
 <p>実行します。</p>
 
@@ -453,15 +470,15 @@ Date: Wed, 04 Mar 2015 10:58:46 GMT
 Hello, sample-spring-boot!
 </code></pre></div></div>
 
-<h1 id="停止">停止</h1>
+<h2 id="停止">停止</h2>
 
 <p><code class="highlighter-rouge">Ctrl + C</code>で停止します。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>Dropwizardに比べて手順が少ない、Springの知識が生かせる、ということでDropwizardよりSpring Bootの方が良いかなー、と思っています。</p>
 
-<h1 id="ソースコード">ソースコード</h1>
+<h2 id="ソースコード">ソースコード</h2>
 
 <ul>
   <li><a href="https://github.com/u6k/sample-spring-boot/tree/0.1.0">u6k/sample-spring-boot at 0.1.0</a></li>

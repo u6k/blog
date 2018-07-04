@@ -312,18 +312,53 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-08T07:00:00+09:00">2017-08-08</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-08T07:00:00+09:00">2017-08-08</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 5 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#振り返り---bloggerで辛いところ">振り返り - Bloggerで辛いところ</a></li>
+  <li><a href="#jekyll検討">Jekyll検討</a>
+    <ul>
+      <li><a href="#markdownで書ける">Markdownで書ける！</a></li>
+      <li><a href="#サーバーの用意">サーバーの用意</a></li>
+    </ul>
+  </li>
+  <li><a href="#引っ越しの手順">引っ越しの手順</a>
+    <ul>
+      <li><a href="#ドメイン名">ドメイン名</a></li>
+      <li><a href="#jekyll用ファイル構成">Jekyll用ファイル構成</a></li>
+      <li><a href="#ヘッダー">ヘッダー</a></li>
+      <li><a href="#旧urlからのリダイレクト">旧URLからのリダイレクト</a></li>
+      <li><a href="#画像">画像</a></li>
+      <li><a href="#uml図">UML図</a></li>
+    </ul>
+  </li>
+  <li><a href="#ブログ構成">ブログ構成</a>
+    <ul>
+      <li><a href="#local-pc">Local PC</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#circleci">CircleCI</a></li>
+      <li><a href="#docker-hub">Docker Hub</a></li>
+      <li><a href="#macos">macOS</a></li>
+    </ul>
+  </li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p><a href="/2015/05/26/review-migration-blog-and-requirement-for-blog-service.html">ブログ引っ越し検討、およびブログサービスに求める要件</a>で検討していた引っ越しについて、2017年1月から4月にかけて、BloggerからJekyll、つまり静的サイトに引っ越しをしました。この記事では、Jekyll検討過程、引っ越しの手順、ブログ構成を説明します。</p>
 
-<!-- more -->
-
-<h1 id="振り返り---bloggerで辛いところ">振り返り - Bloggerで辛いところ</h1>
+<h2 id="振り返り---bloggerで辛いところ">振り返り - Bloggerで辛いところ</h2>
 
 <ul>
   <li>Markdownで書けない。</li>
@@ -332,7 +367,7 @@
   <li>コードブロックが整形表示されず、ただのpreブロックになってしまう。</li>
 </ul>
 
-<h1 id="jekyll検討">Jekyll検討</h1>
+<h2 id="jekyll検討">Jekyll検討</h2>
 
 <p>Jekyllについては、以下を参照。</p>
 
@@ -342,13 +377,13 @@
   <li><a href="http://akkunchoi.github.io/jekyll-github-blogging.html">Jekyll + github pages を使って git + markdown でサイト構築 - akkunchoi@github</a></li>
 </ul>
 
-<h2 id="markdownで書ける">Markdownで書ける！</h2>
+<h3 id="markdownで書ける">Markdownで書ける！</h3>
 
 <p>何と言っても、Markdown文書をそのまま公開することができます。テーマによりますが、コードブロックやガジェットもキレイに表示できます。Bloggerの場合、ローカルでMarkdown文書を作成→StackEditにコピペしてパブリッシュ、という手順が鬱陶しいです。</p>
 
 <p>後の公開ワークフローで説明しますが、GitHubのmasterブランチにpushすれば、自動的にブログが更新されるようなワークフローを作ることも可能です。</p>
 
-<h2 id="サーバーの用意">サーバーの用意</h2>
+<h3 id="サーバーの用意">サーバーの用意</h3>
 
 <p>Bloggerはホスティング・サービスなのでサーバーについて何も考えなくて良かったですが、Jekyllは静的サイトなので自分でサーバーを用意する必要があります。この点、もともと自宅サーバーを運用しているので、悩む必要がありませんでした。自分でサーバーを一から用意できない場合でも、以下の手段でホスティングすることができます。</p>
 
@@ -368,37 +403,37 @@
 
 <p>現在は自宅サーバーで公開していますが、何らかの都合でそれが使えなくなっても、簡単にAWS S3などに移行することができます。</p>
 
-<h1 id="引っ越しの手順">引っ越しの手順</h1>
+<h2 id="引っ越しの手順">引っ越しの手順</h2>
 
 <p>もともと、記事をMarkdown文書で管理していたため、記事本文の移行はほぼ作業無しでした。以下に、必要だった作業を説明します。</p>
 
-<h2 id="ドメイン名">ドメイン名</h2>
+<h3 id="ドメイン名">ドメイン名</h3>
 
 <p>Blogger時代の<code class="highlighter-rouge">blog.u6k.me</code>というドメイン名を変えるつもりはなかったので、ドメイン名はそのままです。DNS設定とBlogger設定を変更しました。</p>
 
-<h2 id="jekyll用ファイル構成">Jekyll用ファイル構成</h2>
+<h3 id="jekyll用ファイル構成">Jekyll用ファイル構成</h3>
 
 <p>単にMarkdown文書を格納していたので、これをJekyll用ファイル構成に整理しました。Jekyllで初期サイト構成を生成して、そこに既存ファイルを移動しました。この時、テーマもいろいろいじりました。</p>
 
 <p>Dockerを使い、生成した静的サイトをnginxコンテナに格納して公開したかったので、そのためのDockerfileなども作成しました。</p>
 
-<h2 id="ヘッダー">ヘッダー</h2>
+<h3 id="ヘッダー">ヘッダー</h3>
 
 <p>Markdown文書のヘッダー部分(メタ情報部分)を変更・追加する必要がありました。基本的にStackEdit向けに書いていたので、これをJekyll向けに変更しました。</p>
 
-<h2 id="旧urlからのリダイレクト">旧URLからのリダイレクト</h2>
+<h3 id="旧urlからのリダイレクト">旧URLからのリダイレクト</h3>
 
 <p>Bloggerのパス体系とJekyllのパス体系が異なったので、過去にシェアしたURLからリダイレクトする必要がありました。<code class="highlighter-rouge">jekyll-redirect-from</code>プラグインを使用すると、あるパスにアクセスされたときに実際の記事パスにリダイレクトすることができます。このプラグインを適用して、必要な記事のヘッダー部に<code class="highlighter-rouge">redirect_from</code>パラメータを追加しました。</p>
 
-<h2 id="画像">画像</h2>
+<h3 id="画像">画像</h3>
 
 <p>Blogger時代にいろいろなサービスで画像を生成・格納していたため、これを整理して同一リポジトリに格納しました。というか2017/8/8時点では移動中です。</p>
 
-<h2 id="uml図">UML図</h2>
+<h3 id="uml図">UML図</h3>
 
 <p><code class="highlighter-rouge">jekyll-plantuml</code>プラグインを使用することで、Markdown文書中にPlantUML文書を直接埋め込むことができます。静的サイトを生成すると、UML画像に変換され、記事に埋め込まれます。 <strong>超便利！！！</strong></p>
 
-<h1 id="ブログ構成">ブログ構成</h1>
+<h2 id="ブログ構成">ブログ構成</h2>
 
 <p>以下の構成でブログの記事を執筆し、公開しています。ややこしいですが、Author(執筆者)がエディターで記事を書き<code class="highlighter-rouge">git push</code>した後は、<code class="highlighter-rouge">blog</code>コンテナが再起動されるまで自動です。</p>
 
@@ -406,31 +441,31 @@
 
 <p>以下に、これらを使用したブログの公開ワークフローを説明します。</p>
 
-<h2 id="local-pc">Local PC</h2>
+<h3 id="local-pc">Local PC</h3>
 
 <p>ローカルPCで記事を執筆し、gitで管理します。執筆中の記事を表示確認したい場合、blog-devコンテナでblogイメージをビルドして、これを起動して表示確認します。単純なMarkdown文書であれば普通にAtomなどでプレビューできるので、blogコンテナで表示確認もほとんどしていません。</p>
 
 <p><a href="/2017/07/20/write-blog-on-android.html">Android端末でブログを書く</a>で書いた通り、短い文章であれば、Android端末のJotterPadでMarkdown文書を書き、MGitで<code class="highlighter-rouge">git push</code>するという方法も可能です。</p>
 
-<h2 id="github">GitHub</h2>
+<h3 id="github">GitHub</h3>
 
 <p>記事を管理しています。GitHubに<code class="highlighter-rouge">git push</code>すると、WebHookによりCircleCIのビルドが実行されます。</p>
 
-<h2 id="circleci">CircleCI</h2>
+<h3 id="circleci">CircleCI</h3>
 
 <p>静的サイトをビルドします。具体的にはblog-devコンテナでblogイメージをビルドします。masterブランチであれば、Docker Hubに<code class="highlighter-rouge">docker push</code>してJenkinsのWebHookに通知します。</p>
 
-<h2 id="docker-hub">Docker Hub</h2>
+<h3 id="docker-hub">Docker Hub</h3>
 
 <p>ビルドしたblogイメージを管理しています。Automated Buildではなく、CircleCIから<code class="highlighter-rouge">docker push</code>しています。ですので、Dockerイメージを管理しているだけです。</p>
 
-<h2 id="macos">macOS</h2>
+<h3 id="macos">macOS</h3>
 
 <p>自宅サーバーで、ブログを公開しています。ここではJenkinsとblogが動作しており、CircleCIからWebHook通知を受けると、JenkinsがDocker Hubから最新のblogイメージを<code class="highlighter-rouge">docker pull</code>して、blogコンテナを再起動します。これにより、最新の記事が公開されます。</p>
 
 <p>ちなみに、<code class="highlighter-rouge">_config.yml</code>を見ると分かりますが<code class="highlighter-rouge">s3_website</code>プラグインを追加しており、実は一時的にAWS S3で公開していました。</p>
 
-<h1 id="おわりに">おわりに</h1>
+<h2 id="おわりに">おわりに</h2>
 
 <p>ブログにしては複雑なワークフローになってしまいましたが、普通にサービスのビルドフローと同じ程度ですし、まぁいいかと思っています。今はテーマを適用して少しカスタマイズした程度なので、いろいろ試したいと思います。</p>
 

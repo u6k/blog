@@ -312,19 +312,54 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-10T19:00:00+09:00">2015-03-10</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-10T19:00:00+09:00">2015-03-10</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 7 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#パッケージインストール失敗">パッケージインストール→失敗</a></li>
+  <li><a href="#ソースコードからインストール">ソースコードからインストール</a></li>
+  <li><a href="#zabbix-server-on-openshiftを構築失敗">Zabbix Server on OpenShiftを構築→失敗</a></li>
+  <li><a href="#digitaloceanのcentosにzabbixをインストール">DigitalOceanのCentOSにZabbixをインストール</a>
+    <ul>
+      <li><a href="#dropletを作成する">Dropletを作成する</a></li>
+      <li><a href="#作業ユーザーを作成する">作業ユーザーを作成する</a></li>
+      <li><a href="#ローカルpcで鍵を作成し公開鍵を作業ユーザーに設定する">ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する</a></li>
+      <li><a href="#sshdの設定を変更する">sshdの設定を変更する</a></li>
+      <li><a href="#ufwでファイアウォールを設定する">ufwでファイアウォールを設定する</a></li>
+      <li><a href="#開発パッケージをインストールする">開発パッケージをインストールする</a></li>
+      <li><a href="#mysqlをインストールする">MySQLをインストールする</a></li>
+      <li><a href="#zabbixをパッケージでインストールする">Zabbixをパッケージでインストールする</a></li>
+      <li><a href="#note-lack-of-free-swap-space-on-zabbix-server">NOTE: Lack of free swap space on Zabbix server</a></li>
+    </ul>
+  </li>
+  <li><a href="#raspberry-piにzabbix-agentをインストール">Raspberry PiにZabbix Agentをインストール</a>
+    <ul>
+      <li><a href="#zabbix管理サイトにホストを追加する">Zabbix管理サイトにホストを追加する</a></li>
+      <li><a href="#zabbixエージェントをソースコードからインストールする">Zabbixエージェントをソースコードからインストールする</a></li>
+      <li><a href="#zabbix-agentのログ">Zabbix Agentのログ</a></li>
+      <li><a href="#zabbix監視が問題のまま">Zabbix監視が問題のまま</a></li>
+    </ul>
+  </li>
+  <li><a href="#zabbix-agentをサーバー起動時に起動">Zabbix Agentをサーバー起動時に起動</a></li>
+  <li><a href="#raspberry-piのcpu温度をzabbix-serverに送信">Raspberry PiのCPU温度をZabbix Serverに送信</a></li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。
 この文書では、試行錯誤して構築した作業を記録します。</p>
 
-<!-- more -->
-
-<h1 id="パッケージインストール失敗">パッケージインストール→失敗</h1>
+<h2 id="パッケージインストール失敗">パッケージインストール→失敗</h2>
 
 <p>インストールできるか確認するため、qemu for Windows上でRaspbianを動作させ、そこで動作確認をしています。</p>
 
@@ -339,11 +374,11 @@ E: Some index files failed to download. They have been ignored, or old ones used
 E: Couldn't rebuild package cache
 </code></pre></div></div>
 
-<h1 id="ソースコードからインストール">ソースコードからインストール</h1>
+<h2 id="ソースコードからインストール">ソースコードからインストール</h2>
 
 <p>ソースコードをダウンロード、<code class="highlighter-rouge">--enable-agentd</code>のみにしたら<code class="highlighter-rouge">configure</code>が成功しました。そのまま、<code class="highlighter-rouge">make install</code>も成功しました。</p>
 
-<h1 id="zabbix-server-on-openshiftを構築失敗">Zabbix Server on OpenShiftを構築→失敗</h1>
+<h2 id="zabbix-server-on-openshiftを構築失敗">Zabbix Server on OpenShiftを構築→失敗</h2>
 
 <p>下記でインストールしました。</p>
 
@@ -385,11 +420,11 @@ zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
 
 <p>→<code class="highlighter-rouge">rhc port-forward</code>はローカルPC→OpenShiftのsshフォワーディングっぽい。よって、この方法は断念。</p>
 
-<h1 id="digitaloceanのcentosにzabbixをインストール">DigitalOceanのCentOSにZabbixをインストール</h1>
+<h2 id="digitaloceanのcentosにzabbixをインストール">DigitalOceanのCentOSにZabbixをインストール</h2>
 
 <p>OpenShiftにZabbix Serverを構築するのは諦めて、DigitalOceanに構築することにしました。</p>
 
-<h2 id="dropletを作成する">Dropletを作成する</h2>
+<h3 id="dropletを作成する">Dropletを作成する</h3>
 
 <ul>
   <li>Droplet Hostname
@@ -414,7 +449,7 @@ zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
   </li>
 </ul>
 
-<h2 id="作業ユーザーを作成する">作業ユーザーを作成する</h2>
+<h3 id="作業ユーザーを作成する">作業ユーザーを作成する</h3>
 
 <p><code class="highlighter-rouge">root</code>でsshログインします。</p>
 
@@ -430,7 +465,7 @@ zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u6k ALL=(ALL) NOPASSWD: ALL
 </code></pre></div></div>
 
-<h2 id="ローカルpcで鍵を作成し公開鍵を作業ユーザーに設定する">ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する</h2>
+<h3 id="ローカルpcで鍵を作成し公開鍵を作業ユーザーに設定する">ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する</h3>
 
 <p>PUTTYgenで作成しました。</p>
 
@@ -441,7 +476,7 @@ zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
 
 <p>以降、<code class="highlighter-rouge">u6k</code>ユーザーで作業します。</p>
 
-<h3 id="note-ssh-copy-idが失敗することがある">NOTE: ssh-copy-idが失敗することがある</h3>
+<h4 id="note-ssh-copy-idが失敗することがある">NOTE: ssh-copy-idが失敗することがある</h4>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
 /usr/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
@@ -451,7 +486,7 @@ zabbix_se 127.0.0.1:15051  =&gt;  127.11.30.129:15051
 
 <p>結局、手動でコピーしたほうが良いかも。</p>
 
-<h2 id="sshdの設定を変更する">sshdの設定を変更する</h2>
+<h3 id="sshdの設定を変更する">sshdの設定を変更する</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vi /etc/ssh/sshd_config
 </code></pre></div></div>
@@ -472,7 +507,7 @@ Port 23347
 
 <p>新規にsshセッションを起動し、rootログイン出来ないこと、パスワード認証できないこと、新しいポート番号で接続できること、を確認します。万が一、設定に失敗してssh接続できなくなると非常に困るので、この確認ができるまではsshセッションは切断しないように注意します。</p>
 
-<h2 id="ufwでファイアウォールを設定する">ufwでファイアウォールを設定する</h2>
+<h3 id="ufwでファイアウォールを設定する">ufwでファイアウォールを設定する</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install wget
 </code></pre></div></div>
@@ -531,13 +566,13 @@ To                         Action      From
   </li>
 </ul>
 
-<h2 id="開発パッケージをインストールする">開発パッケージをインストールする</h2>
+<h3 id="開発パッケージをインストールする">開発パッケージをインストールする</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y update
 $ sudo yum -y groupinstall "Development tools"
 </code></pre></div></div>
 
-<h2 id="mysqlをインストールする">MySQLをインストールする</h2>
+<h3 id="mysqlをインストールする">MySQLをインストールする</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum -y install mysql-server mysql-devel
 $ sudo chkconfig mysqld on
@@ -549,7 +584,7 @@ $ sudo service mysqld start
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mysql -u root
 </code></pre></div></div>
 
-<h2 id="zabbixをパッケージでインストールする">Zabbixをパッケージでインストールする</h2>
+<h3 id="zabbixをパッケージでインストールする">Zabbixをパッケージでインストールする</h3>
 
 <ul>
   <li>参考
@@ -643,7 +678,7 @@ $ sudo service zabbix-agent start
 
 <p>次に、<code class="highlighter-rouge">Zabbix server</code>のStatusを<code class="highlighter-rouge">Monitored</code>に変更し、監視を開始します。しばらくしてからグラフを表示して、監視が正常動作していることを確認します。</p>
 
-<h2 id="note-lack-of-free-swap-space-on-zabbix-server">NOTE: Lack of free swap space on Zabbix server</h2>
+<h3 id="note-lack-of-free-swap-space-on-zabbix-server">NOTE: Lack of free swap space on Zabbix server</h3>
 
 <p>Zabbixはスワップ領域を監視しますが、<code class="highlighter-rouge">Lack of free swap space on Zabbix server</code>はスワップ領域が不足している or 存在しないことを表すエラーです。</p>
 
@@ -675,13 +710,13 @@ $ sudo swapon -a
   </li>
 </ul>
 
-<h1 id="raspberry-piにzabbix-agentをインストール">Raspberry PiにZabbix Agentをインストール</h1>
+<h2 id="raspberry-piにzabbix-agentをインストール">Raspberry PiにZabbix Agentをインストール</h2>
 
-<h2 id="zabbix管理サイトにホストを追加する">Zabbix管理サイトにホストを追加する</h2>
+<h3 id="zabbix管理サイトにホストを追加する">Zabbix管理サイトにホストを追加する</h3>
 
 <p>Zabbix管理サイトのホストにRaspberry Piを追加します。この時点では、Zabbixエージェントが動作していないので、監視が失敗します。</p>
 
-<h2 id="zabbixエージェントをソースコードからインストールする">Zabbixエージェントをソースコードからインストールする</h2>
+<h3 id="zabbixエージェントをソースコードからインストールする">Zabbixエージェントをソースコードからインストールする</h3>
 
 <p>Zabbixソースコードをダウンロードし、展開します。</p>
 
@@ -719,11 +754,11 @@ Hostname=RPi
 
 <p>しばらくして、Zabbix管理サイトのステータスを確認します。</p>
 
-<h2 id="zabbix-agentのログ">Zabbix Agentのログ</h2>
+<h3 id="zabbix-agentのログ">Zabbix Agentのログ</h3>
 
 <p><code class="highlighter-rouge">/tmp/zabbix_agentd.log</code>に出力されます。<code class="highlighter-rouge">/var/log/</code>以下でないことに注意(多くのサイトでは<code class="highlighter-rouge">/var/log/zabbix/</code>以下で説明されていますが、なぜ違うのだろう…)。</p>
 
-<h2 id="zabbix監視が問題のまま">Zabbix監視が問題のまま</h2>
+<h3 id="zabbix監視が問題のまま">Zabbix監視が問題のまま</h3>
 
 <p><code class="highlighter-rouge">Received empty response from Zabbix Agent at Assuming that agent dropped connection because of access permission</code></p>
 
@@ -749,7 +784,7 @@ Hostname=RPi
 
 <p><code class="highlighter-rouge">Lack of free swap space on 自宅Raspberry Pi</code>が出力されたので、Zabbixサーバーと同様に解消しました。</p>
 
-<h1 id="zabbix-agentをサーバー起動時に起動">Zabbix Agentをサーバー起動時に起動</h1>
+<h2 id="zabbix-agentをサーバー起動時に起動">Zabbix Agentをサーバー起動時に起動</h2>
 
 <p><code class="highlighter-rouge">zabbix_agentd</code>を停止するには<code class="highlighter-rouge">kill -TERM</code>するしかなさそうです。また、このままではサーバー起動時にZabbix Agentが起動しません。これを解決するため、<code class="highlighter-rouge">zabbix_agentd</code>の起動スクリプトを作成します。</p>
 
@@ -818,7 +853,7 @@ $ sudo service zabbix_agentd stop
   </li>
 </ul>
 
-<h1 id="raspberry-piのcpu温度をzabbix-serverに送信">Raspberry PiのCPU温度をZabbix Serverに送信</h1>
+<h2 id="raspberry-piのcpu温度をzabbix-serverに送信">Raspberry PiのCPU温度をZabbix Serverに送信</h2>
 
 <p><code class="highlighter-rouge">zabbix_sender</code>を使用してRaspberry PiのCPU温度をZabbix Serverに送信します。</p>
 
@@ -849,7 +884,7 @@ $ sudo service zabbix_agentd stop
 
 <p>問題なければ、上記コマンドをcrontabやJenkinsなどで定期実行するように設定します。</p>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="https://blog.openshift.com/introducing-zabbix-monitoring-cartridges-for-openshift/">Introducing Zabbix Monitoring Cartridges for OpenShift – OpenShift Blog</a></li>

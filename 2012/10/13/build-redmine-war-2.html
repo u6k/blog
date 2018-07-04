@@ -24,7 +24,7 @@
 
 
 
-<meta name="description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。作成したwarファイル前回・今回の作業で作成したファイルは、以下で配布しています。  u6kapps / redmine-war / Downloads          redmine-yyyymmdd-for-2.1.2.warというファイルです。      ライセンスGNU General Public License v2とします。JRubyがCPL v1.0/GPL v2/LGPL v2.1、RedmineがGPL v2であるためです。war化する作業手順Railsアプリをwar化するwarblerというgemがありますので、これを使用します。warblerをインストール以下のコマンドを実行して、warblerをインストールします。&gt;jgem install warblerwarbler設定ファイルを作成どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。まず、%REDMINE_HOME%で以下のコマンドを実行して、warbler設定ファイルの雛形を生成します。&gt;warble config%REDMINE_HOME%\config\warble.rbが作成されます。開くと色々書かれていますが、dbフォルダ、filesフォルダ、pluginsフォルダをwarファイルに含めるため、config.dirsにdb files pluginsを追記します。config.dirs = %w(app config lib log vendor tmp db files plugins)war化%REDMINE_HOME%で以下のコマンドを実行して、warファイルを生成します。&gt;warble%REDMINE_HOME%\redmine.warファイルが生成されます。Tomcatにredmine.warを配置 - 失敗warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。起動したら、にアクセスします。問題なければ、Redmineのトップページが表示されるはずです。Oh…エラーになってしまいました。Tomcatのコンソールを確認すると、以下のように表示されていました。[31mCould not find jdbc-mysql-5.1.13 in any of the sources [0m[33mRun `bundle install` to install missing gems. [0m何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…もう一度、bundlerを実行、warファイルを作成mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。&gt;bundle install --without development test前回はmysqlとpostgresqlを--withoutで指定しましたが、その指定を無くしました。これでgemの問題は解決したはずなので、以下のコマンドでwarファイルを生成します。&gt;warbleTomcatにredmine.warを配置 - 成功生成したredmine.warをTomcatに配置して、再度、にアクセスします。Redmineのトップページが表示されました！　この後、以下の作業を行いましたが、問題なく動作しました。  設定を日本語環境に変更  testユーザーを作成  adminユーザーをロック  プロジェクトを作成  チケットを作成、添付ファイルつきCentOSにファイルを移動、Tomcatで動作次に、先ほど作成したredmine.warをCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。なお、CentOSはあらかじめ以下のように設定してください。  Java SDKをインストール  8080番ポートを開放(またはiptablesを無効化)  Apache Tomcatが動作することを確認CentOS上のTomcatにredmine.warを配置Tomcatにwarファイルを配置します。/redmineが初期状態のRedmine、/redmine_testが動作確認したRedmineです。まず、/redmineにアクセスしてみます。Redmineのトップページが表示されました。次に、/redmine_testにアクセスしてみます。Redmineのトップページが表示され、登録したプロジェクトが表示されています。登録したチケットも表示できました。チケットの登録ができることも確認します。チケットが登録できました。これで、Tomcatに展開するだけで使用可能なRedmineを作成できました！　Yeah!">
+<meta name="description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。">
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-  <meta property="og:description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。作成したwarファイル前回・今回の作業で作成したファイルは、以下で配布しています。  u6kapps / redmine-war / Downloads          redmine-yyyymmdd-for-2.1.2.warというファイルです。      ライセンスGNU General Public License v2とします。JRubyがCPL v1.0/GPL v2/LGPL v2.1、RedmineがGPL v2であるためです。war化する作業手順Railsアプリをwar化するwarblerというgemがありますので、これを使用します。warblerをインストール以下のコマンドを実行して、warblerをインストールします。&gt;jgem install warblerwarbler設定ファイルを作成どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。まず、%REDMINE_HOME%で以下のコマンドを実行して、warbler設定ファイルの雛形を生成します。&gt;warble config%REDMINE_HOME%\config\warble.rbが作成されます。開くと色々書かれていますが、dbフォルダ、filesフォルダ、pluginsフォルダをwarファイルに含めるため、config.dirsにdb files pluginsを追記します。config.dirs = %w(app config lib log vendor tmp db files plugins)war化%REDMINE_HOME%で以下のコマンドを実行して、warファイルを生成します。&gt;warble%REDMINE_HOME%\redmine.warファイルが生成されます。Tomcatにredmine.warを配置 - 失敗warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。起動したら、にアクセスします。問題なければ、Redmineのトップページが表示されるはずです。Oh…エラーになってしまいました。Tomcatのコンソールを確認すると、以下のように表示されていました。[31mCould not find jdbc-mysql-5.1.13 in any of the sources [0m[33mRun `bundle install` to install missing gems. [0m何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…もう一度、bundlerを実行、warファイルを作成mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。&gt;bundle install --without development test前回はmysqlとpostgresqlを--withoutで指定しましたが、その指定を無くしました。これでgemの問題は解決したはずなので、以下のコマンドでwarファイルを生成します。&gt;warbleTomcatにredmine.warを配置 - 成功生成したredmine.warをTomcatに配置して、再度、にアクセスします。Redmineのトップページが表示されました！　この後、以下の作業を行いましたが、問題なく動作しました。  設定を日本語環境に変更  testユーザーを作成  adminユーザーをロック  プロジェクトを作成  チケットを作成、添付ファイルつきCentOSにファイルを移動、Tomcatで動作次に、先ほど作成したredmine.warをCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。なお、CentOSはあらかじめ以下のように設定してください。  Java SDKをインストール  8080番ポートを開放(またはiptablesを無効化)  Apache Tomcatが動作することを確認CentOS上のTomcatにredmine.warを配置Tomcatにwarファイルを配置します。/redmineが初期状態のRedmine、/redmine_testが動作確認したRedmineです。まず、/redmineにアクセスしてみます。Redmineのトップページが表示されました。次に、/redmine_testにアクセスしてみます。Redmineのトップページが表示され、登録したプロジェクトが表示されています。登録したチケットも表示できました。チケットの登録ができることも確認します。チケットが登録できました。これで、Tomcatに展開するだけで使用可能なRedmineを作成できました！　Yeah!">
+  <meta property="og:description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。">
 
 
 
@@ -56,7 +56,7 @@
 
   <meta name="twitter:site" content="@u6k_yu1">
   <meta name="twitter:title" content="Redmineをwar化 (2) warblerでwar化する">
-  <meta name="twitter:description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。作成したwarファイル前回・今回の作業で作成したファイルは、以下で配布しています。  u6kapps / redmine-war / Downloads          redmine-yyyymmdd-for-2.1.2.warというファイルです。      ライセンスGNU General Public License v2とします。JRubyがCPL v1.0/GPL v2/LGPL v2.1、RedmineがGPL v2であるためです。war化する作業手順Railsアプリをwar化するwarblerというgemがありますので、これを使用します。warblerをインストール以下のコマンドを実行して、warblerをインストールします。&gt;jgem install warblerwarbler設定ファイルを作成どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。まず、%REDMINE_HOME%で以下のコマンドを実行して、warbler設定ファイルの雛形を生成します。&gt;warble config%REDMINE_HOME%\config\warble.rbが作成されます。開くと色々書かれていますが、dbフォルダ、filesフォルダ、pluginsフォルダをwarファイルに含めるため、config.dirsにdb files pluginsを追記します。config.dirs = %w(app config lib log vendor tmp db files plugins)war化%REDMINE_HOME%で以下のコマンドを実行して、warファイルを生成します。&gt;warble%REDMINE_HOME%\redmine.warファイルが生成されます。Tomcatにredmine.warを配置 - 失敗warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。起動したら、にアクセスします。問題なければ、Redmineのトップページが表示されるはずです。Oh…エラーになってしまいました。Tomcatのコンソールを確認すると、以下のように表示されていました。[31mCould not find jdbc-mysql-5.1.13 in any of the sources [0m[33mRun `bundle install` to install missing gems. [0m何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…もう一度、bundlerを実行、warファイルを作成mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。&gt;bundle install --without development test前回はmysqlとpostgresqlを--withoutで指定しましたが、その指定を無くしました。これでgemの問題は解決したはずなので、以下のコマンドでwarファイルを生成します。&gt;warbleTomcatにredmine.warを配置 - 成功生成したredmine.warをTomcatに配置して、再度、にアクセスします。Redmineのトップページが表示されました！　この後、以下の作業を行いましたが、問題なく動作しました。  設定を日本語環境に変更  testユーザーを作成  adminユーザーをロック  プロジェクトを作成  チケットを作成、添付ファイルつきCentOSにファイルを移動、Tomcatで動作次に、先ほど作成したredmine.warをCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。なお、CentOSはあらかじめ以下のように設定してください。  Java SDKをインストール  8080番ポートを開放(またはiptablesを無効化)  Apache Tomcatが動作することを確認CentOS上のTomcatにredmine.warを配置Tomcatにwarファイルを配置します。/redmineが初期状態のRedmine、/redmine_testが動作確認したRedmineです。まず、/redmineにアクセスしてみます。Redmineのトップページが表示されました。次に、/redmine_testにアクセスしてみます。Redmineのトップページが表示され、登録したプロジェクトが表示されています。登録したチケットも表示できました。チケットの登録ができることも確認します。チケットが登録できました。これで、Tomcatに展開するだけで使用可能なRedmineを作成できました！　Yeah!">
+  <meta name="twitter:description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。">
   <meta name="twitter:url" content="">
 
   
@@ -301,7 +301,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Redmineをwar化 (2) warblerでwar化する">
-    <meta itemprop="description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。作成したwarファイル前回・今回の作業で作成したファイルは、以下で配布しています。  u6kapps / redmine-war / Downloads          redmine-yyyymmdd-for-2.1.2.warというファイルです。      ライセンスGNU General Public License v2とします。JRubyがCPL v1.0/GPL v2/LGPL v2.1、RedmineがGPL v2であるためです。war化する作業手順Railsアプリをwar化するwarblerというgemがありますので、これを使用します。warblerをインストール以下のコマンドを実行して、warblerをインストールします。&gt;jgem install warblerwarbler設定ファイルを作成どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。まず、%REDMINE_HOME%で以下のコマンドを実行して、warbler設定ファイルの雛形を生成します。&gt;warble config%REDMINE_HOME%\config\warble.rbが作成されます。開くと色々書かれていますが、dbフォルダ、filesフォルダ、pluginsフォルダをwarファイルに含めるため、config.dirsにdb files pluginsを追記します。config.dirs = %w(app config lib log vendor tmp db files plugins)war化%REDMINE_HOME%で以下のコマンドを実行して、warファイルを生成します。&gt;warble%REDMINE_HOME%\redmine.warファイルが生成されます。Tomcatにredmine.warを配置 - 失敗warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。起動したら、にアクセスします。問題なければ、Redmineのトップページが表示されるはずです。Oh…エラーになってしまいました。Tomcatのコンソールを確認すると、以下のように表示されていました。[31mCould not find jdbc-mysql-5.1.13 in any of the sources [0m[33mRun `bundle install` to install missing gems. [0m何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…もう一度、bundlerを実行、warファイルを作成mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。&gt;bundle install --without development test前回はmysqlとpostgresqlを--withoutで指定しましたが、その指定を無くしました。これでgemの問題は解決したはずなので、以下のコマンドでwarファイルを生成します。&gt;warbleTomcatにredmine.warを配置 - 成功生成したredmine.warをTomcatに配置して、再度、にアクセスします。Redmineのトップページが表示されました！　この後、以下の作業を行いましたが、問題なく動作しました。  設定を日本語環境に変更  testユーザーを作成  adminユーザーをロック  プロジェクトを作成  チケットを作成、添付ファイルつきCentOSにファイルを移動、Tomcatで動作次に、先ほど作成したredmine.warをCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。なお、CentOSはあらかじめ以下のように設定してください。  Java SDKをインストール  8080番ポートを開放(またはiptablesを無効化)  Apache Tomcatが動作することを確認CentOS上のTomcatにredmine.warを配置Tomcatにwarファイルを配置します。/redmineが初期状態のRedmine、/redmine_testが動作確認したRedmineです。まず、/redmineにアクセスしてみます。Redmineのトップページが表示されました。次に、/redmine_testにアクセスしてみます。Redmineのトップページが表示され、登録したプロジェクトが表示されています。登録したチケットも表示できました。チケットの登録ができることも確認します。チケットが登録できました。これで、Tomcatに展開するだけで使用可能なRedmineを作成できました！　Yeah!">
+    <meta itemprop="description" content="前回、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。">
     <meta itemprop="datePublished" content="2012-10-13">
     
 
@@ -312,16 +312,41 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-13T00:33:00+09:00">2012-10-13</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-10-13T00:33:00+09:00">2012-10-13</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
-        <p><a href="http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html">前回</a>、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。</p>
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#作成したwarファイル">作成したwarファイル</a></li>
+  <li><a href="#ライセンス">ライセンス</a></li>
+  <li><a href="#war化する作業手順">war化する作業手順</a>
+    <ul>
+      <li><a href="#warblerをインストール">warblerをインストール</a></li>
+      <li><a href="#warbler設定ファイルを作成">warbler設定ファイルを作成</a></li>
+      <li><a href="#war化">war化</a></li>
+      <li><a href="#tomcatにredminewarを配置---失敗">Tomcatにredmine.warを配置 - 失敗</a></li>
+      <li><a href="#もう一度bundlerを実行warファイルを作成">もう一度、bundlerを実行、warファイルを作成</a></li>
+      <li><a href="#tomcatにredminewarを配置---成功">Tomcatにredmine.warを配置 - 成功</a></li>
+    </ul>
+  </li>
+  <li><a href="#centosにファイルを移動tomcatで動作">CentOSにファイルを移動、Tomcatで動作</a>
+    <ul>
+      <li><a href="#centos上のtomcatにredminewarを配置">CentOS上のTomcatにredmine.warを配置</a></li>
+    </ul>
+  </li>
+</ul>
 
-<!-- more -->
+            </nav>
+          </aside>
+        
+        <p><a href="http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html">前回</a>、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。</p>
 
 <h2 id="作成したwarファイル">作成したwarファイル</h2>
 
@@ -335,22 +360,22 @@
   </li>
 </ul>
 
-<h1 id="ライセンス">ライセンス</h1>
+<h2 id="ライセンス">ライセンス</h2>
 
 <p><a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License v2</a>とします。<a href="https://github.com/jruby/jruby/blob/master/COPYING">JRubyがCPL v1.0/GPL v2/LGPL v2.1</a>、<a href="http://www.redmine.org/">RedmineがGPL v2</a>であるためです。</p>
 
-<h1 id="war化する作業手順">war化する作業手順</h1>
+<h2 id="war化する作業手順">war化する作業手順</h2>
 
 <p>Railsアプリをwar化するwarblerというgemがありますので、これを使用します。</p>
 
-<h2 id="warblerをインストール">warblerをインストール</h2>
+<h3 id="warblerをインストール">warblerをインストール</h3>
 
 <p>以下のコマンドを実行して、warblerをインストールします。</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;jgem install warbler
 </code></pre></div></div>
 
-<h2 id="warbler設定ファイルを作成">warbler設定ファイルを作成</h2>
+<h3 id="warbler設定ファイルを作成">warbler設定ファイルを作成</h3>
 
 <p>どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。</p>
 
@@ -364,7 +389,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config.dirs = %w(app config lib log vendor tmp db files plugins)
 </code></pre></div></div>
 
-<h2 id="war化">war化</h2>
+<h3 id="war化">war化</h3>
 
 <p><code class="highlighter-rouge">%REDMINE_HOME%</code>で以下のコマンドを実行して、warファイルを生成します。</p>
 
@@ -373,7 +398,7 @@
 
 <p><code class="highlighter-rouge">%REDMINE_HOME%\redmine.war</code>ファイルが生成されます。</p>
 
-<h2 id="tomcatにredminewarを配置---失敗">Tomcatにredmine.warを配置 - 失敗</h2>
+<h3 id="tomcatにredminewarを配置---失敗">Tomcatにredmine.warを配置 - 失敗</h3>
 
 <p>warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。</p>
 
@@ -389,7 +414,7 @@
 
 <p>何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…</p>
 
-<h2 id="もう一度bundlerを実行warファイルを作成">もう一度、bundlerを実行、warファイルを作成</h2>
+<h3 id="もう一度bundlerを実行warファイルを作成">もう一度、bundlerを実行、warファイルを作成</h3>
 
 <p>mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。</p>
 
@@ -403,7 +428,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;warble
 </code></pre></div></div>
 
-<h2 id="tomcatにredminewarを配置---成功">Tomcatにredmine.warを配置 - 成功</h2>
+<h3 id="tomcatにredminewarを配置---成功">Tomcatにredmine.warを配置 - 成功</h3>
 
 <p>生成した<code class="highlighter-rouge">redmine.war</code>をTomcatに配置して、再度、<a href="http://localhost:8080/redmine/"></a>にアクセスします。</p>
 
@@ -421,7 +446,7 @@
 
 <p><img src="/assets/img/2012-10-13-build-redmine-war-2/003.png" alt="" /></p>
 
-<h1 id="centosにファイルを移動tomcatで動作">CentOSにファイルを移動、Tomcatで動作</h1>
+<h2 id="centosにファイルを移動tomcatで動作">CentOSにファイルを移動、Tomcatで動作</h2>
 
 <p>次に、先ほど作成した<code class="highlighter-rouge">redmine.war</code>をCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。</p>
 
@@ -433,7 +458,7 @@
   <li>Apache Tomcatが動作することを確認</li>
 </ul>
 
-<h2 id="centos上のtomcatにredminewarを配置">CentOS上のTomcatに<code class="highlighter-rouge">redmine.war</code>を配置</h2>
+<h3 id="centos上のtomcatにredminewarを配置">CentOS上のTomcatに<code class="highlighter-rouge">redmine.war</code>を配置</h3>
 
 <p>Tomcatにwarファイルを配置します。</p>
 

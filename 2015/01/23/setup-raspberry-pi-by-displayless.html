@@ -312,18 +312,44 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T13:59:00+09:00">2015-01-23</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-01-23T13:59:00+09:00">2015-01-23</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 10 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#作業前提">作業前提</a></li>
+  <li><a href="#使った機材">使った機材</a></li>
+  <li><a href="#セットアップ後の状態">セットアップ後の状態</a></li>
+  <li><a href="#作業手順">作業手順</a>
+    <ul>
+      <li><a href="#microsdにraspbianをインストール">microSDにRaspbianをインストール</a></li>
+      <li><a href="#raspberry-piを起動">Raspberry Piを起動</a></li>
+      <li><a href="#外付けhddにファイルを移行">外付けHDDにファイルを移行</a></li>
+      <li><a href="#初期設定作業">初期設定作業</a></li>
+      <li><a href="#無線lanを設定">無線LANを設定</a></li>
+      <li><a href="#スピードテストを実施">スピードテストを実施</a></li>
+      <li><a href="#sshを鍵認証方式に設定">sshを鍵認証方式に設定</a></li>
+      <li><a href="#iptablesを設定">iptablesを設定</a></li>
+      <li><a href="#外部から接続">外部から接続</a></li>
+      <li><a href="#usbポートに12aの電力供給を設定">USBポートに1.2Aの電力供給を設定</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。</p>
 
-<!-- more -->
-
-<h1 id="作業前提">作業前提</h1>
+<h2 id="作業前提">作業前提</h2>
 
 <ul>
   <li>MacBookProで作業しました。Windowsでも適宜読み替えてもらえば、作業可能なはずです。</li>
@@ -334,7 +360,7 @@
   </li>
 </ul>
 
-<h1 id="使った機材">使った機材</h1>
+<h2 id="使った機材">使った機材</h2>
 
 <ul>
   <li>Rasberry Pi Model B+
@@ -376,7 +402,7 @@
   </li>
 </ul>
 
-<h1 id="セットアップ後の状態">セットアップ後の状態</h1>
+<h2 id="セットアップ後の状態">セットアップ後の状態</h2>
 
 <ul>
   <li>ネットワーク接続…Wi-Fi
@@ -401,9 +427,9 @@
   <li>メモリ…GPU割り当てを最小(16MB)。</li>
 </ul>
 
-<h1 id="作業手順">作業手順</h1>
+<h2 id="作業手順">作業手順</h2>
 
-<h2 id="microsdにraspbianをインストール">microSDにRaspbianをインストール</h2>
+<h3 id="microsdにraspbianをインストール">microSDにRaspbianをインストール</h3>
 
 <p>MacBookProで作業します。</p>
 
@@ -428,7 +454,7 @@
 
 <p><code class="highlighter-rouge">df</code>でデバイス名を確認、<code class="highlighter-rouge">diskutil</code>でmicroSDをアンマウント、<code class="highlighter-rouge">dd</code>でmicroSDにイメージを書き込み、<code class="highlighter-rouge">e2fsck</code>でファイル破損チェックを行っています。</p>
 
-<h2 id="raspberry-piを起動">Raspberry Piを起動</h2>
+<h3 id="raspberry-piを起動">Raspberry Piを起動</h3>
 
 <p>microSDをRaspberry Piに挿入し、LANケーブルを接続し、電源を接続して起動します。Raspberry Piには電源スイッチが無く、通電すると自動的に起動するので注意してください。この時点では、外付けHDD、USB無線LANアダプターは接続しません。</p>
 
@@ -444,7 +470,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>halt
 </code></pre></div></div>
 
-<h2 id="外付けhddにファイルを移行">外付けHDDにファイルを移行</h2>
+<h3 id="外付けhddにファイルを移行">外付けHDDにファイルを移行</h3>
 
 <p>※microSDのみで運用する場合、この手順は不要です。
 <strong>※筆者はこの手順をRaspberry Piで作業を行いましたが、Linux PCを用意して作業したほうが良いです。</strong></p>
@@ -517,7 +543,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">df</span> <span class="nt">-h</span>
 </code></pre></div></div>
 
-<h2 id="初期設定作業">初期設定作業</h2>
+<h3 id="初期設定作業">初期設定作業</h3>
 
 <p><code class="highlighter-rouge">raspi-config</code>で初期設定を行います。</p>
 
@@ -570,7 +596,7 @@
   <p>NOTE: piユーザーを削除・リネームするなどして使えなくしたほうがセキュリティ的に良いかもしれません。</p>
 </blockquote>
 
-<h2 id="無線lanを設定">無線LANを設定</h2>
+<h3 id="無線lanを設定">無線LANを設定</h3>
 
 <p>※有線で運用する場合、この手順は不要です。</p>
 
@@ -619,7 +645,7 @@ wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 <p>以降、LANケーブルを外してWi-Fiで作業します。</p>
 
-<h2 id="スピードテストを実施">スピードテストを実施</h2>
+<h3 id="スピードテストを実施">スピードテストを実施</h3>
 
 <p>※この作業は必要ではありません。気になる場合に実施します。</p>
 
@@ -630,7 +656,7 @@ wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 <span class="nv">$ </span>speedtest-cli
 </code></pre></div></div>
 
-<h2 id="sshを鍵認証方式に設定">sshを鍵認証方式に設定</h2>
+<h3 id="sshを鍵認証方式に設定">sshを鍵認証方式に設定</h3>
 
 <p>パスワード認証方式を無効にして、鍵認証方式のみを有効にします。</p>
 
@@ -691,7 +717,7 @@ ChallengeResponseAuthentication no
   <li>作業ユーザーのログインが、パスワード認証に失敗し、公開鍵認証に成功すること。</li>
 </ul>
 
-<h2 id="iptablesを設定">iptablesを設定</h2>
+<h3 id="iptablesを設定">iptablesを設定</h3>
 
 <p>ufwを使用して、iptablesの設定を行います。</p>
 
@@ -729,7 +755,7 @@ ChallengeResponseAuthentication no
 例: <code class="highlighter-rouge">$ sudo ufw delete allow 22</code></p>
 </blockquote>
 
-<h2 id="外部から接続">外部から接続</h2>
+<h3 id="外部から接続">外部から接続</h3>
 
 <p>※LAN内でのみ運用する場合、この手順は不要です。</p>
 
@@ -764,7 +790,7 @@ ChallengeResponseAuthentication no
 
 <p>LAN、WANから、ドメイン名指定でssh接続できることを確認します。</p>
 
-<h2 id="usbポートに12aの電力供給を設定">USBポートに1.2Aの電力供給を設定</h2>
+<h3 id="usbポートに12aの電力供給を設定">USBポートに1.2Aの電力供給を設定</h3>
 
 <p>初期状態では0.6Aまでに制限されており、1.2Aまで電力供給するように設定します。電力供給が少ないと、USBポートから電力を確保しているUSB HDDやWi-Fiアダプターなどの動作が不安定になるようです。</p>
 
@@ -787,7 +813,7 @@ max_usb_current=1
   </li>
 </ul>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="http://qiita.com/jh3rox/items/684ba1e746a6a3763b5c">RaspberryPi - Raspberry Pi Model B+セットアップ - Qiita</a></li>

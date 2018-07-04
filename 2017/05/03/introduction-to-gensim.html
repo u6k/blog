@@ -312,16 +312,30 @@
 </h1>
           
           
-            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-03T00:00:00+09:00">2017-05-03</time></p></p>
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-03T00:00:00+09:00">2017-05-03</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 3 minutes</p></p>
           
         </header>
       
 
       <section class="page__content" itemprop="text">
         
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#トピック分析ldagensimとは">トピック分析、LDA、gensimとは</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#手順">手順</a></li>
+  <li><a href="#参考">参考</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
         <p>手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。</p>
 
-<h1 id="トピック分析ldagensimとは">トピック分析、LDA、gensimとは</h1>
+<h2 id="トピック分析ldagensimとは">トピック分析、LDA、gensimとは</h2>
 
 <p>詳しく理解してはいないので、簡単に言うと、</p>
 
@@ -342,7 +356,7 @@
   <li>分類したい文章をLDAモデルで分類</li>
 </ul>
 
-<h1 id="前提">前提</h1>
+<h2 id="前提">前提</h2>
 
 <ul>
   <li>Docker
@@ -383,7 +397,7 @@ Python 2.7.13
   <li>gensim 2.0.0</li>
 </ul>
 
-<h1 id="手順">手順</h1>
+<h2 id="手順">手順</h2>
 
 <p>pythonコンテナを起動します。</p>
 
@@ -617,7 +631,7 @@ test_corpus = [dictionary.doc2bow(text) for text in test_texts]
 
 <p>この結果から文章は、約0.60でトピック3だと推定されます。</p>
 
-<h1 id="参考">参考</h1>
+<h2 id="参考">参考</h2>
 
 <ul>
   <li><a href="https://radimrehurek.com/gensim/tut1.html">gensim: Corpora and Vector Spaces</a></li>

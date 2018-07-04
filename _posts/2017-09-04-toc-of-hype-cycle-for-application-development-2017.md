@@ -10,9 +10,9 @@ date: 2017-09-04 07:00:00+09:00
 
 <!-- more -->
 
-# Hype Cycle for Application Development, 2017
+## Hype Cycle for Application Development, 2017
 
-## On the Rise(黎明期)
+### On the Rise(黎明期)
 
 - Project Management Bots(プロジェクト管理Bot)
 - Quality Engineering(品質技術)
@@ -24,7 +24,7 @@ date: 2017-09-04 07:00:00+09:00
 - Conversational User Interfaces(会話型ユーザー・インターフェイス)
 - Product-Centric Delivery Model(製品中心デリバリー・モデル？)
 
-## At the Peak(流行期)
+### At the Peak(流行期)
 
 - Enterprise Agile Frameworks(企業向けアジャイル・フレームワーク)
 - Integrated IT Portfolio Analysis(統合ITポートフォリオ分析？)
@@ -38,7 +38,7 @@ date: 2017-09-04 07:00:00+09:00
 - Enterprise-Class Agile Development(企業向けアジャイル開発)
 - Reactive Programming(リアクティブ・プログラミング)
 
-## Sliding Into the Trough(幻滅期)
+### Sliding Into the Trough(幻滅期)
 
 - Application Portfolio Management(アプリケーション・ポートフォリオ管理)
 - Behavior-Driven Development(振舞駆動開発)
@@ -51,7 +51,7 @@ date: 2017-09-04 07:00:00+09:00
 - adPaaS(AD PaaS？)
 - PaaS Frameworks(PaaSフレームワーク)
 
-## Climbing the Slope(回復期)
+### Climbing the Slope(回復期)
 
 - Apps(Apps？)
 - SOA Testing(SOAテスト)

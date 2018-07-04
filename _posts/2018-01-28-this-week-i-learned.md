@@ -8,7 +8,7 @@ date: 2018-01-28 23:50:00+09:00
 
 今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。
 
-# ニュース
+## ニュース
 
 - [Web Developer Roadmap 2018が出たので2017年版と比較してみる - Qiita](https://qiita.com/sirootosan/items/f2f7c20bd604e4542db1)
 - [WebはHTML/CSSから学びはじめるべきか｜HTMLも知らない人にIonic本をさせた知見 - Qiita](https://qiita.com/rdlabo/items/8686ffdf9a5e76a68983)
@@ -17,11 +17,11 @@ date: 2018-01-28 23:50:00+09:00
 - [Ethereumの学習フローを整理した - Qiita](https://qiita.com/shiki_tak/items/bf080787b9bb3343ae46)
 - [いまどきJavascript　基本の「き」 - Qiita](https://qiita.com/iwason/items/bcd2485d11c88c5a058e)
 
-# リリース情報
+## リリース情報
 
 今週は記事執筆もなし。アウトライナーには溜まっているのだけど。
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

@@ -12,9 +12,7 @@ redirect_from:
 自宅Raspberry Piが正常に動作しているかを確認したく、外部にZabbix Serverを構築して監視するようにしました。ただこれは過渡期で、将来的にはRaspberry PiでZabbix Serverを動作させ、外部からはAlertMe監視のみにします。
 この文書では、試行錯誤して構築した作業を記録します。
 
-<!-- more -->
-
-# パッケージインストール→失敗
+## パッケージインストール→失敗
 
 インストールできるか確認するため、qemu for Windows上でRaspbianを動作させ、そこで動作確認をしています。
 
@@ -30,11 +28,11 @@ E: Some index files failed to download. They have been ignored, or old ones used
 E: Couldn't rebuild package cache
 ```
 
-# ソースコードからインストール
+## ソースコードからインストール
 
 ソースコードをダウンロード、`--enable-agentd`のみにしたら`configure`が成功しました。そのまま、`make install`も成功しました。
 
-# Zabbix Server on OpenShiftを構築→失敗
+## Zabbix Server on OpenShiftを構築→失敗
 
 下記でインストールしました。
 
@@ -71,11 +69,11 @@ Zabbixは通常、10050番、10051番ポートを使用しますが、15050番�
 
 →`rhc port-forward`はローカルPC→OpenShiftのsshフォワーディングっぽい。よって、この方法は断念。
 
-# DigitalOceanのCentOSにZabbixをインストール
+## DigitalOceanのCentOSにZabbixをインストール
 
 OpenShiftにZabbix Serverを構築するのは諦めて、DigitalOceanに構築することにしました。
 
-## Dropletを作成する
+### Dropletを作成する
 
 - Droplet Hostname
 	- zabbix
@@ -86,7 +84,7 @@ OpenShiftにZabbix Serverを構築するのは諦めて、DigitalOceanに構築�
 - Select Image
 	- CENTOS 6.5 x64
 
-## 作業ユーザーを作成する
+### 作業ユーザーを作成する
 
 `root`でsshログインします。
 
@@ -105,7 +103,7 @@ OpenShiftにZabbix Serverを構築するのは諦めて、DigitalOceanに構築�
 u6k ALL=(ALL) NOPASSWD: ALL
 ```
 
-## ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する
+### ローカルPCで鍵を作成し、公開鍵を作業ユーザーに設定する
 
 PUTTYgenで作成しました。
 
@@ -117,7 +115,7 @@ ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
 
 以降、`u6k`ユーザーで作業します。
 
-### NOTE: ssh-copy-idが失敗することがある
+#### NOTE: ssh-copy-idが失敗することがある
 
 ```
 $ ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
@@ -128,7 +126,7 @@ $ ssh-copy-id -i id_rsa_digital_ocean.pub u6k@104.131.110.177
 
 結局、手動でコピーしたほうが良いかも。
 
-## sshdの設定を変更する
+### sshdの設定を変更する
 
 ```
 $ sudo vi /etc/ssh/sshd_config
@@ -152,7 +150,7 @@ $ sudo service sshd restart
 
 新規にsshセッションを起動し、rootログイン出来ないこと、パスワード認証できないこと、新しいポート番号で接続できること、を確認します。万が一、設定に失敗してssh接続できなくなると非常に困るので、この確認ができるまではsshセッションは切断しないように注意します。
 
-## ufwでファイアウォールを設定する
+### ufwでファイアウォールを設定する
 
 ```
 $ sudo yum -y install wget
@@ -211,14 +209,14 @@ To                         Action      From
 * 参考
 	* [ufwをcentosにインストール - Qiita](http://qiita.com/soramugi/items/d0514895340fc8fa3430)
 
-## 開発パッケージをインストールする
+### 開発パッケージをインストールする
 
 ```
 $ sudo yum -y update
 $ sudo yum -y groupinstall "Development tools"
 ```
 
-## MySQLをインストールする
+### MySQLをインストールする
 
 ```
 $ sudo yum -y install mysql-server mysql-devel
@@ -232,7 +230,7 @@ $ sudo service mysqld start
 $ mysql -u root
 ```
 
-## Zabbixをパッケージでインストールする
+### Zabbixをパッケージでインストールする
 
 * 参考
 	* [3 パッケージからのインストール [Zabbix Documentation 2.2]](https://www.zabbix.com/documentation/2.2/jp/manual/installation/install_from_packages)
@@ -333,7 +331,7 @@ Zabbix管理サイトに戻り、`Admin`ユーザーのパスワードを変更�
 
 次に、`Zabbix server`のStatusを`Monitored`に変更し、監視を開始します。しばらくしてからグラフを表示して、監視が正常動作していることを確認します。
 
-## NOTE: Lack of free swap space on Zabbix server
+### NOTE: Lack of free swap space on Zabbix server
 
 Zabbixはスワップ領域を監視しますが、`Lack of free swap space on Zabbix server`はスワップ領域が不足している or 存在しないことを表すエラーです。
 
@@ -352,13 +350,13 @@ $ sudo swapon -a
 * 参考
 	* [ZabbixでLack of free swap spaceのエラーが出るときの対処 | Scribble](http://scribble.washo3.com/linux/zabbix%E3%81%A7lack-of-free-swap-space%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%8C%E5%87%BA%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E5%AF%BE%E5%87%A6.html)
 
-# Raspberry PiにZabbix Agentをインストール
+## Raspberry PiにZabbix Agentをインストール
 
-## Zabbix管理サイトにホストを追加する
+### Zabbix管理サイトにホストを追加する
 
 Zabbix管理サイトのホストにRaspberry Piを追加します。この時点では、Zabbixエージェントが動作していないので、監視が失敗します。
 
-## Zabbixエージェントをソースコードからインストールする
+### Zabbixエージェントをソースコードからインストールする
 
 Zabbixソースコードをダウンロードし、展開します。
 
@@ -402,11 +400,11 @@ $ sudo /usr/local/sbin/zabbix_agentd
 
 しばらくして、Zabbix管理サイトのステータスを確認します。
 
-## Zabbix Agentのログ
+### Zabbix Agentのログ
 
 `/tmp/zabbix_agentd.log`に出力されます。`/var/log/`以下でないことに注意(多くのサイトでは`/var/log/zabbix/`以下で説明されていますが、なぜ違うのだろう…)。
 
-## Zabbix監視が問題のまま
+### Zabbix監視が問題のまま
 
 `Received empty response from Zabbix Agent at Assuming that agent dropped connection because of access permission`
 
@@ -427,7 +425,7 @@ Zabbix管理サイトを見たら、状況が変化していました。
 
 `Lack of free swap space on 自宅Raspberry Pi`が出力されたので、Zabbixサーバーと同様に解消しました。
 
-# Zabbix Agentをサーバー起動時に起動
+## Zabbix Agentをサーバー起動時に起動
 
 `zabbix_agentd`を停止するには`kill -TERM`するしかなさそうです。また、このままではサーバー起動時にZabbix Agentが起動しません。これを解決するため、`zabbix_agentd`の起動スクリプトを作成します。
 
@@ -486,7 +484,7 @@ $ sudo service zabbix_agentd stop
 * 参考
 	* [ZABBIXエージェントの停止方法（AIXエージェント） | ZABBIX-JP](http://www.zabbix.jp/node/557)
 
-# Raspberry PiのCPU温度をZabbix Serverに送信
+## Raspberry PiのCPU温度をZabbix Serverに送信
 
 `zabbix_sender`を使用してRaspberry PiのCPU温度をZabbix Serverに送信します。
 
@@ -514,7 +512,7 @@ $ zabbix_sender -z 104.131.110.177 -s RPi -k system.cpu.temp -o `cat /sys/class/
 
 問題なければ、上記コマンドをcrontabやJenkinsなどで定期実行するように設定します。
 
-# 参考
+## 参考
 
 - [Introducing Zabbix Monitoring Cartridges for OpenShift – OpenShift Blog](https://blog.openshift.com/introducing-zabbix-monitoring-cartridges-for-openshift/)
 - [Zabbix on the Raspberry Pi (OS Raspbian) - Zabbix.org](https://www.zabbix.org/wiki/Zabbix_on_the_Raspberry_Pi_(OS_Raspbian))

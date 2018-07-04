@@ -13,8 +13,6 @@ redirect_from:
 
 [前回](http://u6k-apps.blogspot.jp/2012/10/redminewar-1-redminejruby.html)、Redmine+JRubyを動かすところまで作業を行いました。次はこの環境をwar化して、Apache TomcatなどのServletコンテナーに簡単に配置できるようにします。
 
-<!-- more -->
-
 ## 作成したwarファイル
 
 前回・今回の作業で作成したファイルは、以下で配布しています。
@@ -22,15 +20,15 @@ redirect_from:
 * [u6kapps / redmine-war / Downloads](https://bitbucket.org/u6kapps/redmine-war/downloads)
     * `redmine-yyyymmdd-for-2.1.2.war`というファイルです。
 
-# ライセンス
+## ライセンス
 
 [GNU General Public License v2](http://www.gnu.org/licenses/gpl-2.0.html)とします。[JRubyがCPL v1.0/GPL v2/LGPL v2.1](https://github.com/jruby/jruby/blob/master/COPYING)、[RedmineがGPL v2](http://www.redmine.org/)であるためです。
 
-# war化する作業手順
+## war化する作業手順
 
 Railsアプリをwar化するwarblerというgemがありますので、これを使用します。
 
-## warblerをインストール
+### warblerをインストール
 
 以下のコマンドを実行して、warblerをインストールします。
 
@@ -38,7 +36,7 @@ Railsアプリをwar化するwarblerというgemがありますので、これ�
 >jgem install warbler
 ```
 
-## warbler設定ファイルを作成
+### warbler設定ファイルを作成
 
 どのファイルをwarファイルに含めるか、どのgemを含めるかなどを指定する、warbler設定ファイルを作成します。
 
@@ -54,7 +52,7 @@ Railsアプリをwar化するwarblerというgemがありますので、これ�
 config.dirs = %w(app config lib log vendor tmp db files plugins)
 ```
 
-## war化
+### war化
 
 `%REDMINE_HOME%`で以下のコマンドを実行して、warファイルを生成します。
 
@@ -64,7 +62,7 @@ config.dirs = %w(app config lib log vendor tmp db files plugins)
 
 `%REDMINE_HOME%\redmine.war`ファイルが生成されます。
 
-## Tomcatにredmine.warを配置 - 失敗
+### Tomcatにredmine.warを配置 - 失敗
 
 warファイルを作成したので、これをTomcatに配置します。なお、Tomcatはあらかじめ起動できる状態にしておいてください。
 
@@ -81,7 +79,7 @@ Oh...エラーになってしまいました。Tomcatのコンソールを確認
 
 何か文字が化けていますが、jdbc-mysqlのgemが足りないと言われています。今回はsqlite3を使用するのでmysqlは関係ないのですが…
 
-## もう一度、bundlerを実行、warファイルを作成
+### もう一度、bundlerを実行、warファイルを作成
 
 mysql(とついでにpostgresql)のgemを含めるため、以下のコマンドを実行します。
 
@@ -97,7 +95,7 @@ mysql(とついでにpostgresql)のgemを含めるため、以下のコマンド
 >warble
 ```
 
-## Tomcatにredmine.warを配置 - 成功
+### Tomcatにredmine.warを配置 - 成功
 
 生成した`redmine.war`をTomcatに配置して、再度、[](http://localhost:8080/redmine/)にアクセスします。
 
@@ -113,7 +111,7 @@ Redmineのトップページが表示されました！　この後、以下の�
 
 ![](/assets/img/2012-10-13-build-redmine-war-2/003.png)
 
-# CentOSにファイルを移動、Tomcatで動作
+## CentOSにファイルを移動、Tomcatで動作
 
 次に、先ほど作成した`redmine.war`をCentOSに移動し、CentOS上のTomcatに配置、動作させてみます。また、動作確認したファイルも動作確認します。これにより、OS関係なくServletコンテナーがあれば動作することを確認します。
 
@@ -123,7 +121,7 @@ Redmineのトップページが表示されました！　この後、以下の�
 * 8080番ポートを開放(またはiptablesを無効化)
 * Apache Tomcatが動作することを確認
 
-## CentOS上のTomcatに`redmine.war`を配置
+### CentOS上のTomcatに`redmine.war`を配置
 
 Tomcatにwarファイルを配置します。
 

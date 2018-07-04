@@ -10,9 +10,7 @@ redirect_from:
 
 Raspberry PiでDockerを動かしたい、となるとOSはSnappy Ubuntu Coreになります([Docker Pirates ARMed with explosive stuff](http://blog.hypriot.com/)というのもありますが)。Snappy Ubuntu Coreは触ったことがないので、お試しとしてVirtualBox(Vagrant)上のSnappy Ubuntu CoreでDockerを動かしてみます。
 
-<!-- more -->
-
-# 確認したいこと
+## 確認したいこと
 
 * VagrantでSnappy Ubuntu Coreを動作させます。
 * Snappy Ubuntu Core上でDockerfileをビルドします。
@@ -20,16 +18,16 @@ Raspberry PiでDockerを動かしたい、となるとOSはSnappy Ubuntu Coreに
 
 今回は簡単な動作確認なので、GitHubリポジトリは作成していません。
 
-# 前提条件
+## 前提条件
 
 * Surface Pro 4 + Windows 10
     * VirtualBox(Vagrant)が使えれば、他OSでも問題無いはずです。
 * VirtualBox + Vagrant
     * VirtualBoxはVagrantで操作します。
 
-# 確認手順
+## 確認手順
 
-## Snappy Ubuntu Coreを起動する
+### Snappy Ubuntu Coreを起動する
 
 `ubuntu/ubuntu-15.04-snappy-core-stable`というVagrant boxが使えますので、これを起動します。
 
@@ -41,7 +39,7 @@ vagrant ssh
 
 今回はWebDMを使わないので、ポート・フォワード設定は行いません。WebDMを使う場合は、4200番ポートをフォワードすれば、ホストOSのWebブラウザからWebDMを使うことができます。
 
-## Dockerをインストールする
+### Dockerをインストールする
 
 Snappy Ubuntu Coreは`snappy`コマンドでパッケージを操作します。
 
@@ -63,7 +61,7 @@ $ docker -v
 Docker version 1.6.2, build 8f2d6e5
 ```
 
-## Dockerイメージをビルドする
+### Dockerイメージをビルドする
 
 Dockerイメージの元となるDockerfileを以下のように作成します([u6k/ruby-docker](https://github.com/u6k/ruby-docker)から)。
 
@@ -104,7 +102,7 @@ ubuntu                latest              56063ad57855        6 days ago        
 
 イメージがビルドされました。
 
-## Dockerコンテナーを実行する
+### Dockerコンテナーを実行する
 
 ビルドしたイメージを実行してみます。
 
@@ -115,7 +113,7 @@ ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-linux]
 
 普通に実行できました。
 
-# おわりに
+## おわりに
 
 というわけで、自宅RaspberryPiでSnappy Ubuntu Coreを動作させるようになったら、
 

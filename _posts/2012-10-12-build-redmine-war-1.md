@@ -13,9 +13,7 @@ redirect_from:
 
 Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとwar化できる！　というわけで、Redmineを簡単セットアップできるように、war化したいと思います。とりあえずJRuby+Redmineを動作させます。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 以下の環境で作業しました。
 
@@ -24,11 +22,11 @@ Redmineのセットアップは面倒！　でも、JRubyでwarblerを使うとw
     * SDKじゃなくてもいいはず。
 * JRuby 1.7.0 RC 2
 
-# 作業手順
+## 作業手順
 
 基本的にはRedmine 2.1を[CentOS 6.3にインストールする手順 | Redmine.JP Blog](http://blog.redmine.jp/articles/redmine-2_1-installation_centos/)に沿って進めます。ただし、Linux特有の手順や不必要な手順は実施しません。
 
-## bundlerをインストール
+### bundlerをインストール
 
 Redmineが使用するGemを一括インストールするためのツール、bundlerをインストールします。
 
@@ -36,15 +34,15 @@ Redmineが使用するGemを一括インストールするためのツール、b
 >jgem install bundler --no-rdoc --no-ri
 ```
 
-## Redmineをダウンロード、展開
+### Redmineをダウンロード、展開
 
 Redmineを[RubyForge: Redmine: ファイルリスト](http://rubyforge.org/frs/?group_id=1850)からダウンロードします。
 
 ダウンロードした`redmine-2.1.2.zip`を展開します。以降、Redmineを展開したフォルダを`%REDMINE_HOME%`と表記します。
 
-## Redmineを設定
+### Redmineを設定
 
-### データベース接続を設定
+#### データベース接続を設定
 
 今回は簡単セットアップを意識して、データベースはSQLite3を使用します。`%REDMINE_HOME%\config\database.yml`を以下のように作成します。
 
@@ -54,7 +52,7 @@ production:
   database: db/production.sqlite3
 ```
 
-### メールサーバー接続を設定
+#### メールサーバー接続を設定
 
 とりあえずメールサーバーを使用しない設定とします。`%REDMINE_HOME%\config\configuration.yml`を以下のように作成します。
 
@@ -64,7 +62,7 @@ production:
 
 添付ファイルのアップロード先フォルダなどその他の設定もデフォルトとします。
 
-### Gemパッケージをインストール
+#### Gemパッケージをインストール
 
 bundlerを使用してGemパッケージをインストールします。`%REDMINE_HOME%`で以下のコマンドを実行します。
 
@@ -74,7 +72,7 @@ bundlerを使用してGemパッケージをインストールします。`%REDMI
 
 今回はデータベースにSQLiteを使用するため、`--without`に`mysql`を指定しています。
 
-### Redmineの初期設定、およびデータベースのテーブルを作成
+#### Redmineの初期設定、およびデータベースのテーブルを作成
 
 セッションデータ暗号化用鍵の生成と、データベースのテーブルの作成を行います。`%REDMINE_HOME%`で以下のコマンドを実行します。
 
@@ -86,7 +84,7 @@ bundlerを使用してGemパッケージをインストールします。`%REDMI
 
 以上で設定は完了です。
 
-## いよいよRedmineを起動
+### いよいよRedmineを起動
 
 `%REDMINE_HOME%`で以下のコマンドを実行します。
 

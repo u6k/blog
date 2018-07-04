@@ -8,7 +8,7 @@ date: 2017-11-19 23:50:00+09:00
 
 今週、気になったニュースや自ソフトウェアのリリース情報を整理します。
 
-# ニュース
+## ニュース
 
 - [頭を空にする以上の仕事術はないということ \| Lifehacking.jp](http://lifehacking.jp/2017/11/mind-like-water/)
     - GTDのプロセスの中でも、「まずINBOXに投入する」「INBOXを整理する」が強力だと思う。結果的にタスクがあふれたりするけど、それを現実として受け止めるところがスタートかな。
@@ -32,11 +32,11 @@ date: 2017-11-19 23:50:00+09:00
 - [RESTful API Design Tips from Experience – studioarmix – Medium](https://medium.com/studioarmix/learn-restful-api-design-ideals-c5ec915a430f)
     - REST API設計の参考にしよう。
 
-# リリース情報
+## リリース情報
 
 先週に引き続き、[task-focus](https://github.com/u6k/task-focus)の実装を進めています。ユーザー管理の実装を進めており、Twitter認証(というかSNS認証)を前提としています。ちょっと手こずっています。
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

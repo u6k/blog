@@ -11,9 +11,7 @@ redirect_from:
 
 Atomの自分向けセットアップ手順メモです。
 
-<!-- more -->
-
-# インストール
+## インストール
 
 パッケージ管理ツールでAtomをインストールします。
 
@@ -24,14 +22,14 @@ Atomの自分向けセットアップ手順メモです。
 
 ショートカットを作成します。
 
-# テーマを変更
+## テーマを変更
 
 * UI Theme
     * One Light
 * Syntax Theme
     * One Light
 
-# パッケージをインストール
+## パッケージをインストール
 
 * ~~japanese-wrap~~
     * Atom v1.2で不必要になった。
@@ -39,7 +37,7 @@ Atomの自分向けセットアップ手順メモです。
 * markdown-pdf
 * minimap
 
-# 設定を変更
+## 設定を変更
 
 * Auto Indent On Paste
     * オフ
@@ -60,9 +58,9 @@ Atomの自分向けセットアップ手順メモです。
 * Tab Type
     * soft
 
-# パッケージの設定を変更
+## パッケージの設定を変更
 
-## autocomplete-plus
+### autocomplete-plus
 
 * Show Suggestions On Keystroke
     * オフ

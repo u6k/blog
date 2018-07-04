@@ -13,8 +13,6 @@ redirect_from:
 
 今回のサンプルコードは[u6k/sample-display-version](https://github.com/u6k/sample-display-version)にあります。
 
-<!-- more -->
-
 ## infoエンドポイントにアクセスしてみる
 
 spring-boot-actuatorを有効化しただけの状態でinfoエンドポイントにアクセスすると、`200 OK`が返ってはきますが、ボディは空JSONになります。

@@ -15,9 +15,7 @@ redirect_from:
 
 なお、ページ下部からTomcat同梱版のRedmine-warをダウンロードできます。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 以下の環境で作業しました。
 
@@ -27,9 +25,9 @@ redirect_from:
     * Java SDK 1.6か1.7をあらかじめインストールしてください。
     * `JAVA_HOME`環境変数を設定してください。
 
-# Tomcat上で動作させる手順
+## Tomcat上で動作させる手順
 
-## Tomcatをセットアップ
+### Tomcatをセットアップ
 
 Tomcatをダウンロードするため、[Apache Tomcat](http://tomcat.apache.org/)にアクセスします。
 
@@ -41,13 +39,13 @@ Tomcatをダウンロードするため、[Apache Tomcat](http://tomcat.apache.o
 
 いくつかリンクがありますが、[Binary Distributions]→[Core]→[zip]をクリックして、Tomcatのzipファイルをダウンロードします。このzipファイルを適当な場所で展開すれば、Tomcatのセットアップは終わりです。以降、展開先を`%CATALINA_HOME%`と表記します。
 
-## redmine-warをセットアップ
+### redmine-warをセットアップ
 
 セットアップと言っても、やることは簡単で、`redmine.war`を`%CATALINA_HOME%\webapps`にコピーするだけです。
 
 > **note:** warファイルの名前がURLのパスとなるため、`redmine.war`の場合は[](http://localhost:8080/redmine/)にアクセスすることになります。例えば[](http://localhost:8080/bts/)としたい場合、`bts.war`にリネームします。
 
-## Tomcatを起動、Redmineにアクセス
+### Tomcatを起動、Redmineにアクセス
 
 `%CATALINA_HOME%\bin\startup.bat`(Linuxの場合は`startup.sh`)を実行します。初回はwarファイルの展開に時間がかかります(1～3分程度)。以下のように、コマンドプロンプトに"Server startup"と表示されたら、起動完了です。
 
@@ -97,7 +95,7 @@ java.net.BindException: Address already in use: JVM_Bind <null>:8080
 >
 > なお、Tomcatは複数のポート番号を使用するため(8005, 8009, 8080)、何回か設定の変更が必要になるかもしれません。
 
-# Tomcat同梱版Redmine-war
+## Tomcat同梱版Redmine-war
 
 上記のようなセットアップを行うのも面倒なので、Tomcatを同梱したRedmine-warを作成しました。以下のページからダウンロードできます。
 

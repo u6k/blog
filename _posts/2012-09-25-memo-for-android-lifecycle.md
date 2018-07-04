@@ -10,15 +10,13 @@ redirect_from:
 
 Androidにおけるライフサイクルをよく検索しているため、ここにメモを作成します。
 
-<!--more-->
-
-# Activityのライフサイクル
+## Activityのライフサイクル
 
 [ActivityクラスのJavadoc](http://developer.android.com/reference/android/app/Activity.html)にライフサイクルの図が記載されています。
 
 ![Activity](http://developer.android.com/images/activity_lifecycle.png)
 
-# Serviceのライフサイクル
+## Serviceのライフサイクル
 
 [Serviceの概要説明](http://developer.android.com/guide/components/services.html)にライフサイクルの図が記載されています。
 

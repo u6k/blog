@@ -10,9 +10,8 @@ redirect_from:
 
 先日、iPhone 5sからXperia Z5に機種変更をしたので、Xperia Z5に行った設定をメモします。
 
-<!-- more -->
+## Android設定
 
-# Android設定
 * Wi-Fi
     * 自宅Wi-Fiに接続
 * Bluetooth
@@ -66,7 +65,8 @@ redirect_from:
     * GPUレンダリングを使用
         * オン
 
-# アプリ設定
+## アプリ設定
+
 * Cogi
 * 360
 * 連絡先
@@ -168,7 +168,8 @@ redirect_from:
     * サービス起動中のアイコンは表示しない
     * クリップボードにコピーすると通知に表示
 
-# リンク
+## リンク
+
 * GitHub
     * https://github.com/u6k/blog/blob/develop/page/20160519-android-setting.md
 * Blogger

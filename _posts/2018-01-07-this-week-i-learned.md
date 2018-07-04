@@ -8,7 +8,7 @@ date: 2018-01-07 23:50:00+09:00
 
 今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。
 
-# ニュース
+## ニュース
 
 - [Feature #14872: Activities REST API - Redmine](http://www.redmine.org/issues/14872)
     - 2017年の活動を振り返るためにRedmine Activitiesを集計したかったのですが、APIがありませんでした。このチケットも放置されているようです。仕方ないのでHTMLを解析して集計しました。APIは自分でプラグインを書くか、View Customizeプラグインを使うかするしかないかな？
@@ -25,7 +25,7 @@ date: 2018-01-07 23:50:00+09:00
 - [Markdown export - 🌟Features - Dynalist Forum](http://talk.dynalist.io/t/markdown-export/803)
     - アウトライナーとしてDynalistを使っていますが、Markdown文書にエクスポートする機能がないのが不便。DynalistでRedmine Wikiやブログの文章を考え、それをMarkdown文書にエクスポートしてそのまま貼り付ける、とかしたいのですけど。
 
-# リリース情報
+## リリース情報
 
 記事を書きました。
 
@@ -36,11 +36,11 @@ CodeIQのお題を消化しました。
 
 - [進捗ヴェリーグッドマーク | CodeIQ](https://codeiq.jp/q/3526)
 
-# おまけ
+## おまけ
 
 これ、This Week I Learned(今週学んだこと)というよりRetrospective(振り返り)な気がしてきた…
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

@@ -11,9 +11,7 @@ redirect_from:
 
 2016/1/29現在では、Ubuntuにapt-getでoracle-java8を単純にインストールすることができないようです。この記事では、Dockerコンテナ(ubuntu:latest)にoracle-java8をインストールして、最低限の動作確認としてバージョン情報を表示してみます。Dockerはあまり関係なく、本質はUbuntuにoracle-java8をインストールすることですけど。
 
-<!-- more -->
-
-# 前提
+## 前提
 
 * Windowsを前提で説明しますが、OS Xでもほぼ同様の手順になるはずです。Linuxの場合、Dockerホストを構築する手順が異なります。
 * VirtualBox
@@ -25,7 +23,7 @@ redirect_from:
 * Docker Engine
     * Linuxの場合。
 
-# Dockerホストを構築
+## Dockerホストを構築
 
 Windowsでは単純にDockerを使用することができないため、Docker MachineでVirtualBox上にDockerホストを構築します。
 
@@ -39,7 +37,7 @@ Dockerホストにsshログインします。
 $ docker-machine ssh test
 ```
 
-# Dockerイメージを構築
+## Dockerイメージを構築
 
 Dockerホスト内で、Dockerfileをダウンロードします。このDockerfileは、ubuntu:latestをベースイメージとしてoracle-java8をインストールします。
 
@@ -62,7 +60,7 @@ u6k/ubuntu-oracle-java8   latest              2008f3ea987b        24 hours ago  
 ubuntu                    latest              6cc0fc2a5ee3        8 days ago          187.9 MB
 ```
 
-# Dockerコンテナを実行
+## Dockerコンテナを実行
 
 構築したイメージを実行します。成功すると、Javaバージョン情報が表示されます。
 
@@ -73,6 +71,6 @@ Java(TM) SE Runtime Environment (build 1.8.0_72-b15)
 Java HotSpot(TM) 64-Bit Server VM (build 25.72-b15, mixed mode)
 ```
 
-# 参照
+## 参照
 
 * [u6k/ubuntu-oracle-java8](https://github.com/u6k/ubuntu-oracle-java8)

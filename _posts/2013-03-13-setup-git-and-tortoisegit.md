@@ -12,9 +12,7 @@ redirect_from:
 
 Gitは非常に有名で優れた分散型バージョン管理システムです。以前はSubversionが大きなシェアを持っていましたが、現在はGitが大きなシェアを持っています。Gitはコマンドラインツールなので基本的にはコマンドを入力・実行する形で使用しますが、WindowsでGitを使う場合、Gitコマンドをそのまま使うよりもTortoiseGitを使う方が便利です。以下に、GitとTortoiseGitのセットアップ手順を説明します。
 
-<!-- more -->
-
-# Git、TortoiseGitをダウンロード
+## Git、TortoiseGitをダウンロード
 
 TortoiseSVNはSVN無しでも動作しましたが、TortoiseGitはあくまでGitのフロントエンドであり、Gitをインストールする必要があります。そのため、GitとTortoiseGitをダウンロードします。
 
@@ -25,7 +23,7 @@ WindowsにGitをインストールする方法は、Cygwin版GitとmsysGitの2�
 * [TortoiseGit - Porting TortoiseSVN to TortoiseGit](https://code.google.com/p/tortoisegit/)
     * 必要であれば、言語パックもダウンロードします。
 
-# Gitをインストール
+## Gitをインストール
 
 まず、Gitをインストールします。ダウンロードした`Git-xxx.exe`を実行します。
 
@@ -74,7 +72,7 @@ git version 1.7.11 msysgit.1
 
 バージョン情報が表示されれば、正常終了しています。
 
-# Gitを設定
+## Gitを設定
 
 Gitを使う前に、ユーザー名とメールアドレスを設定する必要があります。この設定は、コミット時のユーザー名、メールアドレスとして自動的に使用されます(クローンしたリポジトリごとにも設定できます)。
 
@@ -85,7 +83,7 @@ C:\git config --global user.name "(ユーザー名)"
 C:\git config --global user.email "(メールアドレス)"
 ```
 
-# TortoiseGitをインストール
+## TortoiseGitをインストール
 
 Gitのセットアップが終わったら、次はTortoiseGitをインストールします。ダウンロードした`TortoiseGit-xxx.msi`を実行します。
 

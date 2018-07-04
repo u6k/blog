@@ -8,7 +8,7 @@ date: 2017-12-03 23:50:00+09:00
 
 今週、気になったニュースや自ソフトウェアのリリース情報を整理します。
 
-# ニュース
+## ニュース
 
 - [My approach to using Git, without the headaches – Hacker Noon](https://hackernoon.com/my-approach-to-using-git-without-the-headaches-6926df5af0c7)
     - git原理主義者の方々は、少々厳格すぎる気がしている。普通にマージで良いよ。
@@ -39,11 +39,11 @@ date: 2017-12-03 23:50:00+09:00
     - もはやDockerで手軽に本番同等環境をローカルPCに構築できるし、そう考えるとH2 Databaseを使う必要は確かに無いと思った。
     - 自分が持ってるボイラープレートと作業手順はH2 Databaseを使うように書いたけど、これもやめよう。
 
-# リリース情報
+## リリース情報
 
 うーん、進まない…いや、ちょっと興味深い仕事が入ってきてて。あと、task-focusをドッグフーディングしているけど、BASIC認証だとAndroid版Chromeが頻繁に認証を求めてきてうざいので、使うのをやめてしまいました。やはり普通のユーザー認証で良いからさっさと実装しよう。
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

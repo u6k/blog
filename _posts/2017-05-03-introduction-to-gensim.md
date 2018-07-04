@@ -11,7 +11,7 @@ date: 2017-05-03
 
 手軽にトピック分析を実行できるgensimを知ったので、gensimを使用して簡単な文章をトピック分析するチュートリアルを実行してみました。
 
-# トピック分析、LDA、gensimとは
+## トピック分析、LDA、gensimとは
 
 詳しく理解してはいないので、簡単に言うと、
 
@@ -28,7 +28,7 @@ gensimを使ったトピック分析は、以下の手順で行えるようで�
 + LDAモデルを作成
 + 分類したい文章をLDAモデルで分類
 
-# 前提
+## 前提
 
 - Docker
     - Python 2環境を作るのが面倒だったのでDockerを使っているだけです。
@@ -62,7 +62,7 @@ Python 2.7.13
 
 - gensim 2.0.0
 
-# 手順
+## 手順
 
 pythonコンテナを起動します。
 
@@ -312,7 +312,7 @@ test_corpus変数の内容は以下のようになります。
 
 この結果から文章は、約0.60でトピック3だと推定されます。
 
-# 参考
+## 参考
 
 - [gensim: Corpora and Vector Spaces](https://radimrehurek.com/gensim/tut1.html)
 - [Python で LDAトピック分析手習い 〜 参考ウェブサイトのコード を 写経して、gensimモジュールを使うやり方を１ステップごと、確認してみた - Qiita](http://qiita.com/HirofumiYashima/items/c8aa8df214d48c86ecba)

@@ -11,13 +11,11 @@ redirect_from:
 
 自宅実験用にRaspberry Piの購入を検討した時、そもそもRaspberry Piとはどんなものかを確認するためにエミュレータを使用しました。少し古いRaspbianでも良いのであれば、「Raspberry Pi emulation for Windows」でダウンロードしたqemuをただ実行すれば良いのですが、最新版のRaspbianを動作させるには作業が必要でした。ここに、その作業ログを記述します。
 
-<!-- more -->
-
-# 作業環境
+## 作業環境
 
 * OS…Windows 7 (32bit)
 
-# 作業手順
+## 作業手順
 
 * Raspberry Pi emulation for Windows(以降、qemu)、および最新版のRaspbianをダウンロードします。
     * [Raspberry Pi emulation for Windows | SourceForge.net](http://sourceforge.net/projects/rpiqemuwindows/)
@@ -48,10 +46,10 @@ KERNEL=="sda2", SYMLINK+="root"
         * `-redir tcp:10080::80`
 * 完了です。`C:\qemu\qemu\run.bat`を実行して、Raspbianが起動すること、(22番ポートを開放している場合)ssh接続できることを確認します。
 
-# 備考
+## 備考
 
 * 当手順はWindowsでの作業手順ですが、qemuとカーネルイメージの入手手順を読み替えれば、MacやLinuxでも同様にできるはずです。
 
-# Qiita
+## Qiita
 
 * [RaspberryPi - Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順 - Qiita](http://qiita.com/u6k/items/1301cc75d19066150701)

@@ -8,7 +8,7 @@ date: 2018-01-21 23:50:00+09:00
 
 今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。
 
-# ニュース
+## ニュース
 
 - [Start Your Own ISP](https://startyourownisp.com/)
     - 独自のISPを構築する手順。日本ではあまり考えられないけど、海外ではこういった需要があるのだろうか？
@@ -17,11 +17,11 @@ date: 2018-01-21 23:50:00+09:00
 - [技術書のジレンマとPEAKS + 書評ブログを書くTips #iOS11book // Speaker Deck](https://speakerdeck.com/shu223/ji-shu-shu-falsezirenmatopeaks-plus-shu-ping-buroguwoshu-kutips-number-ios11book)
     - 「読み始めるために書評を書く」というのは面白い。実際、自分も定例報告書のようなものは期間の初めに書いてしまい後で結果を反映する、というような運用をしているし。
 
-# リリース情報
+## リリース情報
 
 今週は記事執筆もなし。アウトライナーには溜まっているのだけど。
 
-# Link
+## Link
 
 - Author
     - [u6k.Blog()](https://blog.u6k.me/)

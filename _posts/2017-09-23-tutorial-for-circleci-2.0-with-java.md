@@ -10,7 +10,7 @@ date: 2017-09-23 07:00:00+09:00
 
 単純なJavaアプリケーション(Hello, worldレベル)を、ローカルPCでCircleCI 2.0 CLIを使ってビルドするチュートリアルです。
 
-# 前提
+## 前提
 
 - Docker
     - Docker for Windowsで実施しました。他環境では、手順を適宜読み替えてください。
@@ -53,9 +53,9 @@ JVM:          1.8.0_141 (Oracle Corporation 25.141-b15)
 OS:           Linux 4.4.86-boot2docker amd64
 ```
 
-# 手順
+## 手順
 
-## CircleCI CLIをインストール
+### CircleCI CLIをインストール
 
 [Using the CircleCI Command Line Interface (CLI) - CircleCI](https://circleci.com/docs/2.0/local-jobs/#circleci-command-line-interface-cli-overview)に、インストール手順が書いてあります。
 
@@ -106,7 +106,7 @@ Flags:
 Use "circleci [command] --help" for more information about a command.
 ```
 
-## Javaアプリケーションを作成
+### Javaアプリケーションを作成
 
 ビルドを試すため、GradleプロジェクトのJavaアプリケーションを作成します。
 
@@ -172,7 +172,7 @@ BUILD SUCCESSFUL in 1s
 2 actionable tasks: 2 executed
 ```
 
-## CircleCI設定ファイルを作成
+### CircleCI設定ファイルを作成
 
 CircleCI 2.0の設定ファイルを作成します。とりあえず動作確認を行うだけの最小設定です。
 
@@ -189,7 +189,7 @@ jobs:
             - run: ./gradlew run
 ```
 
-## ローカルPCでビルド
+### ローカルPCでビルド
 
 ローカルPCでビルドを実行します。初回のみ、DockerイメージのPullが実行されます(長い)。
 
@@ -242,6 +242,6 @@ Success!
 
 無事、ビルドが成功しました。
 
-# おわりに
+## おわりに
 
 ローカルPCにCircleCI CLIをインストールしてからビルドするまでの手順を簡単に説明しました。自分はSpring Bootアプリケーションをよく作るので、今度はその説明をしたいと思います。

@@ -11,7 +11,19 @@ before_install:
     - sudo apt-get -y install docker-ce
 
 script:
-    - docker build -t u6kapps/blog .
+    - docker build -t blog .
+    - docker run --rm -v $(pwd):/var/my-blog blog
+    - git checkout gh-pages
+    - cp CNAME _site/
+    - git rm -rf '*'
+    - rm -r Gemfile.lock .jekyll-metadata uml .sass-cache
+    - mv _site/* .
+    - rm -r _site
+    - git config --global user.name "u6k"
+    - git config --global user.email "u6k.apps@gmail.com"
+    - git add .
+    - git commit -m "generate u6k.Blog"
+    #- git push origin gh-pages
 
 after_success:
     - if [ -n "$TRAVIS_TAG" ]; then

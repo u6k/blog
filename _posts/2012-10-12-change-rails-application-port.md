@@ -25,6 +25,6 @@ module Rails
 end
 ```
 
-## 参考
+## 参考リンク
 
 * [【Rails3】デフォルトポートを変更する - ふわふわRuby on Rails](http://d.hatena.ne.jp/zucay/20111121/1321856764)

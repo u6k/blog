@@ -38,12 +38,3 @@ date: 2017-11-12 23:50:00+09:00
 ## リリース情報
 
 まだ自分しか使っていませんが、[task-focus](https://github.com/u6k/task-focus)の実装を進めています。そろそろユーザー登録を実装して、自分以外も使えるようにしたい。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-12-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-12-this-week-i-learned.md)

@@ -338,16 +338,7 @@ CIサーバーでデプロイを行っているのであれば、CIサーバー�
 
 慣れるまでは少々メンドウかもしれませんが、引き換えに気軽にコミットできる環境ができます。このメリットは想像するよりはるかに大きいでしょう。ぜひ、あなたの現場にも導入してください。
 
-## 関連ページ
+## 参考リンク
 
 - [Git flowの活用事例](https://www.slideshare.net/KatokichiSoft/git-flow-16616440)
 - [[日本語訳]A successful Git branching model - Qiita](https://qiita.com/homhom44/items/9f13c646fa2619ae63d0)
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-05-subversion-branching-model.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-05-subversion-branching-model.md)

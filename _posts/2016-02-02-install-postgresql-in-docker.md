@@ -124,6 +124,8 @@ Error response from daemon: Conflict. The name "postgresql-server" is already in
 $ docker rm $(docker ps -aq)
 ```
 
-## 参照
+## おわりに
+
+作成したソースコードは、次のリポジトリにあります。
 
 * [u6k/ubuntu-postgresql](https://github.com/u6k/ubuntu-postgresql)

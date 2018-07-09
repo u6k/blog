@@ -74,7 +74,7 @@ $ ruby -v
 
 `ruby -v`で設定したバージョンが表示されるはずです。
 
-## 参考
+## 参考リンク
 
 * [sstephenson/rbenv](https://github.com/sstephenson/rbenv)
 * [Home ・ sstephenson/ruby-build Wiki](https://github.com/sstephenson/ruby-build/wiki)

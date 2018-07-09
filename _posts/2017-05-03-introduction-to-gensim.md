@@ -312,7 +312,7 @@ test_corpus変数の内容は以下のようになります。
 
 この結果から文章は、約0.60でトピック3だと推定されます。
 
-## 参考
+## 参考リンク
 
 - [gensim: Corpora and Vector Spaces](https://radimrehurek.com/gensim/tut1.html)
 - [Python で LDAトピック分析手習い 〜 参考ウェブサイトのコード を 写経して、gensimモジュールを使うやり方を１ステップごと、確認してみた - Qiita](http://qiita.com/HirofumiYashima/items/c8aa8df214d48c86ecba)

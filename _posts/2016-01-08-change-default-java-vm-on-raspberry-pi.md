@@ -29,6 +29,6 @@ alternative java (/usr/bin/java を提供) には 2 個の選択肢がありま�
 update-alternatives: /usr/bin/java (java) を提供するために 手動モード で /usr/lib/jvm/jdk-8-oracle-arm-vfp-hflt/jre/bin/java を使います
 ```
 
-## 参考
+## 参考リンク
 
 * [Raspberry Pi - Change Default Java Virtual Machine (JVM)](http://www.savagehomeautomation.com/projects/raspberry-pi-change-default-java-virtual-machine-jvm.html)

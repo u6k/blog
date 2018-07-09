@@ -114,7 +114,7 @@ Bloggerからの引越し手順を考えてみます。
 
 tumblrはすっごく魅力的なんですけど、どうせカスタマイズが必要になりますし、ならBloggerのままでも良い気がしてきました…この調子で突き詰めていくと、やはり最終的にはみんな大好きWordPressになってしまうのだろうか。
 
-## 参考
+## 参考リンク
 
 * [Blogger・Tumblr・はてなブログの徹底比較 〜真面目に文章を書くときのブログ選び〜](http://voices.ku-neko.com/2015/02/blogger-tumblr-hatenablog.html)
 * [Bloggerに乗り換えました - BloggerとTumblrの比較](http://denshiyugi.blogspot.jp/2012/01/blogger-bloggertumblr.html)

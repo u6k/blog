@@ -42,12 +42,3 @@ date: 2017-12-03 23:50:00+09:00
 ## リリース情報
 
 うーん、進まない…いや、ちょっと興味深い仕事が入ってきてて。あと、task-focusをドッグフーディングしているけど、BASIC認証だとAndroid版Chromeが頻繁に認証を求めてきてうざいので、使うのをやめてしまいました。やはり普通のユーザー認証で良いからさっさと実装しよう。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-03-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-03-this-week-i-learned.md)

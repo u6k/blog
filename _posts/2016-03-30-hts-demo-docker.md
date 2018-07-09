@@ -22,7 +22,8 @@ redirect_from:
 
 HTS-demoというソフトウェアを使うと、Open JTalkで音声合成する元データである音響モデルというものを作成できるようです。ただ、HTS-demoを動作させることが非常に難しいように見えます。これを簡単に使用できるようにするため、Dockerイメージとアプリケーションを作成してみたいと考えています。
 
-## リンク
+## おわりに
 
-* GitHub
-    * [u6k/hts-demo-docker: 音響モデル作成ソフトウェアをDockerイメージで提供します。](https://github.com/u6k/hts-demo-docker)
+GitHubリポジトリで作業しています。
+
+* [u6k/hts-demo-docker: 音響モデル作成ソフトウェアをDockerイメージで提供します。](https://github.com/u6k/hts-demo-docker)

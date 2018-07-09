@@ -46,7 +46,3 @@ redmine_`date +%Y%m%d-%H%M%S`.sql.gz
 
 * Redmineをバージョンアップしたいときはどうすれば良い？
 * OpenShift以外の環境(例えばローカル)に復旧する方法を考えておいたほうが良い。万が一、OpenShiftが使えなくなってしまうことを考慮して。
-
-## Qiita
-
-* [Redmine@OpenShiftのMySQLデータをバックアップ&リカバリー - Qiita](http://qiita.com/u6k/items/9d9cd6ec06b7523168bf)

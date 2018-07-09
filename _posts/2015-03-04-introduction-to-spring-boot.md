@@ -152,6 +152,6 @@ Hello, sample-spring-boot!
 
 Dropwizardに比べて手順が少ない、Springの知識が生かせる、ということでDropwizardよりSpring Bootの方が良いかなー、と思っています。
 
-## ソースコード
+今回、作成したソースコードは、次のリポジトリにあります。
 
 - [u6k/sample-spring-boot at 0.1.0](https://github.com/u6k/sample-spring-boot/tree/0.1.0)

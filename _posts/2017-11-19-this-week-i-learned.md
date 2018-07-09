@@ -35,12 +35,3 @@ date: 2017-11-19 23:50:00+09:00
 ## リリース情報
 
 先週に引き続き、[task-focus](https://github.com/u6k/task-focus)の実装を進めています。ユーザー管理の実装を進めており、Twitter認証(というかSNS認証)を前提としています。ちょっと手こずっています。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-19-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-19-this-week-i-learned.md)

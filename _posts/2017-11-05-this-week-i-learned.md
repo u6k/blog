@@ -33,12 +33,3 @@ date: 2017-11-05 23:50:00+09:00
 
 - Minimal Mistakesの最新バージョンにアップデート
 - タグ一覧ページが機能するように調整
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-05-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-05-this-week-i-learned.md)

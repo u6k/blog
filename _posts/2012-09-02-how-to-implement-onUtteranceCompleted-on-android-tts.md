@@ -16,6 +16,6 @@ toc: false
 - `speak()`呼出し時に、`TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID`キーを設定したパラメータを渡す。渡さないと`onUtteranceCompleted()`は呼び出されない。
 - `onUtteranceCompleted()`はUIスレッドではないので、そもそもToast表示できない。`runOnUiThread()`などでUIスレッドで実行すること。
 
-## 参考
+## 参考リンク
 
-[Android TTS onUtteranceCompleted callback isn't getting called - stackoverflow](http://stackoverflow.com/questions/4652969/android-tts-onutterancecompleted-callback-isnt-getting-called)
+- [Android TTS onUtteranceCompleted callback isn't getting called - stackoverflow](http://stackoverflow.com/questions/4652969/android-tts-onutterancecompleted-callback-isnt-getting-called)

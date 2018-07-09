@@ -251,8 +251,3 @@ CPU使用率を監視して、サービスが異常にCPUを占有した場合�
 * [そこそこセキュアなlinuxサーバーを作る](http://qiita.com/cocuh/items/e7c305ccffb6841d109c)
 * [su rootできるユーザを制限する。](http://qiita.com/shimohiko/items/f45d02bea949f1f5cc85)
 * [サーバ初心者に捧ぐ、サーバを立てたらまずすべきセキュリティの設定](http://qiita.com/saitoxu/items/5ea998164c6225358567)
-
-## リンク
-
-* GitHub
-    * https://github.com/u6k/blog/blob/master/page/20160520-server-base-spec.md

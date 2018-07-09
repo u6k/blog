@@ -15,12 +15,17 @@ redirect_from:
 
 当時はAndroidアプリ内で完結したかったので[N2 TTS](http://www.kddilabs.jp/products/audio/n2tts/product.html)を使いましたが、今回はOpen JTalkを使ってみたいと考えています。とりあえず[GitHubにプロジェクトを作成して](https://github.com/u6k/open_jtalk-docker)、Dockerコンテナーを構築しようと作業しています。
 
-## リンク
+## 作業リポジトリなど
 
-* GitHub
-    * [u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。](https://github.com/u6k/open_jtalk-docker)
-* Docker Hub
-    * [u6kapps/open_jtalk](https://hub.docker.com/r/u6kapps/open_jtalk/)
-    * [u6kapps/open-jtalk-api](https://hub.docker.com/r/u6kapps/open-jtalk-api/)
-* Redmine
-    * [open_jtalk-docker](https://myredmine-u6kapps.rhcloud.com/projects/openjtalk-docker)
+GitHubリポジトリで作業しています。
+
+* [u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。](https://github.com/u6k/open_jtalk-docker)
+
+Docker Hubでイメージを公開しています。
+
+* [u6kapps/open_jtalk](https://hub.docker.com/r/u6kapps/open_jtalk/)
+* [u6kapps/open-jtalk-api](https://hub.docker.com/r/u6kapps/open-jtalk-api/)
+
+u6k.Redmineで作業を管理しています。
+
+* [open_jtalk-docker](https://myredmine-u6kapps.rhcloud.com/projects/openjtalk-docker)

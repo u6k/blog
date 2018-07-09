@@ -22,12 +22,3 @@ date: 2017-12-17 23:50:00+09:00
 - [Subversionによる構成管理の運用基本方針 - u6k.Blog()](https://blog.u6k.me/2017/12/05/subversion-branching-model.html)
 
 SIerの現場でありがちなSVNについて、git-flowをベースに運用方針を整理してみました。今後の仕事に生かせれば良いと思います。まぁ、GitLabが導入できればそれが一番良いのですけど。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-17-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-17-this-week-i-learned.md)

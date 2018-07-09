@@ -99,7 +99,7 @@ $ qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reb
 ssh -p 5022 pi@localhost
 ```
 
-## 参考
+## 参考リンク
 
 * [Raspberry Pi を QEMU でエミュレートする方法 (2015年7月更新)](https://blog.ymyzk.com/2013/12/raspberry-pi-qemu/)
 * [OSX raspberry pi emulation via QEMU](https://gist.github.com/JasonGhent/e7deab904b30cbc08a7d)

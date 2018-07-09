@@ -67,18 +67,9 @@ IT業界では、非常に速いペースで「新しい技術」が登場しま
 
 新しく見えるものは、それまでの基礎の積み重ねの上に発見されたことであり、だから基礎が大事ということが分かったと思います。では、基礎をどのように積み重ねるのか、「学ぶ」とはどういうことか、これらは別の記事で説明したいと思います。
 
-## 参照
+## 参考リンク
 
 - [Joel on Software - ストラテジーレターⅢ: もとに戻してくれ!](http://japanese.joelonsoftware.com/Articles/StrategyLetterIII.html)
 - [Joel on Software - 射撃しつつ前進](http://japanese.joelonsoftware.com/Articles/FireAndMotion.html)
 - [巨人の肩の上 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%B7%A8%E4%BA%BA%E3%81%AE%E8%82%A9%E3%81%AE%E4%B8%8A)
 - [守破離 - Wikipedia](https://ja.wikipedia.org/wiki/%E5%AE%88%E7%A0%B4%E9%9B%A2)
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2018-01-08-stand-on-the-shoulders-of-giants.md](https://github.com/u6k/blog/blob/master/_posts/2018-01-08-stand-on-the-shoulders-of-giants.md)

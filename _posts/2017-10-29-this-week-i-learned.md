@@ -23,12 +23,3 @@ date: 2017-10-29 23:00:00+09:00
 
 - [Release 2.0.2 · u6k/extract-content](https://github.com/u6k/extract-content/releases/tag/2.0.2_5684_encode-html-special-chars)
 - [Release 1.0.1 · u6k/plantuml-image-generator](https://github.com/u6k/plantuml-image-generator/releases/tag/1.0.1)
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-10-29-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-10-29-this-week-i-learned.md)

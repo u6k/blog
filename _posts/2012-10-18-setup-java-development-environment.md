@@ -78,117 +78,80 @@ Eclipseを起動します。ワークスペースを`C:\eclipse\workspace\`に�
 
 [Window]→[Preference]をクリックして設定を開き、以下のように設定します。
 
-#### General
-
-* Always run in background = チェック
-* Show heap status = チェック
-
-#### General / Appearance
-
-* Theme = Classic
-
-#### General / Appearance / Colors and Fonts
-
-* Basic / Text Font = Use System Fontをクリック
-
-#### General / Editors / Text Editors
-
-* Undo history size = 9999
-* Insert spaces for tabs = チェック
-* Show line numbers = チェック
-
-#### General / Editors / Text Editors / Spelling
-
-* Enable spell checking = アンチェック
-
-#### General / Workspace
-
-* Text file encoding = Other: UTF-8
-* New text file line delimiter = Other Windows
-
-#### Java / Code Style / Formatter
-
-"Eclipse [build-in]"を元に作成します。
-
-* Indentation
-    * Tab policy = Spaces only
-    * Statements within 'switch' body = チェック
-* Blank Lines
-    * Before package declaration = 1
-    * Before first declaration = 1
-    * Before field declarations = 1
-* New Lines
-    * at end of file = チェック
-* Line Wrapping
-    * Maximum line width = 9999
-* Comments
-    * Maximum line width for comments = 9999
-
-#### Java / Compiler
-
-* Compiler compilance level = 1.6
-    * JDK 1.7を使用している場合は警告が表示されますので、JDK 1.6を追加します。
-
-#### Java / Editor / Content Assist
-
-* Auto Activation
-    * Enable auto activation = アンチェック
-
-#### JavaScript / Code Style / Formatter
-
-* "Eclipse [build-in]"を元に作成します。
-
-* Indentation
-    * Tab policy = Spaces only
-    * Statements within 'switch' body = チェック
-* New Lines<
-    * at end of file = チェック
-* Line Wrapping
-    * Maximum line width = 9999
-* Comments
-    * Maximum line width for comments = 9999
-
-#### Team / CVS / Label Decorations
-
-* Text Decorations
-    * Outgoing Change flag = ■
-    * Added flag = ◆
-
-#### Validation
-
-"Disable All"をクリックします。
-
-#### Web / CSS Files
-
-* Encoding = ISO 10646/Unicode(UTF-8)
-
-#### Web / CSS Files / Editor
-
-* Line width = 999
-* Indent using spaces = チェック
-* Indentation size = 4
-
-#### Web / HTML Files
-
-* Encoding = ISO 10646/Unicode(UTF-8)
-
-#### Web / HTML Files / Editor
-
-* Line width = 999
-* Indent using spaces = チェック
-* Indentation size = 4
-
-#### Web / JSP Files
-
-* Encoding = ISO 10646/Unicode(UTF-8)
-
-#### XML / XML Files / Editor
-
-* Line width = 999
-* Split multiple attributes each on a new line = チェック
-* Preserve whitespace in tags with PCDATA content = チェック
-* Indent using spaces = チェック
-* Indentation size = 4
+- General
+    - Always run in background = チェック
+    - Show heap status = チェック
+- General / Appearance
+    - Theme = Classic
+- General / Appearance / Colors and Fonts
+    - Basic / Text Font = Use System Fontをクリック
+- General / Editors / Text Editors
+    - Undo history size = 9999
+    - Insert spaces for tabs = チェック
+    - Show line numbers = チェック
+- General / Editors / Text Editors / Spelling
+    - Enable spell checking = アンチェック
+- General / Workspace
+    - Text file encoding = Other: UTF-8
+    - New text file line delimiter = Other Windows
+- Java / Code Style / Formatter
+    - "Eclipse [build-in]"を元に作成します。
+    - Indentation
+        - Tab policy = Spaces only
+        - Statements within 'switch' body = チェック
+    - Blank Lines
+        - Before package declaration = 1
+        - Before first declaration = 1
+        - Before field declarations = 1
+    - New Lines
+        - at end of file = チェック
+    - Line Wrapping
+        - Maximum line width = 9999
+    - Comments
+        - Maximum line width for comments = 9999
+- Java / Compiler
+    - Compiler compilance level = 1.6
+        - JDK 1.7を使用している場合は警告が表示されますので、JDK 1.6を追加します。
+- Java / Editor / Content Assist
+    - Auto Activation
+        - Enable auto activation = アンチェック
+- JavaScript / Code Style / Formatter
+    - "Eclipse [build-in]"を元に作成します。
+    - Indentation
+        - Tab policy = Spaces only
+        - Statements within 'switch' body = チェック
+    - New Lines
+        - at end of file = チェック
+    - Line Wrapping
+        - Maximum line width = 9999
+    - Comments
+        - Maximum line width for comments = 9999
+- Team / CVS / Label Decorations
+    - Text Decorations
+        - Outgoing Change flag = ■
+        - Added flag = ◆
+- Validation
+    - "Disable All"をクリックします。
+- Web / CSS Files
+    - Encoding = ISO 10646/Unicode(UTF-8)
+- Web / CSS Files / Editor
+    - Line width = 999
+    - Indent using spaces = チェック
+    - Indentation size = 4
+- Web / HTML Files
+    - Encoding = ISO 10646/Unicode(UTF-8)
+- Web / HTML Files / Editor
+    - Line width = 999
+    - Indent using spaces = チェック
+    - Indentation size = 4
+- Web / JSP Files
+    - Encoding = ISO 10646/Unicode(UTF-8)
+- XML / XML Files / Editor
+    - Line width = 999
+    - Split multiple attributes each on a new line = チェック
+    - Preserve whitespace in tags with PCDATA content = チェック
+    - Indent using spaces = チェック
+    - Indentation size = 4
 
 ### 動作確認
 

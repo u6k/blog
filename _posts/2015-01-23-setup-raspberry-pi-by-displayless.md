@@ -446,7 +446,7 @@ $ sudo reboot
 * 参考
 	* [Raspberry Pi Model B+のUSBポートに1.2Aの電力を供給する](http://akkiesoft.hatenablog.jp/entry/20140727/1406443999)
 
-## 参考
+## 参考リンク
 
 * [RaspberryPi - Raspberry Pi Model B+セットアップ - Qiita](http://qiita.com/jh3rox/items/684ba1e746a6a3763b5c)
 * [speedtest-cliでターミナルから回線速度を計測する - sheeplogh :: memo](http://sheeplogh.hatenablog.com/entry/2013/12/03/124241)

@@ -91,12 +91,3 @@ Google News、スマートニュース、グノシー、Ceronなどニュース�
 アンテナを張ることについて、「アンテナを張るとはどう言うことか？(要求)」「どうすれば良いのか？(要件)」を文書化してみました。人と会話していると、ここら辺が意外と整理されておらず、漫然と情報収集っぽいことをしている人が見られます。もう少し的を絞って効率的に情報収集すれば良いのに、と思ったので、この記事を書いてみました。
 
 どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2018-05-19-what-is-keep-myself-open-to-news.md](https://github.com/u6k/blog/blob/master/_posts/2018-05-19-what-is-keep-myself-open-to-news.md)

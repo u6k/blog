@@ -159,12 +159,17 @@ cat $OUTPUT_FILE
 
 とりあえず、簡単にOpen JTalkを使用できるDockerイメージを構築しました。他に、MMDAgentの音響ファイルを入れたり、WebAPIとしてOpen JTalkを使用したかったり、やりたいことはいくつかあるので作業を続行します。
 
-## リンク
+## 作業リポジトリなど
 
-* GitHub
-    * [u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。](https://github.com/u6k/open_jtalk-docker)
-* Docker Hub
-    * [u6kapps/open_jtalk](https://hub.docker.com/r/u6kapps/open_jtalk/)
-    * [u6kapps/open-jtalk-api](https://hub.docker.com/r/u6kapps/open-jtalk-api/)
-* Redmine
-    * [open_jtalk-docker](https://myredmine-u6kapps.rhcloud.com/projects/openjtalk-docker)
+GitHubリポジトリで作業しています。
+
+* [u6k/open_jtalk-docker: Open JTalkをDockerコンテナーで動作させます。](https://github.com/u6k/open_jtalk-docker)
+
+Docker Hubでイメージを公開しています。
+
+* [u6kapps/open_jtalk](https://hub.docker.com/r/u6kapps/open_jtalk/)
+* [u6kapps/open-jtalk-api](https://hub.docker.com/r/u6kapps/open-jtalk-api/)
+
+u6k.Redmineで作業を管理しています。
+
+* [open_jtalk-docker](https://myredmine-u6kapps.rhcloud.com/projects/openjtalk-docker)

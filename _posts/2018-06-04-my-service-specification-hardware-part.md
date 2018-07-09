@@ -110,12 +110,3 @@ Redmineのように絶対に失いたくないデータや、失うと再収集�
 前回も書きましたが、できればAWSなりDigitalOceanなりに全て移行してしまいたいのですが、どーにもストレージの料金や性能を考えると、自宅ハードウエアがあるならそれで運用したい、という結論になっています。データのサイズがなぁ…
 
 ちなみに、旅行などで長期間自宅を離れる場合に、一時的にDigitalOceanに切り替える運用は、前回から変わらずです。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2018-06-04-my-service-specification-hardware-part.md](https://github.com/u6k/blog/blob/master/_posts/2018-06-04-my-service-specification-hardware-part.md)

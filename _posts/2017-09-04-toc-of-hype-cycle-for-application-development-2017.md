@@ -8,8 +8,6 @@ date: 2017-09-04 07:00:00+09:00
 
 ガートナー社が[Hype Cycle for Application Development, 2017 - Deacon Wan](http://blogs.gartner.com/deacon-wan/2017/09/01/hype-cycle-for-application-development-2017/)を公開し、資料本体は有料ですが目次は公開されているので、個人的に翻訳してみました。あくまで自分のための翻訳であり、正確性は保証しませんので、ご注意ください。また、よく分からない項目は末尾に？がついています。
 
-<!-- more -->
-
 ## Hype Cycle for Application Development, 2017
 
 ### On the Rise(黎明期)

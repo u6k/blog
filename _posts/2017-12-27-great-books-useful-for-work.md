@@ -196,12 +196,3 @@ UMLは非常に強力な分析ツールですが、仕様が大きいため把�
 インターネットに情報があふれる現代では書籍を読むことが少なくなったかもしれません。しかし、コミュニケーションが媒体により効果が異なるように、情報源も媒体により効果が異なります。具体的には、インターネットでは最新情報が得られますが編纂されていない限定的な情報になり、書籍ではよく整理された情報が得られますが最新ではありません。どのような情報が欲しいかによってどの媒体を利用するかをよく考え、効果的に情報を入手しましょう。
 
 ちなみに、なんとなくわかると思いますが、紹介文が長い書籍ほど個人的におすすめの書籍です。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-27-great-books-useful-for-work.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-27-great-books-useful-for-work.md)

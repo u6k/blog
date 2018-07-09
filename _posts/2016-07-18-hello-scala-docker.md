@@ -180,11 +180,3 @@ activator run
 ## おわりに
 
 まずは単純に"Hello, world!"したかっただけなので、簡素な環境を構築しました。開発ツールが不足しているので充実させつつ、RDBと連携できるように育てます。
-
-## リンク
-
-* GitHub
-    * [記事データ](https://github.com/u6k/blog/blob/master/page/20160715-hello-scala-docker.md)
-    * [scala-docker](https://github.com/u6k/scala-docker)
-* Redmine
-    * [#727: Scalaを調査する。 - learn-scala - u6k.Redmine()](https://redmine.u6k.me/issues/727)

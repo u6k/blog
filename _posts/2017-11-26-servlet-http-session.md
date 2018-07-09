@@ -108,12 +108,3 @@ Webブラウザを更新し続けていると、最初のアクセスから2分�
 ## おわりに
 
 どのようにタイムアウトするのか、通信がどのように行われるのか認識があいまいでしたが、整理できました。次はSpring SessionやSpring Securityにおけるセッション管理を検証してみたいと思います。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-26-servlet-http-session.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-26-servlet-http-session.md)

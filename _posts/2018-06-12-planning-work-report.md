@@ -93,12 +93,3 @@ authorを表示
 
 - [u6k/work-report: 個人的な活動ログをレポートする - GitHub](https://github.com/u6k/work-report)
 - [概要 - work-report - u6k.Redmine](https://redmine.u6k.me/projects/work-report)
-
-## Link
-
-- Author
-  - [u6k.Blog()](https://blog.u6k.me/)
-  - [u6k - GitHub](https://github.com/u6k)
-  - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-  - [2018-06-12-planning-work-report.md](https://github.com/u6k/blog/blob/master/_posts/2018-06-12-planning-work-report.md)

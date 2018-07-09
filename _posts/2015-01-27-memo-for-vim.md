@@ -99,7 +99,7 @@ ToDo これから調査。`.vimrc`らしい。
     * [macvim](https://code.google.com/p/macvim/)
         * Homebrewでインストールできるらしいが、情報が錯綜している？
 
-## 参考
+## 参考リンク
 
 * [僕がサクラエディタからVimに乗り換えるまで](http://blog.jnito.com/entry/20120101/1325420213)
 * [vimの使い方](http://seesaawiki.jp/w/yoynizi9691/d/vim%A4%CE%BB%C8%A4%A4%CA%FD)

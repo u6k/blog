@@ -512,7 +512,7 @@ $ zabbix_sender -z 104.131.110.177 -s RPi -k system.cpu.temp -o `cat /sys/class/
 
 問題なければ、上記コマンドをcrontabやJenkinsなどで定期実行するように設定します。
 
-## 参考
+## 参考リンク
 
 - [Introducing Zabbix Monitoring Cartridges for OpenShift – OpenShift Blog](https://blog.openshift.com/introducing-zabbix-monitoring-cartridges-for-openshift/)
 - [Zabbix on the Raspberry Pi (OS Raspbian) - Zabbix.org](https://www.zabbix.org/wiki/Zabbix_on_the_Raspberry_Pi_(OS_Raspbian))

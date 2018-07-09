@@ -42,11 +42,16 @@ docker run -v {出力先}:/mnt/dest u6kapps/nativefier {nativefierオプショ�
 docker run -v /c/Users/xxx/Downloads:/mnt/dest u6kapps/nativefier -n "Google Calendar" -p win32 --honest "https://calendar.google.com" /mnt/dest
 ```
 
-## 備考
+## おわりに
 
-* GitHubでコードを公開しています。
-    * [u6k/nativefier-docker](https://github.com/u6k/nativefier-docker)
-* Docker Hubでイメージを公開しています。
-    * [u6kapps/nativefier](https://hub.docker.com/r/u6kapps/nativefier/)
-* Windowsで実行する場合はDocker MachineでDockerホストを構築して、その中でコンテナー実行すると思いますが、共有フォルダに出力しないと消えるので、注意です。
-* `nativefier`がダウンロードしたElectronはコンテナー実行後に消えますので、毎回、ダウンロードされます。
+作成したソースコードは、次のGitHubリポジトリにあります。
+
+* [u6k/nativefier-docker](https://github.com/u6k/nativefier-docker)
+
+Docker Hubでイメージを公開しています。
+
+* [u6kapps/nativefier](https://hub.docker.com/r/u6kapps/nativefier/)
+
+Windowsで実行する場合はDocker MachineでDockerホストを構築して、その中でコンテナー実行すると思いますが、共有フォルダに出力しないと消えるので、注意です。
+
+`nativefier`がダウンロードしたElectronはコンテナー実行後に消えますので、毎回、ダウンロードされます。

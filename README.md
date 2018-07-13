@@ -15,6 +15,7 @@ __Table of Contents:__
 - [Background](#background)
 - [Install](#install)
 - [Dependencies](#dependencies)
+- [Deploy](#deploy)
 - [Maintainer](#maintainer)
 - [Contribute](#contribute)
 - [License](#license)
@@ -87,6 +88,46 @@ Server:
     - 筆者は、AtomやVisualStudioCodeを使用しています。
 - ngrok
     - 外部から表示確認を行うときに必要です。
+
+## Deploy
+
+gh-pagesブランチにプッシュして、GitHub Pagesにu6k.Blogをデプロイする手順。
+
+```
+# クリーンアップする
+git clean -xdf
+git reset --hard
+
+# Dockerイメージをビルドする
+docker build -t blog .
+
+# u6k.Blogを生成する
+docker run --rm -v $(pwd):/var/my-blog blog
+
+# gh-pagesブランチをチェックアウトする
+git checkout gh-pages
+
+# CNAMEファイルを退避する
+cp CNAME _site/
+
+# 既存ファイルを削除する
+git rm -rf '*'
+
+# 余計なファイルを削除する
+rm Gemfile.lock
+rm .jekyll-metadata
+rm -r uml/
+rm -r .sass-cache/
+
+# 生成したu6k.Blogを展開する
+mv _site/* .
+rm -r _site/
+
+# gitプッシュする
+git add .
+git commit -m "generate u6k.Blog"
+git push origin gh-pages
+```
 
 ## Maintainer
 

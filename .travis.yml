@@ -16,7 +16,7 @@ script:
     - git checkout -b gh-pages
     - cp CNAME _site/
     - git rm -rf '*'
-    - rm -r Gemfile.lock .jekyll-metadata uml .sass-cache
+    - rm -rf Gemfile.lock .jekyll-metadata uml .sass-cache
     - mv _site/* .
     - rm -r _site
     - git config --global user.name "u6k"

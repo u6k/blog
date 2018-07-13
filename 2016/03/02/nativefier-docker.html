@@ -327,7 +327,7 @@
   <li><a href="#nativefierとは">nativefierとは</a></li>
   <li><a href="#なぜdockerコンテナー化するのか">なぜDockerコンテナー化するのか？</a></li>
   <li><a href="#使い方">使い方</a></li>
-  <li><a href="#備考">備考</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
 </ul>
 
             </nav>
@@ -373,22 +373,23 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -v /c/Users/xxx/Downloads:/mnt/dest u6kapps/nativefier -n "Google Calendar" -p win32 --honest "https://calendar.google.com" /mnt/dest
 </code></pre></div></div>
 
-<h2 id="備考">備考</h2>
+<h2 id="おわりに">おわりに</h2>
+
+<p>作成したソースコードは、次のGitHubリポジトリにあります。</p>
 
 <ul>
-  <li>GitHubでコードを公開しています。
-    <ul>
-      <li><a href="https://github.com/u6k/nativefier-docker">u6k/nativefier-docker</a></li>
-    </ul>
-  </li>
-  <li>Docker Hubでイメージを公開しています。
-    <ul>
-      <li><a href="https://hub.docker.com/r/u6kapps/nativefier/">u6kapps/nativefier</a></li>
-    </ul>
-  </li>
-  <li>Windowsで実行する場合はDocker MachineでDockerホストを構築して、その中でコンテナー実行すると思いますが、共有フォルダに出力しないと消えるので、注意です。</li>
-  <li><code class="highlighter-rouge">nativefier</code>がダウンロードしたElectronはコンテナー実行後に消えますので、毎回、ダウンロードされます。</li>
+  <li><a href="https://github.com/u6k/nativefier-docker">u6k/nativefier-docker</a></li>
 </ul>
+
+<p>Docker Hubでイメージを公開しています。</p>
+
+<ul>
+  <li><a href="https://hub.docker.com/r/u6kapps/nativefier/">u6kapps/nativefier</a></li>
+</ul>
+
+<p>Windowsで実行する場合はDocker MachineでDockerホストを構築して、その中でコンテナー実行すると思いますが、共有フォルダに出力しないと消えるので、注意です。</p>
+
+<p><code class="highlighter-rouge">nativefier</code>がダウンロードしたElectronはコンテナー実行後に消えますので、毎回、ダウンロードされます。</p>
 
         
       </section>

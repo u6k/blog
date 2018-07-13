@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-04T18:26:34+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Windows 10のデータ通信を抑制する</title><link href="/2018/06/25/suppress-network-access-of-windows-10.html" rel="alternate" type="text/html" title="Windows 10のデータ通信を抑制する" /><published>2018-06-25T00:00:00+09:00</published><updated>2018-06-25T00:00:00+09:00</updated><id>/2018/06/25/suppress-network-access-of-windows-10</id><content type="html" xml:base="/2018/06/25/suppress-network-access-of-windows-10.html">&lt;p&gt;自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-13T03:52:15+09:00</updated><id>/</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Windows 10のデータ通信を抑制する</title><link href="/2018/06/25/suppress-network-access-of-windows-10.html" rel="alternate" type="text/html" title="Windows 10のデータ通信を抑制する" /><published>2018-06-25T00:00:00+09:00</published><updated>2018-06-25T00:00:00+09:00</updated><id>/2018/06/25/suppress-network-access-of-windows-10</id><content type="html" xml:base="/2018/06/25/suppress-network-access-of-windows-10.html">&lt;p&gt;自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。&lt;/p&gt;
 
 &lt;p&gt;ここでは、データ通信を抑制するためにやったことを整理します。&lt;/p&gt;
 
@@ -78,24 +78,7 @@
 
 &lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
 
-&lt;p&gt;これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-25-suppress-network-access-of-windows-10.md&quot;&gt;2018-06-25-suppress-network-access-of-windows-10.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Windows" /><summary type="html">自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。</summary></entry><entry><title type="html">パスワード管理手順(デジタル + アナログ)</title><link href="/2018/06/21/password-management.html" rel="alternate" type="text/html" title="パスワード管理手順(デジタル + アナログ)" /><published>2018-06-21T00:00:00+09:00</published><updated>2018-06-21T00:00:00+09:00</updated><id>/2018/06/21/password-management</id><content type="html" xml:base="/2018/06/21/password-management.html">&lt;p&gt;利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。&lt;/p&gt;
+&lt;p&gt;これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Windows" /><summary type="html">自分はMicrosoft Surface Pro 4を使っていますが、何も考えずにテザリングすると、あっという間にデータ通信量がGBを越えてしまいます。</summary></entry><entry><title type="html">パスワード管理手順(デジタル + アナログ)</title><link href="/2018/06/21/password-management.html" rel="alternate" type="text/html" title="パスワード管理手順(デジタル + アナログ)" /><published>2018-06-21T00:00:00+09:00</published><updated>2018-06-21T00:00:00+09:00</updated><id>/2018/06/21/password-management</id><content type="html" xml:base="/2018/06/21/password-management.html">&lt;p&gt;利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。&lt;/p&gt;
 
 &lt;p&gt;この記事では、筆者が実践しているパスワード管理の手順を説明します。&lt;/p&gt;
 
@@ -165,23 +148,6 @@
   &lt;li&gt;六角暗号記帳
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;https://www.amacoto.com/&quot;&gt;デジタルエンディングノートにも。生成・変更もカンタン！パスワードノート。 - アマノコトワリ舎　自然と共に。パスワード管理ノート新発売！&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-21-password-management.md&quot;&gt;2018-06-21-password-management.md&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="機密情報管理" /><summary type="html">利用するWebサービスが増えるにつれて、管理するパスワードも増えていきます。しかし、人間の記憶力でこれらのパスワードを記憶することなどできません。</summary></entry><entry><title type="html">work-reportの素案</title><link href="/2018/06/12/planning-work-report.html" rel="alternate" type="text/html" title="work-reportの素案" /><published>2018-06-12T00:00:00+09:00</published><updated>2018-06-12T00:00:00+09:00</updated><id>/2018/06/12/planning-work-report</id><content type="html" xml:base="/2018/06/12/planning-work-report.html">&lt;p&gt;個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。&lt;/p&gt;
@@ -314,23 +280,6 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/work-report&quot;&gt;u6k/work-report: 個人的な活動ログをレポートする - GitHub&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://redmine.u6k.me/projects/work-report&quot;&gt;概要 - work-report - u6k.Redmine&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-12-planning-work-report.md&quot;&gt;2018-06-12-planning-work-report.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="企画" /><category term="レビュー" /><category term="ブログ" /><summary type="html">個人的にいわゆる週次レビューをしていましたが、これを簡略化するツールがほしいなと思ったので、ツールの素案を書いてみます。README駆動開発みたいなものです。</summary></entry><entry><title type="html">個人開発基盤の構成、およびデプロイ・フロー</title><link href="/2018/06/09/my-development-environment-and-deploy-workflow.html" rel="alternate" type="text/html" title="個人開発基盤の構成、およびデプロイ・フロー" /><published>2018-06-09T00:00:00+09:00</published><updated>2018-06-09T00:00:00+09:00</updated><id>/2018/06/09/my-development-environment-and-deploy-workflow</id><content type="html" xml:base="/2018/06/09/my-development-environment-and-deploy-workflow.html">&lt;p&gt;個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。&lt;/p&gt;
 
 &lt;p&gt;この記事では、開発基盤として利用しているサービス、およびデプロイ・フローの概要を説明します。&lt;/p&gt;
@@ -446,24 +395,7 @@
 
 &lt;p&gt;いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。&lt;/p&gt;
 
-&lt;p&gt;この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-09-my-development-environment-and-deploy-workflow.md&quot;&gt;2018-06-09-my-development-environment-and-deploy-workflow.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="git" /><category term="DigitalOcean" /><category term="Travis CI" /><category term="Rundeck" /><category term="サーバー" /><category term="設計" /><summary type="html">個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。</summary></entry><entry><title type="html">自宅サーバー設計(ハードウェア編)</title><link href="/2018/06/04/my-service-specification-hardware-part.html" rel="alternate" type="text/html" title="自宅サーバー設計(ハードウェア編)" /><published>2018-06-04T00:00:00+09:00</published><updated>2018-06-04T00:00:00+09:00</updated><id>/2018/06/04/my-service-specification-hardware-part</id><content type="html" xml:base="/2018/06/04/my-service-specification-hardware-part.html">&lt;p&gt;自分用のRedmineやminioを運用するためにDockerホストを運用していますが、&lt;a href=&quot;https://blog.u6k.me/2017/04/28/my-server-specification-for-hardware.html&quot;&gt;前回&lt;/a&gt;から約1年が経過して、少し構成が変わったので整理します。&lt;/p&gt;
+&lt;p&gt;この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="git" /><category term="DigitalOcean" /><category term="Travis CI" /><category term="Rundeck" /><category term="サーバー" /><category term="設計" /><summary type="html">個人的にいくつかのアプリケーションを開発していまして、おひとりさま開発なので環境構築からリリース、運用まで全て自分で行っています。これらの作業の手間やミスを減らすため、可能な限り自動化しています。</summary></entry><entry><title type="html">自宅サーバー設計(ハードウェア編)</title><link href="/2018/06/04/my-service-specification-hardware-part.html" rel="alternate" type="text/html" title="自宅サーバー設計(ハードウェア編)" /><published>2018-06-04T00:00:00+09:00</published><updated>2018-06-04T00:00:00+09:00</updated><id>/2018/06/04/my-service-specification-hardware-part</id><content type="html" xml:base="/2018/06/04/my-service-specification-hardware-part.html">&lt;p&gt;自分用のRedmineやminioを運用するためにDockerホストを運用していますが、&lt;a href=&quot;https://blog.u6k.me/2017/04/28/my-server-specification-for-hardware.html&quot;&gt;前回&lt;/a&gt;から約1年が経過して、少し構成が変わったので整理します。&lt;/p&gt;
 
 &lt;p&gt;この記事では、自分用のサービス群を運用するために利用しているサービスやハードウェアの構成を説明します。&lt;/p&gt;
 
@@ -543,24 +475,7 @@
 
 &lt;p&gt;前回も書きましたが、できればAWSなりDigitalOceanなりに全て移行してしまいたいのですが、どーにもストレージの料金や性能を考えると、自宅ハードウエアがあるならそれで運用したい、という結論になっています。データのサイズがなぁ…&lt;/p&gt;
 
-&lt;p&gt;ちなみに、旅行などで長期間自宅を離れる場合に、一時的にDigitalOceanに切り替える運用は、前回から変わらずです。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-06-04-my-service-specification-hardware-part.md&quot;&gt;2018-06-04-my-service-specification-hardware-part.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="サーバー" /><category term="設計" /><summary type="html">自分用のRedmineやminioを運用するためにDockerホストを運用していますが、前回から約1年が経過して、少し構成が変わったので整理します。</summary></entry><entry><title type="html">「アンテナを張る」とは？</title><link href="/2018/05/19/what-is-keep-myself-open-to-news.html" rel="alternate" type="text/html" title="「アンテナを張る」とは？" /><published>2018-05-19T00:00:00+09:00</published><updated>2018-05-19T00:00:00+09:00</updated><id>/2018/05/19/what-is-keep-myself-open-to-news</id><content type="html" xml:base="/2018/05/19/what-is-keep-myself-open-to-news.html">&lt;p&gt;世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。&lt;/p&gt;
+&lt;p&gt;ちなみに、旅行などで長期間自宅を離れる場合に、一時的にDigitalOceanに切り替える運用は、前回から変わらずです。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="サーバー" /><category term="設計" /><summary type="html">自分用のRedmineやminioを運用するためにDockerホストを運用していますが、前回から約1年が経過して、少し構成が変わったので整理します。</summary></entry><entry><title type="html">「アンテナを張る」とは？</title><link href="/2018/05/19/what-is-keep-myself-open-to-news.html" rel="alternate" type="text/html" title="「アンテナを張る」とは？" /><published>2018-05-19T00:00:00+09:00</published><updated>2018-05-19T00:00:00+09:00</updated><id>/2018/05/19/what-is-keep-myself-open-to-news</id><content type="html" xml:base="/2018/05/19/what-is-keep-myself-open-to-news.html">&lt;p&gt;世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。&lt;/p&gt;
 
 &lt;p&gt;では、「アンテナを張る」とはどういうことで、何をするべきで、具体的にはどのような環境・運用になるのでしょうか。&lt;/p&gt;
 
@@ -630,24 +545,7 @@
 
 &lt;p&gt;アンテナを張ることについて、「アンテナを張るとはどう言うことか？(要求)」「どうすれば良いのか？(要件)」を文書化してみました。人と会話していると、ここら辺が意外と整理されておらず、漫然と情報収集っぽいことをしている人が見られます。もう少し的を絞って効率的に情報収集すれば良いのに、と思ったので、この記事を書いてみました。&lt;/p&gt;
 
-&lt;p&gt;どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-05-19-what-is-keep-myself-open-to-news.md&quot;&gt;2018-05-19-what-is-keep-myself-open-to-news.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="情報収集" /><summary type="html">世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。</summary></entry><entry><title type="html">Sidekiq on Dockerサンプル</title><link href="/2018/04/29/sample-sidekiq.html" rel="alternate" type="text/html" title="Sidekiq on Dockerサンプル" /><published>2018-04-29T00:00:00+09:00</published><updated>2018-04-29T00:00:00+09:00</updated><id>/2018/04/29/sample-sidekiq</id><content type="html" xml:base="/2018/04/29/sample-sidekiq.html">&lt;p&gt;この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。&lt;/p&gt;
+&lt;p&gt;どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="情報収集" /><summary type="html">世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。</summary></entry><entry><title type="html">Sidekiq on Dockerサンプル</title><link href="/2018/04/29/sample-sidekiq.html" rel="alternate" type="text/html" title="Sidekiq on Dockerサンプル" /><published>2018-04-29T00:00:00+09:00</published><updated>2018-04-29T00:00:00+09:00</updated><id>/2018/04/29/sample-sidekiq</id><content type="html" xml:base="/2018/04/29/sample-sidekiq.html">&lt;p&gt;この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。&lt;/p&gt;
 
 &lt;h2 id=&quot;はじめに&quot;&gt;はじめに&lt;/h2&gt;
 
@@ -1028,23 +926,6 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   &lt;li&gt;&lt;a href=&quot;http://shiro-16.hatenablog.com/entry/2015/10/12/192412&quot;&gt;Sidekiq について基本と1年半運用してのあれこれ - まっしろけっけ&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://tech.smarthr.jp/entry/2017/04/20/165555&quot;&gt;Sidekiq アンチパターン: 序 - SmartHR Tech Blog&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-04-29-sample-sidekiq.md&quot;&gt;2018-04-29-sample-sidekiq.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="Ruby on Rails" /><category term="Sidekiq" /><category term="Cron" /><category term="ジョブ" /><summary type="html">この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-12 to 2018-02-18)</title><link href="/2018/02/18/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-12 to 2018-02-18)" /><published>2018-02-18T23:50:00+09:00</published><updated>2018-02-18T23:50:00+09:00</updated><id>/2018/02/18/this-week-i-learned</id><content type="html" xml:base="/2018/02/18/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
 
 &lt;h2 id=&quot;ニュース&quot;&gt;ニュース&lt;/h2&gt;
@@ -1079,24 +960,7 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
 
 &lt;h2 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h2&gt;
 
-&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-18-this-week-i-learned.md&quot;&gt;2018-02-18-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-05 to 2018-02-11)</title><link href="/2018/02/11/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-05 to 2018-02-11)" /><published>2018-02-11T23:50:00+09:00</published><updated>2018-02-11T23:50:00+09:00</updated><id>/2018/02/11/this-week-i-learned</id><content type="html" xml:base="/2018/02/11/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-05 to 2018-02-11)</title><link href="/2018/02/11/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-05 to 2018-02-11)" /><published>2018-02-11T23:50:00+09:00</published><updated>2018-02-11T23:50:00+09:00</updated><id>/2018/02/11/this-week-i-learned</id><content type="html" xml:base="/2018/02/11/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
 
 &lt;h2 id=&quot;ニュース&quot;&gt;ニュース&lt;/h2&gt;
 
@@ -1131,24 +995,7 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
 
 &lt;h2 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h2&gt;
 
-&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-11-this-week-i-learned.md&quot;&gt;2018-02-11-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-29 to 2018-02-04)</title><link href="/2018/02/04/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-29 to 2018-02-04)" /><published>2018-02-04T23:50:00+09:00</published><updated>2018-02-04T23:50:00+09:00</updated><id>/2018/02/04/this-week-i-learned</id><content type="html" xml:base="/2018/02/04/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
+&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-01-29 to 2018-02-04)</title><link href="/2018/02/04/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-01-29 to 2018-02-04)" /><published>2018-02-04T23:50:00+09:00</published><updated>2018-02-04T23:50:00+09:00</updated><id>/2018/02/04/this-week-i-learned</id><content type="html" xml:base="/2018/02/04/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
 
 &lt;h2 id=&quot;ニュース&quot;&gt;ニュース&lt;/h2&gt;
 
@@ -1192,21 +1039,4 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
 
 &lt;h2 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h2&gt;
 
-&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;
-
-&lt;h2 id=&quot;link&quot;&gt;Link&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Author
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://blog.u6k.me/&quot;&gt;u6k.Blog()&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k - GitHub&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://twitter.com/u6k_yu1&quot;&gt;u6k_yu1 | Twitter&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Source
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/u6k/blog/blob/master/_posts/2018-02-04-this-week-i-learned.md&quot;&gt;2018-02-04-this-week-i-learned.md&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>
+&lt;p&gt;今週は記事執筆もなし。アウトライナーには溜まっているのだけど。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>

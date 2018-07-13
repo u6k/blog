@@ -71,6 +71,8 @@ Java(TM) SE Runtime Environment (build 1.8.0_72-b15)
 Java HotSpot(TM) 64-Bit Server VM (build 25.72-b15, mixed mode)
 ```
 
-## 参照
+## おわりに
+
+作成したソースコードは、次のリポジトリにあります。
 
 * [u6k/ubuntu-oracle-java8](https://github.com/u6k/ubuntu-oracle-java8)

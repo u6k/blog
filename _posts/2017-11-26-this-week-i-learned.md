@@ -31,12 +31,3 @@ date: 2017-11-26 23:50:00+09:00
 ## リリース情報
 
 先週に引き続き、[task-focus](https://github.com/u6k/task-focus)の実装を進めています。ユーザー管理をSNS認証前提としたくてSpring Socialと戯れているけど、もはや泣きそう。もう先に進むために、普通のユーザー管理にしてしまおうかな…もっとSpring SecurityとSpring Socialの理解を深めてから、再チャレンジすることにしようか。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-26-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-26-this-week-i-learned.md)

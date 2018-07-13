@@ -124,7 +124,7 @@ redirect_from:
 
 Eclipse抜きに「開発環境とは」を考えると、いわゆるIDEがよくできていることが改めてわかります。とは言えもっと簡単にセットアップしたいとも思います。もうちょっと色々と追求してみます。
 
-## 参考
+## 参考リンク
 
 * [Vim でJava を書く環境を整えましたが、IDE で良い気がします](http://moznion.hatenadiary.com/entry/20130103/1357234061)
 * [Javaエンジニアがいまさら始めるRuby開発環境 - Qiita](http://qiita.com/ko2ic/items/9204f5dba907dab37a1b)

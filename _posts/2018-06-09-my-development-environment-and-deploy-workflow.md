@@ -142,12 +142,3 @@ Travis CIがDocker Hubにプッシュしたあと、RundeckのAPIを呼び出し
 いろいろなサービスが関わりますが、Gitプッシュしたあとはほぼ自動で様々なことができるようになっており、便利だしミスもほぼありません。また、Dockerを基盤としているため、どの言語処理系でも考え方が変わらないことも便利です。
 
 この記事で説明した構成は個人開発の場合ですが、仕事の場合でもオンプレミスになるだけで、構成の考え方は変わりありません。可能な限り自動化して、便利かつミスのないリリースをしましょう。
-
-## Link
-
-- Author
-  - [u6k.Blog()](https://blog.u6k.me/)
-  - [u6k - GitHub](https://github.com/u6k)
-  - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-  - [2018-06-09-my-development-environment-and-deploy-workflow.md](https://github.com/u6k/blog/blob/master/_posts/2018-06-09-my-development-environment-and-deploy-workflow.md)

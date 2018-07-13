@@ -67,12 +67,3 @@ Docker、Visual Studio Code、SorceTreeなど、多くのアプリケーショ�
 ## おわりに
 
 これらの設定を行ったことで、「いきなり3GBの通信を行っていた」みたいな衝撃事件はなくなりました。今のところは。
-
-## Link
-
-- Author
-  - [u6k.Blog](https://blog.u6k.me/)
-  - [u6k - GitHub](https://github.com/u6k)
-  - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-  - [2018-06-25-suppress-network-access-of-windows-10.md](https://github.com/u6k/blog/blob/master/_posts/2018-06-25-suppress-network-access-of-windows-10.md)

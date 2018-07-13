@@ -61,6 +61,8 @@ $ docker build -t u6k/ruby-docker .
 $ docker run u6k/ruby-docker
 ```
 
-## GitHub
+## おわりに
 
-[u6k/ruby-docker](https://github.com/u6k/ruby-docker)
+作成したソースコードは、次のリポジトリにあります。
+
+- [u6k/ruby-docker](https://github.com/u6k/ruby-docker)

@@ -11,15 +11,8 @@ before_install:
     - sudo apt-get -y install docker-ce
 
 script:
-    - docker build -t u6kapps/blog .
-
-after_success:
-    - if [ -n "$TRAVIS_TAG" ]; then
-          echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-          docker push u6kapps/blog;
-      else
-          echo skip docker push;
-      fi
+    - docker build -t blog .
+    - docker run --rm -v $(pwd):/var/my-blog blog
 
 notifications:
     slack:

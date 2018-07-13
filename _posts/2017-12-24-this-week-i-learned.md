@@ -47,12 +47,3 @@ date: 2017-12-24 23:50:00+09:00
 ## リリース情報
 
 作業が、ますます進まなくなってきた…
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-24-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-24-this-week-i-learned.md)

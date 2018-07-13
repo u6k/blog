@@ -49,7 +49,3 @@ KERNEL=="sda2", SYMLINK+="root"
 ## 備考
 
 * 当手順はWindowsでの作業手順ですが、qemuとカーネルイメージの入手手順を読み替えれば、MacやLinuxでも同様にできるはずです。
-
-## Qiita
-
-* [RaspberryPi - Raspberry Pi emulator for WindowsでRaspbian最新版を動作させる手順 - Qiita](http://qiita.com/u6k/items/1301cc75d19066150701)

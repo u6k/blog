@@ -68,7 +68,7 @@ Twitter、Facebook、GitHubなど各種サービスにブログURLを登録し�
 
 ちなみに、今後は[http://blog.u6k.me/](http://blog.u6k.me/)にアクセスしていただくようお願いいたします。これまでの[http://u6k-apps.blogspot.com/](http://u6k-apps.blogspot.com/)にもアクセスできますが、リダイレクトされます。
 
-## 参考ページ
+## 参考リンク
 
 * [ムームードメインで取ったドメインを自宅サーバで使用する](http://d.hatena.ne.jp/foosin/20081019/1224418130)
 * [MyDNS JP ダイナミックドメイン登録方法](http://www.akakagemaru.info/port/ddns/mydnsjp.html)

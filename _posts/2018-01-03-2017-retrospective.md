@@ -169,12 +169,3 @@ u6k.Redmineの活動数集計で述べましたが、100～200/月の活動数�
 数値で集計してみると、この時期は仕事が忙しかったな、この時期はいろいろ活動できたななど、いろいろ分かります。もっと機械的に集計できるなら、月ごとに集計してみたいですけど。
 
 2018年に向けたTryやKeepも設定しましたし、頻繁にこれを見返して活動をしたいと思います。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2018-01-03-2017-retrospective.md](https://github.com/u6k/blog/blob/master/_posts/2018-01-03-2017-retrospective.md)

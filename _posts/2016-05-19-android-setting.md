@@ -167,10 +167,3 @@ redirect_from:
 * Tofu Destroyer
     * サービス起動中のアイコンは表示しない
     * クリップボードにコピーすると通知に表示
-
-## リンク
-
-* GitHub
-    * https://github.com/u6k/blog/blob/develop/page/20160519-android-setting.md
-* Blogger
-    * http://blog.u6k.me/2016/05/android-setting.html

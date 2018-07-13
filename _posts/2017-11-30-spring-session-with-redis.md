@@ -290,12 +290,3 @@ redis:6379> keys *
 ## おわりに
 
 Redisと連携した時のセッション管理がどのように行われるのかが整理できました。次はSpring Securityを食い込んだ時のセッション管理か、Spring Securityによるサインアップかな。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-11-30-spring-session-with-redis.md](https://github.com/u6k/blog/blob/master/_posts/2017-11-30-spring-session-with-redis.md)

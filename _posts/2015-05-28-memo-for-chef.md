@@ -10,7 +10,7 @@ redirect_from:
 
 今はAnsibleを主に使っているので、Chefの追っかけは中断しようと考えています。なので、書きかけメモとして残しておきます。
 
-## 参考ページ
+## 参考リンク
 
 * [今からでも始められる Chef 入門 - Qiita](http://qiita.com/kasaharu/items/55a3000db31c52ce0bd7)
 * [cookbook開発環境をchef dkで作成する - Qiita](http://qiita.com/cazador/items/06c88255a206bf38fdc0)

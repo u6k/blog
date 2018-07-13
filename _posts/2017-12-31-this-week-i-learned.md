@@ -29,12 +29,3 @@ date: 2017-12-31 23:50:00+09:00
 
 - [仕事に役立つ、素晴らしい書籍たち - u6k.Blog()](https://blog.u6k.me/2017/12/27/great-books-useful-for-work.html)
     - これまで仕事や生活で役立った書籍の紹介。わりと万人に紹介できると思う。
-
-## Link
-
-- Author
-    - [u6k.Blog()](https://blog.u6k.me/)
-    - [u6k - GitHub](https://github.com/u6k)
-    - [u6k_yu1 \| Twitter](https://twitter.com/u6k_yu1)
-- Source
-    - [2017-12-31-this-week-i-learned.md](https://github.com/u6k/blog/blob/master/_posts/2017-12-31-this-week-i-learned.md)

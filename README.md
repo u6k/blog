@@ -99,7 +99,7 @@ git clean -xdf
 git reset --hard
 
 # Dockerイメージをビルドする
-docker buid -t blog .
+docker build -t blog .
 
 # u6k.Blogを生成する
 docker run --rm -v $(pwd):/var/my-blog blog

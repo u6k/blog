@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Raspberry Pi 3 Model B+を購入してからsshできるようにするまで(ヘッドレス)と、ハマりポイント"
+title: "Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント"
 tags:
   - "Raspberry Pi"
   - "サーバー構築"
@@ -223,5 +223,5 @@ macOSやWindowsでもBonjourがインストールされていれば、`raspberry
 - [Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)
 - [Formatting an SDXC card for use with NOOBS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md)
 - [Raspberry Pi 3 Model B+ - Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)
-- [Raspberry pi 3 が起動しない場合の対処法 | 日々の知見ストック](http://chiken-stock.com/2018/05/16/raspiproblem/)
+- [Raspberry pi 3 が起動しない場合の対処法 \| 日々の知見ストック](http://chiken-stock.com/2018/05/16/raspiproblem/)
 - [Raspberry Pi B+ で起動しない問題について - Qiita](https://qiita.com/sff1019/items/83fcbe72387fe12ddccc)

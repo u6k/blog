@@ -11,7 +11,7 @@ date: 2018-12-20 00:00:00+09:00
 
 ## 背景
 
-簡単なWebアプリケーションやちょっとしたジョブを稼働させたくて、Raspberry Pi 3 Model B+(以降、RaspberryPiと呼びます)を購入しました。以前に[Raspberry Pi Model B+をセットアップ](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)しましたが、OSがバージョンアップしたため当時の手順は使えませんでした。
+簡単なWebアプリケーションやちょっとしたジョブを稼働させたくて、Raspberry Pi 3 Model B+(以降、RaspberryPiと呼びます)を購入しました。以前に[Raspberry Pi Model B+をセットアップ](/2015/01/23/setup-raspberry-pi-by-displayless.html)しましたが、OSがバージョンアップしたため当時の手順は使えませんでした。
 
 この記事では、RaspberryPiをディスプレイやキーボードを接続せずに、つまりヘッドレスでRaspbian Stretch Liteをインストールして、PCなどのsshクライアントからRaspberryPiに接続するまでの手順を説明します。
 
@@ -220,7 +220,7 @@ macOSやWindowsでもBonjourがインストールされていれば、`raspberry
 
 - [【ヘッドレス】Raspberry Pi 3 セットアップ for macOS - Qiita](https://qiita.com/y_k/items/2e37583d4a5dcf81dc19)
 - [RaspberryPi Raspbian ヘッドレスインストール - Qiita](https://qiita.com/nori-dev-akg/items/a8361e728a66a8c3bdba)
-- [Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)
+- [Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog](/2015/01/23/setup-raspberry-pi-by-displayless.html)
 - [Formatting an SDXC card for use with NOOBS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md)
 - [Raspberry Pi 3 Model B+ - Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)
 - [Raspberry pi 3 が起動しない場合の対処法 \| 日々の知見ストック](http://chiken-stock.com/2018/05/16/raspiproblem/)

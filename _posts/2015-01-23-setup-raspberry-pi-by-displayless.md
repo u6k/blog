@@ -8,6 +8,8 @@ redirect_from:
   - /2015/01/raspberry-pi.html
 ---
 
+> __NOTE:__ この記事は内容が古いです。最新の情報は[Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント](https://blog.u6k.me/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html)をご覧ください。
+
 安価で遊べるサーバーが欲しかったので、Raspberry Pi Model B+を購入しました。取りあえず使えるようにするまでの初期構築手順を記述します。あくまで自分用メモなので、しっかりした手順を知りたい場合は、既にたくさん公開されている同様の記事を見たほうが良いかもしれません。
 
 ## 作業前提

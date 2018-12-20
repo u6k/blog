@@ -1,0 +1,707 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント">
+
+
+
+
+  <meta property="og:description" content="購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント">
+  <meta name="twitter:description" content="購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-12-20T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント">
+    <meta itemprop="description" content="購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。">
+    <meta itemprop="datePublished" content="2018-12-20">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-12-20T00:00:00+09:00">2018-12-20</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 6 minutes</p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#背景">背景</a></li>
+  <li><a href="#前提">前提</a></li>
+  <li><a href="#手順">手順</a>
+    <ul>
+      <li><a href="#raspbianをダウンロードする">Raspbianをダウンロードする</a></li>
+      <li><a href="#microsdにraspbianをインストールする">microSDにRaspbianをインストールする</a></li>
+      <li><a href="#事前設定ssh有効化wi-fi設定を行う">事前設定(SSH有効化、Wi-Fi設定)を行う</a></li>
+      <li><a href="#raspberrypiを起動する">RaspberryPiを起動する</a></li>
+      <li><a href="#pcからraspberrypiにssh接続する">PCからRaspberryPiにssh接続する</a></li>
+    </ul>
+  </li>
+  <li><a href="#ハマりポイント">ハマりポイント</a>
+    <ul>
+      <li><a href="#microsdのフォーマットはfat32でなければならない">microSDのフォーマットはFAT32でなければならない</a></li>
+      <li><a href="#電源が不足していると起動しない">電源が不足していると起動しない</a></li>
+      <li><a href="#microsdの相性が悪い">microSDの相性が悪い</a></li>
+    </ul>
+  </li>
+  <li><a href="#所感">所感</a></li>
+  <li><a href="#参考リンク">参考リンク</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p>購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。</p>
+
+<h2 id="背景">背景</h2>
+
+<p>簡単なWebアプリケーションやちょっとしたジョブを稼働させたくて、Raspberry Pi 3 Model B+(以降、RaspberryPiと呼びます)を購入しました。以前に<a href="https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html">Raspberry Pi Model B+をセットアップ</a>しましたが、OSがバージョンアップしたため当時の手順は使えませんでした。</p>
+
+<p>この記事では、RaspberryPiをディスプレイやキーボードを接続せずに、つまりヘッドレスでRaspbian Stretch Liteをインストールして、PCなどのsshクライアントからRaspberryPiに接続するまでの手順を説明します。</p>
+
+<p>この記事の手順では、とりあえずRaspberryPiを起動してssh接続するまでなので、このままではインターネットに公開などできませんし、いくつかの設定作業が残っています。これらは少しの手作業とAnsibleを使った一括設定を行う予定ですが、別の記事で説明します。</p>
+
+<h2 id="前提">前提</h2>
+
+<p>次の機材が必要となります。</p>
+
+<ul>
+  <li>Raspberry Pi 3 Model B+ RS版</li>
+  <li>microUSB電源 5V/3.0A
+    <ul>
+      <li>RaspberryPiの仕様は2.5A</li>
+      <li>2.0Aでは起動しませんでした</li>
+    </ul>
+  </li>
+  <li>microSD 16GB
+    <ul>
+      <li>microSD-&gt;SD変換アダプターも必要</li>
+      <li>容量は、8GB以上が望ましいです</li>
+    </ul>
+  </li>
+  <li>MacBookPro
+    <ul>
+      <li>筆者はMacBookProを使用しましたが、microSDカードへの書き込みができるのであれば、Windows PCでも問題ありません</li>
+    </ul>
+  </li>
+</ul>
+
+<p>筆者はRaspberryPiとmicroUSB電源を秋葉原の秋月電子で購入しましたが、Amazonなどでも購入することができます。購入サイトによって価格が異なりますので注意が必要です。</p>
+
+<p>上記の機材だけでも作業は可能ですが、トラブルに遭遇した時の原因調査に困るので、できれば次の機材も用意したほうがよいです。</p>
+
+<ul>
+  <li>USB有線キーボード</li>
+  <li>HDMIケーブル、ディスプレイ
+    <ul>
+      <li>テレビにHDMI接続できる場合が多いです</li>
+    </ul>
+  </li>
+</ul>
+
+<p>使用機材にMacBookProをあげた通り、PC側の作業手順はMacBookProを想定して説明します。Windows PCでも同様の作業はできますので、適宜読み替えてください。</p>
+
+<h2 id="手順">手順</h2>
+
+<p>それでは、実際のセットアップ手順を説明します。</p>
+
+<h3 id="raspbianをダウンロードする">Raspbianをダウンロードする</h3>
+
+<p><a href="https://www.raspberrypi.org/downloads/raspbian/">Download Raspbian for Raspberry Pi</a>からRaspbian Stretch Liteをダウンロードします。</p>
+
+<p>同ページにハッシュ値が記載されていますので、ダウンロードが終了したらダッシュ値が一致することを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ openssl sha256 2018-11-13-raspbian-stretch-lite.zip 
+SHA256(2018-11-13-raspbian-stretch-lite.zip)= 47ef1b2501d0e5002675a50b6868074e693f78829822eef64f3878487953234d
+</code></pre></div></div>
+
+<h3 id="microsdにraspbianをインストールする">microSDにRaspbianをインストールする</h3>
+
+<p>zipファイルを展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ unzip 2018-11-13-raspbian-stretch-lite.zip
+Archive:  2018-11-13-raspbian-stretch-lite.zip
+  inflating: 2018-11-13-raspbian-stretch-lite.img
+</code></pre></div></div>
+
+<p>microSDのマウント・ポイントを確認します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diskutil list
+/dev/disk0 (internal, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *121.3 GB   disk0
+   1:                        EFI EFI                     209.7 MB   disk0s1
+   2:                 Apple_APFS Container disk1         120.5 GB   disk0s2
+
+/dev/disk1 (synthesized):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      APFS Container Scheme -                      +120.5 GB   disk1
+                                 Physical Store disk0s2
+   1:                APFS Volume OSX                     114.0 GB   disk1s1
+   2:                APFS Volume Preboot                 22.4 MB    disk1s2
+   3:                APFS Volume Recovery                514.7 MB   disk1s3
+   4:                APFS Volume VM                      2.1 GB     disk1s4
+
+/dev/disk2 (internal, physical):
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:     FDisk_partition_scheme                        *15.9 GB    disk2
+   1:             Windows_FAT_32 boot                    46.0 MB    disk2s1
+   2:                      Linux                         15.9 GB    disk2s2
+</code></pre></div></div>
+
+<p>容量を見ると、<code class="highlighter-rouge">/dev/disk2</code>がmicroSDのマウント・ポイントだとわかります。</p>
+
+<p>microSDをFAT32でフォーマットします。</p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> 当然ですが、microSDの内容は消去されます。また、デバイスの指定を間違えるとどえらいことになるので、要注意です。</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diskutil eraseDisk FAT32 RPI /dev/disk2
+Started erase on disk2
+Unmounting disk
+Creating the partition map
+Waiting for partitions to activate
+Formatting disk2s2 as MS-DOS (FAT32) with name RPI
+512 bytes per physical sector
+/dev/rdisk2s2: 30673616 sectors in 1917101 FAT32 clusters (8192 bytes/cluster)
+bps=512 spc=16 res=32 nft=2 mid=0xf8 spt=32 hds=255 hid=411648 drv=0x80 bsec=30703616 bspf=14978 rdcl=2 infs=1 bkbs=6
+Mounting disk
+Finished erase on disk2
+</code></pre></div></div>
+
+<p>microSDをアンマウントします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diskutil unmountDisk /dev/disk2
+Unmount of all volumes on disk2 was successful
+</code></pre></div></div>
+
+<p>microSDにRaspbianイメージを書き込みます。この作業は数分かかります。応答が返ってこなくてもしばらく放置しましょう。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo dd if=2018-11-13-raspbian-stretch-lite.img of=/dev/disk2 bs=1m conv=sync
+1780+0 records in
+1780+0 records out
+1866465280 bytes transferred in 702.735738 secs (2655999 bytes/sec)
+</code></pre></div></div>
+
+<h3 id="事前設定ssh有効化wi-fi設定を行う">事前設定(SSH有効化、Wi-Fi設定)を行う</h3>
+
+<blockquote>
+  <p><strong>NOTE:</strong> これらの作業は、ディスプレイと有線キーボードを使用するのであれば、RaspberryPiの起動後に<code class="highlighter-rouge">raspi-setup</code>コマンドで行うことができます。この記事では、ヘッドレス作業のため、RaspberryPi起動前に行います。</p>
+</blockquote>
+
+<p>microSDのルート・フォルダに移動します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /Volumes/boot/
+</code></pre></div></div>
+
+<p>SSH機能を有効化するため、<code class="highlighter-rouge">ssh</code>ファイルを作成します。これは空ファイルでよいです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ touch ssh
+</code></pre></div></div>
+
+<p>Wi-Fiを設定するため、<code class="highlighter-rouge">wpa_supplicant.conf</code>ファイルを作成します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat wpa_supplicant.conf 
+country=JP
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+    ssid="{SSID}"
+    psk="{暗号キー}"
+}
+</code></pre></div></div>
+
+<p>暗号キーは、<a href="https://www.wireshark.org/tools/wpa-psk.html">Wireshark · WPA PSK Generator</a>などでSSIDとパスフレーズから生成できます。ルーターによっては、PSK設定項目があることがあるので、その場合はそこに設定されている値を使用します。</p>
+
+<h3 id="raspberrypiを起動する">RaspberryPiを起動する</h3>
+
+<p>microSDを取り出す準備をします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd
+$ diskutil eject /dev/disk2
+Disk /dev/disk2 ejected
+</code></pre></div></div>
+
+<p>コマンドが成功したら、microSDをPCから実際に取り出します。</p>
+
+<p>RaspberryPiにmicroSDを挿入して、電源に接続します。RaspberryPiに電源スイッチはなく、電源に接続すると自動的に起動します。</p>
+
+<blockquote>
+  <p><strong>NOTE:</strong> HDMIケーブルやUSBキーボードなど他の機器を接続する場合、まず電源ケーブル以外の機器を接続して、最後に電源ケーブルを接続します。</p>
+</blockquote>
+
+<h3 id="pcからraspberrypiにssh接続する">PCからRaspberryPiにssh接続する</h3>
+
+<p>電源に接続して数分で起動が終了します。設定に問題がなければ、RaspberryPiが無線LANに接続されているはずです。ルーターのDHCP機能などで割当IPアドレスリストを見ると、IPアドレスが増えていることがわかると思います。</p>
+
+<p>PCからRaspberryPiにssh接続します。初期ユーザーは<code class="highlighter-rouge">pi</code>、パスワードは<code class="highlighter-rouge">raspberry</code>となっています。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh pi@raspberrypi.local
+
+Linux raspberrypi 4.14.79-v7+ #1159 SMP Sun Nov 4 17:50:20 GMT 2018 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Dec 19 05:55:53 2018 from 192.168.3.2
+pi@raspberrypi:~ $
+</code></pre></div></div>
+
+<p>macOSやWindowsでもBonjourがインストールされていれば、<code class="highlighter-rouge">raspberrypi.local</code>でRaspberryPiを発見することができます。これで接続できない場合は、ルーターのDHCP機能などでIPアドレスを調べてください。</p>
+
+<h2 id="ハマりポイント">ハマりポイント</h2>
+
+<h3 id="microsdのフォーマットはfat32でなければならない">microSDのフォーマットはFAT32でなければならない</h3>
+
+<p>例えばディスク・ユーティリティなどで<a href="https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md">exFATでフォーマットしてしまうと、RaspberryPiは起動しない</a>ようです。その場合、FAT32でフォーマットしなおしてください。</p>
+
+<h3 id="電源が不足していると起動しない">電源が不足していると起動しない</h3>
+
+<p><a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">Raspberry Pi 3 Model B+の仕様</a>によると、5V/2.5Aの電源が必要となります。試しに手元にあった5V/2.0A(スマホ充電用)の電源をRaspberryPiに接続してみましたが、起動しませんでした。<a href="http://chiken-stock.com/2018/05/16/raspiproblem/">同様の問題が報告</a>されています。</p>
+
+<h3 id="microsdの相性が悪い">microSDの相性が悪い</h3>
+
+<p><a href="https://qiita.com/sff1019/items/83fcbe72387fe12ddccc">microSDの相性が悪いと起動しない</a>ようです。筆者はこの問題に遭遇したことはありません。</p>
+
+<h2 id="所感">所感</h2>
+
+<p>とりあえず、RaspberryPiを使えるように最低限のセットアップを行いました。この手順が手作業なのは仕方ありませんが、次のOSセットアップやソフトウェア・セットアップは可能な限り自動化する予定です。</p>
+
+<h2 id="参考リンク">参考リンク</h2>
+
+<ul>
+  <li><a href="https://qiita.com/y_k/items/2e37583d4a5dcf81dc19">【ヘッドレス】Raspberry Pi 3 セットアップ for macOS - Qiita</a></li>
+  <li><a href="https://qiita.com/nori-dev-akg/items/a8361e728a66a8c3bdba">RaspberryPi Raspbian ヘッドレスインストール - Qiita</a></li>
+  <li><a href="https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html">Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog</a></li>
+  <li><a href="https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md">Formatting an SDXC card for use with NOOBS - Raspberry Pi Documentation</a></li>
+  <li><a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">Raspberry Pi 3 Model B+ - Raspberry Pi</a></li>
+  <li><a href="http://chiken-stock.com/2018/05/16/raspiproblem/">Raspberry pi 3 が起動しない場合の対処法 | 日々の知見ストック</a></li>
+  <li><a href="https://qiita.com/sff1019/items/83fcbe72387fe12ddccc">Raspberry Pi B+ で起動しない問題について - Qiita</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E6%A7%8B%E7%AF%89" class="page__taxonomy-item" rel="tag">サーバー構築</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-12-20T00:00:00+09:00">2018-12-20</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Raspberry+Pi+3+Model+B%2B%E3%82%92%E8%B3%BC%E5%85%A5%E3%81%97%E3%81%A6%E3%81%8B%E3%82%89%E3%83%98%E3%83%83%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A7ssh%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%BE%E3%81%A7%E3%81%AE5%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%81%A8%E3%80%81%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20%2F2018%2F12%2F20%2Fsetup-raspberry-pi-3-model-b-plus-headless.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F12%2F20%2Fsetup-raspberry-pi-3-model-b-plus-headless.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2018%2F12%2F20%2Fsetup-raspberry-pi-3-model-b-plus-headless.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2018%2F12%2F20%2Fsetup-raspberry-pi-3-model-b-plus-headless.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2018/06/25/suppress-network-access-of-windows-10.html" class="pagination--pager" title="Windows 10のデータ通信を抑制する
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

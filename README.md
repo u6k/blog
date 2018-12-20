@@ -97,31 +97,32 @@ gh-pagesブランチにプッシュして、GitHub Pagesにu6k.Blogをデプロ�
 # クリーンアップする
 git clean -xdf
 git reset --hard
-
-# Dockerイメージをビルドする
-docker build -t blog .
+git pull origin master
 
 # u6k.Blogを生成する
+docker build -t blog .
 docker run --rm -v $(pwd):/var/my-blog blog
+tar zcvf ../site.tgz _site/
+
+git clean -xdf
+git reset --hard
 
 # gh-pagesブランチをチェックアウトする
 git checkout gh-pages
+git pull origin gh-pages
 
 # CNAMEファイルを退避する
-cp CNAME _site/
+cp CNAME ../
 
 # 既存ファイルを削除する
 git rm -rf '*'
 
-# 余計なファイルを削除する
-rm Gemfile.lock
-rm .jekyll-metadata
-rm -r uml/
-rm -r .sass-cache/
-
 # 生成したu6k.Blogを展開する
+tar zxvf ../site.tgz
 mv _site/* .
 rm -r _site/
+
+mv ../CNAME .
 
 # gitプッシュする
 git add .

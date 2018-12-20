@@ -11,7 +11,7 @@ date: 2018-12-20 00:00:00+09:00
 
 ## 背景
 
-簡単なWebアプリケーションやちょっとしたジョブを稼働させたくて、Raspberry Pi 3 Model B+(以降、RaspberryPiと呼びます)を購入しました。以前にRaspberry Pi Model B+をセットアップ[^rpi-setup]しましたが、OSがバージョンアップしたため当時の手順は使えませんでした。
+簡単なWebアプリケーションやちょっとしたジョブを稼働させたくて、Raspberry Pi 3 Model B+(以降、RaspberryPiと呼びます)を購入しました。以前に[Raspberry Pi Model B+をセットアップ](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)しましたが、OSがバージョンアップしたため当時の手順は使えませんでした。
 
 この記事では、RaspberryPiをディスプレイやキーボードを接続せずに、つまりヘッドレスでRaspbian Stretch Liteをインストールして、PCなどのsshクライアントからRaspberryPiに接続するまでの手順を説明します。
 
@@ -202,15 +202,15 @@ macOSやWindowsでもBonjourがインストールされていれば、`raspberry
 
 ### microSDのフォーマットはFAT32でなければならない
 
-例えばディスク・ユーティリティなどでexFATでフォーマットしてしまうと、RaspberryPiは起動しないようです[^sd-format]。その場合、FAT32でフォーマットしなおしてください。
+例えばディスク・ユーティリティなどで[exFATでフォーマットしてしまうと、RaspberryPiは起動しない](https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md)ようです。その場合、FAT32でフォーマットしなおしてください。
 
 ### 電源が不足していると起動しない
 
-Raspberry Pi 3 Model B+の仕様[^rpi-spec]によると、5V/2.5Aの電源が必要となります。試しに手元にあった5V/2.0A(スマホ充電用)の電源をRaspberryPiに接続してみましたが、起動しませんでした。同様の問題が報告されています。[^power]
+[Raspberry Pi 3 Model B+の仕様](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)によると、5V/2.5Aの電源が必要となります。試しに手元にあった5V/2.0A(スマホ充電用)の電源をRaspberryPiに接続してみましたが、起動しませんでした。[同様の問題が報告](http://chiken-stock.com/2018/05/16/raspiproblem/)されています。
 
 ### microSDの相性が悪い
 
-microSDの相性が悪い[^sd-compati]と起動しないようです。筆者はこの問題に遭遇したことはありません。
+[microSDの相性が悪いと起動しない](https://qiita.com/sff1019/items/83fcbe72387fe12ddccc)ようです。筆者はこの問題に遭遇したことはありません。
 
 ## 所感
 
@@ -220,8 +220,8 @@ microSDの相性が悪い[^sd-compati]と起動しないようです。筆者は
 
 - [【ヘッドレス】Raspberry Pi 3 セットアップ for macOS - Qiita](https://qiita.com/y_k/items/2e37583d4a5dcf81dc19)
 - [RaspberryPi Raspbian ヘッドレスインストール - Qiita](https://qiita.com/nori-dev-akg/items/a8361e728a66a8c3bdba)
-[^rpi-setup]: [Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)
-[^sd-format]: [Formatting an SDXC card for use with NOOBS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md)
-[^rpi-spec]: [Raspberry Pi 3 Model B+ - Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)
-[^power]: [Raspberry pi 3 が起動しない場合の対処法 | 日々の知見ストック](http://chiken-stock.com/2018/05/16/raspiproblem/)
-[^sd-compati]: [Raspberry Pi B+ で起動しない問題について - Qiita](https://qiita.com/sff1019/items/83fcbe72387fe12ddccc)
+- [Raspberry Piセットアップメモ(ディスプレイレス) - u6k.Blog](https://blog.u6k.me/2015/01/23/setup-raspberry-pi-by-displayless.html)
+- [Formatting an SDXC card for use with NOOBS - Raspberry Pi Documentation](https://www.raspberrypi.org/documentation/installation/sdxc_formatting.md)
+- [Raspberry Pi 3 Model B+ - Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)
+- [Raspberry pi 3 が起動しない場合の対処法 | 日々の知見ストック](http://chiken-stock.com/2018/05/16/raspiproblem/)
+- [Raspberry Pi B+ で起動しない問題について - Qiita](https://qiita.com/sff1019/items/83fcbe72387fe12ddccc)

@@ -1,4 +1,929 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-12-20T19:16:06+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント</title><link href="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html" rel="alternate" type="text/html" title="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント" /><published>2018-12-20T00:00:00+09:00</published><updated>2018-12-20T00:00:00+09:00</updated><id>/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless</id><content type="html" xml:base="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html">&lt;p&gt;購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-08T18:20:02+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">2018年の振り返り</title><link href="/2019/01/08/2018-retrospective.html" rel="alternate" type="text/html" title="2018年の振り返り" /><published>2019-01-08T00:00:00+09:00</published><updated>2019-01-08T00:00:00+09:00</updated><id>/2019/01/08/2018-retrospective</id><content type="html" xml:base="/2019/01/08/2018-retrospective.html">&lt;p&gt;あけましておめでとうございます。本年もよろしくお願いいたします。&lt;/p&gt;
+
+&lt;p&gt;2018年が終わりましたので振り返りと、振り返り結果を踏まえた2019年の目標設定をします。&lt;/p&gt;
+
+&lt;h2 id=&quot;2018年当初のミッションステートメント&quot;&gt;2018年当初のミッション・ステートメント&lt;/h2&gt;
+
+&lt;p&gt;まずは、2018年当初のミッション・ステートメント(自分憲法)を再掲します。どのような自分になりたかったのかを思い出しましょう。ただ、ミッション・ステートメントを最初に作成したのは2018年11月なので、正しくは「2018年当初」ではありません。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仕事
+    &lt;ul&gt;
+      &lt;li&gt;余力を残しながら(業務中に勉強などをしながら)リーダー業務をこなす&lt;/li&gt;
+      &lt;li&gt;ナレッジ的な成果を出して、自分の特性を周知する&lt;/li&gt;
+      &lt;li&gt;いつでも手を引けるようにする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長(個人システム運用)
+    &lt;ul&gt;
+      &lt;li&gt;要求・設計・実装を矛盾なく整理する&lt;/li&gt;
+      &lt;li&gt;ポートフォリオを整理して、自分の特性を周知する&lt;/li&gt;
+      &lt;li&gt;投資システムを運用して、財務に反映する&lt;/li&gt;
+      &lt;li&gt;吸収した知識をナレッジに変換して、ブログなどで周知する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;暴飲・暴食のような無駄な出費を抑制する&lt;/li&gt;
+      &lt;li&gt;仕事以外の収入を確保する&lt;/li&gt;
+      &lt;li&gt;将来的に、親たちの世話をできる程度の財力を確保する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;最低限、適度なエクササイズを行い、肥満や生活習慣病を避ける&lt;/li&gt;
+      &lt;li&gt;可能であれば、スポーツを行い、身体を鍛える&lt;/li&gt;
+      &lt;li&gt;十分な睡眠時間を確保して、睡眠負債を抱えない&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;家族が、物事を論理的に整理する能力を高める&lt;/li&gt;
+      &lt;li&gt;自宅が片付いており、過ごしやすい状態を維持する&lt;/li&gt;
+      &lt;li&gt;家事作業が整理されており、なぜ・誰が・どうするのかがわかる状態を維持する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2018年当初のkpt&quot;&gt;2018年当初のKPT&lt;/h2&gt;
+
+&lt;p&gt;ミッション・ステートメントを踏まえて、&lt;a href=&quot;/2018/01/03/2017-retrospective.html#%E4%BB%8A%E5%B9%B4%E3%81%AEkpt&quot;&gt;2018年当初のKPT&lt;/a&gt;を再掲します。何を問題と感じて、どのように改善したかったのかを思い出しましょう。&lt;/p&gt;
+
+&lt;p&gt;本来はミッション・ステートメントからKPTを設定すべきですが、この時のKPTはなんとなくで設定していました。ミッション・ステートメントの作成が2018年11月だったので。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Keep (うまくいって、次も続けたいこと)
+    &lt;ul&gt;
+      &lt;li&gt;ブログにアウトプットする&lt;/li&gt;
+      &lt;li&gt;プロダクトをリリースする&lt;/li&gt;
+      &lt;li&gt;活動頻度を維持する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Problem (問題だと認識していること)
+    &lt;ul&gt;
+      &lt;li&gt;ブログへのアウトプットが少ない&lt;/li&gt;
+      &lt;li&gt;作業環境が限定されてしまった&lt;/li&gt;
+      &lt;li&gt;プロジェクトをモデリングできていない&lt;/li&gt;
+      &lt;li&gt;サイド・プロジェクトをモデリングできていない&lt;/li&gt;
+      &lt;li&gt;要件～設計～実装をモデリングできていない&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Try (改善策、工夫してみたいこと)
+    &lt;ul&gt;
+      &lt;li&gt;各種モデリングを実践する&lt;/li&gt;
+      &lt;li&gt;ブログの作業環境をもっと整備する&lt;/li&gt;
+      &lt;li&gt;サイド・プロジェクトの作業環境をもっと整備する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2018年の活動集計&quot;&gt;2018年の活動集計&lt;/h2&gt;
+
+&lt;p&gt;なりたい自分とどうしたいのかを思い出しました。では、2018年の活動がどうだったかを集計します。&lt;/p&gt;
+
+&lt;h3 id=&quot;個人プロダクトのリリース&quot;&gt;個人プロダクトのリリース&lt;/h3&gt;
+
+&lt;p&gt;個人プロダクトはGitHubで管理しているので、GitHubのReleaseを集計します。まずは月ごとに集計してみます。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;リリース数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-02&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-03&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-04&lt;/td&gt;
+      &lt;td&gt;15&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-05&lt;/td&gt;
+      &lt;td&gt;16&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-07&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-08&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-09&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;総計&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;79&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;6月が一瞬落ち込みますが、4月から8月にかけて多くリリースしています。この時は仕事が政治的なゴタゴタでうまく進まなかったので、余った時間とストレスをぶつけてた感じなのかな？&lt;/p&gt;
+
+&lt;p&gt;次に、リポジトリごとのリリース数を集計してみます。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;リポジトリ&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;リリース数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/ceron-analyze&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/crawline&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/extract-content&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/google-news-analyze&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/investment-machine&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/my-services&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/nginx-proxy&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/rails-tutorial-hello-app&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/rails-tutorial-sample-app&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/rails-tutorial-toy-app&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/redmine&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/ruby-editor&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/rundeck&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/sample-parse-xbrl&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/sample-parse-xbrl-2&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/sample-sidekiq&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;u6k/scoring-horse-racing&lt;/td&gt;
+      &lt;td&gt;17&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;総計&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;79&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;investment-machine&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;scoring-horse-racing&lt;/code&gt;のリリース数が目立ちます。これらは、株価と競馬のデータをスクレイピングするプロダクトです。データ収集が楽しくて、細かくリリースを行っていたんですね。&lt;code class=&quot;highlighter-rouge&quot;&gt;my-services&lt;/code&gt;のリリース数が多いのは、&lt;code class=&quot;highlighter-rouge&quot;&gt;investment-machine&lt;/code&gt;や&lt;code class=&quot;highlighter-rouge&quot;&gt;scoring-horse-racing&lt;/code&gt;などのリリースに伴って本番環境の&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt;などデプロイ設定の変更を行ったためです。&lt;/p&gt;
+
+&lt;p&gt;また、リリース数は少ないものの、Railsに関するリポジトリを多く作りました。作業環境の変化に伴い、使用言語をJavaからRubyにしたためです。&lt;/p&gt;
+
+&lt;h3 id=&quot;githubアクティビティ&quot;&gt;GitHubアクティビティ&lt;/h3&gt;
+
+&lt;p&gt;GitHub Contributionsを見てみます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-01-08-2018-retrospective/github.png&quot; alt=&quot;github contributions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;リリースが多かった4月から8月は芝生が青々としていますが、それ以外、特に9月以降は空白が目立ちます。よくないですね。&lt;/p&gt;
+
+&lt;p&gt;傾向を知るために、&lt;a href=&quot;https://portfolio.forkwell.com/@u6k?open_auto_profile=true&quot;&gt;Forkwellで分析&lt;/a&gt;してみます。次のように出ました。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;超絶技巧のRuby忍者で2018年から累計39044行（上位10.6%）変更しました。&lt;/p&gt;
+
+  &lt;p&gt;他には、Javaを2012年から使いはじめ、累計32857行（上位6.9%）
+C#を2016年から使いはじめ、累計10732行（上位76.2%）変更しました。&lt;/p&gt;
+
+  &lt;p&gt;直近半年では主にRubyを書いています。
+土日は他の人より明らかに多くのコードを書きます。
+深夜は他の人より明らかに多くのコードを書きます。&lt;/p&gt;
+
+  &lt;p&gt;半年間でアクティブに開発しているリポジトリはu6k/scoring-horse-racing(307 commits)です。
+他にもu6k/crawline(45 commits)、u6k/ceron-analyze(36 commits)を開発しています。&lt;/p&gt;
+
+  &lt;p&gt;数いるVimmerの中でもデフォルトを愛すVim侍で、設定ファイルの変更量は212行です。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Findyでも分析してみます。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;私は2018年にGitHubで1475コントリビュートし、Findy内で979位でした。月間の最大は262 (4月)、一日あたりの平均は4.2/日でした。あなたも2018年のコントリビューション活動をチェックしよう！ https://findy-code.io?h=67_44dvkaW6dW&amp;amp;t=yc #findy #コントリビューションオブザイヤー&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;ブログの投稿&quot;&gt;ブログの投稿&lt;/h3&gt;
+
+&lt;p&gt;ブログの投稿数を月ごとに集計します。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;投稿数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-01&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-02&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-04&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-05&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;総計&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;17&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;合計で17本。2017年は28本だったので、大きく減ってしまっています。その分、個人プロダクトに注力したとも言えますが、うーん。ネタはいろいろあるのですけど、どうにも執筆の敷居がまだ高くて…&lt;/p&gt;
+
+&lt;h3 id=&quot;タスク処理&quot;&gt;タスク処理&lt;/h3&gt;
+
+&lt;p&gt;タスクはRedmineで管理しているので、Redmineの活動を集計します。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間(月)&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;タスク処理数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-01&lt;/td&gt;
+      &lt;td&gt;156&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-02&lt;/td&gt;
+      &lt;td&gt;101&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-03&lt;/td&gt;
+      &lt;td&gt;233&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-04&lt;/td&gt;
+      &lt;td&gt;408&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-05&lt;/td&gt;
+      &lt;td&gt;486&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-06&lt;/td&gt;
+      &lt;td&gt;266&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-07&lt;/td&gt;
+      &lt;td&gt;212&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-08&lt;/td&gt;
+      &lt;td&gt;147&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-09&lt;/td&gt;
+      &lt;td&gt;116&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10&lt;/td&gt;
+      &lt;td&gt;663&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11&lt;/td&gt;
+      &lt;td&gt;704&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12&lt;/td&gt;
+      &lt;td&gt;740&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;タスクには、ソースコード執筆、それ以外の個人的な作業、家事、仕事などいわゆる「作業」の全てを含むほか、ブックマークやナレッジなどのWikiの更新も含みます。なので、数が多いです。また、10月あたりからブックマークをRedmine Wikiに作成するようになったので、処理数が増えています。しかし、Wikiにブックマークするの、面倒なんですよねぇ…&lt;/p&gt;
+
+&lt;p&gt;うーん、これといって有意な情報は読み取れないですね。よく更新したな、よく更新したわりには意義のある成果を出せていないなぁ、という感想くらい。参考までに、他の年と比べると次のようになります。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;2014年&lt;/th&gt;
+      &lt;th&gt;2015年&lt;/th&gt;
+      &lt;th&gt;2016年&lt;/th&gt;
+      &lt;th&gt;2017年&lt;/th&gt;
+      &lt;th&gt;2018年&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1月&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;635&lt;/td&gt;
+      &lt;td&gt;551&lt;/td&gt;
+      &lt;td&gt;75&lt;/td&gt;
+      &lt;td&gt;156&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2月&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;464&lt;/td&gt;
+      &lt;td&gt;671&lt;/td&gt;
+      &lt;td&gt;124&lt;/td&gt;
+      &lt;td&gt;101&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3月&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;530&lt;/td&gt;
+      &lt;td&gt;213&lt;/td&gt;
+      &lt;td&gt;105&lt;/td&gt;
+      &lt;td&gt;233&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4月&lt;/td&gt;
+      &lt;td&gt;1114&lt;/td&gt;
+      &lt;td&gt;380&lt;/td&gt;
+      &lt;td&gt;172&lt;/td&gt;
+      &lt;td&gt;210&lt;/td&gt;
+      &lt;td&gt;408&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5月&lt;/td&gt;
+      &lt;td&gt;306&lt;/td&gt;
+      &lt;td&gt;516&lt;/td&gt;
+      &lt;td&gt;215&lt;/td&gt;
+      &lt;td&gt;51&lt;/td&gt;
+      &lt;td&gt;486&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;6月&lt;/td&gt;
+      &lt;td&gt;338&lt;/td&gt;
+      &lt;td&gt;266&lt;/td&gt;
+      &lt;td&gt;141&lt;/td&gt;
+      &lt;td&gt;104&lt;/td&gt;
+      &lt;td&gt;266&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;7月&lt;/td&gt;
+      &lt;td&gt;829&lt;/td&gt;
+      &lt;td&gt;126&lt;/td&gt;
+      &lt;td&gt;92&lt;/td&gt;
+      &lt;td&gt;106&lt;/td&gt;
+      &lt;td&gt;212&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8月&lt;/td&gt;
+      &lt;td&gt;927&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;129&lt;/td&gt;
+      &lt;td&gt;164&lt;/td&gt;
+      &lt;td&gt;147&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;9月&lt;/td&gt;
+      &lt;td&gt;1210&lt;/td&gt;
+      &lt;td&gt;108&lt;/td&gt;
+      &lt;td&gt;130&lt;/td&gt;
+      &lt;td&gt;255&lt;/td&gt;
+      &lt;td&gt;116&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;10月&lt;/td&gt;
+      &lt;td&gt;792&lt;/td&gt;
+      &lt;td&gt;177&lt;/td&gt;
+      &lt;td&gt;66&lt;/td&gt;
+      &lt;td&gt;233&lt;/td&gt;
+      &lt;td&gt;663&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;11月&lt;/td&gt;
+      &lt;td&gt;450&lt;/td&gt;
+      &lt;td&gt;167&lt;/td&gt;
+      &lt;td&gt;38&lt;/td&gt;
+      &lt;td&gt;310&lt;/td&gt;
+      &lt;td&gt;704&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;12月&lt;/td&gt;
+      &lt;td&gt;686&lt;/td&gt;
+      &lt;td&gt;675&lt;/td&gt;
+      &lt;td&gt;204&lt;/td&gt;
+      &lt;td&gt;91&lt;/td&gt;
+      &lt;td&gt;740&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;総計&lt;/td&gt;
+      &lt;td&gt;6660&lt;/td&gt;
+      &lt;td&gt;4054&lt;/td&gt;
+      &lt;td&gt;2622&lt;/td&gt;
+      &lt;td&gt;1828&lt;/td&gt;
+      &lt;td&gt;4232&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;学習&quot;&gt;学習&lt;/h3&gt;
+
+&lt;p&gt;読書やあとで読むの処理などの学習活動はStudyPlusで管理しているので、StudyPlusの学習量を集計します。StudyPlusは11月から再開したので、そこからの記録しかありません。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;Pocket&lt;/th&gt;
+      &lt;th&gt;ユースケース駆動開発実践ガイド&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-19 - 2018-11-25&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-26 - 2018-12-02&lt;/td&gt;
+      &lt;td&gt;343&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-03 - 2018-12-09&lt;/td&gt;
+      &lt;td&gt;256&lt;/td&gt;
+      &lt;td&gt;171&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-10 - 2018-12-16&lt;/td&gt;
+      &lt;td&gt;243&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-17 - 2018-12-23&lt;/td&gt;
+      &lt;td&gt;209&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-24 - 2018-12-30&lt;/td&gt;
+      &lt;td&gt;291&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-31 - 2019-01-06&lt;/td&gt;
+      &lt;td&gt;209&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;こうしてみると、Pocketのあとで読む記事をよく読み流しているなと思いますが、それでもあとで読む残数が一向に減っていかないので、ため込みすぎていますね。いえ、ため込むことを悪いことだとは思っていないので、やはりレコメンドしてくれる仕組みが欲しいところです。&lt;/p&gt;
+
+&lt;p&gt;ユースケース駆動開発実践ガイドを読み進めていますが、あまり進んでいる感じがしないのは、手法を実際に使いながらページを戻ったり進んだりしているからです。とはいえ、いつまで経っても終わらないのは気持ち悪いので、ここらで読み終えてしまおうと思います。&lt;/p&gt;
+
+&lt;h3 id=&quot;習慣&quot;&gt;習慣&lt;/h3&gt;
+
+&lt;p&gt;マインドフルネス、エクササイズなどの習慣活動はCoach.meで管理しているので、Coach.meのチェックインを集計します。Coach.meは10月から再開したので、そこからの記録しかありません。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;Accomplish 1 Most Important Task&lt;/th&gt;
+      &lt;th&gt;Mindfulness meditation&lt;/th&gt;
+      &lt;th&gt;Exercise&lt;/th&gt;
+      &lt;th&gt;Read&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10-01 - 2018-10-07&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10-08 - 2018-10-14&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10-15 - 2018-10-21&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10-22 - 2018-10-28&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-10-29 - 2018-11-04&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-05 - 2018-11-11&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-12 - 2018-11-18&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-19 - 2018-11-25&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-11-26 - 2018-12-02&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-03 - 2018-12-09&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-10 - 2018-12-16&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-17 - 2018-12-23&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-24 - 2018-12-30&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-31 - 2019-01-06&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;このデータも、ここから有意な何かを読み取ることは難しい…KPTでも述べますが、エクササイズをがんばりましょう、くらいで。&lt;/p&gt;
+
+&lt;p&gt;マインドフルネスは「寝たままヨガ」を就寝時に使っていますが、本来の使い方はこうではないはずなので、ちょっと考えます。&lt;/p&gt;
+
+&lt;h3 id=&quot;睡眠&quot;&gt;睡眠&lt;/h3&gt;
+
+&lt;p&gt;睡眠はRuntastic Sleep Betterで管理しているので、浅い・深い睡眠時間の平均を算出します。Runtastic Sleep Betterは12月から使用開始したので、そこからの記録しかありません。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;em&gt;期間&lt;/em&gt;&lt;/th&gt;
+      &lt;th&gt;浅い睡眠(min)&lt;/th&gt;
+      &lt;th&gt;浅い睡眠(割合)&lt;/th&gt;
+      &lt;th&gt;深い睡眠(min)&lt;/th&gt;
+      &lt;th&gt;深い睡眠(割合)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-03 - 2018-12-09&lt;/td&gt;
+      &lt;td&gt;71.25&lt;/td&gt;
+      &lt;td&gt;23%&lt;/td&gt;
+      &lt;td&gt;222.5&lt;/td&gt;
+      &lt;td&gt;69%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-10 - 2018-12-16&lt;/td&gt;
+      &lt;td&gt;130.4&lt;/td&gt;
+      &lt;td&gt;40%&lt;/td&gt;
+      &lt;td&gt;176&lt;/td&gt;
+      &lt;td&gt;54%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-17 - 2018-12-23&lt;/td&gt;
+      &lt;td&gt;101.8&lt;/td&gt;
+      &lt;td&gt;31%&lt;/td&gt;
+      &lt;td&gt;210&lt;/td&gt;
+      &lt;td&gt;62%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-24 - 2018-12-30&lt;/td&gt;
+      &lt;td&gt;97.8&lt;/td&gt;
+      &lt;td&gt;29%&lt;/td&gt;
+      &lt;td&gt;207.2&lt;/td&gt;
+      &lt;td&gt;65%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2018-12-31 - 2019-01-06&lt;/td&gt;
+      &lt;td&gt;73&lt;/td&gt;
+      &lt;td&gt;38%&lt;/td&gt;
+      &lt;td&gt;117.75&lt;/td&gt;
+      &lt;td&gt;55%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;睡眠ログは、取得できていない日があったり、昼寝したためによる睡眠時間が極端に短かったりと、よいデータが取れていないと思っています。しかし、それにしても深い睡眠の時間と割合が少なすぎます。&lt;/p&gt;
+
+&lt;p&gt;一般的に&lt;a href=&quot;https://www.sleepstyles.jp/about/archive/986.html&quot;&gt;ノンレム睡眠(深い睡眠)は睡眠時間の80%&lt;/a&gt;と言われているようです。自分は特にショートスリーパーというわけではないので、やはり8時間(最低でも6時間)睡眠はしたいところです。ということは、「8hour(480min) * 80% = 384min」が深い睡眠の基準となります。しかし、全っっっ然足りていません。&lt;/p&gt;
+
+&lt;h3 id=&quot;2018年の興味があったワード&quot;&gt;2018年の興味があったワード&lt;/h3&gt;
+
+&lt;p&gt;2018年のTwitterワードクラウドを取得して、何に興味があったかを分析する。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-01-08-2018-retrospective/word-cloud.jpeg&quot; alt=&quot;word cloud&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pocket、Qiita、SpeakerDeckが大きいのは置いておいて、意味がありそうな単語だと「目標」「Redmine」でしょうか。そんなにツイートしてたかなぁ…？&lt;/p&gt;
+
+&lt;h2 id=&quot;2018年の感想keepproblem&quot;&gt;2018年の感想(Keep、Problem)&lt;/h2&gt;
+
+&lt;p&gt;2018年の感想を、ミッション・ステートメントの項目ごとにKeepとProblemで整理してみます。&lt;/p&gt;
+
+&lt;p&gt;まず、Keep(よかったこと、続けていきたいこと)について。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仕事
+    &lt;ul&gt;
+      &lt;li&gt;お客様が抱えていた大きめの問題の1つを解決するシステムを構築しました。運用はこれからですが、大きな前進です。&lt;/li&gt;
+      &lt;li&gt;余力を残しながらリーダー業務を実施することができました。つまり、担当案件以外にも少しずつですが手を出すことができています。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長
+    &lt;ul&gt;
+      &lt;li&gt;プロダクトをいくつかリリースできました。あくまで自分用ですが、アウトプットしたかったので、よしです。&lt;/li&gt;
+      &lt;li&gt;クローラーをいくつか構築・運用しました。以前から興味があった分野のデータ収集を開始しました。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;自分(家庭ではなく)の支出を把握するべくZaimに記録していますが、当初より無駄な支出が減ってきています。目標範囲までもう少し。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;大きなけがや病気などなく、とりあえずではありますが、やり過ごせました。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;次にProblem(問題だと感じていること)について。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仕事
+    &lt;ul&gt;
+      &lt;li&gt;お客様の社内政治的なゴタゴタをうまく整理できず、当初考えていたほどの成果が出せていません。&lt;/li&gt;
+      &lt;li&gt;ブレブレになる方向性を誘導することにも半ば失敗しています。&lt;/li&gt;
+      &lt;li&gt;現プロジェクトの職場が遠すぎて、通勤時間が地獄。会社からは今の仕事を広げるように言われているし、本当、どうしようか…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長
+    &lt;ul&gt;
+      &lt;li&gt;何かいろいろ手を動かしたけど、それが意義のある成果になっていないので、徒労感が半端ないです。&lt;/li&gt;
+      &lt;li&gt;クローラーを作っていたのは、データ収集・分析して役立てたいことがあったからなのですけど、役立つところまでは到達できませんでした。&lt;/li&gt;
+      &lt;li&gt;ブログのアウトプットも少ないので、自分の中のもやもやを吐き出せていないです。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;出費はなるべく抑え気味にしていますが、「仕事以外の収入を確保」までは到達できていません。まぁこれは時間がかかると思っているので、仕方なし。&lt;/li&gt;
+      &lt;li&gt;仕事の残業がなくなった割に通勤時間がすごく長くなってしまったので、全体的に収入減です。結構な危機なので、来年は対応しないと。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;片付いてもいないし、論理的に整理することもできていません。「なんとかやり過ごした」という感じ。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というわけで、全体的に「なんとかやり過ごした」「意義のある成果がない」「結構ピンチ」な年になってしまいました。&lt;/p&gt;
+
+&lt;h2 id=&quot;2019年のミッションステートメント&quot;&gt;2019年のミッション・ステートメント&lt;/h2&gt;
+
+&lt;p&gt;さて、2018年を振り返ったので、次は2019年のことを考えましょう。まずは、ミッション・ステートメントを見直します。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;家族・親族・仕事仲間と細く長く関係を持つ&lt;/li&gt;
+      &lt;li&gt;多くの人と関係を持つことは得意ではないので、それは目指さない&lt;/li&gt;
+      &lt;li&gt;ある程度の距離感は必要だと思う&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仕事
+    &lt;ul&gt;
+      &lt;li&gt;ハイスキルなメンバーを持つチームをリーダーとして運営する&lt;/li&gt;
+      &lt;li&gt;顧客に「問題定義・解決力・エンジニアリング」を価値として提供する&lt;/li&gt;
+      &lt;li&gt;仕事面で「自分は何者か」を示せるように、ポートフォリオを持つ&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;「問題定義からエンジニアリングまでできる」人として認識される&lt;/li&gt;
+      &lt;li&gt;「音楽・小説・絵画を構築できる」人として認識される&lt;/li&gt;
+      &lt;li&gt;社会的に大きな意義のあることをなしたいわけではない…今のところ&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長
+    &lt;ul&gt;
+      &lt;li&gt;要求・設計・実装・運用を矛盾なく定義する&lt;/li&gt;
+      &lt;li&gt;仕事だけでなく個人趣味も含めて「自分が何者か」を示せるように、ポートフォリオ(プロダクト、ブログ)を持つ&lt;/li&gt;
+      &lt;li&gt;データ収集・分析の仕組みを運用して、ナレッジや財務に反映する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;無駄な出費を抑え、自分や家族に投資する&lt;/li&gt;
+      &lt;li&gt;仕事以外の収入を得る&lt;/li&gt;
+      &lt;li&gt;将来的に、親世代や子供世代を世話できる財力を得る&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;天気による影響を受けない&lt;/li&gt;
+      &lt;li&gt;肥満や生活習慣病を避ける&lt;/li&gt;
+      &lt;li&gt;睡眠負債を抱えない&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;定期的に旅行に行く&lt;/li&gt;
+      &lt;li&gt;物事を論理的に整理して、生活をシンプルにする&lt;/li&gt;
+      &lt;li&gt;自宅を整理して、過ごしやすい環境とする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2018年のミッション・ステートメントは「こうなりたい」と「こうしたい」が混ざっていたので、なるべく「こうなりたい」に変更しました。だいぶ大きなことを言っている感はありますが、あくまで「こうなりたい」なので、これでいいです。&lt;/p&gt;
+
+&lt;p&gt;全体的に「3年以内くらいにこうなりたい」をイメージして作成しました。これらは月次レビューで少しずつ見直します。ただ、自分の性格が大きく反映されているので、この内容が大きく変わることはないと思います。言い回しを変える、くらいで。&lt;/p&gt;
+
+&lt;h2 id=&quot;2019年の目標try&quot;&gt;2019年の目標(Try)&lt;/h2&gt;
+
+&lt;p&gt;では、このミッション・ステートメントのような自分になるため、今年は何をするかを考えましょう。あまり多くの目標を設定しても混乱してしまうので、ミッション・ステートメントの全体をカバーはできませんが、5個に留めます。&lt;/p&gt;
+
+&lt;h3 id=&quot;ブログへのアウトプット&quot;&gt;ブログへのアウトプット&lt;/h3&gt;
+
+&lt;p&gt;「自分が何者か」を示すため、また「～できる」人として認識されるため、発信する必要があります。ブログだとポートフォリオとしてちょっと弱いかなと思いますが、とにかくブログへのアウトプットを続けます。個人的にはブログですが、社内的には社内ポータルですかね。&lt;/p&gt;
+
+&lt;p&gt;目標は、2018年と同じ &lt;strong&gt;27本&lt;/strong&gt; とします。平均して2週間ごとにブログにアウトプット、という感じで。&lt;/p&gt;
+
+&lt;h3 id=&quot;個人プロダクトのリリース-1&quot;&gt;個人プロダクトのリリース&lt;/h3&gt;
+
+&lt;p&gt;これも上記と同じ、ポートフォリオの一つです。あと、「データ収集・分析の仕組み」を運用したいですし、「欲しい機能があるけどちょうどよいサービスがない」という課題もあるので、個人プロダクトのリリースを続けます。&lt;/p&gt;
+
+&lt;p&gt;目標は、 &lt;strong&gt;バージョン1.0.0レベルのリリースを4本&lt;/strong&gt; とします。1シーズンに1プロダクトを正式リリース、という感じで。&lt;/p&gt;
+
+&lt;h3 id=&quot;要求から運用までの手順の確立&quot;&gt;要求から運用までの手順の確立&lt;/h3&gt;
+
+&lt;p&gt;何かを思いついてから、問題を定義して、要求を整理して、設計して、実装して、運用するまでの手順を確立したいです。参考となる知識・手法はある程度見えていて、TOC、ICONIX、DDD、RDRAを組み合わせることで、自分で納得できる手順が見えると思っています。個人プロダクトの作業や可能であれば仕事にも取り込んで、検証していきます。&lt;/p&gt;
+
+&lt;p&gt;目標は、上記の &lt;strong&gt;作業プロセスを整理して何らかの形でアウトプットする&lt;/strong&gt; 、とします。たぶん、GitHubのリリースとブログへのアウトプットになると思います。&lt;/p&gt;
+
+&lt;h3 id=&quot;仮想投資の運用&quot;&gt;仮想投資の運用&lt;/h3&gt;
+
+&lt;p&gt;「仕事以外の収入を得る」に繋がりますが、何らかの投資による資産運用を考えています。投資というと株式投資がパッと思い浮かびますが、競馬・競輪などのギャンブル、不動産運用など、他にもあるはずです。で、いきなりそこに手を出したくはないので、仮想投資を始めたいです。&lt;/p&gt;
+
+&lt;p&gt;目標は、 &lt;strong&gt;仮想投資で継続的に資産増加となる運用を行う&lt;/strong&gt; 、とします。いや、この時点で相当難しいとは思いますが、とりあえずは運用を開始して、運用モデルを継続的に改善していくことはしたいです。&lt;/p&gt;
+
+&lt;h3 id=&quot;エクササイズの継続&quot;&gt;エクササイズの継続&lt;/h3&gt;
+
+&lt;p&gt;最低限のエクササイズですら、習慣化に失敗しています。しかし、現在の仕事状況や家事状況では、ジムに通うことはできないと考えています。なので、やはりエクササイズの習慣化を行うことしか今はできないと考えます。&lt;/p&gt;
+
+&lt;p&gt;目標は、 &lt;strong&gt;最低限のエクササイズを週に3回&lt;/strong&gt; 行う、とします。&lt;/p&gt;
+
+&lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
+
+&lt;p&gt;振り返ってかえってもやっとしましたが、このもやもやを解消するためにも、目標に向かって進んでいきましょう。また、実は個人的に週次レビュー・月次レビューをしていまして、レビュー方針も固まってきたので、レビューをアウトプットしたいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="振り返り" /><summary type="html">あけましておめでとうございます。本年もよろしくお願いいたします。</summary></entry><entry><title type="html">Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント</title><link href="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html" rel="alternate" type="text/html" title="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント" /><published>2018-12-20T00:00:00+09:00</published><updated>2018-12-20T00:00:00+09:00</updated><id>/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless</id><content type="html" xml:base="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html">&lt;p&gt;購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。&lt;/p&gt;
 
 &lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 
@@ -1184,41 +2109,6 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   &lt;li&gt;&lt;a href=&quot;http://tech.nikkeibp.co.jp/atcl/nxt/column/18/00001/00014/&quot;&gt;［特報］27億円の賠償巡り新たなIT裁判始まる、文化シヤッターが提訴 | 日経 xTECH（クロステック）&lt;/a&gt;
     &lt;ul&gt;
       &lt;li&gt;経緯を読む限りではどっちもメチャクチャなのだけど。旭川医大の件も記憶に新しいし、この件がどのように判断されるのか気になる。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h2&gt;
-
-&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-05 to 2018-02-11)</title><link href="/2018/02/11/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-05 to 2018-02-11)" /><published>2018-02-11T23:50:00+09:00</published><updated>2018-02-11T23:50:00+09:00</updated><id>/2018/02/11/this-week-i-learned</id><content type="html" xml:base="/2018/02/11/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
-
-&lt;h2 id=&quot;ニュース&quot;&gt;ニュース&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech.nikkeibp.co.jp/it/atcl/column/17/010400601/010400010/&quot;&gt;大手IT3社が注力、新型プライベートクラウドの中身 | 日経 xTECH（クロステック）&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;戦略としてパブリッククラウドの運用を目指したとしても、物理筐体で稼働している生のシステムをそのまま移行できるわけではない。少なくともアーキテクチャ、運用が変わらなければならず、だからパブリッククラウドへの移行の過渡期としてオンプレミスクラウドは非常に有効だと思う。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ascii.jp/elem/000/001/620/1620756/&quot;&gt;ASCII.jp：なぜAmazonはマイクロサービスに舵を切ったのか？｜今年は松山！JAWS FESTA 2017レポート&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;大きすぎるシステムは変更リスクやコストが大きすぎる。適切なサイズで分割すべきで、そのための手法の一つがマイクロサービス・アーキテクチャ。なので、個人的には「大きすぎるな」と思ったタイミングで分割すれば良いと思う。しかし、マイクロサービス先駆者は「途中からマイクロサービスに転換するのはツラい。最初からマイクロサービスを意識すべき」と言う。うーん。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://togetter.com/li/1196733&quot;&gt;フルート奏者『質の高い演奏をしたい』→職場『そういうのは求めていません、きれいなドレスを着てフルートを吹いてくださればそれでいいんです』→契約終了に - Togetter&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;ビジネス要求と技術者欲求が異なるのはよくあることで。歩みよりが必要で、「こうあるべき」と押し付けても解決しない。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.moguravr.com/intel-vaunt-ar/&quot;&gt;インテルのARグラスは眼鏡と見分けつかず 超小型で網膜投影 | Mogura VR - 国内外のVR/AR/MR最新情報&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;次世代のインターフェイスは、視界投影と音声入出力だと強く思っている。早く普及してほしい。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/Hironsan/items/2466fe0f344115aff177&quot;&gt;自然言語処理における前処理の種類とその威力 - Qiita&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/yura/items/6c1481ca652d3d131e47&quot;&gt;自然言語処理用語と解析器まとめ - Qiita&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;ここら辺くらいは基礎知識としてぱぱっと説明できるようにしたい。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;

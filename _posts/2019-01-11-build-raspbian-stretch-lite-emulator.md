@@ -8,22 +8,28 @@ tags:
 date: 2019-01-11 00:00:00+09:00
 ---
 
-TODO
+TODO raspiエミュレーターをセットアップする手順を説明するよ
 
-raspiエミュレーターをセットアップする手順を説明するよ
+TODO 目次
 
-背景
-raspiで変更作業する前に事前検証したい
-raspiエミュレーターなら、何度でもやり直せる
+## 背景
 
-前提
-めっちゃ遅いので、本当に検証程度にしか使えない
-DigitalOcean上のDebianで作業した
-WindowsやmacOSの場合、VagrantでDebian仮想マシンを準備すべし
+TODO raspiで変更作業する前に事前検証したい
+TODO raspiエミュレーターなら、何度でもやり直せる
 
-人出でセットアップ
-面倒なんでAnsibleでセットアップ
-リポジトリを紹介
+## 前提
 
-おわりに
+TODO めっちゃ遅いので、本当に検証程度にしか使えない
+TODO DigitalOcean上のDebianで作業した
+TODO WindowsやmacOSの場合、VagrantでDebian仮想マシンを準備すべし
+
+## セットアップ手順
+
+TODO 人出でセットアップ
+TODO 面倒なんでAnsibleでセットアップ
+TODO リポジトリを紹介
+
+## おわりに
+
+TODO 所管、課題
 

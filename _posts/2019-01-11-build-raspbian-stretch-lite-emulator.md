@@ -1,17 +1,16 @@
 ---
 layout: single
-title: "Raspberry Pi事前検証に使える、Raspbian Stretch Lite仮想マシンを構築する"
+title: "Raspberry Pi検証作業に使える、Raspbian(Stretch Lite)仮想マシンを構築する"
 tags:
   - "Raspberry Pi"
   - "Raspbian"
-  - "Ansible"
   - "仮想化"
 date: 2019-01-11 00:00:00+09:00
 ---
 
-TODO raspiエミュレーターをセットアップする手順を説明するよ
+Raspberry PiにインストールしたRaspbianの検証作業に使える、Raspbian仮想マシンの構築手順を説明します。
 
-Raspbian Stretch Liteの仮想マシンを構築するAnsible Playbook
+この手順を実行することで、何度でも壊して復元できるRaspbian仮想マシンをDebian上に構築することができます。WindowsやmacOSの場合でも、Debian仮想マシンを構築することで同様のことができるはずです。
 
 TODO 目次
 

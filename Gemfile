@@ -8,3 +8,5 @@ gem "jekyll-data"
 gem "jemoji"
 gem "jekyll-plantuml"
 gem "jekyll-redirect-from"
+
+gem "addressable", "~> 2.6"

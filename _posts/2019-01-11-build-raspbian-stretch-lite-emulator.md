@@ -37,6 +37,30 @@ Linux debian-s-2vcpu-4gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.110-3+deb9u6 (2
 
 構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。
 
+## 作業1. `qemu`をインストールする
+
+Raspbian仮想マシンをQEMUで動作させるため、インストールします。
+
+```
+$ sudo apt -y install qemu
+```
+
+## 作業2. Raspbianイメージと必要ファイルをダウンロード、展開する
+
+Raspbianイメージをダウンロードして、展開します。
+
+```
+$ curl -o raspbian_lite_latest.zip https://downloads.raspberrypi.org/raspbian_lite_latest
+$ unzip https://downloads.raspberrypi.org/raspbian_lite_latest.zip
+```
+
+QEMUの動作に必要なファイルをダウンロードします。
+
+```
+$ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
+$ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
+```
+
 ## セットアップ手順
 
 TODO 人出でセットアップ
@@ -44,143 +68,6 @@ TODO 面倒なんでAnsibleでセットアップ
 TODO リポジトリを紹介
 
 ```
-- hosts: localhost
-  become: yes
-  user: root
-  vars_files:
-    - settings.yml
-  tasks:
-    # Setting sudo
-    - name: Add Wheel group
-      group:
-        name: wheel
-    - name: Allow wheel group to have passwordless sudo
-      lineinfile:
-        dest: /etc/sudoers
-        regexp: '^%wheel'
-        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
-        validate: 'visudo -cf %s'
-    # Setting User
-    - name: Add User
-      user:
-        name: '{{sshd_user}}'
-        groups: wheel
-        shell: /bin/bash
-    - name: mkdir .ssh
-      file:
-        dest: '/home/{{sshd_user}}/.ssh/'
-        state: directory
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-        mode: 0700 
-    - name: Create authorized keys
-      file:
-        dest: '/home/{{sshd_user}}/.ssh/authorized_keys'
-        state: touch
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-        mode: 0600
-    - name: Copy public key
-      template:
-        src: 'id_rsa.pub'
-        dest: '/home/{{sshd_user}}/.ssh/authorized_keys'
-    # Setting SSH
-    - name: Setting SSH
-      lineinfile:
-        dest: /etc/ssh/sshd_config
-        regexp: '{{item.regexp}}'
-        insertafter: '{{item.insertafter}}'
-        line: '{{item.line}}'
-        backup: true
-      with_items:
-          - { regexp: '^RhostsRSAAuthentication', insertafter: '^#RhostsRSAAuthentication', line: 'RhostsRSAAuthentication no' }
-          - { regexp: '^HostbasedAuthentication', insertafter: '^#HostbasedAuthentication', line: 'HostbasedAuthentication no' }
-          - { regexp: '^IgnoreRhosts', insertafter: '^#IgnoreRhosts', line: 'IgnoreRhosts yes' }
-          - { regexp: '^PubkeyAuthentication', insertafter: '^#PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
-          - { regexp: '^AuthorizedKeysFile', insertafter: '^#AuthorizedKeysFile', line: 'AuthorizedKeysFile .ssh/authorized_keys' }
-          - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
-          - { regexp: '^PermitEmptyPasswords', insertafter: '^#PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
-          - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
-          - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
-          - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{sshd_port}}' }
-          - { regexp: '^AllowUsers', insertafter: '^#AllowUsers', line: 'AllowUsers {{sshd_user}}' }
-          - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
-    - name: Restart SSHd
-      service:
-        name: ssh
-        state: restarted
-    # Setting Timezone
-    - name: Setting Timezone
-      timezone:
-        name: Asia/Tokyo
-    # Setting NTP
-    - name: Install NTP
-      apt: name=ntp update_cache=yes
-    - name: Setting NTP (1/2)
-      replace:
-        dest: /etc/ntp.conf
-        regexp: '^pool'
-        replace: '#pool'
-        backup: true
-    - name: Setting NTP (2/2)
-      lineinfile:
-        dest: /etc/ntp.conf
-        insertafter: '^#pool'
-        line: '{{item}}'
-        backup: true
-      with_items:
-        - 'server ntp2.ring.gr.jp'
-        - 'server ntp1.ring.gr.jp'
-        - 'server ntp0.ring.gr.jp'
-    - name: Restart NTPd
-      service:
-        name: ntp
-        state: restarted
-    # Install Softwares
-    - name: Install Softwares
-      apt: name={{item}} update_cache=yes
-      with_items:
-        - git
-        - git-flow
-        - tig
-        - tmux
-        - qemu
-        - unzip
-        - sshpass
-    # Setting git
-    - name: Copy git config
-      template:
-        src: 'gitconfig'
-        dest: '/home/{{sshd_user}}/.gitconfig'
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Setting git config
-      lineinfile:
-        dest: '/home/{{sshd_user}}/.gitconfig'
-        insertafter: '^\[user\]$'
-        line: '{{item}}'
-      with_items:
-        - '  name = {{git_user_name}}'
-        - '  email = {{git_user_email}}'
-    # Setup Raspberry Pi simulator
-    - name: Create raspi directory
-      file:
-        path: /var/raspi
-        state: directory
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Download Raspbian image
-      get_url:
-        url: https://downloads.raspberrypi.org/raspbian_lite_latest
-        dest: /var/raspi/raspbian_lite_latest.zip
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Unzip Raspbian image
-      unarchive:
-        src: /var/raspi/raspbian_lite_latest.zip
-        dest: /var/raspi/
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
     - name: Resize Raspbian image
       shell: qemu-img resize 2018-11-13-raspbian-stretch-lite.img +8G
       args:
@@ -192,18 +79,6 @@ TODO リポジトリを紹介
     - name: Change file owner of swap storage
       file:
         path: /var/raspi/temp.img
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Download QEMU kernel driver
-      get_url:
-        url: https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
-        dest: /var/raspi/
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Download versatile-pb
-      get_url:
-        url: https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
-        dest: /var/raspi/
         owner: '{{sshd_user}}'
         group: '{{sshd_user}}'
     - name: Create start qemu shell

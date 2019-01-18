@@ -16,7 +16,7 @@ Raspbianで作業をしていると、しばしばクリーンな状態に戻し
 
 TODO 目次
 
-## 背景
+## 背景…なぜ、Raspbian仮想マシンがほしいのか、どのように使えるのか
 
 個人用に、Raspberry Pi 3 Model B+(以降、RaspberryPi)にRaspbian Stretch Lite(以降、Raspbian)をインストールして、簡単なサーバーとして運用しています。ソフトウェアのインストール、設定変更、運用に関する細々な調整など、まぁいろいろな作業を行いますので、しばしばクリーンな状態に戻したくなります。この時、RaspberryPiからmicroSDカードを外してRaspbianイメージの書き込みを行い、各種設定作業を行い、といった感じでぶっちゃけ面倒です。Raspbianに変更作業を実際に行う前に、検証作業を行いたいものです。
 
@@ -26,35 +26,16 @@ TODO 目次
 
 次の章から、Raspbian仮想マシンを構築・起動して、最低限の体裁を整える手順を説明します。これにより、Debian上で動作するRaspbian仮想マシンを得ることができます。
 
-## 前提
+## 前提…作業環境、注意点など
 
-TODO めっちゃ遅いので、本当に検証程度にしか使えない
-TODO DigitalOcean上のDebianで作業した
-TODO WindowsやmacOSの場合、VagrantでDebian仮想マシンを準備すべし
+筆者はDigitalOcean上のDebianサーバーで作業を行いました。WindowsやmacOSの場合、VagrantなどでDebian仮想マシンを構築すれば、同様の作業が可能のはずです。
 
-### この手順によって構築される環境
+```
+$ uname -a
+Linux debian-s-2vcpu-4gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.110-3+deb9u6 (2018-10-08) x86_64 GNU/Linux
+```
 
-この手順では、DigitalOcean Droplet上に環境を構築します。事前に、DigitalOceanを使用可能にしてください。同様の環境であれば、ローカルPC上のDebian仮想マシンなどでも手順を実行可能です。
-
-この手順によって構築される環境を簡単に説明します。
-
-- インストールされる主なソフトウェア
-  - git
-  - git-flow
-  - tig
-  - tmux
-  - qemu
-- SSH
-  - ポート: 10022 (変更可能)
-  - ユーザー: foo (変更可能)
-  - 認証方式: 鍵認証 (公開鍵を要配置)
-- git
-  - git設定: `~/.gitconfig`を参照
-  - gitユーザー: foo (変更可能)
-  - メールアドレス: foo@example.com (変更可能)
-- Raspbian作業環境
-  - 作業ディレクトリ: `/var/raspi`
-  - スタートアップ・スクリプト: `start-raspi.sh`
+構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。
 
 ## セットアップ手順
 

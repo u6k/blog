@@ -1,0 +1,557 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する - u6k.Blog</title>
+
+
+
+
+<meta name="description" content="Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。">
+
+
+
+
+<meta name="author" content="u6k">
+
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="u6k.Blog">
+<meta property="og:title" content="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する">
+
+
+
+
+  <meta property="og:description" content="Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="twitter:site" content="@u6k_yu1">
+  <meta name="twitter:title" content="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する">
+  <meta name="twitter:description" content="Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@u6k">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-01-21T00:00:00+09:00">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="u6k.Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">u6k.Blog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/tags/">Tags</a></li>
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://gravatar.com/avatar/7cbe65037b17a6ee6711ce18b1e97638" alt="u6k" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">u6k</h3>
+    
+      <p class="author__bio" itemprop="description">
+        プログラミングやWebサービスと戯れたログを残しています。
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Japan</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:u6k.apps@gmail.com">
+            <meta itemprop="email" content="u6k.apps@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/u6k_yu1" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/yuuichi.naono" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/u6k" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+  <a href="http://qiita.com/u6k" itemprop="sameAs">
+    <i class="fa fa-fw fa-pencil" aria-hidden="true"></i> Qiita
+  </a>
+</li>
+<li>
+  <a href="http://blog.u6k.me" itemprop="sameAs">
+    <i class="fa fa-fw fa-home" aria-hidden="true"></i> u6k.Blog
+  </a>
+</li>
+<li>
+  <a href="https://redmine.u6k.me/projects" itemprop="sameAs">
+    <i class="fa fa-fw fa-tasks" aria-hidden="true"></i> u6k.Redmine
+  </a>
+</li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する">
+    <meta itemprop="description" content="Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。">
+    <meta itemprop="datePublished" content="2019-01-21">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する
+</h1>
+          
+          
+            <p class="page__meta"><p class="page__date page__meta"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-21T00:00:00+09:00">2019-01-21</time> / <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Reading time:</strong> 4 minutes</p></p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 目次</h4></header>
+              
+<ul class="toc__menu">
+  <li><a href="#この手順で得られるもの">この手順で得られるもの</a></li>
+  <li><a href="#前提作業環境注意点など">前提…作業環境、注意点など</a></li>
+  <li><a href="#手順1-qemuをインストールする">手順1. qemuをインストールする</a></li>
+  <li><a href="#手順2-raspbianイメージと必要ファイルをダウンロード展開する">手順2. Raspbianイメージと必要ファイルをダウンロード、展開する</a></li>
+  <li><a href="#手順3-raspbian仮想マシンを起動する">手順3. Raspbian仮想マシンを起動する</a></li>
+  <li><a href="#おわりに">おわりに</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p>Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。</p>
+
+<p>この記事では、Raspbianの検証作業に使える、Raspbian仮想マシンの構築手順を説明します。</p>
+
+<p>この手順を実行することで、何度でも壊して復元できるRaspbian仮想マシンをDebian上に構築することができます。WindowsやmacOSの場合でも、Debian仮想マシンを構築することで同様のことができるはずです。</p>
+
+<h2 id="この手順で得られるもの">この手順で得られるもの</h2>
+
+<p>個人用に、Raspberry Pi 3 Model B+(以降、RaspberryPi)にRaspbian Stretch Lite(以降、Raspbian)をインストールして、簡単なサーバーとして運用しています。ソフトウェアのインストール、設定変更、運用に関する細々な調整など、まぁいろいろな作業を行いますので、しばしばクリーンな状態に戻したくなります。この時、RaspberryPiからmicroSDカードを外してRaspbianイメージの書き込みを行い、各種設定作業を行い、といった感じでぶっちゃけ面倒です。Raspbianに変更作業を実際に行う前に、検証作業を行いたいものです。</p>
+
+<p>そこで、Raspbian仮想マシンを構築します。仮想マシンですので、任意のタイミングでイメージ・ファイルをバックアップしておけば、いつでも簡単にバックアップ時点まで戻すことができます。</p>
+
+<p>OSは、Raspbian Stretch Liteになります。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ uname -a
+Linux raspberrypi 4.14.50+ #1 Fri Sep 21 11:29:13 CDT 2018 armv6l GNU/Linux
+</code></pre></div></div>
+
+<h2 id="前提作業環境注意点など">前提…作業環境、注意点など</h2>
+
+<p>筆者はDigitalOcean上のDebianサーバーで作業を行いました。WindowsやmacOSの場合、VagrantなどでDebian仮想マシンを構築すれば、同様の作業が可能のはずです。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ uname -a
+Linux debian-s-1vcpu-1gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
+</code></pre></div></div>
+
+<p>構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。</p>
+
+<p>筆者は、Raspbian仮想マシンで動作検証と作業手順作成を行ったあと、実機に反映させるという運用をしています。この作業は何度も行なっているので、Ansible playbookで定義しており、半自動的に行えるようにしています。この記事では手動作業として説明するので、Ansibleの場合は別記事で説明する予定です。</p>
+
+<p>次の章から、Raspbian仮想マシンを構築・起動する手順を説明します。</p>
+
+<h2 id="手順1-qemuをインストールする">手順1. <code class="highlighter-rouge">qemu</code>をインストールする</h2>
+
+<p>Raspbian仮想マシンをQEMUで動作させるため、インストールします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt -y install qemu
+</code></pre></div></div>
+
+<h2 id="手順2-raspbianイメージと必要ファイルをダウンロード展開する">手順2. Raspbianイメージと必要ファイルをダウンロード、展開する</h2>
+
+<p>Raspbianイメージをダウンロードして、展開します。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -L -o raspbian_lite_latest.zip https://downloads.raspberrypi.org/raspbian_lite_latest
+$ unzip raspbian_lite_latest.zip
+</code></pre></div></div>
+
+<p>QEMUの動作に必要なファイルをダウンロードします。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
+$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
+</code></pre></div></div>
+
+<h2 id="手順3-raspbian仮想マシンを起動する">手順3. Raspbian仮想マシンを起動する</h2>
+
+<p>次のコマンドを実行することで、Raspbian仮想マシンを起動することができます。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ qemu-system-arm \
+    -kernel kernel-qemu-4.14.50-stretch \
+    -cpu arm1176 \
+    -M versatilepb \
+    -dtb versatile-pb.dtb \
+    -m 256 \
+    -no-reboot \
+    -serial stdio \
+    -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" \
+    -hda 2018-11-13-raspbian-stretch-lite.img \
+    -net nic \
+    -net user,hostfwd=tcp::10022-:22 \
+    -curses
+</code></pre></div></div>
+
+<p>Raspbianの初期ユーザーである<code class="highlighter-rouge">pi</code>の初期パスワードは<code class="highlighter-rouge">raspberry</code>です。</p>
+
+<p>ホストOSの10022ポートを、Raspbian仮想マシン側の22ポートにフォワードしています。これによりSSH接続することが可能ですが、Raspbianは初期状態ではSSHが無効化されているので、<code class="highlighter-rouge">sudo raspi-config</code>でSSHを有効化する必要があります。</p>
+
+<h2 id="おわりに">おわりに</h2>
+
+<p>以上で、Raspbian仮想マシンを使用することができます。良いRaspberryPi生活を！</p>
+
+<p>なお、この状態のRaspbian仮想マシンはいろいろと使いづらいので、筆者はさらに次の作業を行っています。</p>
+
+<ul>
+  <li>Raspbianイメージのサイズ拡張</li>
+  <li>スワップ領域を追加</li>
+  <li><code class="highlighter-rouge">raspi-config</code>でOS設定</li>
+  <li>ファームウェア更新</li>
+  <li>バックアップ</li>
+</ul>
+
+<p>これらの説明は長くなってしまうので、Ansibleによるセットアップと同様、別記事にしたいと思います。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#raspberry-pi" class="page__taxonomy-item" rel="tag">Raspberry Pi</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#raspbian" class="page__taxonomy-item" rel="tag">Raspbian</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E4%BB%AE%E6%83%B3%E5%8C%96" class="page__taxonomy-item" rel="tag">仮想化</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-21T00:00:00+09:00">2019-01-21</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=u6k_yu1&text=Raspberry+Pi%E6%A4%9C%E8%A8%BC%E4%BD%9C%E6%A5%AD%E3%81%AB%E4%BD%BF%E3%81%88%E3%82%8B%E3%80%81Raspbian+Stretch+Lite%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%20%2F2019%2F01%2F21%2Fbuild-raspbian-stretch-lite-emulator.html" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2019%2F01%2F21%2Fbuild-raspbian-stretch-lite-emulator.html" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=%2F2019%2F01%2F21%2Fbuild-raspbian-stretch-lite-emulator.html" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2019%2F01%2F21%2Fbuild-raspbian-stretch-lite-emulator.html" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2019/01/08/2018-retrospective.html" class="pagination--pager" title="2018年の振り返り
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+    
+      <li><a href="https://twitter.com/u6k_yu1"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+      <li><a href="https://facebook.com/yuuichi.naono"><i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+    
+    
+      <li><a href="http://github.com/u6k"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 u6k. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-112068302-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

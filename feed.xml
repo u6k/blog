@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-08T18:20:02+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">2018年の振り返り</title><link href="/2019/01/08/2018-retrospective.html" rel="alternate" type="text/html" title="2018年の振り返り" /><published>2019-01-08T00:00:00+09:00</published><updated>2019-01-08T00:00:00+09:00</updated><id>/2019/01/08/2018-retrospective</id><content type="html" xml:base="/2019/01/08/2018-retrospective.html">&lt;p&gt;あけましておめでとうございます。本年もよろしくお願いいたします。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-21T22:05:36+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する</title><link href="/2019/01/21/build-raspbian-stretch-lite-emulator.html" rel="alternate" type="text/html" title="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する" /><published>2019-01-21T00:00:00+09:00</published><updated>2019-01-21T00:00:00+09:00</updated><id>/2019/01/21/build-raspbian-stretch-lite-emulator</id><content type="html" xml:base="/2019/01/21/build-raspbian-stretch-lite-emulator.html">&lt;p&gt;Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。&lt;/p&gt;
+
+&lt;p&gt;この記事では、Raspbianの検証作業に使える、Raspbian仮想マシンの構築手順を説明します。&lt;/p&gt;
+
+&lt;p&gt;この手順を実行することで、何度でも壊して復元できるRaspbian仮想マシンをDebian上に構築することができます。WindowsやmacOSの場合でも、Debian仮想マシンを構築することで同様のことができるはずです。&lt;/p&gt;
+
+&lt;h2 id=&quot;この手順で得られるもの&quot;&gt;この手順で得られるもの&lt;/h2&gt;
+
+&lt;p&gt;個人用に、Raspberry Pi 3 Model B+(以降、RaspberryPi)にRaspbian Stretch Lite(以降、Raspbian)をインストールして、簡単なサーバーとして運用しています。ソフトウェアのインストール、設定変更、運用に関する細々な調整など、まぁいろいろな作業を行いますので、しばしばクリーンな状態に戻したくなります。この時、RaspberryPiからmicroSDカードを外してRaspbianイメージの書き込みを行い、各種設定作業を行い、といった感じでぶっちゃけ面倒です。Raspbianに変更作業を実際に行う前に、検証作業を行いたいものです。&lt;/p&gt;
+
+&lt;p&gt;そこで、Raspbian仮想マシンを構築します。仮想マシンですので、任意のタイミングでイメージ・ファイルをバックアップしておけば、いつでも簡単にバックアップ時点まで戻すことができます。&lt;/p&gt;
+
+&lt;p&gt;OSは、Raspbian Stretch Liteになります。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ uname -a
+Linux raspberrypi 4.14.50+ #1 Fri Sep 21 11:29:13 CDT 2018 armv6l GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;前提作業環境注意点など&quot;&gt;前提…作業環境、注意点など&lt;/h2&gt;
+
+&lt;p&gt;筆者はDigitalOcean上のDebianサーバーで作業を行いました。WindowsやmacOSの場合、VagrantなどでDebian仮想マシンを構築すれば、同様の作業が可能のはずです。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ uname -a
+Linux debian-s-1vcpu-1gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。&lt;/p&gt;
+
+&lt;p&gt;筆者は、Raspbian仮想マシンで動作検証と作業手順作成を行ったあと、実機に反映させるという運用をしています。この作業は何度も行なっているので、Ansible playbookで定義しており、半自動的に行えるようにしています。この記事では手動作業として説明するので、Ansibleの場合は別記事で説明する予定です。&lt;/p&gt;
+
+&lt;p&gt;次の章から、Raspbian仮想マシンを構築・起動する手順を説明します。&lt;/p&gt;
+
+&lt;h2 id=&quot;手順1-qemuをインストールする&quot;&gt;手順1. &lt;code class=&quot;highlighter-rouge&quot;&gt;qemu&lt;/code&gt;をインストールする&lt;/h2&gt;
+
+&lt;p&gt;Raspbian仮想マシンをQEMUで動作させるため、インストールします。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt -y install qemu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;手順2-raspbianイメージと必要ファイルをダウンロード展開する&quot;&gt;手順2. Raspbianイメージと必要ファイルをダウンロード、展開する&lt;/h2&gt;
+
+&lt;p&gt;Raspbianイメージをダウンロードして、展開します。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -L -o raspbian_lite_latest.zip https://downloads.raspberrypi.org/raspbian_lite_latest
+$ unzip raspbian_lite_latest.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;QEMUの動作に必要なファイルをダウンロードします。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
+$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;手順3-raspbian仮想マシンを起動する&quot;&gt;手順3. Raspbian仮想マシンを起動する&lt;/h2&gt;
+
+&lt;p&gt;次のコマンドを実行することで、Raspbian仮想マシンを起動することができます。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ qemu-system-arm \
+    -kernel kernel-qemu-4.14.50-stretch \
+    -cpu arm1176 \
+    -M versatilepb \
+    -dtb versatile-pb.dtb \
+    -m 256 \
+    -no-reboot \
+    -serial stdio \
+    -append &quot;root=/dev/sda2 panic=1 rootfstype=ext4 rw&quot; \
+    -hda 2018-11-13-raspbian-stretch-lite.img \
+    -net nic \
+    -net user,hostfwd=tcp::10022-:22 \
+    -curses
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Raspbianの初期ユーザーである&lt;code class=&quot;highlighter-rouge&quot;&gt;pi&lt;/code&gt;の初期パスワードは&lt;code class=&quot;highlighter-rouge&quot;&gt;raspberry&lt;/code&gt;です。&lt;/p&gt;
+
+&lt;p&gt;ホストOSの10022ポートを、Raspbian仮想マシン側の22ポートにフォワードしています。これによりSSH接続することが可能ですが、Raspbianは初期状態ではSSHが無効化されているので、&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo raspi-config&lt;/code&gt;でSSHを有効化する必要があります。&lt;/p&gt;
+
+&lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
+
+&lt;p&gt;以上で、Raspbian仮想マシンを使用することができます。良いRaspberryPi生活を！&lt;/p&gt;
+
+&lt;p&gt;なお、この状態のRaspbian仮想マシンはいろいろと使いづらいので、筆者はさらに次の作業を行っています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Raspbianイメージのサイズ拡張&lt;/li&gt;
+  &lt;li&gt;スワップ領域を追加&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;raspi-config&lt;/code&gt;でOS設定&lt;/li&gt;
+  &lt;li&gt;ファームウェア更新&lt;/li&gt;
+  &lt;li&gt;バックアップ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これらの説明は長くなってしまうので、Ansibleによるセットアップと同様、別記事にしたいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Raspberry Pi" /><category term="Raspbian" /><category term="仮想化" /><summary type="html">Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。</summary></entry><entry><title type="html">2018年の振り返り</title><link href="/2019/01/08/2018-retrospective.html" rel="alternate" type="text/html" title="2018年の振り返り" /><published>2019-01-08T00:00:00+09:00</published><updated>2019-01-08T00:00:00+09:00</updated><id>/2019/01/08/2018-retrospective</id><content type="html" xml:base="/2019/01/08/2018-retrospective.html">&lt;p&gt;あけましておめでとうございます。本年もよろしくお願いいたします。&lt;/p&gt;
 
 &lt;p&gt;2018年が終わりましたので振り返りと、振り返り結果を踏まえた2019年の目標設定をします。&lt;/p&gt;
 
@@ -2081,38 +2171,4 @@ worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda
   &lt;li&gt;&lt;a href=&quot;http://shiro-16.hatenablog.com/entry/2015/10/12/192412&quot;&gt;Sidekiq について基本と1年半運用してのあれこれ - まっしろけっけ&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://tech.smarthr.jp/entry/2017/04/20/165555&quot;&gt;Sidekiq アンチパターン: 序 - SmartHR Tech Blog&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="Ruby on Rails" /><category term="Sidekiq" /><category term="Cron" /><category term="ジョブ" /><summary type="html">この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</summary></entry><entry><title type="html">This Week I Learned (from 2018-02-12 to 2018-02-18)</title><link href="/2018/02/18/this-week-i-learned.html" rel="alternate" type="text/html" title="This Week I Learned (from 2018-02-12 to 2018-02-18)" /><published>2018-02-18T23:50:00+09:00</published><updated>2018-02-18T23:50:00+09:00</updated><id>/2018/02/18/this-week-i-learned</id><content type="html" xml:base="/2018/02/18/this-week-i-learned.html">&lt;p&gt;今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。&lt;/p&gt;
-
-&lt;h2 id=&quot;ニュース&quot;&gt;ニュース&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/Anharu/items/c32fbb2347e3da6607ba&quot;&gt;中学生エンジニアについて、知っておきたい10の事実 - Qiita&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;自分の頃は(年代がバレるけど)ベーマガが入門だった。現代の初学者がどのように入門するのか気になっていた。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://togetter.com/li/1198226&quot;&gt;Excelを未だに使っているという事実「億単位の案件に使うなよ！」→使えないExcel地獄で苦しむみなさんが出したExcelを使う理由とは…？ - Togetter&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;プラットフォームの普及度は、良くも悪くも偉大だ。どの現場でもとりあえずWord、Excel、PowerPointはインストールされているし、どの環境でもVBAは使える。良くも悪くも。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/masuda220/rdra-ddd-agile&quot;&gt;RDRA DDD Agile&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;RDRAとICONIXの合わせ技は非常に良い手法なので、積極的に使っていきたい。BABOKは概要だけ知っている状態なので、機会があれば勉強しながら使ってみる。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/dmikurube/items/15899ec9de643e91497c&quot;&gt;タイムゾーン呪いの書 - Qiita&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;ロケールと時刻はどの処理系でもハマる。そもそもの考え方が複雑だから。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech.nikkeibp.co.jp/atcl/nxt/column/18/00001/00014/&quot;&gt;［特報］27億円の賠償巡り新たなIT裁判始まる、文化シヤッターが提訴 | 日経 xTECH（クロステック）&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;経緯を読む限りではどっちもメチャクチャなのだけど。旭川医大の件も記憶に新しいし、この件がどのように判断されるのか気になる。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;リリース情報&quot;&gt;リリース情報&lt;/h2&gt;
-
-&lt;p&gt;今週も記事執筆もなし。アウトライナーには溜まっているのだけど。ようやく作業用PCを持ち歩けるようになったので、少しは状況が改善するはず。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="This Week I Learned" /><summary type="html">今週の気になったニュースや自ソフトウェアのリリース情報や書いた記事を整理します。</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="Ruby on Rails" /><category term="Sidekiq" /><category term="Cron" /><category term="ジョブ" /><summary type="html">この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</summary></entry></feed>

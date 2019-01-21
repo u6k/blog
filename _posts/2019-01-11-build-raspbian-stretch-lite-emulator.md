@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Raspberry Pi検証作業に使える、Raspbian(Stretch Lite)仮想マシンを構築する"
+title: "Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する"
 tags:
   - "Raspberry Pi"
   - "Raspbian"
@@ -14,9 +14,7 @@ Raspbianで作業をしていると、しばしばクリーンな状態に戻し
 
 この手順を実行することで、何度でも壊して復元できるRaspbian仮想マシンをDebian上に構築することができます。WindowsやmacOSの場合でも、Debian仮想マシンを構築することで同様のことができるはずです。
 
-TODO 目次
-
-## 背景…なぜ、Raspbian仮想マシンがほしいのか、どのように使えるのか
+## 背景…気軽に作り直せるRaspbian仮想マシンがほしい
 
 個人用に、Raspberry Pi 3 Model B+(以降、RaspberryPi)にRaspbian Stretch Lite(以降、Raspbian)をインストールして、簡単なサーバーとして運用しています。ソフトウェアのインストール、設定変更、運用に関する細々な調整など、まぁいろいろな作業を行いますので、しばしばクリーンな状態に戻したくなります。この時、RaspberryPiからmicroSDカードを外してRaspbianイメージの書き込みを行い、各種設定作業を行い、といった感じでぶっちゃけ面倒です。Raspbianに変更作業を実際に行う前に、検証作業を行いたいものです。
 

@@ -32,14 +32,17 @@ TODO 目次
 
 ```
 $ uname -a
-Linux debian-s-2vcpu-4gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.110-3+deb9u6 (2018-10-08) x86_64 GNU/Linux
+Linux debian-s-1vcpu-1gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.130-2 (2018-10-27) x86_64 GNU/Linux
 ```
 
 構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。
 
 構築した仮想マシンのOSは、Raspbian Stretch Liteになります。
 
-TODO Raspbian仮想マシンのuname
+```
+$ uname -a
+Linux raspberrypi 4.14.50+ #1 Fri Sep 21 11:29:13 CDT 2018 armv6l GNU/Linux
+```
 
 ## 作業1. `qemu`をインストールする
 
@@ -54,15 +57,15 @@ $ sudo apt -y install qemu
 Raspbianイメージをダウンロードして、展開します。
 
 ```
-$ curl -o raspbian_lite_latest.zip https://downloads.raspberrypi.org/raspbian_lite_latest
-$ unzip https://downloads.raspberrypi.org/raspbian_lite_latest.zip
+$ curl -L -o raspbian_lite_latest.zip https://downloads.raspberrypi.org/raspbian_lite_latest
+$ unzip raspbian_lite_latest.zip
 ```
 
 QEMUの動作に必要なファイルをダウンロードします。
 
 ```
-$ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
-$ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
+$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.14.50-stretch
+$ curl -LO https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
 ```
 
 ## 作業3. Raspbian仮想マシンを起動する

@@ -37,6 +37,10 @@ Linux debian-s-2vcpu-4gb-sgp1-01 4.9.0-8-amd64 #1 SMP Debian 4.9.110-3+deb9u6 (2
 
 構築したRaspbian仮想マシンは、メモリが256MBしかない上に動作がすごく遅いです。簡単な検証作業にしか使えないと割りきったほうが良いでしょう。パーティション・サイズは任意に拡張可能です。
 
+構築した仮想マシンのOSは、Raspbian Stretch Liteになります。
+
+TODO Raspbian仮想マシンのuname
+
 ## 作業1. `qemu`をインストールする
 
 Raspbian仮想マシンをQEMUで動作させるため、インストールします。
@@ -61,306 +65,40 @@ $ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-
 $ curl -O https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/versatile-pb.dtb
 ```
 
-## セットアップ手順
+## 作業3. Raspbian仮想マシンを起動する
 
-TODO 人出でセットアップ
-TODO 面倒なんでAnsibleでセットアップ
-TODO リポジトリを紹介
+次のコマンドを実行することで、Raspbian仮想マシンを起動することができます。
 
 ```
-    - name: Resize Raspbian image
-      shell: qemu-img resize 2018-11-13-raspbian-stretch-lite.img +8G
-      args:
-        chdir: /var/raspi
-    - name: Create swap storage
-      shell: qemu-img create -f raw temp.img 4G
-      args:
-        chdir: /var/raspi
-    - name: Change file owner of swap storage
-      file:
-        path: /var/raspi/temp.img
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-    - name: Create start qemu shell
-      copy:
-        dest: /var/raspi/start-raspi.sh
-        mode: 0777
-        owner: '{{sshd_user}}'
-        group: '{{sshd_user}}'
-        content: |
-          qemu-system-arm \
-            -kernel kernel-qemu-4.14.50-stretch \
-            -cpu arm1176 \
-            -M versatilepb \
-            -dtb versatile-pb.dtb \
-            -m 256 \
-            -no-reboot \
-            -serial stdio \
-            -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" \
-            -hda 2018-11-13-raspbian-stretch-lite.img \
-            -hdb temp.img \
-            -net nic \
-            -net user,hostfwd=tcp::10022-:22 \
-            -curses
+$ qemu-system-arm \
+    -kernel kernel-qemu-4.14.50-stretch \
+    -cpu arm1176 \
+    -M versatilepb \
+    -dtb versatile-pb.dtb \
+    -m 256 \
+    -no-reboot \
+    -serial stdio \
+    -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" \
+    -hda 2018-11-13-raspbian-stretch-lite.img \
+    -net nic \
+    -net user,hostfwd=tcp::10022-:22 \
+    -curses
 ```
 
-### Dropletを作成、ログイン
+Raspbianの初期ユーザーである`pi`の初期パスワードは`raspberry`です。
 
-DigitalOceanのDropletを事前に作成します。筆者は次のDropletで作業を行いました。
-
-- OS: Debian 9 x64
-- Size: 512mb
-- Region: sgp1
-
-Dropletを作成したら、`root`でsshログインします。
-
-### 最低限のソフトウェアをインストール
-
-Ansible Playbookを実行するために、最低限のソフトウェアをインストールします。
-
-```
-apt update && apt -y upgrade
-apt -y install git ansible python-apt
-```
-
-他に必要なソフトウェアがあれば、Ansible Playbookに追加するとよいです。
-
-### `my-services`リポジトリをダウンロード
-
-当リポジトリをダウンロードします。
-
-```
-git clone git@github.com:u6k/my-services.git
-```
-
-### Ansible Playbookを実行準備
-
-Ansible Playbookを実行する前に、各種設定を行います。
-
-現在は`root`で作業していますが、Ansible Playbookによって作業ユーザーが作成されるので、作業ユーザーの公開鍵を`id_rsa.pub`ファイルとして作成します。
-
-`settings.yml.example`を参考に、`settings.yml`を作成します。このファイルには、[この手順によって構築される環境](#この手順によって構築される環境)で「変更可能」とした設定を記述します。
-
-### Ansible Playbookを実行
-
-いよいよ、Ansible Playbookを実行します。
-
-```
-ansible-playbook debian-on-digitalocean.yml -i hosts
-```
-
-問題なく終了したら、まずはsshログイン確認を行います。万が一、ssh設定が失敗していた場合、ログインすらできなくなってしまうので。
-
-別のsshクライアントを起動して、`settings.yml`に設定したsshユーザーでログインを試みてください。
-
-### Raspbian Stretch Lite仮想マシンを起動
-
-Raspbian Stretch Lite仮想マシンを起動するには、次のコマンドを実行します。ユーザーは`pi`、パスワードは`raspberry`です。
-
-```
-cd /var/raspi/
-./start-raspi.sh
-```
-
-これだけで一応は使用可能ですが、いくつかの手順を実行すべきです。
-
-### ストレージ容量を拡張
-
-Raspbianイメージそのままだと空き容量が約1GBほどしかないので、イメージを拡張するべきです。Ansible Playbookの実行中に、実はRaspbianイメージを拡張していますが、これだけでは不十分で、Raspbian側でも実行する手順があります。なお、この手順は最初の一回のみ行います。
-
-パーティションを操作するため、`fdisk`を実行します。
-
-```
-$ sudo fdisk /dev/sda
-
-Welcome to fdisk (util-linux 2.29.2).
-Changes will remain in memory only, until you decide to write them.
-Be careful before using the write command.
-```
-
-パーティションのリストを表示して、`/dev/sda2`の`Start`の値を覚えておきます。
-
-```
-Command (m for help): p
-
-Disk /dev/sda: 5.8 GiB, 6161432576 bytes, 12034048 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0x7ee80803
-
-Device     Boot Start     End Sectors  Size Id Type
-/dev/sda1        8192   98045   89854 43.9M  c W95 FAT32 (LBA)
-/dev/sda2       98304 3645439 3547136  1.7G 83 Linux
-```
-
-`/dev/sda2`を削除します。
-
-```
-Command (m for help): d
-Partition number (1,2, default 2): 2
-
-Partition 2 has been deleted.
-```
-
-パーティションを作成します。
-
-```
-Command (m for help): n
-Partition type
-   p   primary (1 primary, 0 extended, 3 free)
-   e   extended (container for logical partitions)
-Select (default p): p
-Partition number (2-4, default 2): 2
-First sector (2048-12034047, default 2048): 98304
-Last sector, +sectors or +size{K,M,G,T,P} (98304-12034047, default 12034047):
-
-Created a new partition 2 of type 'Linux' and of size 5.7 GiB.
-Partition #2 contains a ext4 signature.
-
-Do you want to remove the signature? [Y]es/[N]o: n
-```
-
-パーティション情報を反映して、`fdisk`を終了します。
-
-```
-Command (m for help): w
-
-The partition table has been altered.
-Calling ioctl() to re-read partition table.
-Re-reading the partition table failed.: デバイスもしくはリソースがビジー状態です
-
-The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
-```
-
-Raspbianを再起動します。
-
-```
-$ sudo halt
-```
-
-```
-$ ./start-raspi.sh
-```
-
-ファイルシステムのリサイズします。
-
-```
-$ sudo resize2fs /dev/sda2
-resize2fs 1.43.4 (31-Jan-2017)
-Filesystem at /dev/sda2 is mounted on /; on-line resizing required
-old_desc_blocks = 1, new_desc_blocks = 1
-The filesystem on /dev/sda2 is now 1491968 (4k) blocks long.
-```
-
-`df`でファイルシステムを確認してみると、ストレージ容量が拡張されていることが分かります。
-
-```
-$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       9.6G  1.1G  8.1G  12% /
-devtmpfs        124M     0  124M   0% /dev
-tmpfs           124M     0  124M   0% /dev/shm
-tmpfs           124M  1.9M  122M   2% /run
-tmpfs           5.0M     0  5.0M   0% /run/lock
-tmpfs           124M     0  124M   0% /sys/fs/cgroup
-/dev/sda1        44M   23M   22M  51% /boot
-tmpfs            25M     0   25M   0% /run/user/1000
-```
-
-### スワップ領域を追加
-
-Raspbian仮想マシンはメモリが256MBしかないため、すぐにメモリを使い果たしてしまいます。そこで、スワップ領域を追加することでメモリ不足に対応します。`mkswap`は1回のみでよいですが、`swapon`はRaspbian仮想マシンの起動ごとに実行する必要があります。
-
-Ansible Playbookの実行時に、`temp.img`というイメージを作成しており、`sdb`としてマウント済みです。ですので、次のコマンドでスワップ領域を作成することができます。
-
-```
-$ sudo mkswap /dev/sdb
-Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)
-no label, UUID=c9aeeeea-f89e-4c7b-9ade-ee18a2736d15
-```
-
-`/dev/sdb`をスワップ領域として有効にするため、次のコマンドを実行します。
-
-```
-$ sudo swapon /dev/sdb
-```
-
-### OS設定
-
-Raspbianでおなじみの`raspi-config`を実行します。
-
-```
-$ sudo raspi-config
-```
-
-次の項目を変更すればよいです。
-
-- 4 Localisation Options
-  - I1 Change Locale
-    - ja_JP.UTF-8
-  - I2 Change Timezone
-    - Asia/Tokyo
-- 5 Interfacing Options
-  - P2 SSH
-- 6 Overclock
-  - Turbo
-- 8 Update
-
-これで、Raspbian仮想マシンのsshが有効化されます。試しに、DropletからRaspbian仮想マシンにssh接続してみます。
-
-```
-$ ssh -p 10022 pi@localhost
-```
-
-### ファームウェアを更新
-
-ファームウェアを更新します。
-
-```
-$ sudo rpi-update
-```
-
-### バックアップ
-
-これで、いろいろ実験できるRaspbian仮想マシンが整いました。念のため、バックアップを取得しておきます。Raspbian仮想マシンをシャットダウンして、イメージをコピーします。
-
-```
-$ sudo halt
-```
-
-```
-$ cp 2018-11-13-raspbian-stretch-lite.img 2018-11-13-raspbian-stretch-lite.img.bak
-```
-
-何かあっても、`.bak`ファイルで上書きすれば、現時点の状況まで戻ります。
-
-### Ansible PlaybookをRaspbian仮想マシンに実行
-
-Raspbian仮想マシンをセットアップするために、Ansible Playbookを実行します。実行手順は、DropletにAnsible Playbookを実行した時と同様です。念のため、次に簡単に説明します。
-
-改めて、`my-services`リポジトリをダウンロードします。
-
-```
-git clone git@github.com:u6k/my-services.git
-```
-
-公開鍵を`id_rsa.pub`ファイルとして作成します。
-
-`settings.yml.example`を参考に、`settings.yml`を作成します。
-
-`hosts`ファイルに記載されている`localhost:22`を`localhost:10022`に変更します。これは、Raspbian仮想マシンのsshポートが`10022`だからです。
-
-Ansible Playbookを実行します。
-
-```
-ansible-playbook raspi.yml -i hosts --ask-pass
-```
-
-Raspbian仮想マシンには`pi`ユーザーでsshログインを行いますが、その時のパスワードを指定するために`--ask-pass`オプションを指定します。
+ホストOSの10022ポートを、Raspbian仮想マシン側の22ポートにフォワードしています。これによりSSH接続することが可能ですが、Raspbianは初期状態ではSSHが無効化されているので、`sudo raspi-config`でSSHを有効化する必要があります。
 
 ## おわりに
 
-TODO 所管、課題
+以上で、Raspbian仮想マシンを使用することができます。
 
+この状態のRaspbian仮想マシンはいろいろと使いづらいので、筆者はさらに次の作業を行っています。
+
+- Raspbianイメージのサイズ拡張
+- スワップ領域を追加
+- `raspi-config`でOS設定
+- ファームウェア更新
+- バックアップ
+
+これらの説明は長くなってしまうので、Ansibleによるセットアップと同様、別記事にしたいと思います。

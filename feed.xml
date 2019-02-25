@@ -1,4 +1,362 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-21T22:05:36+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する</title><link href="/2019/01/21/build-raspbian-stretch-lite-emulator.html" rel="alternate" type="text/html" title="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する" /><published>2019-01-21T00:00:00+09:00</published><updated>2019-01-21T00:00:00+09:00</updated><id>/2019/01/21/build-raspbian-stretch-lite-emulator</id><content type="html" xml:base="/2019/01/21/build-raspbian-stretch-lite-emulator.html">&lt;p&gt;Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-02-25T16:24:18+09:00</updated><id>/feed.xml</id><title type="html">u6k.Blog</title><subtitle>プログラミングやWebサービスと戯れたログを残しています。</subtitle><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><entry><title type="html">2019年1月のレビュー</title><link href="/2019/02/25/201901-monthly-review.html" rel="alternate" type="text/html" title="2019年1月のレビュー" /><published>2019-02-25T00:00:00+09:00</published><updated>2019-02-25T00:00:00+09:00</updated><id>/2019/02/25/201901-monthly-review</id><content type="html" xml:base="/2019/02/25/201901-monthly-review.html">&lt;p&gt;既に2019年2月も終わろうとしていますが、ようやく1月の活動を整理し終えたので、レビュー記録を公開してみます。レビュー記録、というか、単に活動記録を集計してみました、という感じになってしまっていますが…&lt;/p&gt;
+
+&lt;h2 id=&quot;2019年1月の目標再確認と進捗確認&quot;&gt;2019年1月の目標再確認と進捗確認&lt;/h2&gt;
+
+&lt;p&gt;まず、1月当初に作成した目標の再確認と、目標ごとの進捗を確認します。仕事に関しては伏せています。&lt;/p&gt;
+
+&lt;h3 id=&quot;目標再確認&quot;&gt;目標再確認&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長(個人システム運用)
+    &lt;ul&gt;
+      &lt;li&gt;crawlineの最初のバージョンをリリースする&lt;/li&gt;
+      &lt;li&gt;crawlineの要求・要件・設計を再整理する&lt;/li&gt;
+      &lt;li&gt;運用中のクローラーをcrawlineに統合する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;Zaimで出費を記録して、目標金額以内にする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;最低限のエクササイズの習慣を継続する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;うーん、片づけを進めたいけど…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;進捗&quot;&gt;進捗&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長(個人システム運用)
+    &lt;ul&gt;
+      &lt;li&gt;crawlineの整理はできなかった&lt;/li&gt;
+      &lt;li&gt;それ以外の、優先度が低い作業に逃げたため&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;目標金額以内にはなっている&lt;/li&gt;
+      &lt;li&gt;が、どうもまだ無駄に出費している気がする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;エクササイズの頻度が下がっている&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;片付けは何も進んでいない&lt;/li&gt;
+      &lt;li&gt;浴室の全体掃除ができた&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2019年1月の活動ログ&quot;&gt;2019年1月の活動ログ&lt;/h2&gt;
+
+&lt;h3 id=&quot;リリース&quot;&gt;リリース&lt;/h3&gt;
+
+&lt;p&gt;サイド・プロジェクトのリリースをリストアップしました。サイド・プロジェクトはGitHubで管理しているので、つまりGitHubリリースのリストです。10件のリリースがありました。悪くないペースだと考えます。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;リポジトリ名&lt;/th&gt;
+      &lt;th&gt;リリース名&lt;/th&gt;
+      &lt;th&gt;リリース日&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blog&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/blog/releases/tag/20190108&quot;&gt;20190108&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-08&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;my-services&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/my-services/releases/tag/20190111&quot;&gt;20190111&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blog&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/blog/releases/tag/20190121&quot;&gt;20190121&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-21&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.0&quot;&gt;0.2.0&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-23&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.1&quot;&gt;0.2.1&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-23&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.2&quot;&gt;0.2.2&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.3&quot;&gt;0.2.3&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.4&quot;&gt;0.2.4&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.2.5&quot;&gt;0.2.5&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;crawline&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/u6k/crawline/releases/tag/0.3.0&quot;&gt;0.3.0&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;2019-01-31&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;全期間における月ごとのリリース数です。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vTLwTbswndGRrd7m5EufLgJAlWKQ_rh-ESJgieaHQDogdNow98LfsOnxN5_npzYHWtJU9TxlC79C5uh/pubchart?oid=2035239646&amp;amp;format=image&quot; alt=&quot;リリース&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;コミットログ&quot;&gt;コミット・ログ&lt;/h3&gt;
+
+&lt;p&gt;サイド・プロジェクトのコミット数を集計しました。浮き沈みがありますが、それなりに活動できているようです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS_ntKXxCVDJJ-T1SQff1zNhdPc9tFdu1wj0SJg_Bq-JILdiaQzjaWyMsiEqUmKZFThbDpr0LM6FEDO/pubchart?oid=2052360259&amp;amp;format=image&quot; alt=&quot;コミット数(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年1月から2019年1月までのコミット数も集計しました。2018年10月から12月頃の活動がなくなっていましたが、回復傾向にあるようです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vS_ntKXxCVDJJ-T1SQff1zNhdPc9tFdu1wj0SJg_Bq-JILdiaQzjaWyMsiEqUmKZFThbDpr0LM6FEDO/pubchart?oid=1797811541&amp;amp;format=image&quot; alt=&quot;コミット数(2018-01から2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/u6k&quot;&gt;u6k · GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;タスク処理ログ&quot;&gt;タスク処理ログ&lt;/h3&gt;
+
+&lt;p&gt;タスクの処理数を集計しました。個人タスク、家事、仕事、サイド・プロジェクトも含めたすべてのタスクをRedmineで管理しているので、つまりRedmineのチケットとWikiの更新数です。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vTJer1T7Lj8xaxVjZQttiomqjRzj_KQtgu_zfo-CyNUD45_QVGC_tK9aIgl-Tt1fYHH9MTtdljARsah/pubchart?oid=668138408&amp;amp;format=image&quot; alt=&quot;u6k.Redmineアクティビティ(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年1月から2019年1月までのタスク数も集計しました。2018年10月ころからタスク数がいきなり増えていますが、これはブックマークをRedmine Wikiに登録することにしたためです。 &lt;strong&gt;TODO:&lt;/strong&gt; タスク数とWiki数を分離して集計します。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vTJer1T7Lj8xaxVjZQttiomqjRzj_KQtgu_zfo-CyNUD45_QVGC_tK9aIgl-Tt1fYHH9MTtdljARsah/pubchart?oid=1844227243&amp;amp;format=image&quot; alt=&quot;u6k.Redmineアクティビティ&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://redmine.u6k.me/activity?user_id=5&quot;&gt;活動 - u6k.Redmine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;学習ログ&quot;&gt;学習ログ&lt;/h3&gt;
+
+&lt;p&gt;学習ログを集計しました。学習(主に読書)をStudyPlusで管理しているので、つまりStudyPlusのページ数ログです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRbHP6zndel8X_Gp97p-gD9RG2ANYcATqZPijVrMFlZ3aJhsnMrQcnXoL55wK_9eS_5xAsuz7kskxU8/pubchart?oid=1518442309&amp;amp;format=image&quot; alt=&quot;StudyPlusアクティビティ(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年11月から2019年1月の学習ログを集計しました。StudyPlusを再開したのが2018年11月なので、まだデータが少ないですね…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRbHP6zndel8X_Gp97p-gD9RG2ANYcATqZPijVrMFlZ3aJhsnMrQcnXoL55wK_9eS_5xAsuz7kskxU8/pubchart?oid=1813089657&amp;amp;format=image&quot; alt=&quot;StudyPlusアクティビティ&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.studyplus.jp/users/u6k_yu1/studylog/logs&quot;&gt;u6k_yu1 | Studyplus（スタディプラス）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;習慣ログ&quot;&gt;習慣ログ&lt;/h3&gt;
+
+&lt;p&gt;習慣の達成ログを集計しました。習慣はCoach.meで管理しているので、つまりCoach.meのログです。&lt;/p&gt;
+
+&lt;p&gt;“Accomplish 1 Most Important Task”(最も重要な1つのタスク)と”Exercise”(筋トレ)の達成(3回/週)を気にしています。”Accomplish 1 Most Important Task”は達成できていますね。先月まで達成できていなかったので、これはうれしいです。”Exercise”は達成できていないときもあるので、継続して頑張りましょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vTS8XXE-MwRKSrWX1Z_NQvN4ewfh68G4pOV9XAF5lypAqENy6NDtJ2msKt16A3MrW7vzvGYKzQNrxQQ/pubchart?oid=400670195&amp;amp;format=image&quot; alt=&quot;Coach.meアクティビティ(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年10月から2019年1月の習慣の達成ログも集計しました。ガタガタしていますが、安定して達成できることが望ましいです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vTS8XXE-MwRKSrWX1Z_NQvN4ewfh68G4pOV9XAF5lypAqENy6NDtJ2msKt16A3MrW7vzvGYKzQNrxQQ/pubchart?oid=1398315759&amp;amp;format=image&quot; alt=&quot;Coach.meアクティビティ&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;睡眠ログ&quot;&gt;睡眠ログ&lt;/h3&gt;
+
+&lt;p&gt;睡眠ログを集計しました。睡眠はRuntastic SleepBetterで計測しており、そのうち「浅い睡眠」(REM)、「深い睡眠」(Non-REM)、それの合計(Total)を集計しました。なお、計測し忘れた日もあり、その日は睡眠時間が0になっています(グラフの谷部分)。&lt;/p&gt;
+
+&lt;p&gt;まず、睡眠時間は合計で6～7時間(360～420分)欲しいと思っています。さらに浅い/深い睡眠の割合ですが、成人の場合は「REM : Non-REM = 20 : 80」らしいので、REM=72～84分、Non-REM=288～336分くらいが望ましいです。&lt;/p&gt;
+
+&lt;p&gt;これを前提としてみると、ほとんどの日で目標を達成していないことが分かります。割合も20 : 80ではない日が多く、グラフががたがたです。実際、グラフががたがたしている日は体調を崩していることが多いです。グラフが安定するような生活を目指しましょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6S6Ehjg40OmYbuDHYt5XTpsLG8QUrYK7Km2ey1bjQhSRs8KmHKLffkZ7ZskZjx4QeSshg2l3wbh-f/pubchart?oid=193994011&amp;amp;format=image&quot; alt=&quot;SleepBetterログ(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年12月から2019年1月の睡眠ログも集計しました。これは、睡眠を計測できた日の週ごと平均です。浅い睡眠はともかく、深い睡眠が目標を達成できていません。睡眠時間合計も目標を達成できていないので、要するに「睡眠時間が短く、十分に深く眠れていない」ということだと考えます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6S6Ehjg40OmYbuDHYt5XTpsLG8QUrYK7Km2ey1bjQhSRs8KmHKLffkZ7ZskZjx4QeSshg2l3wbh-f/pubchart?oid=1327056700&amp;amp;format=image&quot; alt=&quot;SleepBetterログ&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;歩数ログ&quot;&gt;歩数ログ&lt;/h3&gt;
+
+&lt;p&gt;ウォーキングの歩数を集計しました。iPhone 6sで計測しています。平日は9000歩/日を目標としています。半分くらいは達成できているようですが、グラフががたがたして見づらいですね…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vSybiJQxp7j73NOSeOnANvT3g00qkqlz1sA0R_uxF5McJVc793q9pncVmkHO5PCgpOBOOB0A-UV6vWH/pubchart?oid=87895503&amp;amp;format=image&quot; alt=&quot;歩数ログ(2019-01)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2018年8月から2019年1月の歩数ログも集計しました。これは、歩数の週ごと平均です。平日は9000歩を目標としていますが、休日は1000～2000歩程度しか動かないので、平均すると約7000歩が週の目標となります。いえ、本当は休日も9000歩の方がいいのですけど…&lt;/p&gt;
+
+&lt;p&gt;で、7000歩だとしても、多くの週で達成できていません。休日の歩数減少が足を引っ張っています。休日も動こう…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vSybiJQxp7j73NOSeOnANvT3g00qkqlz1sA0R_uxF5McJVc793q9pncVmkHO5PCgpOBOOB0A-UV6vWH/pubchart?oid=1982291643&amp;amp;format=image&quot; alt=&quot;歩数ログ&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;所感&quot;&gt;所感&lt;/h3&gt;
+
+&lt;p&gt;サイド・プロジェクトは、それなりに進めることができました。crawlineは流用できるようになり、クローラーを修正中。希望としては実運用まで進めたかったけれど、そこまでは進みませんでした。どうも飽きっぽくて別目標に脱線してしまいがち。目標を頻繁に再確認して、作業を進めます。&lt;/p&gt;
+
+&lt;p&gt;タスク処理は、数字だけ見てもよくわかりませんね。チケット処理数とWiki処理数は分けてカウントした方がいいと思います。が、すっごく面倒くさい。集計方法を改善しましょう。&lt;/p&gt;
+
+&lt;p&gt;習慣は、Exerciseの頻度が下がっています。&lt;/p&gt;
+
+&lt;p&gt;睡眠がメチャクチャ。風呂が長すぎたり、布団に入っても諦め悪くスマホを見ていたりするからですね。寝たままヨガで強制的に睡眠に入る習慣をつけるべきです。&lt;/p&gt;
+
+&lt;p&gt;支出は、うーん、無駄が多いように思うけど、あまり正確に集計できていないから、なんとも言えません。見直しをちゃんとできるように、集計精度を高めましょう。&lt;/p&gt;
+
+&lt;h2 id=&quot;2019年2月のミッションステートメント見直しと目標設定&quot;&gt;2019年2月のミッション・ステートメント見直しと目標設定&lt;/h2&gt;
+
+&lt;p&gt;これまでの状況を踏まえて、ミッション・ステートメントの見直しと目標の設定を行います。&lt;/p&gt;
+
+&lt;h3 id=&quot;ミッションステートメント&quot;&gt;ミッション・ステートメント&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仕事
+    &lt;ul&gt;
+      &lt;li&gt;顧客やステークホルダー、チームメンバーの課題を整理・明文化・構造化して、それを解決する&lt;/li&gt;
+      &lt;li&gt;自分が持つナレッジを周囲に伝えて、チームや組織の課題解決力を高める&lt;/li&gt;
+      &lt;li&gt;独力で、要求の抽出から要件の定義、設計、実装、検証、運用までを実施する&lt;/li&gt;
+      &lt;li&gt;技術のみならず、設計、要件定義などのフレームワークや規約を提供する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長(個人システム運用)
+    &lt;ul&gt;
+      &lt;li&gt;自分の活動に必要なサービスを、基本的には探すがなければ独力で構築する&lt;/li&gt;
+      &lt;li&gt;自分のためのサービスでも、未来の自分のために要求・要件・設計・運用を明文化・構造化する&lt;/li&gt;
+      &lt;li&gt;自分のためのサービスでも、(可能な限り)マネタイズを意識して運用する&lt;/li&gt;
+      &lt;li&gt;RSSやSNSなどを常に監視して、気になる情報があれば「あとで読む」に蓄積して、日次で消化してナレッジとして蓄積する&lt;/li&gt;
+      &lt;li&gt;同様の情報がある程度集まったら、ナレッジとして整理・明文化・構造化して、ブログにアウトプットする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;暴飲・暴食のような無駄な出費を抑制する&lt;/li&gt;
+      &lt;li&gt;投資システムを構築、運用して財務に反映する&lt;/li&gt;
+      &lt;li&gt;将来的に、親たちの世話をできる程度の財力を確保する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;最低限、適度なエクササイズを行い、肥満や生活習慣病を避ける&lt;/li&gt;
+      &lt;li&gt;可能であれば、スポーツを行い、身体を鍛える&lt;/li&gt;
+      &lt;li&gt;十分な睡眠時間を確保して、睡眠負債を抱えない&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;哲明だけでなくさおりも、物事を論理的に整理する能力を高める&lt;/li&gt;
+      &lt;li&gt;自宅が片付いており、過ごしやすい状態を維持する&lt;/li&gt;
+      &lt;li&gt;家事作業が整理されており、なぜ・誰が・どうするのかがわかる状態を維持する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;参考リンク&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://redmine.u6k.me/projects/miscellaneous/wiki/%E3%83%9F%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%BB%E3%82%B9%E3%83%86%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90%E3%80%81%E9%81%8B%E7%94%A8&quot;&gt;ミッション・ステートメントの作成、運用 - Miscellaneous - u6k.Redmine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;目標&quot;&gt;目標&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人生
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;社会
+    &lt;ul&gt;
+      &lt;li&gt;(保留)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;成長(個人システム運用)
+    &lt;ul&gt;
+      &lt;li&gt;クローラーの運用を開始して、主要なデータを収集する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;経済
+    &lt;ul&gt;
+      &lt;li&gt;Zaimで出費を記録して、目標金額以内にする&lt;/li&gt;
+      &lt;li&gt;Zaimの記録を厳密にする&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;健康
+    &lt;ul&gt;
+      &lt;li&gt;最低限のエクササイズ(スクワット * 20回 * 2セット)の習慣を継続する&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;家庭
+    &lt;ul&gt;
+      &lt;li&gt;片付けを進めたい&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;参考リンク&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://redmine.u6k.me/projects/miscellaneous/wiki_extensions/tag?tag_id=590&quot;&gt;SMARTの法則 - Miscellaneous - u6k.Redmine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;所感-1&quot;&gt;所感&lt;/h3&gt;
+
+&lt;p&gt;うーん、ミッション・ステートメントの進捗をそのまま確認するのではなく、ミッション・ステートメントを目標としてそこを目指すための目標を設定、進捗を確認した方が良い気がします…&lt;/p&gt;
+
+&lt;p&gt;あと、ミッション・ステートメントが「こうなりたい」ではなく「こうしたい」になってしまっています。これは自分憲法なので、「なりたい自分」を書くべきですね。&lt;/p&gt;
+
+&lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
+
+&lt;p&gt;月次レビューを再開してみました。まだ慣れていないため、レビュー時間がかかったり、ただの活動集計になってしまっていますが、回数を重ねてレビュー(振り返り)に近づけていきます。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="レビュー" /><summary type="html">既に2019年2月も終わろうとしていますが、ようやく1月の活動を整理し終えたので、レビュー記録を公開してみます。レビュー記録、というか、単に活動記録を集計してみました、という感じになってしまっていますが… 2019年1月の目標再確認と進捗確認 まず、1月当初に作成した目標の再確認と、目標ごとの進捗を確認します。仕事に関しては伏せています。 目標再確認 人生 (保留) 社会 (保留) 成長(個人システム運用) crawlineの最初のバージョンをリリースする crawlineの要求・要件・設計を再整理する 運用中のクローラーをcrawlineに統合する 経済 Zaimで出費を記録して、目標金額以内にする 健康 最低限のエクササイズの習慣を継続する 家庭 うーん、片づけを進めたいけど… 進捗 人生 (保留) 社会 (保留) 成長(個人システム運用) crawlineの整理はできなかった それ以外の、優先度が低い作業に逃げたため 経済 目標金額以内にはなっている が、どうもまだ無駄に出費している気がする 健康 エクササイズの頻度が下がっている 家庭 片付けは何も進んでいない 浴室の全体掃除ができた 2019年1月の活動ログ リリース サイド・プロジェクトのリリースをリストアップしました。サイド・プロジェクトはGitHubで管理しているので、つまりGitHubリリースのリストです。10件のリリースがありました。悪くないペースだと考えます。 リポジトリ名 リリース名 リリース日 blog 20190108 2019-01-08 my-services 20190111 2019-01-11 blog 20190121 2019-01-21 crawline 0.2.0 2019-01-23 crawline 0.2.1 2019-01-23 crawline 0.2.2 2019-01-24 crawline 0.2.3 2019-01-24 crawline 0.2.4 2019-01-24 crawline 0.2.5 2019-01-24 crawline 0.3.0 2019-01-31 全期間における月ごとのリリース数です。 コミット・ログ サイド・プロジェクトのコミット数を集計しました。浮き沈みがありますが、それなりに活動できているようです。 2018年1月から2019年1月までのコミット数も集計しました。2018年10月から12月頃の活動がなくなっていましたが、回復傾向にあるようです。 u6k · GitHub タスク処理ログ タスクの処理数を集計しました。個人タスク、家事、仕事、サイド・プロジェクトも含めたすべてのタスクをRedmineで管理しているので、つまりRedmineのチケットとWikiの更新数です。 2018年1月から2019年1月までのタスク数も集計しました。2018年10月ころからタスク数がいきなり増えていますが、これはブックマークをRedmine Wikiに登録することにしたためです。 TODO: タスク数とWiki数を分離して集計します。 活動 - u6k.Redmine 学習ログ 学習ログを集計しました。学習(主に読書)をStudyPlusで管理しているので、つまりStudyPlusのページ数ログです。 2018年11月から2019年1月の学習ログを集計しました。StudyPlusを再開したのが2018年11月なので、まだデータが少ないですね… u6k_yu1 | Studyplus（スタディプラス） 習慣ログ 習慣の達成ログを集計しました。習慣はCoach.meで管理しているので、つまりCoach.meのログです。 “Accomplish 1 Most Important Task”(最も重要な1つのタスク)と”Exercise”(筋トレ)の達成(3回/週)を気にしています。”Accomplish 1 Most Important Task”は達成できていますね。先月まで達成できていなかったので、これはうれしいです。”Exercise”は達成できていないときもあるので、継続して頑張りましょう。 2018年10月から2019年1月の習慣の達成ログも集計しました。ガタガタしていますが、安定して達成できることが望ましいです。 睡眠ログ 睡眠ログを集計しました。睡眠はRuntastic SleepBetterで計測しており、そのうち「浅い睡眠」(REM)、「深い睡眠」(Non-REM)、それの合計(Total)を集計しました。なお、計測し忘れた日もあり、その日は睡眠時間が0になっています(グラフの谷部分)。 まず、睡眠時間は合計で6～7時間(360～420分)欲しいと思っています。さらに浅い/深い睡眠の割合ですが、成人の場合は「REM : Non-REM = 20 : 80」らしいので、REM=72～84分、Non-REM=288～336分くらいが望ましいです。 これを前提としてみると、ほとんどの日で目標を達成していないことが分かります。割合も20 : 80ではない日が多く、グラフががたがたです。実際、グラフががたがたしている日は体調を崩していることが多いです。グラフが安定するような生活を目指しましょう。 2018年12月から2019年1月の睡眠ログも集計しました。これは、睡眠を計測できた日の週ごと平均です。浅い睡眠はともかく、深い睡眠が目標を達成できていません。睡眠時間合計も目標を達成できていないので、要するに「睡眠時間が短く、十分に深く眠れていない」ということだと考えます。 歩数ログ ウォーキングの歩数を集計しました。iPhone 6sで計測しています。平日は9000歩/日を目標としています。半分くらいは達成できているようですが、グラフががたがたして見づらいですね… 2018年8月から2019年1月の歩数ログも集計しました。これは、歩数の週ごと平均です。平日は9000歩を目標としていますが、休日は1000～2000歩程度しか動かないので、平均すると約7000歩が週の目標となります。いえ、本当は休日も9000歩の方がいいのですけど… で、7000歩だとしても、多くの週で達成できていません。休日の歩数減少が足を引っ張っています。休日も動こう… 所感 サイド・プロジェクトは、それなりに進めることができました。crawlineは流用できるようになり、クローラーを修正中。希望としては実運用まで進めたかったけれど、そこまでは進みませんでした。どうも飽きっぽくて別目標に脱線してしまいがち。目標を頻繁に再確認して、作業を進めます。 タスク処理は、数字だけ見てもよくわかりませんね。チケット処理数とWiki処理数は分けてカウントした方がいいと思います。が、すっごく面倒くさい。集計方法を改善しましょう。 習慣は、Exerciseの頻度が下がっています。 睡眠がメチャクチャ。風呂が長すぎたり、布団に入っても諦め悪くスマホを見ていたりするからですね。寝たままヨガで強制的に睡眠に入る習慣をつけるべきです。 支出は、うーん、無駄が多いように思うけど、あまり正確に集計できていないから、なんとも言えません。見直しをちゃんとできるように、集計精度を高めましょう。 2019年2月のミッション・ステートメント見直しと目標設定 これまでの状況を踏まえて、ミッション・ステートメントの見直しと目標の設定を行います。 ミッション・ステートメント 人生 (保留) 仕事 顧客やステークホルダー、チームメンバーの課題を整理・明文化・構造化して、それを解決する 自分が持つナレッジを周囲に伝えて、チームや組織の課題解決力を高める 独力で、要求の抽出から要件の定義、設計、実装、検証、運用までを実施する 技術のみならず、設計、要件定義などのフレームワークや規約を提供する 社会 (保留) 成長(個人システム運用) 自分の活動に必要なサービスを、基本的には探すがなければ独力で構築する 自分のためのサービスでも、未来の自分のために要求・要件・設計・運用を明文化・構造化する 自分のためのサービスでも、(可能な限り)マネタイズを意識して運用する RSSやSNSなどを常に監視して、気になる情報があれば「あとで読む」に蓄積して、日次で消化してナレッジとして蓄積する 同様の情報がある程度集まったら、ナレッジとして整理・明文化・構造化して、ブログにアウトプットする 経済 暴飲・暴食のような無駄な出費を抑制する 投資システムを構築、運用して財務に反映する 将来的に、親たちの世話をできる程度の財力を確保する 健康 最低限、適度なエクササイズを行い、肥満や生活習慣病を避ける 可能であれば、スポーツを行い、身体を鍛える 十分な睡眠時間を確保して、睡眠負債を抱えない 家庭 哲明だけでなくさおりも、物事を論理的に整理する能力を高める 自宅が片付いており、過ごしやすい状態を維持する 家事作業が整理されており、なぜ・誰が・どうするのかがわかる状態を維持する 参考リンク ミッション・ステートメントの作成、運用 - Miscellaneous - u6k.Redmine 目標 人生 (保留) 社会 (保留) 成長(個人システム運用) クローラーの運用を開始して、主要なデータを収集する 経済 Zaimで出費を記録して、目標金額以内にする Zaimの記録を厳密にする 健康 最低限のエクササイズ(スクワット * 20回 * 2セット)の習慣を継続する 家庭 片付けを進めたい 参考リンク SMARTの法則 - Miscellaneous - u6k.Redmine 所感 うーん、ミッション・ステートメントの進捗をそのまま確認するのではなく、ミッション・ステートメントを目標としてそこを目指すための目標を設定、進捗を確認した方が良い気がします… あと、ミッション・ステートメントが「こうなりたい」ではなく「こうしたい」になってしまっています。これは自分憲法なので、「なりたい自分」を書くべきですね。 おわりに 月次レビューを再開してみました。まだ慣れていないため、レビュー時間がかかったり、ただの活動集計になってしまっていますが、回数を重ねてレビュー(振り返り)に近づけていきます。</summary></entry><entry><title type="html">Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する</title><link href="/2019/01/21/build-raspbian-stretch-lite-emulator.html" rel="alternate" type="text/html" title="Raspberry Pi検証作業に使える、Raspbian Stretch Lite仮想マシンを構築する" /><published>2019-01-21T00:00:00+09:00</published><updated>2019-01-21T00:00:00+09:00</updated><id>/2019/01/21/build-raspbian-stretch-lite-emulator</id><content type="html" xml:base="/2019/01/21/build-raspbian-stretch-lite-emulator.html">&lt;p&gt;Raspbianで作業をしていると、しばしばクリーンな状態に戻したくなります。しかし、クラウドとは違い面倒な作業を行う必要があります。できれば、事前検証を行うことでクリーンに戻す機会を減らしたいものです。&lt;/p&gt;
 
 &lt;p&gt;この記事では、Raspbianの検証作業に使える、Raspbian仮想マシンの構築手順を説明します。&lt;/p&gt;
 
@@ -1013,7 +1371,7 @@ C#を2016年から使いはじめ、累計10732行（上位76.2%）変更しま�
 
 &lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
 
-&lt;p&gt;振り返ってかえってもやっとしましたが、このもやもやを解消するためにも、目標に向かって進んでいきましょう。また、実は個人的に週次レビュー・月次レビューをしていまして、レビュー方針も固まってきたので、レビューをアウトプットしたいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="振り返り" /><summary type="html">あけましておめでとうございます。本年もよろしくお願いいたします。</summary></entry><entry><title type="html">Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント</title><link href="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html" rel="alternate" type="text/html" title="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント" /><published>2018-12-20T00:00:00+09:00</published><updated>2018-12-20T00:00:00+09:00</updated><id>/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless</id><content type="html" xml:base="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html">&lt;p&gt;購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。&lt;/p&gt;
+&lt;p&gt;振り返ってかえってもやっとしましたが、このもやもやを解消するためにも、目標に向かって進んでいきましょう。また、実は個人的に週次レビュー・月次レビューをしていまして、レビュー方針も固まってきたので、レビューをアウトプットしたいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="振り返り" /><category term="レビュー" /><summary type="html">あけましておめでとうございます。本年もよろしくお願いいたします。</summary></entry><entry><title type="html">Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント</title><link href="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html" rel="alternate" type="text/html" title="Raspberry Pi 3 Model B+を購入してからヘッドレスでsshできるようにするまでの5ステップと、ハマりポイント" /><published>2018-12-20T00:00:00+09:00</published><updated>2018-12-20T00:00:00+09:00</updated><id>/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless</id><content type="html" xml:base="/2018/12/20/setup-raspberry-pi-3-model-b-plus-headless.html">&lt;p&gt;購入直後のRaspberry Pi Model B+にRaspbian Stretch Liteをインストールして、ヘッドレスでssh接続するまでの手順を説明します。&lt;/p&gt;
 
 &lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 
@@ -1790,385 +2148,4 @@ pi@raspberrypi:~ $
 
 &lt;p&gt;アンテナを張ることについて、「アンテナを張るとはどう言うことか？(要求)」「どうすれば良いのか？(要件)」を文書化してみました。人と会話していると、ここら辺が意外と整理されておらず、漫然と情報収集っぽいことをしている人が見られます。もう少し的を絞って効率的に情報収集すれば良いのに、と思ったので、この記事を書いてみました。&lt;/p&gt;
 
-&lt;p&gt;どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="情報収集" /><summary type="html">世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。</summary></entry><entry><title type="html">Sidekiq on Dockerサンプル</title><link href="/2018/04/29/sample-sidekiq.html" rel="alternate" type="text/html" title="Sidekiq on Dockerサンプル" /><published>2018-04-29T00:00:00+09:00</published><updated>2018-04-29T00:00:00+09:00</updated><id>/2018/04/29/sample-sidekiq</id><content type="html" xml:base="/2018/04/29/sample-sidekiq.html">&lt;p&gt;この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。&lt;/p&gt;
-
-&lt;h2 id=&quot;はじめに&quot;&gt;はじめに&lt;/h2&gt;
-
-&lt;p&gt;Rubyでジョブ管理を行おうと考えたとき、&lt;a href=&quot;https://github.com/resque/resque&quot;&gt;Resque&lt;/a&gt;、&lt;a href=&quot;https://github.com/collectiveidea/delayed_job&quot;&gt;Delayed::Job&lt;/a&gt;、&lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;Sidekiq&lt;/a&gt;などの仕組みがあります。さらに定期的にジョブを実行したいと思い方法を探していると、&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;Sidekiq-Cron&lt;/a&gt;や&lt;a href=&quot;https://github.com/moove-it/sidekiq-scheduler&quot;&gt;sidekiq-scheduler&lt;/a&gt;の解説が多く見られました。このため、Sidekiqを使うことにしました。&lt;/p&gt;
-
-&lt;p&gt;なお、Rails 5ではジョブ実装の共通的な仕組みとして&lt;a href=&quot;https://railsguides.jp/active_job_basics.html&quot;&gt;Active Job&lt;/a&gt;が使えますが、Active Jobがsidekiq-schedulerなどで使えるか分からなかったので、今回はSidekiqをそのまま使うことにしました。&lt;/p&gt;
-
-&lt;p&gt;今回の手順で作成したプロジェクトは、 &lt;a href=&quot;https://github.com/u6k/sample-sidekiq/&quot;&gt;u6k/sample-sidekiq&lt;/a&gt; にあります。&lt;/p&gt;
-
-&lt;h2 id=&quot;前提&quot;&gt;前提&lt;/h2&gt;
-
-&lt;p&gt;筆者はRails開発をvim + Dockerで行っており、ホストPCにRubyをインストールしてはいません。Dockerおよびdocker-composeを使用しますので、あらかじめインストールしておいてください。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker version
-Client:
- Version:       18.03.0-ce
- API version:   1.37
- Go version:    go1.9.4
- Git commit:    0520e24
- Built: Wed Mar 21 23:10:06 2018
- OS/Arch:       linux/amd64
- Experimental:  false
- Orchestrator:  swarm
-
-Server:
- Engine:
-  Version:      18.03.0-ce
-  API version:  1.37 (minimum version 1.12)
-  Go version:   go1.9.4
-  Git commit:   0520e24
-  Built:        Wed Mar 21 23:08:35 2018
-  OS/Arch:      linux/amd64
-  Experimental: false
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose --version
-docker-compose version 1.21.0, build 5920eb0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;上記は筆者の環境ですが、Docker環境であればOSは問わないはずです。&lt;/p&gt;
-
-&lt;p&gt;エディターは、お好みのものを使いましょう。vimでもさくらエディタでもAtomでもVisual Studio Codeでも問題ありません。&lt;/p&gt;
-
-&lt;p&gt;手順の説明は、なるべくDockerなどの知識がなくてもコピペすれば動作するように書いてあります。ただ、最低限のシェルの知識は必要になります。環境によっては権限設定により一般ユーザーでは動作しないかもしれません。rootになるなり &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; するなりしましょう。&lt;/p&gt;
-
-&lt;p&gt;RubyやRailsなど他のソフトウェアは、全てDockerコンテナ内でインストールするので、ホストPCにインストールする必要はありません。&lt;/p&gt;
-
-&lt;h2 id=&quot;セットアップ実行手順&quot;&gt;セットアップ、実行手順&lt;/h2&gt;
-
-&lt;p&gt;次に、Railsプロジェクトを作成してからジョブを実行するまでの手順を説明します。&lt;/p&gt;
-
-&lt;h3 id=&quot;railsプロジェクトを作成&quot;&gt;Railsプロジェクトを作成&lt;/h3&gt;
-
-&lt;p&gt;Railsプロジェクトを作成します。ホストPCにRubyがセットアップ済みであれば &lt;code class=&quot;highlighter-rouge&quot;&gt;rails new .&lt;/code&gt; を実行すれば良いですが、ここではrubyコンテナの中でRailsプロジェクトを作成します。&lt;/p&gt;
-
-&lt;p&gt;まず、rubyコンテナを起動します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker run --rm -it -v $(pwd):/var/myapp -w /var/myapp ruby bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-v&lt;/code&gt; オプションで、カレント・フォルダをコンテナ内の &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/myapp&lt;/code&gt; フォルダに割り当てます。そして &lt;code class=&quot;highlighter-rouge&quot;&gt;-w&lt;/code&gt; オプションで、コンテナ起動直後の作業フォルダを &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/myapp&lt;/code&gt; フォルダに設定しています。&lt;/p&gt;
-
-&lt;p&gt;Ruby on Railsをインストールします。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# gem install rails
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;カレント・フォルダにRailsプロジェクトを作成します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# rails new .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;作成したら、 &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; でファイルを確認してみます。Railsプロジェクトのファイルが作成されていることを確認したら、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl-d&lt;/code&gt; でコンテナからログアウトします。&lt;/p&gt;
-
-&lt;h3 id=&quot;gemfileに-sidekiq-を追加&quot;&gt;Gemfileに &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq&lt;/code&gt; を追加&lt;/h3&gt;
-
-&lt;p&gt;Sidekiqはgemで提供されているので、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルに追加します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem 'sidekiq'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;また、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルの余計なコメント行を削除します。結果、次のように修正します(バージョンは時期により異なります)。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Gemfile
-source 'https://rubygems.org'
-git_source(:github) { |repo| &quot;https://github.com/#{repo}.git&quot; }
-
-ruby '2.5.1'
-
-gem 'rails', '~&amp;gt; 5.2.0'
-gem 'sqlite3'
-gem 'puma', '~&amp;gt; 3.11'
-gem 'sass-rails', '~&amp;gt; 5.0'
-gem 'uglifier', '&amp;gt;= 1.3.0'
-gem 'coffee-rails', '~&amp;gt; 4.2'
-gem 'turbolinks', '~&amp;gt; 5'
-gem 'jbuilder', '~&amp;gt; 2.5'
-gem 'bootsnap', '&amp;gt;= 1.1.0', require: false
-gem 'sidekiq'
-
-group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-end
-
-group :development do
-  gem 'web-console', '&amp;gt;= 3.3.0'
-  gem 'listen', '&amp;gt;= 3.0.5', '&amp;lt; 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~&amp;gt; 2.0.0'
-end
-
-group :test do
-  gem 'capybara', '&amp;gt;= 2.15', '&amp;lt; 4.0'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
-end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;dockerコンテナ化&quot;&gt;Dockerコンテナ化&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails&lt;/code&gt; コマンドを使用したり動作確認するため、早々にDockerコンテナ化します。&lt;/p&gt;
-
-&lt;p&gt;簡単にSidekiqを使用したコンテナ構造を説明すると、次のように構成します。ちなみに、今回はRailsアプリケーションが使用するDBとしてSQLiteを指定しているため、DBコンテナは構成しません。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/uml/c1ae5e8de4a4b098433fd8103fc1ae17.svg&quot; alt=&quot;PlantUML SVG diagram&quot; class=&quot;plantuml&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;まず、アプリケーション用コンテナの &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; ファイルを作成します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Dockerfile
-FROM ruby:2.5
-
-RUN apt-get update &amp;amp;&amp;amp; \
-    apt-get install -y \
-        nodejs &amp;amp;&amp;amp; \
-    apt-get clean
-
-VOLUME /var/myapp
-WORKDIR /var/myapp
-
-COPY Gemfile .
-COPY Gemfile.lock .
-
-RUN bundle install
-
-EXPOSE 3000
-
-CMD [&quot;rails&quot;, &quot;server&quot;, &quot;-b&quot;, &quot;0.0.0.0&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;次に、上図で説明したコンテナ構造を構成するため、 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; ファイルを作成します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat docker-compose.yml
-version: '3'
-
-services:
-  app:
-    build: .
-    environment:
-      - &quot;RAILS_ENV=development&quot;
-      - &quot;REDIS_URL=redis://redis:6379&quot;
-    volumes:
-      - &quot;.:/var/myapp&quot;
-    ports:
-      - &quot;3000:3000&quot;
-    depends_on:
-      - &quot;redis&quot;
-  worker:
-    build: .
-    environment:
-      - &quot;RAILS_ENV=development&quot;
-      - &quot;REDIS_URL=redis://redis:6379&quot;
-    volumes:
-      - &quot;.:/var/myapp&quot;
-    depends_on:
-      - &quot;redis&quot;
-    command: sidekiq
-  redis:
-    image: redis:4.0
-    volumes:
-      - &quot;redis:/data&quot;
-    command: redis-server --appendonly yes
-
-volumes:
-  redis:
-    driver: local
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;手順が間違えていなければ、イメージをビルドして、Railsアプリケーションを起動することができます。試しに、動作確認してみます。&lt;/p&gt;
-
-&lt;p&gt;イメージをビルドします。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose build
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;コンテナを起動します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose up -d
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Webブラウザで http://localhost:3000 を開くか &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; コマンドでGETリクエストすると、Welcomeページが表示されます。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/rails-welcome-page.jpeg&quot; alt=&quot;rails welcome page&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ダッシュボードへのルートを設定&quot;&gt;ダッシュボードへのルートを設定&lt;/h3&gt;
-
-&lt;p&gt;Sidekiqはジョブがどのような状態かを確認するためのダッシュボードを提供しています。ダッシュボードにアクセスするには、 &lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルにルートを設定します。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq/web&lt;/code&gt; をrequireします。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;require 'sidekiq/web'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;ダッシュボードへのルートを設定します。次のように設定すると、 http://localhost:3000/sidekiq でダッシュボードにアクセスできます。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount Sidekiq::Web, at: '/sidekiq'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;結果、 &lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルは次のようになります。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat config/routes.rb
-require 'sidekiq/web'
-
-Rails.application.routes.draw do
-  mount Sidekiq::Web, at: '/sidekiq'
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;ワーカーを作成&quot;&gt;ワーカーを作成&lt;/h3&gt;
-
-&lt;p&gt;Sidekiqで実行するワーカーを作成します。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rails g&lt;/code&gt; コマンドで、Helloワーカーを作成します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose exec app rails g sidekiq:worker Hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;これにより、ワーカーとそのテスト・コードが作成されます。今回はワーカーのみ実装します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;app/worker/hello_worker.rb&lt;/code&gt; ファイルに &lt;code class=&quot;highlighter-rouge&quot;&gt;puts &quot;hello&quot;&lt;/code&gt; コードを追加します。結果、次のように修正します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat app/workers/hello_worker.rb
-class HelloWorker
-  include Sidekiq::Worker
-
-  def perform(*args)
-    puts &quot;hello&quot;
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;ワーカーを実行&quot;&gt;ワーカーを実行&lt;/h3&gt;
-
-&lt;p&gt;いよいよ、作成したワーカーをSidekiqで実行してみます。&lt;/p&gt;
-
-&lt;p&gt;Sidekiqは変更したソースコードを自動では読み込んでくれないので、いったんコンテナを終了します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose down -v
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;コンテナを起動します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose up -d
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;appコンテナのRailsコンソールを起動します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose exec app rails c
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;ワーカー・クラスの &lt;code class=&quot;highlighter-rouge&quot;&gt;perform_async&lt;/code&gt; メソッドを呼び出すことで、ワーカーをキューに登録します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; HelloWorker.perform_async
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;正常に登録された場合、IDのような文字列が表示されます。エラーとなってしまいスタックトレースが表示された場合、これまでに作成したファイルや手順のどこかが間違えています。&lt;/p&gt;
-
-&lt;p&gt;今、キューに登録したワーカーはすぐに実行されます。workerコンテナのログを確認します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose logs worker
-Attaching to sample-sidekiq_worker_1
-worker_1  | 2018-04-25T10:30:08.008Z 1 TID-gses4fdh1 INFO: Booting Sidekiq 5.1.3 with redis options {:url=&amp;gt;&quot;redis://redis:6379&quot;, :id=&amp;gt;&quot;Sidekiq-server-PID-1&quot;}
-worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Running in ruby 2.5.1p57 (2018-03-29 revision 63029)[x86_64-linux]
-worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: See LICENSE and the LGPL-3.0 for licensing details.
-worker_1  | 2018-04-25T10:30:08.111Z 1 TID-gses4fdh1 INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
-worker_1  | 2018-04-25T10:30:08.114Z 1 TID-gses4fdh1 INFO: Starting processing, hit Ctrl-C to stop
-worker_1  | 2018-04-25T10:30:25.434Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: start
-worker_1  | hello
-worker_1  | 2018-04-25T10:30:25.441Z 1 TID-gsesimoz1 HelloWorker JID-4c48fc655e11bc9ee2cbe82b INFO: done: 0.005sec
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hello&lt;/code&gt; が出力されており、ワーカーが実行されたことが分かります。&lt;/p&gt;
-
-&lt;p&gt;また、 http://localhost:3000/sidekiq にアクセスすると、次のようにダッシュボードが表示されます。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard.jpeg&quot; alt=&quot;sidekiq dashboard&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;sidekiqをcron化&quot;&gt;SidekiqをCron化&lt;/h3&gt;
-
-&lt;p&gt;ここまでの作業で、Sidekiqを使ったジョブの実行ができるようになりました。単純にジョブを実行するだけであれば、ここまでで終わりです。&lt;/p&gt;
-
-&lt;p&gt;ここからは、sidekiq-cronを使ってジョブを定期的に実行してみます。&lt;/p&gt;
-
-&lt;h3 id=&quot;gemfile-と-routesrb-を修正&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; と &lt;code class=&quot;highlighter-rouge&quot;&gt;routes.rb&lt;/code&gt; を修正&lt;/h3&gt;
-
-&lt;p&gt;sidekiq-cronの設定は簡単で、2ファイルを修正するだけです。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; ファイルを修正します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq&lt;/code&gt; の後に &lt;code class=&quot;highlighter-rouge&quot;&gt;sidekiq-cron&lt;/code&gt; を追加します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat Gemfile
-
-...(略)...
-gem 'sidekiq'
-gem 'sidekiq-cron'
-...(略)...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;config/routes.rb&lt;/code&gt; ファイルを修正します。 &lt;code class=&quot;highlighter-rouge&quot;&gt;require 'sidekiq/web'&lt;/code&gt; の後に &lt;code class=&quot;highlighter-rouge&quot;&gt;require 'sidekiq/cron/web'&lt;/code&gt; を追加します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cat config/routes.rb
-require 'sidekiq/web'
-require 'sidekiq/cron/web'
-...(略)...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;これで、ジョブを定期実行する準備は完了です。ワーカーを変更する必要はありません。&lt;/p&gt;
-
-&lt;h3 id=&quot;ジョブを定期実行&quot;&gt;ジョブを定期実行&lt;/h3&gt;
-
-&lt;p&gt;Dockerコンテナを停止して、起動して、Railsコンソールを起動します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ docker-compose down -v
-$ docker-compose up -d
-$ docker-compose exec app rails c
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;ジョブを定期実行する場合は、 &lt;code class=&quot;highlighter-rouge&quot;&gt;Sidekiq::Cron::Job.create&lt;/code&gt; を呼び出します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; Sidekiq::Cron::Job.create name: &quot;Hello Job&quot;, cron: &quot;* * * * *&quot;, class: &quot;HelloWorker&quot;
-2018-04-27T04:26:05.562Z 50 TID-govsxyfv2 INFO: Cron Jobs - add job with name: Hello Job
-=&amp;gt; true
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;これでジョブの定期実行が開始されます。しばらくしてから、workerコンテナのログを確認します。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo docker-compose logs worker
-worker_1  | 2018-04-27T04:27:25.246Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: start
-worker_1  | hello
-worker_1  | 2018-04-27T04:27:25.267Z 1 TID-grpm2wxhh HelloWorker JID-f746b9ad3c0740cd2bbee4fb INFO: done: 0.02 sec
-worker_1  | 2018-04-27T04:28:05.080Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: start
-worker_1  | hello
-worker_1  | 2018-04-27T04:28:05.081Z 1 TID-grpm2x371 HelloWorker JID-51fce69dc54f378fad381750 INFO: done: 0.001 sec
-worker_1  | 2018-04-27T04:29:15.094Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: start
-worker_1  | hello
-worker_1  | 2018-04-27T04:29:15.096Z 1 TID-grpm2x0dx HelloWorker JID-f0d933d3cda1de168afe4914 INFO: done: 0.002 sec
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;約1分ごとにジョブが実行されています。&lt;/p&gt;
-
-&lt;p&gt;どのようなジョブが定期実行されているかは、Sidekiqダッシュボードで確認できます。Sidekiqダッシュボードのメニューに”Cron”が追加されています。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-2.jpeg&quot; alt=&quot;sidekiq dashboard 2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Cronページを見ると、登録したジョブが表示されます。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/2018-04-29-sample-sidekiq/sidekiq-dashboard-cron.jpeg&quot; alt=&quot;sidekiq dashboard cron&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;おわりに&quot;&gt;おわりに&lt;/h2&gt;
-
-&lt;p&gt;このように、Railsアプリケーションに簡単に定期実行ジョブを追加することができました。アプリケーション固有の、クリーンアップ処理や単純な集計バッチ処理などであれば、これで十分だと思います。&lt;/p&gt;
-
-&lt;p&gt;一方、「ジョブ管理システム」として考えると、いろいろと機能が不足しています。ジョブネット、ジョブごとのワークスペース、ジョブ実行履歴、など。そういった機能が必要な場合は、やはりジョブ管理専用のサービスを使うことになると思います。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考リンク&quot;&gt;参考リンク&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/mperham/sidekiq&quot;&gt;mperham/sidekiq: Simple, efficient background processing for Ruby&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://qiita.com/nysalor/items/94ecd53c2141d1c27d1f&quot;&gt;sidekiqの使い方 - Qiita&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://shiro-16.hatenablog.com/entry/2015/10/12/192412&quot;&gt;Sidekiq について基本と1年半運用してのあれこれ - まっしろけっけ&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://tech.smarthr.jp/entry/2017/04/20/165555&quot;&gt;Sidekiq アンチパターン: 序 - SmartHR Tech Blog&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/ondrejbartas/sidekiq-cron&quot;&gt;ondrejbartas/sidekiq-cron: Scheduler / Cron for Sidekiq jobs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="Docker" /><category term="Ruby on Rails" /><category term="Sidekiq" /><category term="Cron" /><category term="ジョブ" /><summary type="html">この記事では、SidekiqをDockerコンテナで動作させるためのセットアップ、実行手順を説明します。</summary></entry></feed>
+&lt;p&gt;どうすれば良いのかと言うことの概要までを書いたので、次の機会には具体的な手法、筆者がチェックしているブログやサービス、筆者の蓄積や活用の手法などを説明したいと思います。&lt;/p&gt;</content><author><name>u6k</name><email>u6k.apps@gmail.com</email></author><category term="情報収集" /><summary type="html">世の中の動きは早く、次々と新しい技術・概念・流行が現れて、広がったり消えたりしていきます。そういった流れに取り残されないために、また次の流れを読むために、「アンテナを張る」ことが大事だと言われます。エンジニアであれば体感的に理解できるでしょう。</summary></entry></feed>
